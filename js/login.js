@@ -39,8 +39,14 @@ $(document).ready(function() {
 
         if(loginInfo()) {
             sessionData_login(name, email, department);
-            window.open('home.html', '_self');
-            return false;
+            if (isUserAdmin()) {
+                window.open('adminReqList.html', '_self');
+                return false;
+            }
+            else {
+                window.open('userReqList.html', '_self');
+                return false;
+            }
         }
         else {
             $('#error_msg').html("Invalid username or password");
@@ -64,5 +70,17 @@ function loginInfo() {
         email = result[1];
         department = result[2];
         return true;
+    }
+}
+
+function isUserAdmin() {
+    var result = new Array();
+    result = db_getAdminByEmail(sessionStorage.getItem('ss_mrkt_loginEmail'));
+    
+    if (result.length === 1) {
+        return true;
+    }
+    else {
+        return false;
     }
 }
