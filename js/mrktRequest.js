@@ -329,6 +329,9 @@ function mrktSubmit() {
     if (insertDigitalSignage(event_request_id) === "") {
         return false;
     }
+    if (insertTransaction(event_request_id) === "") {
+        return false;
+    }
     
     return true;
 }
@@ -383,4 +386,10 @@ function insertDigitalSignage(event_request_id) {
     var ckb_lsb = $('#ckb_lsb').is(':checked');
     
     return db_insertDigitalSignage(event_request_id, ckb_bstic, ckb_ssc, ckb_lsb);
+}
+
+function insertTransaction(event_request_id) {
+    var login_name = sessionStorage.getItem('ss_mrkt_loginName');
+    
+    return db_insertTransaction(event_request_id, login_name, "Request submitted");
 }

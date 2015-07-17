@@ -143,6 +143,20 @@ function db_insertDigitalSignage(EventRequestID, BSTIC, SSC, LSB) {
     return ResultID;
 }
 
+function db_insertTransaction(EventRequestID, LoginName, Note) {
+    var ResultID = "";
+    $.ajax({
+        type:"POST",
+        url:"php/db_insertTransaction.php",
+        data:{EventRequestID:EventRequestID, LoginName:LoginName, Note:Note},
+        async: false,  
+        success:function(data) {
+            ResultID = JSON.parse(data);
+        }
+    });
+    return ResultID;
+}
+
 // update DB ///////////////////////////////////////////////////////////////////
 function db_updateAdmin(AdminID, AdminName, AdminEmail) {
     var Result = false;
