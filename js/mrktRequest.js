@@ -12,7 +12,7 @@ window.onload = function() {
         getLoginInfo();
     }
     else {
-        window.open('Login.html', '_self');
+        window.open('login.html', '_self');
     }
 };
 

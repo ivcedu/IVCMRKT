@@ -9,7 +9,7 @@ window.onload = function() {
 //        getAdminList();
     }
     else {
-        window.open('Login.html', '_self');
+        window.open('login.html', '_self');
     }
 };
 
