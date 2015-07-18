@@ -56,6 +56,75 @@ function db_getSelectedAdmin(AdminID) {
     return result;
 }
 
+function db_getStatusList() {
+    var result = new Array();
+    $.ajax({
+        type:"POST",
+        url:"php/db_getStatusList.php",
+        async: false,  
+        success:function(data) {
+            result = JSON.parse(data);
+        }
+    });
+    return result;
+}
+
+function db_getUserEventReqList(ReqEmail) {
+    var result = new Array();
+    $.ajax({
+        type:"POST",
+        url:"php/db_getUserEventReqList.php",
+        data:{ReqEmail:ReqEmail},
+        async: false,  
+        success:function(data) {
+            result = JSON.parse(data);
+        }
+    });
+    return result;
+}
+
+function db_getEventRequestByID(EventRequestID) {
+    var result = new Array();
+    $.ajax({
+        type:"POST",
+        url:"php/db_getEventRequestByID.php",
+        data:{EventRequestID:EventRequestID},
+        async: false,  
+        success:function(data) {
+            result = JSON.parse(data);
+        }
+    });
+    return result;
+}
+
+function db_getEventAttachment(EventRequestID) {
+    var result = new Array();
+    $.ajax({
+        type:"POST",
+        url:"php/db_getEventAttachment.php",
+        data:{EventRequestID:EventRequestID},
+        async: false,  
+        success:function(data) {
+            result = JSON.parse(data);
+        }
+    });
+    return result;
+}
+
+function db_getEventTransaction(EventRequestID) {
+    var result = new Array();
+    $.ajax({
+        type:"POST",
+        url:"php/db_getEventTransaction.php",
+        data:{EventRequestID:EventRequestID},
+        async: false,  
+        success:function(data) {
+            result = JSON.parse(data);
+        }
+    });
+    return result;
+}
+
 // insert DB ///////////////////////////////////////////////////////////////////
 function db_insertAdmin(AdminName, AdminEmail) {
     var ResultID = "";
