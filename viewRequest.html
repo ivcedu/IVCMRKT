@@ -1,0 +1,265 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>Marketing Announcement Request</title>
+        <!-- homer-1.5 Vendor css -->
+        <link rel="stylesheet" href="../homer-1.5/vendor/fontawesome/css/font-awesome.css"/>
+        <link rel="stylesheet" href="../homer-1.5/vendor/metisMenu/dist/metisMenu.css"/>
+        <link rel="stylesheet" href="../homer-1.5/vendor/animate.css/animate.css"/>
+        <link rel="stylesheet" href="../homer-1.5/vendor/bootstrap/dist/css/bootstrap.css"/>
+        <!-- homer-1.5 App css -->
+        <link rel="stylesheet" href="../homer-1.5/fonts/pe-icon-7-stroke/css/pe-icon-7-stroke.css"/>
+        <link rel="stylesheet" href="../homer-1.5/fonts/pe-icon-7-stroke/css/helper.css"/>
+        <link rel="stylesheet" href="../homer-1.5/styles/style.css"/>
+        <!-- include css -->
+        <link rel="stylesheet" href="../include/jquery-ui-themes-1.11.4/themes/flick/jquery-ui.min.css"/>
+        <link rel="stylesheet" href="../include/bootstrap-select/css/bootstrap-select.1.5.4.min.css"/>
+        <link rel="stylesheet" href="../include/sweetalert/css/sweetalert.css"/>
+        <!-- application css -->
+        <link rel="stylesheet" href="css/popup-z-Index.css">
+    </head>
+    <body>
+        <!-- Simple splash screen-->
+        <div class="splash">
+            <div class="color-line"></div>
+            <div class="splash-title">
+                <img src="../homer-1.5/images/loading-bars.svg" width="64" height="64" /> 
+            </div> 
+        </div>
+        
+        <!-- Header -->
+        <div id="header">
+            <div class="color-line"></div>
+            <div id="logo" class="light-version">
+                <span id="login_user"></span>
+            </div>
+            <nav role="navigation">
+                <div class="header-link hide-menu"><i class="fa fa-bars"></i></div>
+            </nav>
+        </div>
+        
+        <!-- Navigation -->
+        <aside id="menu">
+            <ul class="nav" id="side-menu">
+                <li>
+                    <a href="mrktRequest.html"><span class="nav-label">New Request</span></a>
+                </li>
+                <li>
+                    <a href="userReqList.html"><span class="nav-label">Request List</span></a>
+                </li>
+                <li>
+                    <a href="userCompleteList.html"><span class="nav-label">Complete List</span></a>
+                </li>
+                <li id="menu_administrator">
+                    <a href=#><span class="nav-label">Administrator</span><span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li><a href="adminsetting.html"><span class="nav-label">Administrators</span></a></li>
+                        <li><a href="adminReqList.html"><span class="nav-label">Request List</span></a></li>
+                        <li><a href="adminCompleteList.html"><span class="nav-label">Complete List</span></a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href=# id="nav_logout"><span class="nav-label">Logout</span><span class="pull-right"><i class="fa fa-sign-out"></i></span></a>
+                </li>
+            </ul>
+        </aside>
+        
+        <!-- Main Wrapper -->
+        <div id="wrapper">
+            <div class="content animate-panel">
+                <!-- admin section -->
+                <div class="row" id="admin_section">
+                    <div class="col-md-12">
+                        <div class="hpanel hgreen">
+                            <div class="panel-heading">
+                                Administrator Section
+                            </div>
+                            <div class="panel-body">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2" style="padding-top: 7px;">Status:</div>
+                                        <div class="col-xs-8 col-sm-8 col-md-6 col-lg-4 Z-IndexFront">
+                                            <select class="selectpicker form-control" id="req_status"></select>
+                                        </div>
+                                    </div>
+                                    <br/>
+                                    <div class="row">
+                                        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2" style="padding-top: 7px;">Comments:</div>
+                                        <div class="col-xs-8 col-sm-8 col-md-6 col-lg-4">
+                                            <textarea class="form-control" style="height: 55px; resize: vertical;" id="req_comments"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-footer">
+                                <button type="button" class="btn btn-primary" id="btn_save"><i class="fa fa-check"></i> Save</button>
+                                <button type="button" class="btn btn-warning2 pull-right" id="btn_cancel"><i class="fa fa-times"></i> Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- print view section -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="hpanel hblue">
+                            <div class="panel-heading">
+                                <div class="panel-tools"><a class="showhide"><i class="fa fa-chevron-up"></i></a></div>
+                                Marketing Announcement Request
+                            </div>
+                            <div class="panel-body">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2">Requestor Name:</div>
+                                        <div class="col-xs-8 col-sm-8 col-md-6 col-lg-4" id="req_name"></div>
+                                    </div>
+                                    <br/>
+                                    <div class="row">
+                                        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2">Requestor Phone:</div>
+                                        <div class="col-xs-8 col-sm-8 col-md-6 col-lg-4" id="req_phone"></div>
+                                    </div>
+                                    <br/>
+                                    <div class="row">
+                                        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2">Requestor Email:</div>
+                                        <div class="col-xs-8 col-sm-8 col-md-6 col-lg-4" id="req_email"></div>
+                                    </div>
+                                    <br/>
+                                    <div class="row">
+                                        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2">Department:</div>
+                                        <div class="col-xs-8 col-sm-8 col-md-6 col-lg-4" id="department"></div>
+                                    </div>
+                                    <br/>
+                                    <div class="row">
+                                        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2">Request Date:</div>
+                                        <div class="col-xs-8 col-sm-8 col-md-6 col-lg-4" id="req_date"></div>
+                                    </div>
+                                    <br/>
+                                    <div class="row">
+                                        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2">Event Title:</div>
+                                        <div class="col-xs-8 col-sm-8 col-md-6 col-lg-4" id="event_title"></div>
+                                    </div>
+                                    <br/>
+                                    <div class="row">
+                                        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2">Event Date/Time:</div>
+                                        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2" id="event_date"></div>
+                                        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2" id="event_time"></div>
+                                    </div>
+                                    <br/>
+                                    <div class="row">
+                                        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2">Event Location:</div>
+                                        <div class="col-xs-8 col-sm-8 col-md-6 col-lg-4" id="event_location"></div>
+                                    </div>
+                                    <br/>
+                                    <div class="row">
+                                        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2">Contact Name:</div>
+                                        <div class="col-xs-8 col-sm-8 col-md-6 col-lg-4" id="cont_name"></div>
+                                    </div>
+                                    <br/>
+                                    <div class="row">
+                                        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2">Contact Phone:</div>
+                                        <div class="col-xs-8 col-sm-8 col-md-6 col-lg-4" id="cont_phone"></div>
+                                    </div>
+                                    <br/>
+                                    <div class="row">
+                                        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2">Contact Email:</div>
+                                        <div class="col-xs-8 col-sm-8 col-md-6 col-lg-4" id="cont_email"></div>
+                                    </div>
+                                    <br/>
+                                    <div class="row">
+                                        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2">Announcement Start:</div>
+                                        <div class="col-xs-8 col-sm-8 col-md-6 col-lg-4" id="announ_start"></div>
+                                    </div>
+                                    <br/>
+                                    <div class="row">
+                                        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2">Announcement End:</div>
+                                        <div class="col-xs-8 col-sm-8 col-md-6 col-lg-4" id="announ_end"></div>
+                                    </div>
+                                    <br/>
+                                    <div class="row">
+                                        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2">Attachment 1:</div>
+                                        <div class="col-xs-8 col-sm-8 col-md-6 col-lg-4"><a href="#" id="attach_1"></a></div>
+                                    </div>
+                                    <br/>
+                                    <div class="row">
+                                        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2">Attachment 2:</div>
+                                        <div class="col-xs-8 col-sm-8 col-md-6 col-lg-4"><a href="#" id="attach_2"></a></div>
+                                    </div>
+                                    <br/>
+                                    <div class="row">
+                                        <div class="col-md-12">Provide text exactly as you would like it to appears. Marketing will edit (1000 character limit):</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-12 col-sm-12 col-md-9 col-lg-6" id="announ_text"></div>
+                                    </div>
+                                    <br/>
+                                    <div class="row">
+                                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-2" style="padding-top: 7px;">Sherpa:</div>
+                                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-2"><label><input type="checkbox" class="i-checks" disabled id="ckb_email"> Email</label></div>
+                                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-2"><label><input type="checkbox" class="i-checks" disabled id="ckb_newsfeed"> Newsfeed</label></div>
+                                    </div>
+                                    <br/>
+                                    <div class="row">
+                                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-2" style="padding-top: 7px;">Social Media:</div>
+                                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-2"><label><input type="checkbox" class="i-checks" disabled id="ckb_facebook"> Facebook</label></div>
+                                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-2"><label><input type="checkbox" class="i-checks" disabled id="ckb_twitter"> Twitter</label></div>
+                                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-2"><label><input type="checkbox" class="i-checks" disabled id="ckb_instagram"> Instagram</label></div>
+                                    </div>
+                                    <br/>
+                                    <div class="row">
+                                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-2" style="padding-top: 7px;">Media Release:</div>
+                                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-2"><label><input type="checkbox" class="i-checks" disabled id="ckb_bstic"> BSTIC</label></div>
+                                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-2"><label><input type="checkbox" class="i-checks" disabled id="ckb_ssc"> SSC</label></div>
+                                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-2"><label><input type="checkbox" class="i-checks" disabled id="ckb_lsb"> LSB</label></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-footer">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- transaction history -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="hpanel hyellow">
+                            <div class="panel-heading">
+                                <div class="panel-tools"><a class="showhide"><i class="fa fa-chevron-up"></i></a></div>
+                                Transaction History
+                            </div>
+                            <div class="panel-body">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-xs-12 col-sm-12 col-md-9 col-lg-6" id="transaction_history"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-footer">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- homer-1.5 Vendor javascript -->
+        <script src="../homer-1.5/vendor/jquery/dist/jquery.min.js"></script>
+        <script src="../homer-1.5/vendor/jquery-ui/jquery-ui.min.js"></script>
+        <script src="../homer-1.5/vendor/slimScroll/jquery.slimscroll.min.js"></script>
+        <script src="../homer-1.5/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="../homer-1.5/vendor/metisMenu/dist/metisMenu.min.js"></script>
+        <script src="../homer-1.5/vendor/iCheck/icheck.min.js"></script>
+        <script src="../homer-1.5/vendor/sparkline/index.js"></script>
+        <!-- include javascript -->
+        <script src="../include/jquery-ui-1.11.4/js/jquery-ui.min.js"></script>
+        <script src="../include/jquery-autosize/jquery.autosize.1.18.1.min.js"></script>
+        <script src="../include/bootstrap-select/js/bootstrap-select.1.5.4.min.js"></script>
+        <script src="../include/sweetalert/js/sweetalert.min.js"></script>
+        <!-- application javascript -->
+        <script src="js/viewRequest.js"></script>
+        <script src="js/session_data.js"></script>
+        <script src="js/db_access.js"></script>
+        <script src="js/sendEmail.js"></script>
+    </body>
+</html>
