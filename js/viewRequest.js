@@ -264,6 +264,14 @@ function isLoginAdmin() {
     
     if (result.length === 1) {
         m_admin = true;
+        var referrer =  document.referrer;
+        if (referrer.indexOf("adminReqList.html") >= 0) {
+            $('#menu_admin_sub_req_list').addClass("active");
+        }
+        else {
+            $('#menu_admin_sub_complete_list').addClass("active");
+        }
+        
         setStatusList();
         $('#menu_administrator').show();
         $('#admin_section').show();
