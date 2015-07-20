@@ -170,14 +170,14 @@ $(document).ready(function() {
     // attachment 1 click event ////////////////////////////////////////////////
     $('#attach_1').click(function() {
         if (m_base64_data_1 !== "") {
-            window.open(m_base64_data_1);
+            $.fancybox.open({ href : m_base64_data_1 });
         }
     });
     
     // attachment 2 click event ////////////////////////////////////////////////
     $('#attach_2').click(function() {
         if (m_base64_data_2 !== "") {
-            window.open(m_base64_data_2);
+            $.fancybox.open({ href : m_base64_data_2 });
         }
     });
 
