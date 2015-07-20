@@ -5,7 +5,7 @@
     
     $query = "SELECT evrt.*, stus.[Status] "
             . "FROM [IVCMRKT].[dbo].[EventRequest] AS evrt LEFT JOIN [IVCMRKT].[dbo].[Status] AS stus ON evrt.StatusID = stus.StatusID "
-            . "WHERE evrt.ReqEmail = '".$ReqEmail."'";
+            . "WHERE evrt.StatusID <> 4 AND evrt.ReqEmail = '".$ReqEmail."'";
 
     $cmd = $dbConn->prepare($query);
     $cmd->execute(); 
