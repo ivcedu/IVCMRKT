@@ -157,8 +157,18 @@ $(document).ready(function() {
 
     // save button click /////////////////////////////////////////////////////
     $('#btn_save').click(function() {
-        window.open('home.html', '_self');
-        return false;
+        updateEventRequestStatus();
+        insertTransaction();
+        swal({  title: "Updated!", 
+                text: "Event Request status has been updated successfuly", 
+                type: "success",
+                confirmButtonText: "OK",
+                closeOnConfirm: false }, 
+                function(){   
+                    window.open(document.referrer, '_self');
+                    return false;
+            }
+        );
     });
 
     // cancel button click /////////////////////////////////////////////////////
@@ -267,14 +277,15 @@ function isLoginAdmin() {
         var referrer =  document.referrer;
         if (referrer.indexOf("adminReqList.html") >= 0) {
             $('#menu_admin_sub_req_list').addClass("active");
+            $('#admin_section').show();
         }
         else {
             $('#menu_admin_sub_complete_list').addClass("active");
+            $('#admin_section').hide();
         }
         
         setStatusList();
         $('#menu_administrator').show();
-        $('#admin_section').show();
     }
     else {
         $('#menu_administrator').hide();
@@ -390,4 +401,18 @@ function getTransaction() {
     }
     
     $("#transaction_history").html(log_html);
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+function updateEventRequestStatus() {
+    var req_status_id = $('#req_status').val();
+
+    db_updateEventRequestStatus(m_event_request_id, req_status_id);
+}
+
+function insertTransaction() {
+    var req_status = $('#req_status option:selected').text();
+    var login_name = sessionStorage.getItem('ss_mrkt_loginName');
+    
+    return db_insertTransaction(m_event_request_id, login_name, "Status has been changed to " + req_status);
 }
