@@ -3,6 +3,8 @@
 
     $Email = filter_input(INPUT_POST, 'Email');
     $Name = filter_input(INPUT_POST, 'Name');
+    $CCEmail = filter_input(INPUT_POST, 'CCEmail');
+    $CCName = filter_input(INPUT_POST, 'CCName');
     $Subject = filter_input(INPUT_POST, 'Subject');
     $Message = filter_input(INPUT_POST, 'Message');
 
@@ -12,7 +14,7 @@
     $mail->From = "ivcpio@ivc.edu";
     $mail->FromName = "IVC Marketing";
     $mail->AddAddress($Email, $Name);
-    //$mail->AddCC($address, $name);
+    $mail->AddCC($CCEmail, $CCName);
     $mail->IsHTML(true); // send as HTML
     $mail->Subject = $Subject;
     $mail->Body = $Message;
