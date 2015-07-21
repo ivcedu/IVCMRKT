@@ -129,6 +129,22 @@ $(document).ready(function() {
         }
     });
     
+    // event date change event /////////////////////////////////////////////////
+    $('#event_date').change(function() {
+        var event_date = $(this).val();
+        if (event_date !== "") {
+            $('#announ_start').datepicker("option", "minDate", event_date);
+        }
+    });
+    
+    // announcement start date change event ////////////////////////////////////
+    $('#announ_start').change(function() {
+        var announ_start = $(this).val();
+        if (announ_start !== "") {
+            $('#announ_end').datepicker("option", "minDate", announ_start);
+        }
+    });
+    
     // attachment 1 button click ///////////////////////////////////////////////
     $('#attach_1').change(function() {
         getImageFileInfo("#attach_1");
@@ -145,7 +161,7 @@ $(document).ready(function() {
     $('#btn_submit').click(function() {        
         if (mrktSubmit()) {
             swal({title: "Submitted!", text: "Your request has been submitted successfuly", type: "success"});
-            window.open('home.html', '_self');
+            window.open(document.referrer, '_self');
             return false;
         }
         else {
@@ -155,7 +171,7 @@ $(document).ready(function() {
     
     // cancel button click /////////////////////////////////////////////////////
     $('#btn_cancel').click(function() {
-        window.open('home.html', '_self');
+        window.open(document.referrer, '_self');
         return false;
     });
     
@@ -266,6 +282,9 @@ function getLoginInfo() {
     $('#department').val(department);
     
     $('#req_date').val(getToday());
+    $('#event_date').datepicker("option", "minDate", "+14d");
+    $('#announ_start').datepicker("option", "minDate", "+14d");
+    $('#announ_end').datepicker("option", "minDate", "+14d");
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
