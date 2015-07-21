@@ -173,7 +173,7 @@ $(document).ready(function() {
 
     // cancel button click /////////////////////////////////////////////////////
     $('#btn_cancel').click(function() {
-        window.open('home.html', '_self');
+        window.open(document.referrer, '_self');
         return false;
     });
     
