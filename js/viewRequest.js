@@ -159,16 +159,17 @@ $(document).ready(function() {
     $('#btn_save').click(function() {
         updateEventRequestStatus();
         insertTransaction();
+        sendEmailNotification();
         swal({  title: "Updated!", 
                 text: "Event Request status has been updated successfuly", 
                 type: "success",
                 confirmButtonText: "OK",
-                closeOnConfirm: false }, 
-                function(){   
-                    window.open(document.referrer, '_self');
-                    return false;
-            }
-        );
+                closeOnConfirm: false 
+            }, 
+            function() {   
+                window.open(document.referrer, '_self');
+                return false;
+            });
     });
 
     // cancel button click /////////////////////////////////////////////////////
@@ -415,4 +416,126 @@ function insertTransaction() {
     var login_name = sessionStorage.getItem('ss_mrkt_loginName');
     
     return db_insertTransaction(m_event_request_id, login_name, "Status has been changed to " + req_status);
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+function sendEmailNotification() {
+    var req_status_id = $('#req_status').val();
+    
+    switch(req_status_id) {
+        case "2":   // No PPRF
+            sendEmailNoPPRF();
+            break;
+        case "3":   // Waiting for more Info
+            sendEmailWaitingForMoreInfo();
+            break;
+        case "4":   // Complete
+            sendEmailComplete();
+            break;
+        case "5":   // Approved
+            sendEmailApproved();
+            break;
+        case "6":   // Hold
+            sendEmailHold();
+            break;
+        case "7":   // Deny
+            sendEmailDeny();
+            break;
+        default:
+            break;
+    }
+}
+
+function sendEmailNoPPRF() {
+    var req_email = $('#req_email').html();
+    var req_name = $('#req_name').html();
+    var subject = "Marketing Announcement Request Status Change To No PPRF";
+    var message = "Your request required additional publications materials. Please fill out the ";
+    message += "<a href='https://inside.ivc.edu/nonacademic/marketing/publications/Pages/requests.aspx'>publications project request</a>";
+    message += " for your printed or graphics materials.<br/><br/>";
+    
+    message += "Should you have any questions or comments, please contact the IVC Marketing.<br/>"; 
+    message += "Thank you.<br/>";
+    message += "IVC Public Information & Marketing<br/>";
+    message += "ivcpio@ivc.edu<br/>";
+    message += "phone: 949.451.5293";
+    
+    proc_sendEmail(req_email, req_name, "", "", subject, message);
+}
+
+function sendEmailWaitingForMoreInfo() {
+    var req_email = $('#req_email').html();
+    var req_name = $('#req_name').html();
+    var subject = "Marketing Announcement Request Status Change To Waiting For More Info";
+    var message = "Your request requires more information. Please read the comment below:<br/>";
+    message += $('#req_comments').val().replace(/\n/g, "<br/>") + "<br/><br/>";
+    
+    message += "Should you have any questions or comments, please contact the IVC Marketing.<br/>"; 
+    message += "Thank you.<br/>";
+    message += "IVC Public Information & Marketing<br/>";
+    message += "ivcpio@ivc.edu<br/>";
+    message += "phone: 949.451.5293";
+    
+    proc_sendEmail(req_email, req_name, "", "", subject, message);
+}
+
+function sendEmailComplete() {
+    var req_email = $('#req_email').html();
+    var req_name = $('#req_name').html();
+    var subject = "Marketing Announcement Request Status Change To Complete";
+    var message = "Your request has been successfully completed.<br/><br/>";
+    
+    message += "Should you have any questions or comments, please contact the IVC Marketing.<br/>"; 
+    message += "Thank you.<br/>";
+    message += "IVC Public Information & Marketing<br/>";
+    message += "ivcpio@ivc.edu<br/>";
+    message += "phone: 949.451.5293";
+    
+    proc_sendEmail(req_email, req_name, "", "", subject, message);
+}
+
+function sendEmailApproved() {
+    var req_email = $('#req_email').html();
+    var req_name = $('#req_name').html();
+    var subject = "Marketing Announcement Request Status Change To Approved";
+    var message = "Your request has been approved.<br/><br/>";
+    
+    message += "Should you have any questions or comments, please contact the IVC Marketing.<br/>"; 
+    message += "Thank you.<br/>";
+    message += "IVC Public Information & Marketing<br/>";
+    message += "ivcpio@ivc.edu<br/>";
+    message += "phone: 949.451.5293";
+    
+    proc_sendEmail(req_email, req_name, "", "", subject, message);
+}
+
+function sendEmailHold() {
+    var req_email = $('#req_email').html();
+    var req_name = $('#req_name').html();
+    var subject = "Marketing Announcement Request Status Change To Hold";
+    var message = "Your request is on hold. A member of the Marketing staff will contact you regarding the hold.<br/><br/>";
+    
+    message += "Should you have any questions or comments, please contact the IVC Marketing.<br/>"; 
+    message += "Thank you.<br/>";
+    message += "IVC Public Information & Marketing<br/>";
+    message += "ivcpio@ivc.edu<br/>";
+    message += "phone: 949.451.5293";
+    
+    proc_sendEmail(req_email, req_name, "", "", subject, message);
+}
+
+function sendEmailDeny() {
+    var req_email = $('#req_email').html();
+    var req_name = $('#req_name').html();
+    var subject = "Marketing Announcement Request Status Change To Deny";
+    var message = "Your request has been denied. Please read the comment below:<br/>";
+    message += $('#req_comments').val().replace(/\n/g, "<br/>") + "<br/><br/>";
+    
+    message += "Should you have any questions or comments, please contact the IVC Marketing.<br/>"; 
+    message += "Thank you.<br/>";
+    message += "IVC Public Information & Marketing<br/>";
+    message += "ivcpio@ivc.edu<br/>";
+    message += "phone: 949.451.5293";
+    
+    proc_sendEmail(req_email, req_name, "", "", subject, message);
 }

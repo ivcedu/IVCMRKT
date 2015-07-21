@@ -83,6 +83,46 @@ function db_getUserEventReqList(ReqEmail) {
     return result;
 }
 
+function db_getUserCompleteList(ReqEmail) {
+    var result = new Array();
+    $.ajax({
+        type:"POST",
+        url:"php/db_getUserCompleteList.php",
+        data:{ReqEmail:ReqEmail},
+        async: false,  
+        success:function(data) {
+            result = JSON.parse(data);
+        }
+    });
+    return result;
+}
+
+function db_getAdminEventReqList() {
+    var result = new Array();
+    $.ajax({
+        type:"POST",
+        url:"php/db_getAdminEventReqList.php",
+        async: false,  
+        success:function(data) {
+            result = JSON.parse(data);
+        }
+    });
+    return result;
+}
+
+function db_getAdminCompleteList() {
+    var result = new Array();
+    $.ajax({
+        type:"POST",
+        url:"php/db_getAdminCompleteList.php",
+        async: false,  
+        success:function(data) {
+            result = JSON.parse(data);
+        }
+    });
+    return result;
+}
+
 function db_getEventRequestByID(EventRequestID) {
     var result = new Array();
     $.ajax({
@@ -241,19 +281,19 @@ function db_updateAdmin(AdminID, AdminName, AdminEmail) {
     return Result;
 }
 
-//function db_updateReader(ReaderID, Active, ReaderName, ReaderEmail) {
-//    var Result = false;
-//    $.ajax({
-//        type:"POST",
-//        url:"php/db_updateReader.php",
-//        data:{ReaderID:ReaderID, Active:Active, ReaderName:ReaderName, ReaderEmail:ReaderEmail},
-//        async: false,  
-//        success:function(data) {
-//            Result = JSON.parse(data);
-//        }
-//    });
-//    return Result;
-//}
+function db_updateEventRequestStatus(EventRequestID, StatusID) {
+    var Result = false;
+    $.ajax({
+        type:"POST",
+        url:"php/db_updateEventRequestStatus.php",
+        data:{EventRequestID:EventRequestID, StatusID:StatusID},
+        async: false,  
+        success:function(data) {
+            Result = JSON.parse(data);
+        }
+    });
+    return Result;
+}
 
 // delete DB ///////////////////////////////////////////////////////////////////
 //function db_deleteAdmin(AdminID) {

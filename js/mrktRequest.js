@@ -158,11 +158,20 @@ $(document).ready(function() {
     });
     
     // submit button click /////////////////////////////////////////////////////
-    $('#btn_submit').click(function() {        
+    $('#btn_submit').click(function() {  
         if (mrktSubmit()) {
-            swal({title: "Submitted!", text: "Your request has been submitted successfuly", type: "success"});
-            window.open(document.referrer, '_self');
-            return false;
+            sendEmailSubmitted();
+            sendEmailToAdministrator();
+            swal({  title: "Submitted!", 
+                text: "Your request has been submitted successfuly", 
+                type: "success",
+                confirmButtonText: "OK",
+                closeOnConfirm: false 
+            }, 
+            function() {   
+                window.open('userReqList.html', '_self');
+                return false;
+            });
         }
         else {
             swal({title: "Error", text: "There was a system error. please conatact IT support at 949.451.5696 or ivctech@ivc.edu", type: "error"});
@@ -171,7 +180,7 @@ $(document).ready(function() {
     
     // cancel button click /////////////////////////////////////////////////////
     $('#btn_cancel').click(function() {
-        window.open(document.referrer, '_self');
+        window.open('userReqList.html', '_self');
         return false;
     });
     
@@ -411,4 +420,30 @@ function insertTransaction(event_request_id) {
     var login_name = sessionStorage.getItem('ss_mrkt_loginName');
     
     return db_insertTransaction(event_request_id, login_name, "Request submitted");
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+function sendEmailSubmitted() {
+    var req_email = textReplaceApostrophe($('#req_email').val());
+    var req_name = textReplaceApostrophe($('#req_name').val());
+    var subject = "Marketing Announcement Request Submitted";
+    var message = "Your request has been successfully submitted. You will be contacted by a member of the Marketing staff regarding your request.<br/><br/>";
+    message += "Should you have any questions or comments, please contact the IVC Marketing.<br/>"; 
+    message += "Thank you.<br/>";
+    message += "IVC Public Information & Marketing<br/>";
+    message += "ivcpio@ivc.edu<br/>";
+    message += "phone: 949.451.5293";
+    
+    proc_sendEmail(req_email, req_name, "", "", subject, message);
+}
+
+function sendEmailToAdministrator() {
+    var admin_email = "bramchandani@ivc.edu";
+    // testing...
+    admin_email = "presidenttest@ivc.edu";
+    var admin_name = "Brittany Ramchandani";
+    var subject = "New Marketing Announcement Request";
+    var message = "You have a new request.";
+    
+    proc_sendEmail(admin_email, admin_name, "", "", subject, message);
 }
