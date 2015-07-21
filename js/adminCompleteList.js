@@ -206,16 +206,17 @@ function getAdminCompleteList() {
     $('#tbl_body').empty();
     var html = "";
     for (var i = 0; i < result.length; i++) {
-        html += setAdminCompleteListHTML(result[i]['EventRequestID'], result[i]['EventTitle'], result[i]['EventDate'] + " " + result[i]['EventTime'], result[i]['Status']);
+        html += setAdminCompleteListHTML(result[i]['EventRequestID'], result[i]['ReqName'], result[i]['EventTitle'], result[i]['EventDate'] + " " + result[i]['EventTime'], result[i]['Status']);
     }
     $('#tbl_body').append(html);
     
     $('.animate-panel').animatePanel();
 }
 
-function setAdminCompleteListHTML(event_request_id, event_title, event_dt, status) {                                
+function setAdminCompleteListHTML(event_request_id, req_name, event_title, event_dt, status) {                                
     var html = "<tr>";
     html += "<td>" + event_request_id + "</td>";
+    html += "<td>" + req_name + "</td>";
     html += "<td><a href=# id='event_request_id_" + event_request_id + "'>" + event_title + "</a></td>";
     html += "<td>" + event_dt + "</td>";
     html += "<td>" + status + "</td>";
