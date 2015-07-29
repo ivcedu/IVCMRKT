@@ -280,15 +280,11 @@ function isLoginAdmin() {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function getLoginInfo() {
-    var login_name = sessionStorage.getItem('ss_mrkt_loginName');
-    $('#login_user').html(login_name);
-    $('#req_name').val(login_name);
-    
-    var login_email = sessionStorage.getItem('ss_mrkt_loginEmail');
-    $('#req_email').val(login_email);
-    
-    var department = sessionStorage.getItem('ss_mrkt_department');
-    $('#department').val(department);
+    $('#login_user').html(sessionStorage.getItem('ss_mrkt_loginName'));
+    $('#req_name').val(sessionStorage.getItem('ss_mrkt_loginName'));
+    $('#req_email').val(sessionStorage.getItem('ss_mrkt_loginEmail'));
+    $('#req_phone').val(sessionStorage.getItem('ss_mrkt_phone'));
+    $('#department').val(sessionStorage.getItem('ss_mrkt_department'));
     
     $('#req_date').val(getToday());
     $('#event_date').datepicker("option", "minDate", "+14d");

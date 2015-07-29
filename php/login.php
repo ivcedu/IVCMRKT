@@ -28,8 +28,11 @@
                 if (array_key_exists('department', $data[0])) {
                     $department = $data[0]["department"][0];
                 }
+                if (array_key_exists('telephonenumber', $data[0])) {
+                    $phone = $data[0]["telephonenumber"][0];
+                }
 
-                $result = array($name, $email, $department);
+                $result = array($name, $email, $department, $phone);
             }
         }          
         ldap_close($ldapconn);

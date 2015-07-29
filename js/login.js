@@ -1,6 +1,7 @@
 var name = "";
 var email = "";
 var department = "";
+var phone = "";
 
 ////////////////////////////////////////////////////////////////////////////////
 window.onload = function() {  
@@ -38,7 +39,7 @@ $(document).ready(function() {
         $('#logn_error').hide();
 
         if(loginInfo()) {
-            sessionData_login(name, email, department);
+            sessionData_login(name, email, department, phone);
             if (isUserAdmin()) {
                 window.open('adminReqList.html', '_self');
                 return false;
@@ -66,9 +67,10 @@ function loginInfo() {
         return false;
     }
     else {
-        name = result[0];
-        email = result[1];
-        department = result[2];
+        name = objToString(result[0]);
+        email = objToString(result[1]);
+        department = objToString(result[2]);
+        phone = objToString(result[3]);
         return true;
     }
 }
