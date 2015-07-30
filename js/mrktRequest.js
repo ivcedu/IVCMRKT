@@ -435,8 +435,6 @@ function sendEmailSubmitted() {
 
 function sendEmailToAdministrator() {
     var admin_email = "bramchandani@ivc.edu";
-    // testing...
-    admin_email = "presidenttest@ivc.edu";
     var admin_name = "Brittany Ramchandani";
     var subject = "New Marketing Announcement Request";
     var message = "You have a new request.";
