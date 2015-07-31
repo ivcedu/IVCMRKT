@@ -418,7 +418,7 @@ function sendEmailSubmitted() {
     var req_email = textReplaceApostrophe($('#req_email').val());
     var req_name = textReplaceApostrophe($('#req_name').val());
     var subject = "Marketing Announcement Request Submitted";
-    var message = "Your request has been successfully submitted. You will be contacted by a member of the Marketing staff regarding your request.<br/><br/>";
+    var message = "Your request has been successfully submitted. A member of the marketing team will contact you regarding your request.<br/><br/>";
     message += "Should you have any questions or comments, please contact the IVC Marketing.<br/>"; 
     message += "Thank you.<br/>";
     message += "IVC Public Information & Marketing<br/>";
