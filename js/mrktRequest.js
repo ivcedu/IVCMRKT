@@ -129,19 +129,14 @@ $(document).ready(function() {
         }
     });
     
-    // event date change event /////////////////////////////////////////////////
-    $('#event_date').change(function() {
-        var event_date = $(this).val();
-        if (event_date !== "") {
-            $('#announ_start').datepicker("option", "minDate", event_date);
-        }
-    });
-    
     // announcement start date change event ////////////////////////////////////
     $('#announ_start').change(function() {
         var announ_start = $(this).val();
         if (announ_start !== "") {
             $('#announ_end').datepicker("option", "minDate", announ_start);
+            var dt_event = new Date(announ_start);
+            dt_event.setDate(dt_event.getDate()+14);
+            $('#event_date').datepicker("option", "minDate", dt_event);
         }
     });
     
@@ -287,9 +282,9 @@ function getLoginInfo() {
     $('#department').val(sessionStorage.getItem('ss_mrkt_department'));
     
     $('#req_date').val(getToday());
-    $('#event_date').datepicker("option", "minDate", "+14d");
     $('#announ_start').datepicker("option", "minDate", "+14d");
     $('#announ_end').datepicker("option", "minDate", "+14d");
+    $('#event_date').datepicker("option", "minDate", "+28d");
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -299,8 +294,8 @@ function getImageFileInfo(id) {
     
     if (typeof file !== "undefined") {
         var f_extension = getFileExtension(f_name);
-        if (f_extension !== "jpg" && f_extension !== "jpeg") {
-            swal({title: "Warning", text: "Only jpeg/jpg file can be upload", type: "warning"});
+        if (f_extension !== "jpg" && f_extension !== "jpeg" && f_extension !== "pdf") {
+            swal({title: "Warning", text: "Only jpeg/jpg or pdf file can be upload", type: "warning"});
             $(id).filestyle('clear');
             return false;
         } 
