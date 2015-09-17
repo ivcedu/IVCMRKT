@@ -5,7 +5,7 @@ var m_base64_data_1 = "";
 var m_base64_data_2 = "";
 
 ////////////////////////////////////////////////////////////////////////////////
-window.onload = function() {
+window.onload = function() {    
     if (sessionStorage.key(0) !== null) {
         $('.splash').css('display', 'none');
         isLoginAdmin();
