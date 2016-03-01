@@ -180,14 +180,12 @@ function db_insertAdmin(AdminName, AdminEmail) {
     return ResultID;
 }
 
-function db_insertEventRequest(StatusID, ReqName, ReqPhone, ReqEmail, Department, ReqDate, EventTitle, EventDate, EventTime,
-                                Location, ContactName, ContactPhone, ContactEmail, AnnounceStart, AnnounceEnd, AnnounceText) {
+function db_insertEventRequest(RequestTypeID, DeliveryTypeID, StatusID, ReqTitle, ReqName, ReqPhone, ReqEmail, Department, ReqDate) {
     var ResultID = "";
     $.ajax({
         type:"POST",
         url:"php/db_insertEventRequest.php",
-        data:{StatusID:StatusID, ReqName:ReqName, ReqPhone:ReqPhone, ReqEmail:ReqEmail, Department:Department, ReqDate:ReqDate, EventTitle:EventTitle, EventDate:EventDate, EventTime:EventTime,
-                Location:Location, ContactName:ContactName, ContactPhone:ContactPhone, ContactEmail:ContactEmail, AnnounceStart:AnnounceStart, AnnounceEnd:AnnounceEnd, AnnounceText:AnnounceText},
+        data:{RequestTypeID:RequestTypeID, DeliveryTypeID:DeliveryTypeID, StatusID:StatusID, ReqTitle:ReqTitle, ReqName:ReqName, ReqPhone:ReqPhone, ReqEmail:ReqEmail, Department:Department, ReqDate:ReqDate},
         async: false,  
         success:function(data) {
             ResultID = JSON.parse(data);

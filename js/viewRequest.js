@@ -7,7 +7,6 @@ var m_base64_data_2 = "";
 ////////////////////////////////////////////////////////////////////////////////
 window.onload = function() {
     if (sessionStorage.key(0) !== null) {
-        $('.splash').css('display', 'none');
         getURLParameters();
         isLoginAdmin();
         getLoginInfo();
@@ -18,6 +17,11 @@ window.onload = function() {
         window.open('Login.html', '_self');
     }
 };
+
+$(window).bind("load", function () {
+    // Remove splash screen after load
+    $('.splash').css('display', 'none');
+});
 
 $(window).bind("resize click", function () {
     // Add special class to minimalize page elements when screen is less than 768px
@@ -64,9 +68,9 @@ function getURLParameters() {
 $(document).ready(function() {   
     // Add special class to minimalize page elements when screen is less than 768px
     setBodySmall();
-    
+
     // Handle minimalize sidebar menu
-    $('.hide-menu').click(function(event){
+    $('.hide-menu').on('click', function(event){
         event.preventDefault();
         if ($(window).width() < 769) {
             $("body").toggleClass("show-sidebar");
@@ -74,21 +78,21 @@ $(document).ready(function() {
             $("body").toggleClass("hide-sidebar");
         }
     });
-    
+
     // Initialize metsiMenu plugin to sidebar menu
     $('#side-menu').metisMenu();
-    
+
     // Initialize iCheck plugin
-//    $('.i-checks').iCheck({
-//        checkboxClass: 'icheckbox_square-green',
-//        radioClass: 'iradio_square-green'
-//    });
-    
+    $('.i-checks').iCheck({
+        checkboxClass: 'icheckbox_square-green',
+        radioClass: 'iradio_square-green'
+    });
+
     // Initialize animate panel function
     $('.animate-panel').animatePanel();
-    
+
     // Function for collapse hpanel
-    $('.showhide').click(function (event) {
+    $('.showhide').on('click', function (event) {
         event.preventDefault();
         var hpanel = $(this).closest('div.hpanel');
         var icon = $(this).find('i:first');
@@ -105,16 +109,34 @@ $(document).ready(function() {
             hpanel.find('[id^=map-]').resize();
         }, 50);
     });
-    
+
     // Function for close hpanel
-    $('.closebox').click(function (event) {
+    $('.closebox').on('click', function (event) {
         event.preventDefault();
         var hpanel = $(this).closest('div.hpanel');
         hpanel.remove();
+        if($('body').hasClass('fullscreen-panel-mode')) { $('body').removeClass('fullscreen-panel-mode');}
     });
-    
+
+    // Fullscreen for fullscreen hpanel
+    $('.fullscreen').on('click', function() {
+        var hpanel = $(this).closest('div.hpanel');
+        var icon = $(this).find('i:first');
+        $('body').toggleClass('fullscreen-panel-mode');
+        icon.toggleClass('fa-expand').toggleClass('fa-compress');
+        hpanel.toggleClass('fullscreen');
+        setTimeout(function() {
+            $(window).trigger('resize');
+        }, 100);
+    });
+
+    // Open close right sidebar
+    $('.right-sidebar-toggle').on('click', function () {
+        $('#right-sidebar').toggleClass('sidebar-open');
+    });
+
     // Function for small header
-    $('.small-header-action').click(function(event){
+    $('.small-header-action').on('click', function(event){
         event.preventDefault();
         var icon = $(this).find('i:first');
         var breadcrumb  = $(this).parent().find('#hbreadcrumb');
@@ -122,10 +144,12 @@ $(document).ready(function() {
         breadcrumb.toggleClass('m-t-lg');
         icon.toggleClass('fa-arrow-up').toggleClass('fa-arrow-down');
     });
-    
+
     // Set minimal height of #wrapper to fit the window
-    fixWrapperHeight();
-    
+    setTimeout(function () {
+        fixWrapperHeight();
+    });
+
     // Sparkline bar chart data and options used under Profile image on left navigation panel
     $("#sparkline1").sparkline([5, 6, 7, 2, 0, 4, 2, 4, 5, 7, 2, 4, 12, 11, 4], {
         type: 'bar',
@@ -134,7 +158,7 @@ $(document).ready(function() {
         barColor: '#62cb31',
         negBarColor: '#53ac2a'
     });
-    
+
     // Initialize tooltips
     $('.tooltip-demo').tooltip({
         selector: "[data-toggle=tooltip]"
@@ -144,7 +168,7 @@ $(document).ready(function() {
     $("[data-toggle=popover]").popover();
 
     // Move modal to body
-    // Fix Bootstrap backdrop issue with animation.css
+    // Fix Bootstrap backdrop issu with animation.css
     $('.modal').appendTo("body");
     
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -241,21 +265,24 @@ $.fn['animatePanel'] = function() {
     var child = $(this).data('child');
 
     // Set default values for attrs
-    if(!effect) { effect = 'zoomIn';};
-    if(!delay) { delay = 0.06; } else { delay = delay / 10; };
-    if(!child) { child = '.row > div';} else {child = "." + child;};
+    if(!effect) { effect = 'zoomIn';}
+    if(!delay) { delay = 0.06; } else { delay = delay / 10; }
+    if(!child) { child = '.row > div';} else {child = "." + child;}
 
     //Set defaul values for start animation and delay
     var startAnimation = 0;
     var start = Math.abs(delay) + startAnimation;
 
-    // Get all visible element and set opactiy to 0
+    // Get all visible element and set opacity to 0
     var panel = element.find(child);
     panel.addClass('opacity-0');
 
     // Get all elements and add effect class
     panel = element.find(child);
-    panel.addClass('animated-panel').addClass(effect);
+    panel.addClass('stagger').addClass('animated-panel').addClass(effect);
+
+    var panelsCount = panel.length + 10;
+    var animateTime = (panelsCount * delay * 10000) / 10;
 
     // Add delay for each child elements
     panel.each(function (i, elm) {
@@ -265,6 +292,12 @@ $.fn['animatePanel'] = function() {
         // Remove opacity 0 after finish
         $(elm).removeClass('opacity-0');
     });
+
+    // Clear animation after finish
+    setTimeout(function(){
+        $('.stagger').css('animation', '');
+        $('.stagger').removeClass(effect).removeClass('animated-panel').removeClass('stagger');
+    }, animateTime);
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
