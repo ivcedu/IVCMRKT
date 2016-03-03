@@ -165,6 +165,33 @@ function db_getEventTransaction(EventRequestID) {
     return result;
 }
 
+function db_getRequestTypeList() {
+    var result = new Array();
+    $.ajax({
+        type:"POST",
+        url:"php/db_getRequestTypeList.php",
+        async: false,  
+        success:function(data) {
+            result = JSON.parse(data);
+        }
+    });
+    return result;
+}
+
+function db_getDeliveryTypeList(RequestTypeID) {
+    var result = new Array();
+    $.ajax({
+        type:"POST",
+        url:"php/db_getDeliveryTypeList.php",
+        data:{RequestTypeID:RequestTypeID},
+        async: false,  
+        success:function(data) {
+            result = JSON.parse(data);
+        }
+    });
+    return result;
+}
+
 // insert DB ///////////////////////////////////////////////////////////////////
 function db_insertAdmin(AdminName, AdminEmail) {
     var ResultID = "";

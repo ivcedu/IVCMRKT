@@ -7,8 +7,12 @@ var m_base64_data_2 = "";
 ////////////////////////////////////////////////////////////////////////////////
 window.onload = function() {    
     if (sessionStorage.key(0) !== null) {
+        hideAllDeliverySection();
+        hideAllOptionSections();
+    
         isLoginAdmin();
         getLoginInfo();
+        getRequestTypeList();
     }
     else {
         window.open('login.html', '_self');
@@ -144,23 +148,69 @@ $(document).ready(function() {
         return false;
     });
     
+    // request type change event ///////////////////////////////////////////////
+    $('#sel_request_type').change(function() {
+        var req_type_id = $(this).val();
+        getDeliveryTypeList(req_type_id);
+        if (req_type_id === "0") {
+            deliveryOptions("0");
+        }
+    });
+    
+    // delivery type change event //////////////////////////////////////////////
+    $('#sel_delivery_type').change(function() {
+        var del_type_id = $(this).val();
+        deliveryOptions(del_type_id);
+    });
+    
+    // sherpa email check box change event /////////////////////////////////////
+    $('#ckb_email').on('ifChanged', function() {
+        if ($(this).is(':checked')) {
+            $('#sherpa_email_section').show();
+            $('#sherpa_email_section').animatePanel();
+        }
+        else {
+            $('#sherpa_email_section').hide();
+            $('#email_subject').val("");
+            $('#email_body').val("").trigger('autosize.resize');
+        }
+    });
+    
+    // sherpa newsfeed check box change event //////////////////////////////////
+    $('#ckb_newsfeed').on('ifChanged', function() {
+        if ($(this).is(':checked')) {
+            $('#sherpa_newsfeed_section').show();
+            $('#sherpa_newsfeed_section').animatePanel();
+        }
+        else {
+            $('#sherpa_newsfeed_section').hide();
+            $('#announ_start_date').val("");
+            $('#announ_start_time').val("");
+            $('#announ_end_date').val("");
+            $('#announ_end_time').val("");
+            $('#event_title').val("");
+            $('#event_location').val("");
+            $('#announ_text').val("").trigger('autosize.resize');
+            $('#announ_descrip').val("").trigger('autosize.resize');
+        }
+    });
+    
     // contract email validation event /////////////////////////////////////////
-    $('#cont_email').change(function() {
-        
+//    $('#cont_email').change(function() {
 //        if (!isValidEmailAddress($(this).val())) {
 //            $(this).val("");
 //            swal({title: "Warning", text: "Please enter valid email address", type: "warning"});
 //        }
-    });
+//    });
     
     // announcement start date change event ////////////////////////////////////
-    $('#announ_start').change(function() {
+    $('#announ_start_date').change(function() {
         var announ_start = $(this).val();
         if (announ_start !== "") {
-            $('#announ_end').datepicker("option", "minDate", announ_start);
-            var dt_event = new Date(announ_start);
-            dt_event.setDate(dt_event.getDate()+14);
-            $('#event_date').datepicker("option", "minDate", dt_event);
+            $('#announ_end_date').datepicker("option", "minDate", announ_start);
+//            var dt_event = new Date(announ_start);
+//            dt_event.setDate(dt_event.getDate()+14);
+//            $('#event_date').datepicker("option", "minDate", dt_event);
         }
     });
     
@@ -203,16 +253,22 @@ $(document).ready(function() {
         return false;
     });
     
+    // bootstrap selectpicker
+    $('.selectpicker').selectpicker();
+    
     // bootstrap datepicker
-    $('#event_date').datepicker();
-    $('#announ_start').datepicker();
-    $('#announ_end').datepicker();
+    $('#announ_start_date').datepicker();
+    $('#announ_end_date').datepicker();
     
     // timepicker
-    $('#event_time').timepicker();
+    $('#announ_start_time').timepicker();
+    $('#announ_end_time').timepicker();
     
     // auto size
+    $('#req_descrip').autosize();
+    $('#email_body').autosize();
     $('#announ_text').autosize();
+    $('#announ_descrip').autosize();
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 });
@@ -294,6 +350,31 @@ $.fn['animatePanel'] = function() {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+function hideAllDeliverySection() {
+    $('#delivery_sherpa').hide();
+    $('#delivery_social_media').hide();
+    $('#delivery_digital_signage').hide();
+}
+
+function hideAllOptionSections() {
+    $('#sherpa_email_section').hide();
+    $('#sherpa_newsfeed_section').hide();
+}
+
+function clearAllCheckBox() {
+    $('#ckb_email').iCheck('uncheck');
+    $('#ckb_newsfeed').iCheck('uncheck');
+    
+    $('#ckb_facebook').iCheck('uncheck');
+    $('#ckb_twitter').iCheck('uncheck');
+    $('#ckb_instagram').iCheck('uncheck');
+    
+    $('#ckb_bstic').iCheck('uncheck');
+    $('#ckb_ssc').iCheck('uncheck');
+    $('#ckb_lsb').iCheck('uncheck');
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function isLoginAdmin() {
     var result = new Array();
     result = db_getAdminByEmail(sessionStorage.getItem('ss_mrkt_loginEmail'));
@@ -313,11 +394,66 @@ function getLoginInfo() {
     $('#req_email').val(sessionStorage.getItem('ss_mrkt_loginEmail'));
     $('#req_phone').val(sessionStorage.getItem('ss_mrkt_phone'));
     $('#department').val(sessionStorage.getItem('ss_mrkt_department'));
-    
     $('#req_date').val(getToday());
-    $('#announ_start').datepicker("option", "minDate", "+14d");
-    $('#announ_end').datepicker("option", "minDate", "+14d");
-    $('#event_date').datepicker("option", "minDate", "+28d");
+    
+    $('#announ_start_date').datepicker("option", "minDate", "+14d");
+    $('#announ_end_date').datepicker("option", "minDate", "+14d");
+//    $('#event_date').datepicker("option", "minDate", "+28d");
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+function getRequestTypeList() {
+    var result = new Array();
+    result = db_getRequestTypeList();
+    
+    $('#sel_request_type').empty();
+    var html = "<option value='0'>Select...</option>";
+    for (var i = 0; i < result.length; i++) {
+        html += "<option value='" + result[i]['RequestTypeID']  + "'>" + result[i]['RequestType'] + "</option>";
+    }
+    
+    $('#sel_request_type').append(html);
+    $('#sel_request_type').selectpicker('refresh');
+}
+
+function getDeliveryTypeList(req_type_id) {
+    var result = new Array();
+    result = db_getDeliveryTypeList(req_type_id);
+    
+    $('#sel_delivery_type').empty();
+    if (result.length > 0) {
+        var html = "<option value='0'>Select...</option>";
+        for (var i = 0; i < result.length; i++) {
+            html += "<option value='" + result[i]['DeliveryTypeID']  + "'>" + result[i]['DeliveryType'] + "</option>";
+        }
+    }
+    
+    $('#sel_delivery_type').append(html);
+    $('#sel_delivery_type').selectpicker('refresh');
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+function deliveryOptions(del_type_id) {
+    hideAllDeliverySection();
+    hideAllOptionSections();
+    clearAllCheckBox();
+
+    switch(del_type_id) {
+        case "1":
+            $('#delivery_sherpa').show();
+            $('#delivery_sherpa').animatePanel();
+            break;
+        case "2":
+            $('#delivery_social_media').show();
+            $('#delivery_social_media').animatePanel();
+            break;
+        case "3":
+            $('#delivery_digital_signage').show();
+            $('#delivery_digital_signage').animatePanel();
+            break;
+        default:
+            break;
+    }
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -389,21 +525,21 @@ function mrktSubmit() {
 }
 
 function insertEventRequest() {
-    var req_name = textReplaceApostrophe($('#req_name').val());
-    var req_phone = textReplaceApostrophe($('#req_phone').val());
-    var req_email = textReplaceApostrophe($('#req_email').val());
-    var department = textReplaceApostrophe($('#department').val());
-    var req_date = $('#req_date').val();
-    var event_title = textReplaceApostrophe($('#event_title').val());
-    var event_date = $('#event_date').val();
-    var event_time = $('#event_time').val();
-    var event_location = textReplaceApostrophe($('#event_location').val());
-    var cont_name = textReplaceApostrophe($('#cont_name').val());
-    var cont_phone = textReplaceApostrophe($('#cont_phone').val());
-    var cont_email = textReplaceApostrophe($('#cont_email').val());
-    var announ_start = $('#announ_start').val();
-    var announ_end = $('#announ_end').val();
-    var announ_text = textReplaceApostrophe($('#announ_text').val());
+//    var req_name = textReplaceApostrophe($('#req_name').val());
+//    var req_phone = textReplaceApostrophe($('#req_phone').val());
+//    var req_email = textReplaceApostrophe($('#req_email').val());
+//    var department = textReplaceApostrophe($('#department').val());
+//    var req_date = $('#req_date').val();
+//    var event_title = textReplaceApostrophe($('#event_title').val());
+//    var event_date = $('#event_date').val();
+//    var event_time = $('#event_time').val();
+//    var event_location = textReplaceApostrophe($('#event_location').val());
+//    var cont_name = textReplaceApostrophe($('#cont_name').val());
+//    var cont_phone = textReplaceApostrophe($('#cont_phone').val());
+//    var cont_email = textReplaceApostrophe($('#cont_email').val());
+//    var announ_start = $('#announ_start').val();
+//    var announ_end = $('#announ_end').val();
+//    var announ_text = textReplaceApostrophe($('#announ_text').val());
     
 //    return db_insertEventRequest(1, req_name, req_phone, req_email, department, req_date, event_title, event_date, event_time, event_location, cont_name, cont_phone, cont_email, announ_start, announ_end, announ_text);
 }
