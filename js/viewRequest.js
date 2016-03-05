@@ -178,6 +178,12 @@ $(document).ready(function() {
         window.open('login.html', '_self');
         return false;
     });
+    
+    $('#mobile_nav_logout').click(function() {
+        sessionStorage.clear();
+        window.open('login.html', '_self');
+        return false;
+    });
 
     // save button click /////////////////////////////////////////////////////
     $('#btn_save').click(function() {

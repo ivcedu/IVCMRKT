@@ -141,6 +141,12 @@ $(document).ready(function() {
         return false;
     });
     
+    $('#mobile_nav_logout').click(function() {
+        sessionStorage.clear();
+        window.open('login.html', '_self');
+        return false;
+    });
+    
     $('#btn_new_admin').click(function() {
         admin_id = "";
         resetModAdminInfo();

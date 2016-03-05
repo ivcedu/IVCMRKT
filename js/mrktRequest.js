@@ -148,6 +148,12 @@ $(document).ready(function() {
         return false;
     });
     
+    $('#mobile_nav_logout').click(function() {
+        sessionStorage.clear();
+        window.open('login.html', '_self');
+        return false;
+    });
+    
     // request type change event ///////////////////////////////////////////////
     $('#sel_request_type').change(function() {
         var req_type_id = $(this).val();
@@ -215,36 +221,45 @@ $(document).ready(function() {
     });
     
     // attachment 1 button click ///////////////////////////////////////////////
-    $('#attach_1').change(function() {
-        getImageFileInfo("#attach_1");
-        convertImageFiletoBase64("#attach_1");
-    });
+//    $('#attach_1').change(function() {
+//        getImageFileInfo("#attach_1");
+//        convertImageFiletoBase64("#attach_1");
+//    });
     
     // attachment 2 button click ///////////////////////////////////////////////
-    $('#attach_2').change(function() {
-        getImageFileInfo("#attach_2");
-        convertImageFiletoBase64("#attach_2");
-    });
+//    $('#attach_2').change(function() {
+//        getImageFileInfo("#attach_2");
+//        convertImageFiletoBase64("#attach_2");
+//    });
     
     // submit button click /////////////////////////////////////////////////////
-    $('#btn_submit').click(function() {  
-        if (mrktSubmit()) {
-            sendEmailSubmitted();
-            sendEmailToAdministrator();
-            swal({  title: "Submitted!", 
-                text: "Your request has been submitted successfuly", 
-                type: "success",
-                confirmButtonText: "OK",
-                closeOnConfirm: false 
-            }, 
-            function() {   
-                window.open('userReqList.html', '_self');
-                return false;
-            });
+    $('#btn_submit').click(function() {          
+        if (!requestValidation()) {
+            return false;
         }
-        else {
-            swal({title: "Error", text: "There was a system error. please conatact IT support at 949.451.5696 or ivctech@ivc.edu", type: "error"});
+        if (!deliveryValidation()) {
+            return false;
         }
+        
+        swal({title: "Success", text: "No request error", type: "success"});
+        
+//        if (mrktSubmit()) {
+//            sendEmailSubmitted();
+//            sendEmailToAdministrator();
+//            swal({  title: "Submitted!", 
+//                text: "Your request has been submitted successfuly", 
+//                type: "success",
+//                confirmButtonText: "OK",
+//                closeOnConfirm: false 
+//            }, 
+//            function() {   
+//                window.open('userReqList.html', '_self');
+//                return false;
+//            });
+//        }
+//        else {
+//            swal({title: "Error", text: "There was a system error. please conatact IT support at 949.451.5696 or ivctech@ivc.edu", type: "error"});
+//        }
     });
     
     // cancel button click /////////////////////////////////////////////////////
@@ -502,6 +517,72 @@ function convertImageFiletoBase64(id) {
     if (file) {
         reader.readAsDataURL(file);
     } 
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+function requestValidation() {
+    var err = "";
+    
+    if ($('#req_phone').val().replace(/\s+/g, '') === "") {
+        err += "Phone number is a required field\n";
+    }
+    if ($('#req_title').val().replace(/\s+/g, '') === "") {
+        err += "Request title is a required field\n";
+    }
+    if ($('#req_descrip').val().replace(/\s+/g, '') === "") {
+        err += "Request description is a required field\n";
+    }
+    if ($('#sel_request_type').val() === "0") {
+        err += "Request type is a required field\n";
+    }
+    if ($('#sel_delivery_type').val() === null || $('#sel_delivery_type').val() === "0") {
+        err += "Delivery type is a required field\n";
+    }
+
+    if (err !== "") {
+        swal({title: "Request Form Error", text: err, type: "error"});
+        return false;
+    }
+    else {
+        return true;
+    }
+}
+
+function deliveryValidation() {
+    var err = "";
+    var del_type_id = $('#sel_delivery_type').val();
+    
+    switch(del_type_id) {
+        case "1":
+            if(!$('#ckb_email').is(':checked') && !$('#ckb_newsfeed').is(':checked')) {
+                swal({title: "Sherpa Error", text: "Sherpa option is a required field", type: "error"});
+                return false;
+            }
+            else {
+                return true;
+            }
+            break;
+        case "2":
+            if(!$('#ckb_facebook').is(':checked') && !$('#ckb_twitter').is(':checked') && !$('#ckb_instagram').is(':checked')) {
+                swal({title: "Social Media Error", text: "Social Media option is a required field", type: "error"});
+                return false;
+            }
+            else {
+                return true;
+            }
+            break;
+        case "3":
+            if(!$('#ckb_bstic').is(':checked') && !$('#ckb_ssc').is(':checked') && !$('#ckb_lsb').is(':checked')) {
+                swal({title: "Digital Signage Error", text: "Digital Signage option is a required field", type: "error"});
+                return false;
+            }
+            else {
+                return true;
+            }
+            break;
+        default:
+            break;
+    }
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

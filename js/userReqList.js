@@ -139,6 +139,12 @@ $(document).ready(function() {
         return false;
     });
     
+    $('#mobile_nav_logout').click(function() {
+        sessionStorage.clear();
+        window.open('login.html', '_self');
+        return false;
+    });
+    
     // table wsample title click event /////////////////////////////////////////
     $('#tbl_user_req_list').on('click', 'a[id^="event_request_id_"]', function() {
         var event_request_id = $(this).attr('id').replace("event_request_id_", "");

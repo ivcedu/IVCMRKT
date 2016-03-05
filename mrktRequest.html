@@ -40,9 +40,21 @@
             </div>
             <nav role="navigation">
                 <div class="header-link hide-menu"><i class="fa fa-bars"></i></div>
+                <div class="mobile-menu">
+                    <button type="button" class="navbar-toggle mobile-menu-toggle" data-toggle="collapse" data-target="#mobile-collapse">
+                        <i class="fa fa-chevron-down"></i>
+                    </button>
+                    <div class="collapse mobile-navbar" id="mobile-collapse">
+                        <ul class="nav navbar-nav">
+                            <li>
+                                <a href=# id="mobile_nav_logout">Logout</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
                 <div class="navbar-right">
                     <ul class="nav navbar-nav no-borders">
-                        <li class="dropdown">
+                        <li  class="dropdown">
                             <a href="#" id="nav_logout">
                                 <i class="pe-7s-upload pe-rotate-90"></i>
                             </a>
@@ -79,7 +91,7 @@
         <div id="wrapper">
             <div class="content animate-panel">
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8">
                         <div class="hpanel hblue">
                             <div class="panel-heading">
                                 <h4>Marketing Announcement Request Form (All blue fields are required)</h4>
@@ -87,56 +99,56 @@
                             <div class="panel-body">
                                 <div class="container-fluid">
                                     <div class="row">
-                                        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2" style="padding-top: 7px;">Requestor Name:</div>
-                                        <div class="col-xs-8 col-sm-8 col-md-6 col-lg-4"><input class="form-control" type="text" readonly id="req_name"></div>
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="padding-top: 7px;">Requestor Name:</div>
+                                        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8"><input class="form-control" type="text" readonly id="req_name"></div>
                                     </div>
                                     <br/>
                                     <div class="row">
-                                        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2 text-info" style="padding-top: 7px;"><i class="fa fa-lightbulb-o"></i> Requestor Phone:</div>
-                                        <div class="col-xs-8 col-sm-8 col-md-6 col-lg-4"><input class="form-control" type="text" id="req_phone"></div>
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-info" style="padding-top: 7px;"><i class="fa fa-lightbulb-o"></i> Requestor Phone:</div>
+                                        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8"><input class="form-control" type="text" id="req_phone"></div>
                                     </div>
                                     <br/>
                                     <div class="row">
-                                        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2" style="padding-top: 7px;">Requestor Email:</div>
-                                        <div class="col-xs-8 col-sm-8 col-md-6 col-lg-4"><input class="form-control" type="text" readonly id="req_email"></div>
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="padding-top: 7px;">Requestor Email:</div>
+                                        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8"><input class="form-control" type="text" readonly id="req_email"></div>
                                     </div>
                                     <br/>
                                     <div class="row">
-                                        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2" style="padding-top: 7px;">Department:</div>
-                                        <div class="col-xs-8 col-sm-8 col-md-6 col-lg-4"><input class="form-control" type="text" readonly id="department"></div>
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="padding-top: 7px;">Department:</div>
+                                        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8"><input class="form-control" type="text" readonly id="department"></div>
                                     </div>
                                     <br/>
                                     <div class="row">
-                                        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2" style="padding-top: 7px;">Request Date:</div>
-                                        <div class="col-xs-8 col-sm-8 col-md-6 col-lg-4"><input class="form-control" type="text" readonly id="req_date"></div>
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="padding-top: 7px;">Request Date:</div>
+                                        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8"><input class="form-control" type="text" readonly id="req_date"></div>
                                     </div>
                                     <br/>
                                     <div class="row">
-                                        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2 text-info" style="padding-top: 7px;"><i class="fa fa-lightbulb-o"></i> Request Title:</div>
-                                        <div class="col-xs-8 col-sm-8 col-md-6 col-lg-4"><input class="form-control" type="text" id="req_title"></div>
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-info" style="padding-top: 7px;"><i class="fa fa-lightbulb-o"></i> Request Title:</div>
+                                        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8"><input class="form-control" type="text" id="req_title"></div>
                                     </div>
                                     <br/>
                                     <div class="row">
-                                        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2 text-info" style="padding-top: 7px;"><i class="fa fa-lightbulb-o"></i> Description:</div>
-                                        <div class="col-xs-8 col-sm-8 col-md-6 col-lg-4"><textarea class="form-control" style="height: 55px; resize: vertical;" id="req_descrip"></textarea></div>
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-info" style="padding-top: 7px;"><i class="fa fa-lightbulb-o"></i> Description:</div>
+                                        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8"><textarea class="form-control" style="height: 55px; resize: vertical;" id="req_descrip"></textarea></div>
                                     </div>
                                     <br/>
                                     <div class="row">
-                                        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2" style="padding-top: 7px;">Request Type:</div>
-                                        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2"><select class="selectpicker form-control" data-container="body" id="sel_request_type"></select></div>
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="padding-top: 7px;">Request Type:</div>
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4"><select class="selectpicker form-control" data-container="body" id="sel_request_type"></select></div>
                                     </div>
                                     <br/>
                                     <div class="row">
-                                        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2" style="padding-top: 7px;">Delivery Type:</div>
-                                        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2"><select class="selectpicker form-control" data-container="body" id="sel_delivery_type"></select></div>
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="padding-top: 7px;">Delivery Type:</div>
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4"><select class="selectpicker form-control" data-container="body" id="sel_delivery_type"></select></div>
                                     </div>
                                 </div>
                             </div>
                             <div class="panel-footer">
                                 <div class="container-fluid">
                                     <div class="row">
-                                        <button type="button" class="col-xs-4 col-sm-2 col-md-2 col-lg-1 btn btn-primary" id="btn_submit"><i class="fa fa-check"></i> Submit</button>
-                                        <button type="button" class="col-xs-4 col-xs-offset-4 col-sm-2 col-sm-offset-8 col-md-2 col-md-offset-5 col-lg-1 col-lg-offset-4 btn btn-warning2 " id="btn_cancel"><i class="fa fa-times"></i> Cancel</button>
+                                        <button type="button" class="col-xs-4 col-sm-4 col-md-4 col-lg-4 btn btn-primary" id="btn_submit"><i class="fa fa-check"></i> Submit</button>
+                                        <button type="button" class="col-xs-4 col-xs-offset-4 col-sm-4 col-sm-offset-4 col-md-4 col-md-offset-4 col-lg-4 col-lg-offset-4 btn btn-warning2 " id="btn_cancel"><i class="fa fa-times"></i> Cancel</button>
                                     </div>
                                 </div>
                             </div>
@@ -146,7 +158,7 @@
                 
                 <!-- attachment section 
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8">
                         <div class="hpanel hblue">
                             <div class="panel-heading">
                                 <h4>Attachment Section</h4>
@@ -154,12 +166,12 @@
                             <div class="panel-body">
                                 <div class="container-fluid">
                                     <div class="row">
-                                        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2" style="padding-top: 7px;">Attachment 1:</div>
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="padding-top: 7px;">Attachment 1:</div>
                                         <div class="col-xs-8 col-sm-8 col-md-6 col-lg-4"><input type="file" class="filestyle" accept="image/jpeg, image/jpg" data-buttonName="btn-primary" id="attach_1"></div>
                                     </div>
                                     <br/>
                                     <div class="row">
-                                        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2" style="padding-top: 7px;">Attachment 2:</div>
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="padding-top: 7px;">Attachment 2:</div>
                                         <div class="col-xs-8 col-sm-8 col-md-6 col-lg-4"><input type="file" class="filestyle" accept="image/jpeg, image/jpg" data-buttonName="btn-primary" id="attach_2"></div>
                                     </div>
                                 </div>
@@ -171,7 +183,7 @@
                 
                 <!-- delivery sherpa section -->
                 <div class="row" id="delivery_sherpa">
-                    <div class="col-md-12">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8">
                         <div class="hpanel hblue">
                             <div class="panel-heading">
                                 <h4>Delivery Sherpa Section</h4>
@@ -179,9 +191,9 @@
                             <div class="panel-body">
                                 <div class="container-fluid">
                                     <div class="row">
-                                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-2" style="padding-top: 7px;">Sherpa:</div>
-                                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-2"><label><input type="checkbox" class="i-checks" id="ckb_email"> Email</label></div>
-                                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-2"><label><input type="checkbox" class="i-checks" id="ckb_newsfeed"> Newsfeed</label></div>
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="padding-top: 7px;">Sherpa:</div>
+                                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2"><label><input type="checkbox" class="i-checks" id="ckb_email"> Email</label></div>
+                                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2"><label><input type="checkbox" class="i-checks" id="ckb_newsfeed"> Newsfeed</label></div>
                                     </div>
                                 </div>
                             </div>
@@ -191,7 +203,7 @@
                 
                 <!-- delivery social media section -->
                 <div class="row" id="delivery_social_media">
-                    <div class="col-md-12">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8">
                         <div class="hpanel hblue">
                             <div class="panel-heading">
                                 <h4>Delivery Social Media Section</h4>
@@ -199,10 +211,10 @@
                             <div class="panel-body">
                                 <div class="container-fluid">
                                     <div class="row">
-                                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-2" style="padding-top: 7px;">Social Media:</div>
-                                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-2"><label><input type="checkbox" class="i-checks" id="ckb_facebook"> Facebook</label></div>
-                                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-2"><label><input type="checkbox" class="i-checks" id="ckb_twitter"> Twitter</label></div>
-                                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-2"><label><input type="checkbox" class="i-checks" id="ckb_instagram"> Instagram</label></div>
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="padding-top: 7px;">Social Media:</div>
+                                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2"><label><input type="checkbox" class="i-checks" id="ckb_facebook"> Facebook</label></div>
+                                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2"><label><input type="checkbox" class="i-checks" id="ckb_twitter"> Twitter</label></div>
+                                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2"><label><input type="checkbox" class="i-checks" id="ckb_instagram"> Instagram</label></div>
                                     </div>
                                 </div>
                             </div>
@@ -212,7 +224,7 @@
                 
                 <!-- delivery digital signage section -->
                 <div class="row" id="delivery_digital_signage">
-                    <div class="col-md-12">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8">
                         <div class="hpanel hblue">
                             <div class="panel-heading">
                                 <h4>Delivery Digital Signage Section</h4>
@@ -220,10 +232,10 @@
                             <div class="panel-body">
                                 <div class="container-fluid">
                                     <div class="row">
-                                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-2" style="padding-top: 7px;">Digital Signage:</div>
-                                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-2"><label><input type="checkbox" class="i-checks" id="ckb_bstic"> BSTIC</label></div>
-                                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-2"><label><input type="checkbox" class="i-checks" id="ckb_ssc"> SSC</label></div>
-                                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-2"><label><input type="checkbox" class="i-checks" id="ckb_lsb"> LSB</label></div>
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="padding-top: 7px;">Digital Signage:</div>
+                                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2"><label><input type="checkbox" class="i-checks" id="ckb_bstic"> BSTIC</label></div>
+                                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2"><label><input type="checkbox" class="i-checks" id="ckb_ssc"> SSC</label></div>
+                                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2"><label><input type="checkbox" class="i-checks" id="ckb_lsb"> LSB</label></div>
                                     </div>
                                 </div>
                             </div>
@@ -233,7 +245,7 @@
                     
                 <!-- sherpa email section -->
                 <div class="row" id="sherpa_email_section">
-                    <div class="col-md-12">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8">
                         <div class="hpanel hblue">
                             <div class="panel-heading">
                                 <h4>Sherpa Email Section</h4>
@@ -241,13 +253,13 @@
                             <div class="panel-body">
                                 <div class="container-fluid">
                                     <div class="row">
-                                        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2 text-info" style="padding-top: 7px;"><i class="fa fa-lightbulb-o"></i> Subject:</div>
-                                        <div class="col-xs-8 col-sm-8 col-md-6 col-lg-4"><input class="form-control" type="text" id="email_subject"></div>
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-info" style="padding-top: 7px;"><i class="fa fa-lightbulb-o"></i> Subject:</div>
+                                        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8"><input class="form-control" type="text" id="email_subject"></div>
                                     </div>
                                     <br>
                                     <div class="row">
-                                        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2 text-info" style="padding-top: 7px;"><i class="fa fa-lightbulb-o"></i> Body:</div>
-                                        <div class="col-xs-8 col-sm-8 col-md-6 col-lg-4"><textarea class="form-control" style="height: 55px; resize: vertical;" id="email_body"></textarea></div>
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-info" style="padding-top: 7px;"><i class="fa fa-lightbulb-o"></i> Body:</div>
+                                        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8"><textarea class="form-control" style="height: 55px; resize: vertical;" id="email_body"></textarea></div>
                                     </div>
                                 </div>
                             </div>
@@ -257,7 +269,7 @@
                  
                 <!-- sherpa newsfeed section -->
                 <div class="row" id="sherpa_newsfeed_section">
-                    <div class="col-md-12">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8">
                         <div class="hpanel hblue">
                             <div class="panel-heading">
                                 <h4>Sherpa Newsfeed Section</h4>
@@ -265,11 +277,11 @@
                             <div class="panel-body">
                                 <div class="container-fluid">
                                     <div class="row">                                        
-                                        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2 text-info" style="padding-top: 7px;"><i class="fa fa-lightbulb-o"></i> Announcement Start:</div>
-                                        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2 Z-IndexFront">
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-info" style="padding-top: 7px;"><i class="fa fa-lightbulb-o"></i> Announcement Start:</div>
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 Z-IndexFront">
                                             <input class="form-control" type="text" placeholder="click here to select date" readonly id="announ_start_date">
                                         </div>
-                                        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2 Z-IndexFront">
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 Z-IndexFront">
                                             <div class="input-group bootstrap-timepicker">
                                                 <input class="form-control input-small" type="text" readonly id="announ_start_time">
                                                 <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
@@ -278,11 +290,11 @@
                                     </div>
                                     <br>
                                     <div class="row">                                        
-                                        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2 text-info" style="padding-top: 7px;"><i class="fa fa-lightbulb-o"></i> Announcement End:</div>
-                                        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2 Z-IndexFront">
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-info" style="padding-top: 7px;"><i class="fa fa-lightbulb-o"></i> Announcement End:</div>
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 Z-IndexFront">
                                             <input class="form-control" type="text" placeholder="click here to select date" readonly id="announ_end_date">
                                         </div>
-                                        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2 Z-IndexFront">
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 Z-IndexFront">
                                             <div class="input-group bootstrap-timepicker">
                                                 <input class="form-control input-small" type="text" readonly id="announ_end_time">
                                                 <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
@@ -291,40 +303,40 @@
                                     </div>
                                     <br>
                                     <div class="row">
-                                        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2 text-info" style="padding-top: 7px;"><i class="fa fa-lightbulb-o"></i> Alternate Name:</div>
-                                        <div class="col-xs-8 col-sm-8 col-md-6 col-lg-4"><input class="form-control" type="text" id="alt_name"></div>
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-info" style="padding-top: 7px;"><i class="fa fa-lightbulb-o"></i> Alternate Name:</div>
+                                        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8"><input class="form-control" type="text" id="alt_name"></div>
                                     </div>
                                     <br/>
                                     <div class="row">
-                                        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2 text-info" style="padding-top: 7px;"><i class="fa fa-lightbulb-o"></i> Alternate Phone:</div>
-                                        <div class="col-xs-8 col-sm-8 col-md-6 col-lg-4"><input class="form-control" type="text" id="alt_phone"></div>
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-info" style="padding-top: 7px;"><i class="fa fa-lightbulb-o"></i> Alternate Phone:</div>
+                                        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8"><input class="form-control" type="text" id="alt_phone"></div>
                                     </div>
                                     <br/>
                                     <div class="row">
-                                        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2 text-info" style="padding-top: 7px;"><i class="fa fa-lightbulb-o"></i> Alternate Email:</div>
-                                        <div class="col-xs-8 col-sm-8 col-md-6 col-lg-4"><input class="form-control" type="text" id="alt_email"></div>
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-info" style="padding-top: 7px;"><i class="fa fa-lightbulb-o"></i> Alternate Email:</div>
+                                        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8"><input class="form-control" type="text" id="alt_email"></div>
                                     </div>
                                     <br/>
                                     <div class="row">
-                                        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2 text-info" style="padding-top: 7px;"><i class="fa fa-lightbulb-o"></i> Event Title:</div>
-                                        <div class="col-xs-8 col-sm-8 col-md-6 col-lg-4"><input class="form-control" type="text" id="event_title"></div>
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-info" style="padding-top: 7px;"><i class="fa fa-lightbulb-o"></i> Event Title:</div>
+                                        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8"><input class="form-control" type="text" id="event_title"></div>
                                     </div>
                                     <br>
                                     <div class="row">
-                                        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2 text-info" style="padding-top: 7px;"><i class="fa fa-lightbulb-o"></i> Event Location:</div>
-                                        <div class="col-xs-8 col-sm-8 col-md-6 col-lg-4"><input class="form-control" type="text" id="event_location"></div>
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-info" style="padding-top: 7px;"><i class="fa fa-lightbulb-o"></i> Event Location:</div>
+                                        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8"><input class="form-control" type="text" id="event_location"></div>
                                     </div>
                                     <br>
                                     <div class="row">
-                                        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2 text-info" style="padding-top: 7px;"><i class="fa fa-lightbulb-o"></i> Announcement Text:</div>
-                                        <div class="col-xs-8 col-sm-8 col-md-6 col-lg-4">
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-info" style="padding-top: 7px;"><i class="fa fa-lightbulb-o"></i> Announcement Text:</div>
+                                        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
                                             <textarea class="form-control" style="height: 55px; resize: vertical;" placeholder="130 characters limit" id="announ_text"></textarea>
                                         </div>
                                     </div>
                                     <br>
                                     <div class="row">
-                                        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2 text-info" style="padding-top: 7px;"><i class="fa fa-lightbulb-o"></i> Description:</div>
-                                        <div class="col-xs-8 col-sm-8 col-md-6 col-lg-4">
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-info" style="padding-top: 7px;"><i class="fa fa-lightbulb-o"></i> Description:</div>
+                                        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
                                             <textarea class="form-control" style="height: 55px; resize: vertical;" id="announ_descrip"></textarea>
                                         </div>
                                     </div>
