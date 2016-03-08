@@ -8,7 +8,7 @@ var m_base64_data_2 = "";
 window.onload = function() {    
     if (sessionStorage.key(0) !== null) {
         hideAllDeliverySection();
-        hideAllOptionSections();
+        hideAllOptionSection();
     
         isLoginAdmin();
         getLoginInfo();
@@ -240,26 +240,27 @@ $(document).ready(function() {
         if (!deliveryValidation()) {
             return false;
         }
+        if (!optionValidation()) {
+            return false;
+        }
         
-        swal({title: "Success", text: "No request error", type: "success"});
-        
-//        if (mrktSubmit()) {
-//            sendEmailSubmitted();
-//            sendEmailToAdministrator();
-//            swal({  title: "Submitted!", 
-//                text: "Your request has been submitted successfuly", 
-//                type: "success",
-//                confirmButtonText: "OK",
-//                closeOnConfirm: false 
-//            }, 
-//            function() {   
-//                window.open('userReqList.html', '_self');
-//                return false;
-//            });
-//        }
-//        else {
-//            swal({title: "Error", text: "There was a system error. please conatact IT support at 949.451.5696 or ivctech@ivc.edu", type: "error"});
-//        }
+        if (mrktSubmit()) {
+            sendEmailSubmitted();
+            sendEmailToAdministrator();
+            swal({  title: "Submitted!", 
+                text: "Your request has been submitted successfuly", 
+                type: "success",
+                confirmButtonText: "OK",
+                closeOnConfirm: false 
+            }, 
+            function() {   
+                window.open('userReqList.html', '_self');
+                return false;
+            });
+        }
+        else {
+            swal({title: "Error", text: "There was a system error. please conatact IT support at 949.451.5696 or ivctech@ivc.edu", type: "error"});
+        }
     });
     
     // cancel button click /////////////////////////////////////////////////////
@@ -272,6 +273,7 @@ $(document).ready(function() {
     $('.selectpicker').selectpicker();
     
     // bootstrap datepicker
+    $('#email_send_date').datepicker();
     $('#announ_start_date').datepicker();
     $('#announ_end_date').datepicker();
     
@@ -371,7 +373,7 @@ function hideAllDeliverySection() {
     $('#delivery_digital_signage').hide();
 }
 
-function hideAllOptionSections() {
+function hideAllOptionSection() {
     $('#sherpa_email_section').hide();
     $('#sherpa_newsfeed_section').hide();
 }
@@ -411,9 +413,9 @@ function getLoginInfo() {
     $('#department').val(sessionStorage.getItem('ss_mrkt_department'));
     $('#req_date').val(getToday());
     
+    $('#email_send_date').datepicker("option", "minDate", "+14d");
     $('#announ_start_date').datepicker("option", "minDate", "+14d");
     $('#announ_end_date').datepicker("option", "minDate", "+14d");
-//    $('#event_date').datepicker("option", "minDate", "+28d");
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -450,7 +452,7 @@ function getDeliveryTypeList(req_type_id) {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function deliveryOptions(del_type_id) {
     hideAllDeliverySection();
-    hideAllOptionSections();
+    hideAllOptionSection();
     clearAllCheckBox();
 
     switch(del_type_id) {
@@ -519,6 +521,7 @@ function convertImageFiletoBase64(id) {
     } 
 }
 
+// user input validation ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function requestValidation() {
     var err = "";
@@ -549,9 +552,7 @@ function requestValidation() {
 }
 
 function deliveryValidation() {
-    var err = "";
     var del_type_id = $('#sel_delivery_type').val();
-    
     switch(del_type_id) {
         case "1":
             if(!$('#ckb_email').is(':checked') && !$('#ckb_newsfeed').is(':checked')) {
@@ -585,44 +586,153 @@ function deliveryValidation() {
     }
 }
 
+function optionValidation() {
+    var del_type_id = $('#sel_delivery_type').val();
+    switch(del_type_id) {
+        case "1":
+            if ($('#ckb_email').is(':checked')) {
+                if (!sherpaEmailValidation()) {
+                    return false;
+                }
+            }
+            if ($('#ckb_newsfeed').is(':checked')) {
+                if (!sherpaNewsfeedValidation()) {
+                    return false;
+                }
+            }
+            return true;
+            break;
+        default:
+            break;
+    }
+}
+
+function sherpaEmailValidation() {
+    var err = "";
+ 
+    if ($('#email_send_date').val() === "") {
+        err += "Email send date is a required field\n";
+    }
+    if ($('#email_subject').val().replace(/\s+/g, '') === "") {
+        err += "Email subject is a required field\n";
+    }
+    if ($('#email_body').val().replace(/\s+/g, '') === "") {
+        err += "Email body is a required field\n";
+    }
+    
+    if (err !== "") {
+        swal({title: "Sherpa Email Error", text: err, type: "error"});
+        return false;
+    }
+    else {
+        return true;
+    }
+}
+
+function sherpaNewsfeedValidation() {
+    var err = "";
+ 
+    if ($('#announ_start_date').val() === "") {
+        err += "Start date is a required field\n";
+    }
+    if ($('#announ_start_time').val() === "") {
+        err += "Start time is a required field\n";
+    }
+    if ($('#announ_end_date').val() === "") {
+        err += "End date is a required field\n";
+    }
+    if ($('#announ_end_time').val() === "") {
+        err += "End time is a required field\n";
+    }
+    if ($('#alt_name').val().replace(/\s+/g, '') === "") {
+        err += "Alternate name is a required field\n";
+    }
+    if ($('#alt_email').val().replace(/\s+/g, '') === "") {
+        err += "Alternate email is a required field\n";
+    }
+    else {
+        if (!isValidEmailAddress($('#alt_email').val())) {
+            err += "Alternate email is an INVALID\n";
+        }
+    }
+    if ($('#alt_phone').val().replace(/[^0-9\.]/g, '') === "") {
+        err += "Alternate phone is a required field\n";
+    }
+    if ($('#event_title').val().replace(/\s+/g, '') === "") {
+        err += "Event title is a required field\n";
+    }
+    if ($('#event_location').val().replace(/\s+/g, '') === "") {
+        err += "Event location is a required field\n";
+    }
+    if ($('#announ_text').val().replace(/\s+/g, '') === "") {
+        err += "Announcement text is a required field\n";
+    }
+    if ($('#announ_descrip').val().replace(/\s+/g, '') === "") {
+        err += "Description is a required field\n";
+    }
+    
+    if (err !== "") {
+        swal({title: "Sherpa Newsfeed Error", text: err, type: "error"});
+        return false;
+    }
+    else {
+        return true;
+    }
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function mrktSubmit() {
     var event_request_id = insertEventRequest();
-    insertAttachment(event_request_id);
-    if (insertSherpa(event_request_id) === "") {
-        return false;
-    }
-    if (insertSocialMedia(event_request_id) === "") {
-        return false;
-    }
-    if (insertDigitalSignage(event_request_id) === "") {
-        return false;
-    }
-    if (insertTransaction(event_request_id) === "") {
+    if (event_request_id === "") {
         return false;
     }
     
+    var del_type_id = $('#sel_delivery_type').val();
+    switch(del_type_id) {
+        case "1":
+            if (insertSherpa(event_request_id) === "") {
+                return false;
+            }
+            
+            if ($('#ckb_email').is(':checked')) {
+                if (insertEventEmail(event_request_id) === "") {
+                    return false;
+                }
+            }
+            if ($('#ckb_newsfeed').is(':checked')) {
+                if (insertEventNewsFeed(event_request_id) === "") {
+                    return false;
+                }
+            }
+            break;
+        case "2":
+            insertSocialMedia(event_request_id);
+            break;
+        case "3":
+            insertDigitalSignage(event_request_id);
+            break;
+        default:
+            break;
+    }
+    
+    insertTransaction(event_request_id);
     return true;
 }
 
 function insertEventRequest() {
-//    var req_name = textReplaceApostrophe($('#req_name').val());
-//    var req_phone = textReplaceApostrophe($('#req_phone').val());
-//    var req_email = textReplaceApostrophe($('#req_email').val());
-//    var department = textReplaceApostrophe($('#department').val());
-//    var req_date = $('#req_date').val();
-//    var event_title = textReplaceApostrophe($('#event_title').val());
-//    var event_date = $('#event_date').val();
-//    var event_time = $('#event_time').val();
-//    var event_location = textReplaceApostrophe($('#event_location').val());
-//    var cont_name = textReplaceApostrophe($('#cont_name').val());
-//    var cont_phone = textReplaceApostrophe($('#cont_phone').val());
-//    var cont_email = textReplaceApostrophe($('#cont_email').val());
-//    var announ_start = $('#announ_start').val();
-//    var announ_end = $('#announ_end').val();
-//    var announ_text = textReplaceApostrophe($('#announ_text').val());
+    var req_type_id = $('#sel_request_type').val();
+    var del_type_id = $('#sel_delivery_type').val();
+    var status_id = 1;
+    var req_name = textReplaceApostrophe($.trim($('#req_name').val()));
+    var req_phone = textReplaceApostrophe($.trim($('#req_phone').val()));
+    var req_email = textReplaceApostrophe($.trim($('#req_email').val()));
+    var department = textReplaceApostrophe($.trim($('#department').val()));
+    var req_date = $('#req_date').val();
+    var req_title = textReplaceApostrophe($.trim($('#req_title').val()));
+    var req_descrip = textReplaceApostrophe($.trim($('#req_descrip').val()));
     
-//    return db_insertEventRequest(1, req_name, req_phone, req_email, department, req_date, event_title, event_date, event_time, event_location, cont_name, cont_phone, cont_email, announ_start, announ_end, announ_text);
+    return db_insertEventRequest(req_type_id, del_type_id, status_id, req_name, req_phone, req_email, department, req_date, req_title, req_descrip);
 }
 
 function insertAttachment(event_request_id) {
@@ -634,6 +744,7 @@ function insertAttachment(event_request_id) {
     }
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function insertSherpa(event_request_id) {
     var ckb_email = $('#ckb_email').is(':checked');
     var ckb_newsfeed = $('#ckb_newsfeed').is(':checked');
@@ -657,6 +768,32 @@ function insertDigitalSignage(event_request_id) {
     return db_insertDigitalSignage(event_request_id, ckb_bstic, ckb_ssc, ckb_lsb);
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+function insertEventEmail(event_request_id) {
+    var send_date = $('#email_send_date').val();
+    var subject = textReplaceApostrophe($.trim($('#email_subject').val()));
+    var body = textReplaceApostrophe($.trim($('#email_body').val()));
+    
+    return db_insertEventEmail(event_request_id, send_date, subject, body);
+}
+
+function insertEventNewsFeed(event_request_id) {
+    var ann_start_date = $('#announ_start_date').val();
+    var ann_start_time = $('#announ_start_time').val();
+    var ann_end_date = $('#announ_end_date').val();
+    var ann_end_time = $('#announ_end_time').val();
+    var alt_name = textReplaceApostrophe($.trim($('#alt_name').val()));
+    var alt_email = textReplaceApostrophe($.trim($('#alt_email').val()));
+    var alt_phone = textReplaceApostrophe($.trim($('#alt_phone').val()));
+    var ann_title = textReplaceApostrophe($.trim($('#event_title').val()));
+    var ann_location = textReplaceApostrophe($.trim($('#event_location').val()));
+    var ann_text = textReplaceApostrophe($.trim($('#announ_text').val()));
+    var description = textReplaceApostrophe($.trim($('#announ_descrip').val()));
+    
+    return db_insertEventNewsFeed(event_request_id, ann_start_date, ann_start_time, ann_end_date, ann_end_time, alt_name, alt_email, alt_phone, ann_title, ann_location, ann_text, description);
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function insertTransaction(event_request_id) {
     var login_name = sessionStorage.getItem('ss_mrkt_loginName');
     
@@ -684,5 +821,7 @@ function sendEmailToAdministrator() {
     var subject = "New Marketing Announcement Request";
     var message = "You have a new request.";
     
+    // testing
+    admin_email = "presidenttest@ivc.edu";
     proc_sendEmail(admin_email, admin_name, "", "", subject, message);
 }

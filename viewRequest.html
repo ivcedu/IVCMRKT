@@ -23,7 +23,7 @@
         <!-- application css -->
         <link rel="stylesheet" href="css/popup-z-Index.css">
     </head>
-    <body>
+    <body class="fixed-navbar fixed-sidebar">
         <!-- Simple splash screen-->
         <div class="splash">
             <div class="color-line"></div>
@@ -92,176 +92,267 @@
             <div class="content animate-panel">
                 <!-- admin section -->
                 <div class="row" id="admin_section">
-                    <div class="col-md-12">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8">
                         <div class="hpanel hgreen">
                             <div class="panel-heading">
-                                Administrator Section
+                                <div class="panel-tools"><a class="showhide"><i class="fa fa-chevron-up"></i></a></div>
+                                <h4>Administrator Section</h4>
                             </div>
                             <div class="panel-body">
                                 <div class="container-fluid">
                                     <div class="row">
-                                        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2" style="padding-top: 7px;">Status:</div>
-                                        <div class="col-xs-8 col-sm-8 col-md-6 col-lg-4 Z-IndexFront">
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="padding-top: 7px;">Status:</div>
+                                        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 Z-IndexFront">
                                             <select class="selectpicker form-control" id="req_status"></select>
                                         </div>
                                     </div>
                                     <br/>
                                     <div class="row">
-                                        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2" style="padding-top: 7px;">Comments:</div>
-                                        <div class="col-xs-8 col-sm-8 col-md-6 col-lg-4">
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="padding-top: 7px;">Comments:</div>
+                                        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
                                             <textarea class="form-control" style="height: 55px; resize: vertical;" id="req_comments"></textarea>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="panel-footer">
-                                <button type="button" class="btn btn-primary" id="btn_save"><i class="fa fa-check"></i> Save</button>
-                                <button type="button" class="btn btn-warning2 pull-right" id="btn_cancel"><i class="fa fa-times"></i> Cancel</button>
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <button type="button" class="col-xs-4 col-sm-4 col-md-4 col-lg-4 btn btn-primary" id="btn_save"><i class="fa fa-check"></i> Save</button>
+                                        <button type="button" class="col-xs-4 col-xs-offset-4 col-sm-4 col-sm-offset-4 col-md-4 col-md-offset-4 col-lg-4 col-lg-offset-4 btn btn-warning2 pull-right" id="btn_cancel"><i class="fa fa-times"></i> Cancel</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- print view section -->
+                <!-- event request section -->
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8">
                         <div class="hpanel hblue">
                             <div class="panel-heading">
                                 <div class="panel-tools"><a class="showhide"><i class="fa fa-chevron-up"></i></a></div>
-                                Marketing Announcement Request
+                                <h4>Marketing Announcement Request Form</h4>
                             </div>
                             <div class="panel-body">
                                 <div class="container-fluid">
                                     <div class="row">
-                                        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2">Requestor Name:</div>
-                                        <div class="col-xs-8 col-sm-8 col-md-6 col-lg-4" id="req_name"></div>
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="padding-top: 7px;">Requestor Name:</div>
+                                        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8" id="req_name"></div>
                                     </div>
                                     <br/>
                                     <div class="row">
-                                        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2">Requestor Phone:</div>
-                                        <div class="col-xs-8 col-sm-8 col-md-6 col-lg-4" id="req_phone"></div>
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="padding-top: 7px;">Requestor Phone:</div>
+                                        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8" id="req_phone"></div>
                                     </div>
                                     <br/>
                                     <div class="row">
-                                        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2">Requestor Email:</div>
-                                        <div class="col-xs-8 col-sm-8 col-md-6 col-lg-4" id="req_email"></div>
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="padding-top: 7px;">Requestor Email:</div>
+                                        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8" id="req_email"></div>
                                     </div>
                                     <br/>
                                     <div class="row">
-                                        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2">Department:</div>
-                                        <div class="col-xs-8 col-sm-8 col-md-6 col-lg-4" id="department"></div>
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="padding-top: 7px;">Department:</div>
+                                        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8" id="department"></div>
                                     </div>
                                     <br/>
                                     <div class="row">
-                                        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2">Request Date:</div>
-                                        <div class="col-xs-8 col-sm-8 col-md-6 col-lg-4" id="req_date"></div>
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="padding-top: 7px;">Request Date:</div>
+                                        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8" id="req_date"></div>
                                     </div>
                                     <br/>
                                     <div class="row">
-                                        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2">Announcement Start:</div>
-                                        <div class="col-xs-8 col-sm-8 col-md-6 col-lg-4" id="announ_start"></div>
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="padding-top: 7px;">Request Title:</div>
+                                        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8" id="req_title"></div>
                                     </div>
                                     <br/>
                                     <div class="row">
-                                        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2">Announcement End:</div>
-                                        <div class="col-xs-8 col-sm-8 col-md-6 col-lg-4" id="announ_end"></div>
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="padding-top: 7px;">Description:</div>
+                                        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8" id="req_descrip"></div>
                                     </div>
                                     <br/>
                                     <div class="row">
-                                        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2">Event Title:</div>
-                                        <div class="col-xs-8 col-sm-8 col-md-6 col-lg-4" id="event_title"></div>
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="padding-top: 7px;">Request Type:</div>
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" id="sel_request_type"></div>
                                     </div>
                                     <br/>
                                     <div class="row">
-                                        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2">Event Date/Time:</div>
-                                        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2" id="event_date"></div>
-                                        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2" id="event_time"></div>
-                                    </div>
-                                    <br/>
-                                    <div class="row">
-                                        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2">Event Location:</div>
-                                        <div class="col-xs-8 col-sm-8 col-md-6 col-lg-4" id="event_location"></div>
-                                    </div>
-                                    <br/>
-                                    <div class="row">
-                                        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2">Contact Name:</div>
-                                        <div class="col-xs-8 col-sm-8 col-md-6 col-lg-4" id="cont_name"></div>
-                                    </div>
-                                    <br/>
-                                    <div class="row">
-                                        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2">Contact Phone:</div>
-                                        <div class="col-xs-8 col-sm-8 col-md-6 col-lg-4" id="cont_phone"></div>
-                                    </div>
-                                    <br/>
-                                    <div class="row">
-                                        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2">Contact Email:</div>
-                                        <div class="col-xs-8 col-sm-8 col-md-6 col-lg-4" id="cont_email"></div>
-                                    </div>
-                                    <br/>
-                                    <div class="row">
-                                        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2">Attachment 1:</div>
-                                        <div class="col-xs-8 col-sm-8 col-md-6 col-lg-4"><a href="#" id="attach_1"></a></div>
-                                    </div>
-                                    <br/>
-                                    <div class="row">
-                                        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2">Attachment 2:</div>
-                                        <div class="col-xs-8 col-sm-8 col-md-6 col-lg-4"><a href="#" id="attach_2"></a></div>
-                                    </div>
-                                    <br/>
-                                    <div class="row">
-                                        <div class="col-md-12">Provide text exactly as you would like it to appears. Marketing will edit (1000 character limit):</div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-xs-12 col-sm-12 col-md-9 col-lg-6" id="announ_text"></div>
-                                    </div>
-                                    <br/>
-                                    <div class="row">
-                                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-2" style="padding-top: 7px;">Sherpa:</div>
-                                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-2"><label><input type="checkbox" class="i-checks" disabled id="ckb_email"> Email</label></div>
-                                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-2"><label><input type="checkbox" class="i-checks" disabled id="ckb_newsfeed"> Newsfeed</label></div>
-                                    </div>
-                                    <br/>
-                                    <div class="row">
-                                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-2" style="padding-top: 7px;">Social Media:</div>
-                                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-2"><label><input type="checkbox" class="i-checks" disabled id="ckb_facebook"> Facebook</label></div>
-                                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-2"><label><input type="checkbox" class="i-checks" disabled id="ckb_twitter"> Twitter</label></div>
-                                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-2"><label><input type="checkbox" class="i-checks" disabled id="ckb_instagram"> Instagram</label></div>
-                                    </div>
-                                    <br/>
-                                    <div class="row">
-                                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-2" style="padding-top: 7px;">Digital Signage:</div>
-                                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-2"><label><input type="checkbox" class="i-checks" disabled id="ckb_bstic"> BSTIC</label></div>
-                                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-2"><label><input type="checkbox" class="i-checks" disabled id="ckb_ssc"> SSC</label></div>
-                                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-2"><label><input type="checkbox" class="i-checks" disabled id="ckb_lsb"> LSB</label></div>
-                                    </div>
-                                    <br/>
-                                    <div class="row">
-                                        <div class="col-xs-12 col-sm-12 col-md-9 col-lg-6">
-                                            <b><i>Please Note: This is only a request and does not guarantee placement. Marketing reserves the right to determine final placement of announcements.</i></b>
-                                        </div>
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="padding-top: 7px;">Delivery Type:</div>
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" id="sel_delivery_type"></div>
                                     </div>
                                 </div>
                             </div>
                             <div class="panel-footer">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- delivery sherpa section -->
+                <div class="row" id="delivery_sherpa">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8">
+                        <div class="hpanel hblue">
+                            <div class="panel-heading">
+                                <div class="panel-tools"><a class="showhide"><i class="fa fa-chevron-up"></i></a></div>
+                                <h4>Delivery Sherpa Section</h4>
+                            </div>
+                            <div class="panel-body">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="padding-top: 7px;">Sherpa:</div>
+                                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2"><label><input type="checkbox" class="i-checks" id="ckb_email"> Email</label></div>
+                                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2"><label><input type="checkbox" class="i-checks" id="ckb_newsfeed"> Newsfeed</label></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- delivery social media section -->
+                <div class="row" id="delivery_social_media">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8">
+                        <div class="hpanel hblue">
+                            <div class="panel-heading">
+                                <div class="panel-tools"><a class="showhide"><i class="fa fa-chevron-up"></i></a></div>
+                                <h4>Delivery Social Media Section</h4>
+                            </div>
+                            <div class="panel-body">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="padding-top: 7px;">Social Media:</div>
+                                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2"><label><input type="checkbox" class="i-checks" id="ckb_facebook"> Facebook</label></div>
+                                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2"><label><input type="checkbox" class="i-checks" id="ckb_twitter"> Twitter</label></div>
+                                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2"><label><input type="checkbox" class="i-checks" id="ckb_instagram"> Instagram</label></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- delivery digital signage section -->
+                <div class="row" id="delivery_digital_signage">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8">
+                        <div class="hpanel hblue">
+                            <div class="panel-heading">
+                                <div class="panel-tools"><a class="showhide"><i class="fa fa-chevron-up"></i></a></div>
+                                <h4>Delivery Digital Signage Section</h4>
+                            </div>
+                            <div class="panel-body">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="padding-top: 7px;">Digital Signage:</div>
+                                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2"><label><input type="checkbox" class="i-checks" id="ckb_bstic"> BSTIC</label></div>
+                                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2"><label><input type="checkbox" class="i-checks" id="ckb_ssc"> SSC</label></div>
+                                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2"><label><input type="checkbox" class="i-checks" id="ckb_lsb"> LSB</label></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- sherpa email section -->
+                <div class="row" id="sherpa_email_section">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8">
+                        <div class="hpanel hblue">
+                            <div class="panel-heading">
+                                <div class="panel-tools"><a class="showhide"><i class="fa fa-chevron-up"></i></a></div>
+                                <h4>Sherpa Email Section</h4>
+                            </div>
+                            <div class="panel-body">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="padding-top: 7px;">Send Date:</div>
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" id="email_send_date"></div>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="padding-top: 7px;">Subject:</div>
+                                        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8" id="email_subject"></div>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="padding-top: 7px;">Body:</div>
+                                        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8" id="email_body"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- sherpa newsfeed section -->
+                <div class="row" id="sherpa_newsfeed_section">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8">
+                        <div class="hpanel hblue">
+                            <div class="panel-heading">
+                                <div class="panel-tools"><a class="showhide"><i class="fa fa-chevron-up"></i></a></div>
+                                <h4>Sherpa Newsfeed Section</h4>
+                            </div>
+                            <div class="panel-body">
+                                <div class="container-fluid">
+                                    <div class="row">                                        
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="padding-top: 7px;">Announcement Start:</div>
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" id="announ_start_date"></div>
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" id="announ_start_time"></div>
+                                    </div>
+                                    <br>
+                                    <div class="row">                                        
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="padding-top: 7px;">Announcement End:</div>
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" id="announ_end_date"></div>
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" id="announ_end_time"></div>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="padding-top: 7px;">Alternate Name:</div>
+                                        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8" id="alt_name"></div>
+                                    </div>
+                                    <br/>
+                                    <div class="row">
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="padding-top: 7px;">Alternate Email:</div>
+                                        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8" id="alt_email"></div>
+                                    </div>
+                                    <br/>
+                                    <div class="row">
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="padding-top: 7px;">Alternate Phone:</div>
+                                        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8" id="alt_phone"></div>
+                                    </div>
+                                    <br/>
+                                    <div class="row">
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="padding-top: 7px;">Event Title:</div>
+                                        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8" id="event_title"></div>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="padding-top: 7px;">Event Location:</div>
+                                        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8" id="event_location"></div>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="padding-top: 7px;">Announcement Text:</div>
+                                        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8" id="announ_text"></div>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="padding-top: 7px;">Description:</div>
+                                        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8" id="announ_descrip"></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <!-- transaction history -->
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8">
                         <div class="hpanel hyellow">
                             <div class="panel-heading">
                                 <div class="panel-tools"><a class="showhide"><i class="fa fa-chevron-up"></i></a></div>
-                                Transaction History
+                                <h4>Transaction History</h4>
                             </div>
                             <div class="panel-body">
                                 <div class="container-fluid">
                                     <div class="row">
-                                        <div class="col-xs-12 col-sm-12 col-md-9 col-lg-6" id="transaction_history"></div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="transaction_history"></div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="panel-footer">
                             </div>
                         </div>
                     </div>

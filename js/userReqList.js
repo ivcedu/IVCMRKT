@@ -1,6 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 window.onload = function() {
     if (sessionStorage.key(0) !== null) {
+        isLoginAdmin();
         getLoginInfo();
         getUserReqList();
     }
@@ -232,6 +233,18 @@ $.fn['animatePanel'] = function() {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+function isLoginAdmin() {
+    var result = new Array();
+    result = db_getAdminByEmail(sessionStorage.getItem('ss_mrkt_loginEmail'));
+    
+    if (result.length === 1) {
+        $('#menu_administrator').show();
+    }
+    else {
+        $('#menu_administrator').hide();
+    }
+}
+
 function getLoginInfo() {
     var login_name = sessionStorage.getItem('ss_mrkt_loginName');
     $('#login_user').html(login_name);
@@ -245,19 +258,21 @@ function getUserReqList() {
     $('#tbl_body').empty();
     var html = "";
     for (var i = 0; i < result.length; i++) {
-        html += setUserReqListHTML(result[i]['EventRequestID'], result[i]['EventTitle'], result[i]['EventDate'] + " " + result[i]['EventTime'], result[i]['Status']);
+        html += setUserReqListHTML(result[i]['EventRequestID'], result[i]['ReqTitle'], result[i]['ReqDate'], result[i]['Status'], result[i]['RequestType'], result[i]['DeliveryType']);
     }
     $('#tbl_body').append(html);
     
     $('.animate-panel').animatePanel();
 }
 
-function setUserReqListHTML(event_request_id, event_title, event_dt, status) {                                
+function setUserReqListHTML(event_request_id, req_title, req_date, status, req_type, del_type) {                                
     var html = "<tr>";
     html += "<td>" + event_request_id + "</td>";
-    html += "<td><a href=# id='event_request_id_" + event_request_id + "'>" + event_title + "</a></td>";
-    html += "<td>" + event_dt + "</td>";
+    html += "<td><a href=# id='event_request_id_" + event_request_id + "'>" + req_title + "</a></td>";
+    html += "<td>" + req_date + "</td>";
     html += "<td>" + status + "</td>";
+    html += "<td>" + req_type + "</td>";
+    html += "<td>" + del_type + "</td>";
     html += "</tr>";
     
     return html;

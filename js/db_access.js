@@ -192,6 +192,76 @@ function db_getDeliveryTypeList(RequestTypeID) {
     return result;
 }
 
+function db_getSherpa(EventRequestID) {
+    var result = new Array();
+    $.ajax({
+        type:"POST",
+        url:"php/db_getSherpa.php",
+        data:{EventRequestID:EventRequestID},
+        async: false,  
+        success:function(data) {
+            result = JSON.parse(data);
+        }
+    });
+    return result;
+}
+
+function db_getEventEmail(EventRequestID) {
+    var result = new Array();
+    $.ajax({
+        type:"POST",
+        url:"php/db_getEventEmail.php",
+        data:{EventRequestID:EventRequestID},
+        async: false,  
+        success:function(data) {
+            result = JSON.parse(data);
+        }
+    });
+    return result;
+}
+
+function db_getEventNewsFeed(EventRequestID) {
+    var result = new Array();
+    $.ajax({
+        type:"POST",
+        url:"php/db_getEventNewsFeed.php",
+        data:{EventRequestID:EventRequestID},
+        async: false,  
+        success:function(data) {
+            result = JSON.parse(data);
+        }
+    });
+    return result;
+}
+
+function db_getSocialMedia(EventRequestID) {
+    var result = new Array();
+    $.ajax({
+        type:"POST",
+        url:"php/db_getSocialMedia.php",
+        data:{EventRequestID:EventRequestID},
+        async: false,  
+        success:function(data) {
+            result = JSON.parse(data);
+        }
+    });
+    return result;
+}
+
+function db_getDigitalSignage(EventRequestID) {
+    var result = new Array();
+    $.ajax({
+        type:"POST",
+        url:"php/db_getDigitalSignage.php",
+        data:{EventRequestID:EventRequestID},
+        async: false,  
+        success:function(data) {
+            result = JSON.parse(data);
+        }
+    });
+    return result;
+}
+
 // insert DB ///////////////////////////////////////////////////////////////////
 function db_insertAdmin(AdminName, AdminEmail) {
     var ResultID = "";
@@ -207,12 +277,13 @@ function db_insertAdmin(AdminName, AdminEmail) {
     return ResultID;
 }
 
-function db_insertEventRequest(RequestTypeID, DeliveryTypeID, StatusID, ReqTitle, ReqName, ReqPhone, ReqEmail, Department, ReqDate) {
+function db_insertEventRequest(RequestTypeID, DeliveryTypeID, StatusID, ReqName, ReqPhone, ReqEmail, Department, ReqDate, ReqTitle, ReqDescrip) {
     var ResultID = "";
     $.ajax({
         type:"POST",
         url:"php/db_insertEventRequest.php",
-        data:{RequestTypeID:RequestTypeID, DeliveryTypeID:DeliveryTypeID, StatusID:StatusID, ReqTitle:ReqTitle, ReqName:ReqName, ReqPhone:ReqPhone, ReqEmail:ReqEmail, Department:Department, ReqDate:ReqDate},
+        data:{RequestTypeID:RequestTypeID, DeliveryTypeID:DeliveryTypeID, StatusID:StatusID, ReqName:ReqName, ReqPhone:ReqPhone, 
+                ReqEmail:ReqEmail, Department:Department, ReqDate:ReqDate, ReqTitle:ReqTitle, ReqDescrip:ReqDescrip},
         async: false,  
         success:function(data) {
             ResultID = JSON.parse(data);
@@ -269,6 +340,35 @@ function db_insertDigitalSignage(EventRequestID, BSTIC, SSC, LSB) {
         type:"POST",
         url:"php/db_insertDigitalSignage.php",
         data:{EventRequestID:EventRequestID, BSTIC:BSTIC, SSC:SSC, LSB:LSB},
+        async: false,  
+        success:function(data) {
+            ResultID = JSON.parse(data);
+        }
+    });
+    return ResultID;
+}
+
+function db_insertEventEmail(EventRequestID, SendDate, Subject, Body) {
+    var ResultID = "";
+    $.ajax({
+        type:"POST",
+        url:"php/db_insertEventEmail.php",
+        data:{EventRequestID:EventRequestID, SendDate:SendDate, Subject:Subject, Body:Body},
+        async: false,  
+        success:function(data) {
+            ResultID = JSON.parse(data);
+        }
+    });
+    return ResultID;
+}
+
+function db_insertEventNewsFeed(EventRequestID, AnnStartDate, AnnStartTime, AnnEndDate, AnnEndTime, AltName, AltEmail, AltPhone, AnnTitle, AnnLocation, AnnText, Description) {
+    var ResultID = "";
+    $.ajax({
+        type:"POST",
+        url:"php/db_insertEventNewsFeed.php",
+        data:{EventRequestID:EventRequestID, AnnStartDate:AnnStartDate, AnnStartTime:AnnStartTime, AnnEndDate:AnnEndDate, AnnEndTime:AnnEndTime,
+                AltName:AltName, AltEmail:AltEmail, AltPhone:AltPhone, AnnTitle:AnnTitle, AnnLocation:AnnLocation, AnnText:AnnText, Description:Description},
         async: false,  
         success:function(data) {
             ResultID = JSON.parse(data);
