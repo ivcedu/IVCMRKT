@@ -1,3 +1,5 @@
+var m_table;
+
 ////////////////////////////////////////////////////////////////////////////////
 window.onload = function() {
     if (sessionStorage.key(0) !== null) {
@@ -152,6 +154,9 @@ $(document).ready(function() {
         window.open('viewRequest.html?event_request_id=' + event_request_id, '_self');
         return false;
     });
+    
+    // jquery datatables initialize ////////////////////////////////////////////
+    m_table = $('#tbl_user_req_list').DataTable({ paging: false, bInfo: false });
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 });
@@ -255,25 +260,8 @@ function getUserCompleteList() {
     var result = new Array();
     result = db_getUserCompleteList(sessionStorage.getItem('ss_mrkt_loginEmail'));
     
-    $('#tbl_body').empty();
-    var html = "";
-    for (var i = 0; i < result.length; i++) {
-        html += setUserCompleteListHTML(result[i]['EventRequestID'], result[i]['ReqTitle'], result[i]['ReqDate'], result[i]['Status'], result[i]['RequestType'], result[i]['DeliveryType']);
-    }
-    $('#tbl_body').append(html);
+    m_table.clear();
+    m_table.rows.add(result).draw();
     
     $('.animate-panel').animatePanel();
-}
-
-function setUserCompleteListHTML(event_request_id, req_title, req_date, status, req_type, del_type) {                                
-    var html = "<tr>";
-    html += "<td>" + event_request_id + "</td>";
-    html += "<td><a href=# id='event_request_id_" + event_request_id + "'>" + req_title + "</a></td>";
-    html += "<td>" + req_date + "</td>";
-    html += "<td>" + status + "</td>";
-    html += "<td>" + req_type + "</td>";
-    html += "<td>" + del_type + "</td>";
-    html += "</tr>";
-    
-    return html;
 }
