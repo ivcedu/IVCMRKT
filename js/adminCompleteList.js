@@ -245,18 +245,19 @@ function getAdminCompleteList() {
     $('#tbl_body').empty();
     var html = "";
     for (var i = 0; i < result.length; i++) {
-        html += setAdminCompleteListHTML(result[i]['EventRequestID'], result[i]['ReqTitle'], result[i]['ReqDate'], result[i]['Status'], result[i]['RequestType'], result[i]['DeliveryType']);
+        html += setAdminCompleteListHTML(result[i]['EventRequestID'], result[i]['ReqTitle'], result[i]['ReqDate'], result[i]['ReqName'], result[i]['Status'], result[i]['RequestType'], result[i]['DeliveryType']);
     }
     $('#tbl_body').append(html);
     
     $('.animate-panel').animatePanel();
 }
 
-function setAdminCompleteListHTML(event_request_id, req_title, req_date, status, req_type, del_type) {                                
+function setAdminCompleteListHTML(event_request_id, req_title, req_date, req_name, status, req_type, del_type) {                                
     var html = "<tr>";
     html += "<td>" + event_request_id + "</td>";
     html += "<td><a href=# id='event_request_id_" + event_request_id + "'>" + req_title + "</a></td>";
     html += "<td>" + req_date + "</td>";
+    html += "<td>" + req_name + "</td>";
     html += "<td>" + status + "</td>";
     html += "<td>" + req_type + "</td>";
     html += "<td>" + del_type + "</td>";

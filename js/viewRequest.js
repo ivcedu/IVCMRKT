@@ -378,6 +378,7 @@ function getEventRequest() {
         $('#req_status').val(result[0]['StatusID']);
         $('#req_status').selectpicker('refresh');
     }
+    $('#cur_status').html(result[0]['Status']);
     $('#req_name').html(result[0]['ReqName']);
     $('#req_phone').html(result[0]['ReqPhone']);
     $('#req_email').html(result[0]['ReqEmail']);
@@ -392,17 +393,14 @@ function getEventRequest() {
         case "1":
             getSherpa();
             $('#delivery_sherpa').show();
-            $('#delivery_sherpa').animatePanel();
             break;
         case "2":
             getSocialMedia();
             $('#delivery_social_media').show();
-            $('#delivery_social_media').animatePanel();
             break;
         case "3":
             getDigitalSignage();
             $('#delivery_digital_signage').show();
-            $('#delivery_digital_signage').animatePanel();
             break;
         default:
             break;
@@ -410,10 +408,10 @@ function getEventRequest() {
 
     getTransaction();
     
-    $('.i-checks').iCheck({
-        checkboxClass: 'icheckbox_square-green',
-        radioClass: 'iradio_square-green'
-    });
+//    $('.i-checks').iCheck({
+//        checkboxClass: 'icheckbox_square-green',
+//        radioClass: 'iradio_square-green'
+//    });
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -425,13 +423,11 @@ function getSherpa() {
         $('#ckb_email').iCheck('check');
         getEventEmail();
         $('#sherpa_email_section').show();
-        $('#sherpa_email_section').animatePanel();
     }
     if (result[0]['Newsfeed'] === "1") {
         $('#ckb_newsfeed').iCheck('check');
         getEventNewsFeed();
         $('#sherpa_newsfeed_section').show();
-        $('#sherpa_newsfeed_section').animatePanel();
     }
 }
 
@@ -534,8 +530,14 @@ function updateEventRequestStatus() {
 function insertTransaction() {
     var req_status = $('#req_status option:selected').text();
     var login_name = sessionStorage.getItem('ss_mrkt_loginName');
+    var req_comments = $('#req_comments').val();
     
-    return db_insertTransaction(m_event_request_id, login_name, "Status has been changed to " + req_status);
+    var note = "Status has been changed to " + req_status;
+    if (req_comments !== "") {
+        note += "\n" + textReplaceApostrophe($.trim(req_comments));
+    }
+    
+    return db_insertTransaction(m_event_request_id, login_name, note);
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -572,12 +574,12 @@ function sendEmailNoPPRF() {
     var subject = "Marketing Announcement Request Status Change To No PPRF";
     var message = "Your request required additional publications materials. Please fill out the ";
     message += "<a href='https://inside.ivc.edu/nonacademic/marketing/publications/Pages/requests.aspx'>publications project request</a>";
-    message += " for your printed or graphics materials.<br/><br/>";
+    message += " for your printed or graphics materials.<br><br>";
     
-    message += "Should you have any questions or comments, please contact the IVC Marketing.<br/>"; 
-    message += "Thank you.<br/>";
-    message += "IVC Public Information & Marketing<br/>";
-    message += "ivcpio@ivc.edu<br/>";
+    message += "Should you have any questions or comments, please contact the IVC Marketing.<br><br>"; 
+    message += "Thank you.<br><br>";
+    message += "IVC Public Information & Marketing<br>";
+    message += "ivcpio@ivc.edu<br>";
     message += "phone: 949.451.5293";
     
     proc_sendEmail(req_email, req_name, "", "", subject, message);
@@ -587,13 +589,13 @@ function sendEmailWaitingForMoreInfo() {
     var req_email = $('#req_email').html();
     var req_name = $('#req_name').html();
     var subject = "Marketing Announcement Request Status Change To Waiting For More Info";
-    var message = "Your request requires more information. Please read the comment below:<br/>";
-    message += $('#req_comments').val().replace(/\n/g, "<br/>") + "<br/><br/>";
+    var message = "Your request requires more information. Please read the comment below:<br><br>";
+    message += $('#req_comments').val().replace(/\n/g, "<br>") + "<br><br>";
     
-    message += "Should you have any questions or comments, please contact the IVC Marketing.<br/>"; 
-    message += "Thank you.<br/>";
-    message += "IVC Public Information & Marketing<br/>";
-    message += "ivcpio@ivc.edu<br/>";
+    message += "Should you have any questions or comments, please contact the IVC Marketing.<br><br>"; 
+    message += "Thank you.<br><br>";
+    message += "IVC Public Information & Marketing<br>";
+    message += "ivcpio@ivc.edu<br>";
     message += "phone: 949.451.5293";
     
     proc_sendEmail(req_email, req_name, "", "", subject, message);
@@ -603,12 +605,12 @@ function sendEmailComplete() {
     var req_email = $('#req_email').html();
     var req_name = $('#req_name').html();
     var subject = "Marketing Announcement Request Status Change To Complete";
-    var message = "Your request has been successfully completed.<br/><br/>";
+    var message = "Your request has been successfully completed.<br><br>";
     
-    message += "Should you have any questions or comments, please contact the IVC Marketing.<br/>"; 
-    message += "Thank you.<br/>";
-    message += "IVC Public Information & Marketing<br/>";
-    message += "ivcpio@ivc.edu<br/>";
+    message += "Should you have any questions or comments, please contact the IVC Marketing.<br><br>"; 
+    message += "Thank you.<br><br>";
+    message += "IVC Public Information & Marketing<br>";
+    message += "ivcpio@ivc.edu<br>";
     message += "phone: 949.451.5293";
     
     proc_sendEmail(req_email, req_name, "", "", subject, message);
@@ -618,12 +620,12 @@ function sendEmailApproved() {
     var req_email = $('#req_email').html();
     var req_name = $('#req_name').html();
     var subject = "Marketing Announcement Request Status Change To Approved";
-    var message = "Your request has been approved.<br/><br/>";
+    var message = "Your request has been approved.<br><br>";
     
-    message += "Should you have any questions or comments, please contact the IVC Marketing.<br/>"; 
-    message += "Thank you.<br/>";
-    message += "IVC Public Information & Marketing<br/>";
-    message += "ivcpio@ivc.edu<br/>";
+    message += "Should you have any questions or comments, please contact the IVC Marketing.<br><br>"; 
+    message += "Thank you.<br><br>";
+    message += "IVC Public Information & Marketing<br>";
+    message += "ivcpio@ivc.edu<br>";
     message += "phone: 949.451.5293";
     
     proc_sendEmail(req_email, req_name, "", "", subject, message);
@@ -633,12 +635,12 @@ function sendEmailHold() {
     var req_email = $('#req_email').html();
     var req_name = $('#req_name').html();
     var subject = "Marketing Announcement Request Status Change To Hold";
-    var message = "Your request is on hold. A member of the Marketing staff will contact you regarding the hold.<br/><br/>";
+    var message = "Your request is on hold. A member of the Marketing staff will contact you regarding the hold.<br><br>";
     
-    message += "Should you have any questions or comments, please contact the IVC Marketing.<br/>"; 
-    message += "Thank you.<br/>";
-    message += "IVC Public Information & Marketing<br/>";
-    message += "ivcpio@ivc.edu<br/>";
+    message += "Should you have any questions or comments, please contact the IVC Marketing.<br><br>"; 
+    message += "Thank you.<br><br>";
+    message += "IVC Public Information & Marketing<br>";
+    message += "ivcpio@ivc.edu<br>";
     message += "phone: 949.451.5293";
     
     proc_sendEmail(req_email, req_name, "", "", subject, message);
@@ -648,13 +650,13 @@ function sendEmailDeny() {
     var req_email = $('#req_email').html();
     var req_name = $('#req_name').html();
     var subject = "Marketing Announcement Request Status Change To Deny";
-    var message = "Your request has been denied. Please read the comment below:<br/>";
-    message += $('#req_comments').val().replace(/\n/g, "<br/>") + "<br/><br/>";
+    var message = "Your request has been denied. Please read the comment below:<br>";
+    message += $('#req_comments').val().replace(/\n/g, "<br>") + "<br><br>";
     
-    message += "Should you have any questions or comments, please contact the IVC Marketing.<br/>"; 
-    message += "Thank you.<br/>";
-    message += "IVC Public Information & Marketing<br/>";
-    message += "ivcpio@ivc.edu<br/>";
+    message += "Should you have any questions or comments, please contact the IVC Marketing.<br><br>"; 
+    message += "Thank you.<br><br>";
+    message += "IVC Public Information & Marketing<br>";
+    message += "ivcpio@ivc.edu<br>";
     message += "phone: 949.451.5293";
     
     proc_sendEmail(req_email, req_name, "", "", subject, message);

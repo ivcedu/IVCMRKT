@@ -421,16 +421,16 @@ function db_updateEventRequestStatus(EventRequestID, StatusID) {
 }
 
 // delete DB ///////////////////////////////////////////////////////////////////
-//function db_deleteAdmin(AdminID) {
-//    var Result = false;
-//    $.ajax({
-//        type:"POST",
-//        url:"php/db_deleteAdmin.php",
-//        data:{AdminID:AdminID},
-//        async: false,  
-//        success:function(data) {
-//            Result = JSON.parse(data);
-//        }
-//    });
-//    return Result;
-//}
+function db_deleteAdmin(AdminID) {
+    var Result = false;
+    $.ajax({
+        type:"POST",
+        url:"php/db_deleteAdmin.php",
+        data:{AdminID:AdminID},
+        async: false,  
+        success:function(data) {
+            Result = JSON.parse(data);
+        }
+    });
+    return Result;
+}

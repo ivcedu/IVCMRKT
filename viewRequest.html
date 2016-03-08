@@ -6,12 +6,12 @@
         <meta http-equiv="Cache-Control" content="no-cache"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <title>Marketing Announcement Request</title>
-        <!-- homer-1.5 Vendor css -->
+        <!-- homer-1.9 Vendor css -->
         <link rel="stylesheet" href="../homer-1.9/vendor/fontawesome/css/font-awesome.css"/>
         <link rel="stylesheet" href="../homer-1.9/vendor/metisMenu/dist/metisMenu.css"/>
         <link rel="stylesheet" href="../homer-1.9/vendor/animate.css/animate.css"/>
         <link rel="stylesheet" href="../homer-1.9/vendor/bootstrap/dist/css/bootstrap.css"/>
-        <!-- homer-1.5 App css -->
+        <!-- homer-1.9 App css -->
         <link rel="stylesheet" href="../homer-1.9/fonts/pe-icon-7-stroke/css/pe-icon-7-stroke.css"/>
         <link rel="stylesheet" href="../homer-1.9/fonts/pe-icon-7-stroke/css/helper.css"/>
         <link rel="stylesheet" href="../homer-1.9/styles/style.css"/>
@@ -71,7 +71,7 @@
                     <a href="mrktRequest.html"><span class="nav-label">New Request</span></a>
                 </li>
                 <li>
-                    <a href="userReqList.html"><span class="nav-label">Request List</span></a>
+                    <a href="userReqList.html"><span class="nav-label">My List</span></a>
                 </li>
                 <li>
                     <a href="userCompleteList.html"><span class="nav-label">Complete List</span></a>
@@ -136,6 +136,11 @@
                             </div>
                             <div class="panel-body">
                                 <div class="container-fluid">
+                                    <div class="row font-extra-bold">
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="padding-top: 7px;">Status:</div>
+                                        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8" id="cur_status"></div>
+                                    </div>
+                                    <br/>
                                     <div class="row">
                                         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="padding-top: 7px;">Requestor Name:</div>
                                         <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8" id="req_name"></div>
@@ -181,8 +186,6 @@
                                         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" id="sel_delivery_type"></div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="panel-footer">
                             </div>
                         </div>
                     </div>
@@ -367,7 +370,7 @@
             </footer>
         </div>
         
-        <!-- homer-1.5 Vendor javascript -->
+        <!-- homer-1.9 Vendor javascript -->
         <script src="../homer-1.9/vendor/jquery/dist/jquery.min.js"></script>
         <script src="../homer-1.9/vendor/jquery-ui/jquery-ui.min.js"></script>
         <script src="../homer-1.9/vendor/slimScroll/jquery.slimscroll.min.js"></script>

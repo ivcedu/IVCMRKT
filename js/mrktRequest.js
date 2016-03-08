@@ -562,7 +562,6 @@ function deliveryValidation() {
             else {
                 return true;
             }
-            break;
         case "2":
             if(!$('#ckb_facebook').is(':checked') && !$('#ckb_twitter').is(':checked') && !$('#ckb_instagram').is(':checked')) {
                 swal({title: "Social Media Error", text: "Social Media option is a required field", type: "error"});
@@ -571,7 +570,6 @@ function deliveryValidation() {
             else {
                 return true;
             }
-            break;
         case "3":
             if(!$('#ckb_bstic').is(':checked') && !$('#ckb_ssc').is(':checked') && !$('#ckb_lsb').is(':checked')) {
                 swal({title: "Digital Signage Error", text: "Digital Signage option is a required field", type: "error"});
@@ -580,9 +578,8 @@ function deliveryValidation() {
             else {
                 return true;
             }
-            break;
         default:
-            break;
+            return true;
     }
 }
 
@@ -601,9 +598,8 @@ function optionValidation() {
                 }
             }
             return true;
-            break;
         default:
-            break;
+            return true;
     }
 }
 
