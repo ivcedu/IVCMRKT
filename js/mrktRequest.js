@@ -155,25 +155,38 @@ $(document).ready(function() {
     });
     
     // request type change event ///////////////////////////////////////////////
-    $('#sel_request_type').change(function() {
-        var req_type_id = $(this).val();
-        getDeliveryTypeList(req_type_id);
-        if (req_type_id === "0") {
-            deliveryOptions("0");
+//    $('#sel_request_type').change(function() {
+//        var req_type_id = $(this).val();
+//        getDeliveryTypeList(req_type_id);
+//        if (req_type_id === "0") {
+//            deliveryOptions("0");
+//        }
+//    });
+    
+    // delivery type change event //////////////////////////////////////////////
+//    $('#sel_delivery_type').change(function() {
+//        var del_type_id = $(this).val();
+//        deliveryOptions(del_type_id);
+//    });
+    
+    // sherpa email check box change event /////////////////////////////////////
+    $('#ckb_email_student').on('ifChanged', function() {
+        if ($(this).is(':checked') || $('#ckb_email_faculty').is(':checked')) {
+            $('#sherpa_email_section').show();
+//            $('#sherpa_email_section').animatePanel();
+        }
+        else {
+            $('#sherpa_email_section').hide();
+            $('#email_subject').val("");
+            $('#email_body').val("").trigger('autosize.resize');
         }
     });
     
-    // delivery type change event //////////////////////////////////////////////
-    $('#sel_delivery_type').change(function() {
-        var del_type_id = $(this).val();
-        deliveryOptions(del_type_id);
-    });
-    
     // sherpa email check box change event /////////////////////////////////////
-    $('#ckb_email').on('ifChanged', function() {
-        if ($(this).is(':checked')) {
+    $('#ckb_email_faculty').on('ifChanged', function() {
+        if ($(this).is(':checked') || $('#ckb_email_student').is(':checked')) {
             $('#sherpa_email_section').show();
-            $('#sherpa_email_section').animatePanel();
+//            $('#sherpa_email_section').animatePanel();
         }
         else {
             $('#sherpa_email_section').hide();
@@ -186,7 +199,7 @@ $(document).ready(function() {
     $('#ckb_newsfeed').on('ifChanged', function() {
         if ($(this).is(':checked')) {
             $('#sherpa_newsfeed_section').show();
-            $('#sherpa_newsfeed_section').animatePanel();
+//            $('#sherpa_newsfeed_section').animatePanel();
         }
         else {
             $('#sherpa_newsfeed_section').hide();
@@ -200,6 +213,74 @@ $(document).ready(function() {
             $('#announ_descrip').val("").trigger('autosize.resize');
         }
     });
+    
+    // suggest post check box change event /////////////////////////////////////
+    $('#ckb_facebook').on('ifChanged', function() {
+        if ($('#ckb_facebook').is(':checked') || $('#ckb_twitter').is(':checked') || $('#ckb_instagram').is(':checked')
+            || $('#ckb_bstic').is(':checked') || $('#ckb_ssc').is(':checked') || $('#ckb_lsb').is(':checked')) {
+            $('#suggest_post_section').show();
+        }
+        else {
+            $('#suggest_post_section').hide();
+            $('#suggest_post').val("").trigger('autosize.resize');
+        }
+    });
+    
+    $('#ckb_twitter').on('ifChanged', function() {
+        if ($('#ckb_facebook').is(':checked') || $('#ckb_twitter').is(':checked') || $('#ckb_instagram').is(':checked')
+            || $('#ckb_bstic').is(':checked') || $('#ckb_ssc').is(':checked') || $('#ckb_lsb').is(':checked')) {
+            $('#suggest_post_section').show();
+        }
+        else {
+            $('#suggest_post_section').hide();
+            $('#suggest_post').val("").trigger('autosize.resize');
+        }
+    });
+    
+    $('#ckb_instagram').on('ifChanged', function() {
+        if ($('#ckb_facebook').is(':checked') || $('#ckb_twitter').is(':checked') || $('#ckb_instagram').is(':checked')
+            || $('#ckb_bstic').is(':checked') || $('#ckb_ssc').is(':checked') || $('#ckb_lsb').is(':checked')) {
+            $('#suggest_post_section').show();
+        }
+        else {
+            $('#suggest_post_section').hide();
+            $('#suggest_post').val("").trigger('autosize.resize');
+        }
+    });
+    
+    $('#ckb_bstic').on('ifChanged', function() {
+        if ($('#ckb_facebook').is(':checked') || $('#ckb_twitter').is(':checked') || $('#ckb_instagram').is(':checked')
+            || $('#ckb_bstic').is(':checked') || $('#ckb_ssc').is(':checked') || $('#ckb_lsb').is(':checked')) {
+            $('#suggest_post_section').show();
+        }
+        else {
+            $('#suggest_post_section').hide();
+            $('#suggest_post').val("").trigger('autosize.resize');
+        }
+    });
+    
+    $('#ckb_ssc').on('ifChanged', function() {
+        if ($('#ckb_facebook').is(':checked') || $('#ckb_twitter').is(':checked') || $('#ckb_instagram').is(':checked')
+            || $('#ckb_bstic').is(':checked') || $('#ckb_ssc').is(':checked') || $('#ckb_lsb').is(':checked')) {
+            $('#suggest_post_section').show();
+        }
+        else {
+            $('#suggest_post_section').hide();
+            $('#suggest_post').val("").trigger('autosize.resize');
+        }
+    });
+    
+    $('#ckb_lsb').on('ifChanged', function() {
+        if ($('#ckb_facebook').is(':checked') || $('#ckb_twitter').is(':checked') || $('#ckb_instagram').is(':checked')
+            || $('#ckb_bstic').is(':checked') || $('#ckb_ssc').is(':checked') || $('#ckb_lsb').is(':checked')) {
+            $('#suggest_post_section').show();
+        }
+        else {
+            $('#suggest_post_section').hide();
+            $('#suggest_post').val("").trigger('autosize.resize');
+        }
+    });
+    ////////////////////////////////////////////////////////////////////////////
     
     // announcement start date change event ////////////////////////////////////
     $('#announ_start_date').change(function() {
@@ -226,33 +307,33 @@ $(document).ready(function() {
     
     // submit button click /////////////////////////////////////////////////////
     $('#btn_submit').click(function() {          
-        if (!requestValidation()) {
-            return false;
-        }
-        if (!deliveryValidation()) {
-            return false;
-        }
-        if (!optionValidation()) {
-            return false;
-        }
-        
-        if (mrktSubmit()) {
-            sendEmailSubmitted();
-            sendEmailToAdministrator();
-            swal({  title: "Submitted!", 
-                text: "Your request has been submitted successfuly", 
-                type: "success",
-                confirmButtonText: "OK",
-                closeOnConfirm: false 
-            }, 
-            function() {   
-                window.open('userReqList.html', '_self');
-                return false;
-            });
-        }
-        else {
-            swal({title: "Error", text: "There was a system error. please conatact IT support at 949.451.5696 or ivctech@ivc.edu", type: "error"});
-        }
+//        if (!requestValidation()) {
+//            return false;
+//        }
+//        if (!deliveryValidation()) {
+//            return false;
+//        }
+//        if (!optionValidation()) {
+//            return false;
+//        }
+//        
+//        if (mrktSubmit()) {
+//            sendEmailSubmitted();
+//            sendEmailToAdministrator();
+//            swal({  title: "Submitted!", 
+//                text: "Your request has been submitted successfuly", 
+//                type: "success",
+//                confirmButtonText: "OK",
+//                closeOnConfirm: false 
+//            }, 
+//            function() {   
+//                window.open('userReqList.html', '_self');
+//                return false;
+//            });
+//        }
+//        else {
+//            swal({title: "Error", text: "There was a system error. please conatact IT support at 949.451.5696 or ivctech@ivc.edu", type: "error"});
+//        }
     });
     
     // cancel button click /////////////////////////////////////////////////////
@@ -278,6 +359,7 @@ $(document).ready(function() {
     $('#email_body').autosize();
     $('#announ_text').autosize();
     $('#announ_descrip').autosize();
+    $('#suggest_post').autosize();
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 });
@@ -368,6 +450,7 @@ function hideAllDeliverySection() {
 function hideAllOptionSection() {
     $('#sherpa_email_section').hide();
     $('#sherpa_newsfeed_section').hide();
+    $('#suggest_post_section').hide();
 }
 
 function clearAllCheckBox() {

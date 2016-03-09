@@ -134,14 +134,51 @@
                                     </div>
                                     <br/>
                                     <div class="row">
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-info" style="padding-top: 7px;"><i class="fa fa-lightbulb-o"></i> Alternate Name:</div>
+                                        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8"><input class="form-control" type="text" id="alt_name"></div>
+                                    </div>
+                                    <br/>
+                                    <div class="row">
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-info" style="padding-top: 7px;"><i class="fa fa-lightbulb-o"></i> Alternate Email:</div>
+                                        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8"><input class="form-control" type="text" id="alt_email"></div>
+                                    </div>
+                                    <br/>
+                                    <div class="row">
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-info" style="padding-top: 7px;"><i class="fa fa-lightbulb-o"></i> Alternate Phone:</div>
+                                        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8"><input class="form-control" type="text" id="alt_phone"></div>
+                                    </div>
+                                    <br/>
+                                    <div class="row">
                                         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-info" style="padding-top: 7px;"><i class="fa fa-lightbulb-o"></i> Request Type:</div>
                                         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4"><select class="selectpicker form-control" data-container="body" id="sel_request_type"></select></div>
                                     </div>
                                     <br/>
                                     <div class="row">
+                                        <!--<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="padding-top: 5px;">Sherpa:</div>-->
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4"><label><input type="checkbox" class="i-checks" id="ckb_email_student"> Email Student</label></div>
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4"><label><input type="checkbox" class="i-checks" id="ckb_email_faculty"> Email Faculty/Staff</label></div>
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4"><label><input type="checkbox" class="i-checks" id="ckb_newsfeed"> Newsfeed</label></div>
+                                    </div>
+                                    <br/>
+                                    <div class="row">
+                                        <!--<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="padding-top: 5px;">Social Media:</div>-->
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4"><label><input type="checkbox" class="i-checks" id="ckb_facebook"> Facebook</label></div>
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4"><label><input type="checkbox" class="i-checks" id="ckb_twitter"> Twitter</label></div>
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4"><label><input type="checkbox" class="i-checks" id="ckb_instagram"> Instagram</label></div>
+                                    </div>
+                                    <br/>
+                                    <div class="row">
+                                        <!--<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="padding-top: 5px;">Digital Signage:</div>-->
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4"><label><input type="checkbox" class="i-checks" id="ckb_bstic"> BSTIC</label></div>
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4"><label><input type="checkbox" class="i-checks" id="ckb_ssc"> SSC</label></div>
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4"><label><input type="checkbox" class="i-checks" id="ckb_lsb"> LSB</label></div>
+                                    </div>
+                                    <!--
+                                    <div class="row">
                                         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-info" style="padding-top: 7px;"><i class="fa fa-lightbulb-o"></i> Delivery Type:</div>
                                         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4"><select class="selectpicker form-control" data-container="body" id="sel_delivery_type"></select></div>
                                     </div>
+                                    -->
                                 </div>
                             </div>
                             <div class="panel-footer">
@@ -180,75 +217,13 @@
                     </div>
                 </div>
                 -->
-                
-                <!-- delivery sherpa section -->
-                <div class="row" id="delivery_sherpa">
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8">
-                        <div class="hpanel hblue">
-                            <div class="panel-heading">
-                                <h4>Delivery Sherpa Section</h4>
-                            </div>
-                            <div class="panel-body">
-                                <div class="container-fluid">
-                                    <div class="row">
-                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="padding-top: 7px;">Sherpa:</div>
-                                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2"><label><input type="checkbox" class="i-checks" id="ckb_email"> Email</label></div>
-                                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2"><label><input type="checkbox" class="i-checks" id="ckb_newsfeed"> Newsfeed</label></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- delivery social media section -->
-                <div class="row" id="delivery_social_media">
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8">
-                        <div class="hpanel hblue">
-                            <div class="panel-heading">
-                                <h4>Delivery Social Media Section</h4>
-                            </div>
-                            <div class="panel-body">
-                                <div class="container-fluid">
-                                    <div class="row">
-                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="padding-top: 7px;">Social Media:</div>
-                                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2"><label><input type="checkbox" class="i-checks" id="ckb_facebook"> Facebook</label></div>
-                                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2"><label><input type="checkbox" class="i-checks" id="ckb_twitter"> Twitter</label></div>
-                                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2"><label><input type="checkbox" class="i-checks" id="ckb_instagram"> Instagram</label></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- delivery digital signage section -->
-                <div class="row" id="delivery_digital_signage">
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8">
-                        <div class="hpanel hblue">
-                            <div class="panel-heading">
-                                <h4>Delivery Digital Signage Section</h4>
-                            </div>
-                            <div class="panel-body">
-                                <div class="container-fluid">
-                                    <div class="row">
-                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="padding-top: 7px;">Digital Signage:</div>
-                                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2"><label><input type="checkbox" class="i-checks" id="ckb_bstic"> BSTIC</label></div>
-                                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2"><label><input type="checkbox" class="i-checks" id="ckb_ssc"> SSC</label></div>
-                                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2"><label><input type="checkbox" class="i-checks" id="ckb_lsb"> LSB</label></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                     
-                <!-- sherpa email section -->
+                <!-- email section -->
                 <div class="row" id="sherpa_email_section">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8">
                         <div class="hpanel hblue">
                             <div class="panel-heading">
-                                <h4>Sherpa Email Section</h4>
+                                <h4>Email Section</h4>
                             </div>
                             <div class="panel-body">
                                 <div class="container-fluid">
@@ -274,12 +249,12 @@
                     </div>
                 </div>
                  
-                <!-- sherpa newsfeed section -->
+                <!-- newsfeed section -->
                 <div class="row" id="sherpa_newsfeed_section">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8">
                         <div class="hpanel hblue">
                             <div class="panel-heading">
-                                <h4>Sherpa Newsfeed Section</h4>
+                                <h4>Newsfeed Section</h4>
                             </div>
                             <div class="panel-body">
                                 <div class="container-fluid">
@@ -309,6 +284,7 @@
                                         </div>
                                     </div>
                                     <br>
+                                    <!--
                                     <div class="row">
                                         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-info" style="padding-top: 7px;"><i class="fa fa-lightbulb-o"></i> Alternate Name:</div>
                                         <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8"><input class="form-control" type="text" id="alt_name"></div>
@@ -324,6 +300,7 @@
                                         <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8"><input class="form-control" type="text" id="alt_phone"></div>
                                     </div>
                                     <br/>
+                                    -->
                                     <div class="row">
                                         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-info" style="padding-top: 7px;"><i class="fa fa-lightbulb-o"></i> Event Title:</div>
                                         <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8"><input class="form-control" type="text" id="event_title"></div>
@@ -352,8 +329,37 @@
                         </div>
                     </div>
                 </div>
+                
+                <!-- suggest post section -->
+                <div class="row" id="suggest_post_section">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8">
+                        <div class="hpanel hblue">
+                            <div class="panel-heading">
+                                <h4>Suggest Post Section</h4>
+                            </div>
+                            <div class="panel-body">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-info" style="padding-top: 7px;"><i class="fa fa-lightbulb-o"></i> Suggest Post:</div>
+                                        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8"><textarea class="form-control" style="height: 55px; resize: vertical;" id="suggest_post"></textarea></div>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="padding-top: 7px;">JPG/JPEG Attachment:</div>
+                                        <div class="col-xs-8 col-sm-8 col-md-6 col-lg-4"><input type="file" class="filestyle" accept="image/jpeg, image/jpg" data-buttonName="btn-primary" id="attach_1"></div>
+                                    </div>
+                                    <br/>
+                                    <div class="row">
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="padding-top: 7px;">File Attachment:</div>
+                                        <div class="col-xs-8 col-sm-8 col-md-6 col-lg-4"><input type="file" class="filestyle" accept="image/jpeg, image/jpg" data-buttonName="btn-primary" id="attach_2"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            
+
             <!-- Footer-->
             <footer class="footer">
                 <span class="pull-right">
