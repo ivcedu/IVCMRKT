@@ -201,14 +201,6 @@ $(document).ready(function() {
         }
     });
     
-    // contract email validation event /////////////////////////////////////////
-//    $('#cont_email').change(function() {
-//        if (!isValidEmailAddress($(this).val())) {
-//            $(this).val("");
-//            swal({title: "Warning", text: "Please enter valid email address", type: "warning"});
-//        }
-//    });
-    
     // announcement start date change event ////////////////////////////////////
     $('#announ_start_date').change(function() {
         var announ_start = $(this).val();
@@ -529,6 +521,11 @@ function requestValidation() {
     if ($('#req_phone').val().replace(/\s+/g, '') === "") {
         err += "Phone number is a required field\n";
     }
+    else {
+        if (!isValidPhoneNumber($('#req_phone').val())) {
+            err += "Phone number is an INVALID\n";
+        }
+    }
     if ($('#req_title').val().replace(/\s+/g, '') === "") {
         err += "Request title is a required field\n";
     }
@@ -651,8 +648,14 @@ function sherpaNewsfeedValidation() {
             err += "Alternate email is an INVALID\n";
         }
     }
-    if ($('#alt_phone').val().replace(/[^0-9\.]/g, '') === "") {
+    
+    if ($('#alt_phone').val().replace(/\s+/g, '') === "") {
         err += "Alternate phone is a required field\n";
+    }
+    else {
+        if (!isValidPhoneNumber($('#alt_phone').val())) {
+            err += "Alternate phone is an INVALID\n";
+        }
     }
     if ($('#event_title').val().replace(/\s+/g, '') === "") {
         err += "Event title is a required field\n";
