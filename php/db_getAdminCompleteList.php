@@ -6,7 +6,7 @@
             . "FROM [IVCMRKT].[dbo].[EventRequest] AS evrt INNER JOIN [IVCMRKT].[dbo].[Status] AS stus ON evrt.StatusID = stus.StatusID "
             . "INNER JOIN [IVCMRKT].[dbo].[RequestType] AS rqty ON evrt.RequestTypeID = rqty.RequestTypeID "
             . "INNER JOIN [IVCMRKT].[dbo].[DeliveryType] AS dlty ON evrt.DeliveryTypeID = dlty.DeliveryTypeID "
-            . "WHERE evrt.StatusID = 4";
+            . "WHERE evrt.StatusID = 4 OR evrt.StatusID = 7";
 
     $cmd = $dbConn->prepare($query);
     $cmd->execute(); 
