@@ -5,7 +5,7 @@
     $FileName = filter_input(INPUT_POST, 'FileName');
     $PDFData = filter_input(INPUT_POST, 'PDFData');
     
-    $query = "INSERT INTO [IVCMRKT].[dbo].[Attachment] (EventRequestID, FileName, PDFData) "
+    $query = "INSERT INTO [".$dbDatabase."].[dbo].[Attachment] (EventRequestID, FileName, PDFData) "
                 ."VALUES ('$EventRequestID', '$FileName', '$PDFData')";  
     
     $cmd = $dbConn->prepare($query);

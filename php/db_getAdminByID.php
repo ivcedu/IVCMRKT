@@ -1,9 +1,9 @@
 <?php
     require("config.php");
     
-    $AdminEmail = filter_input(INPUT_POST, 'AdminEmail');
+    $AdminID = filter_input(INPUT_POST, 'AdminID');
 
-    $query = "SELECT * FROM [".$dbDatabase."].[dbo].[Admin] WHERE AdminEmail = '".$AdminEmail."'";
+    $query = "SELECT * FROM [".$dbDatabase."].[dbo].[Admin] WHERE AdminID = '".$AdminID."'";
 
     $cmd = $dbConn->prepare($query);
     $cmd->execute(); 

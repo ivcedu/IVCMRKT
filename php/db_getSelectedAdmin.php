@@ -3,7 +3,7 @@
 
     $AdminID = filter_input(INPUT_POST, 'AdminID');
     
-    $query = "SELECT * FROM [IVCMRKT].[dbo].[Admin] "
+    $query = "SELECT * FROM [".$dbDatabase."].[dbo].[Admin] "
             . "WHERE AdminID = '".$AdminID."'";
 
     $cmd = $dbConn->prepare($query);

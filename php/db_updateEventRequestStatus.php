@@ -4,7 +4,7 @@
     $EventRequestID = filter_input(INPUT_POST, 'EventRequestID');
     $StatusID = filter_input(INPUT_POST, 'StatusID');
 
-    $query = "UPDATE [IVCMRKT].[dbo].[EventRequest] "
+    $query = "UPDATE [".$dbDatabase."].[dbo].[EventRequest] "
                 ."SET StatusID = '".$StatusID."' "
                 ."WHERE EventRequestID = '".$EventRequestID."'";
     

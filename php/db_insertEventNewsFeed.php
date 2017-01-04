@@ -14,7 +14,7 @@
     $AnnText = filter_input(INPUT_POST, 'AnnText');
     $Description = filter_input(INPUT_POST, 'Description');
     
-    $query = "INSERT INTO [IVCMRKT].[dbo].[EventNewsFeed] (EventRequestID, AnnStartDate, AnnStartTime, AnnEndDate, AnnEndTime, "
+    $query = "INSERT INTO [".$dbDatabase."].[dbo].[EventNewsFeed] (EventRequestID, AnnStartDate, AnnStartTime, AnnEndDate, AnnEndTime, "
             . "AltName, AltEmail, AltPhone, AnnTitle, AnnLocation, AnnText, Description) "
             . "VALUES ('$EventRequestID', '$AnnStartDate', '$AnnStartTime', '$AnnEndDate', '$AnnEndTime', "
             . "'$AltName', '$AltEmail', '$AltPhone', '$AnnTitle', '$AnnLocation', '$AnnText', '$Description')";  

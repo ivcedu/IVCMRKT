@@ -6,7 +6,7 @@
     $SSC = filter_input(INPUT_POST, 'SSC');
     $LSB = filter_input(INPUT_POST, 'LSB');
     
-    $query = "INSERT INTO [IVCMRKT].[dbo].[DigitalSignage] (EventRequestID, BSTIC, SSC, LSB) "
+    $query = "INSERT INTO [".$dbDatabase."].[dbo].[DigitalSignage] (EventRequestID, BSTIC, SSC, LSB) "
                 ."VALUES ('$EventRequestID', '$BSTIC', '$SSC', '$LSB')";  
     
     $cmd = $dbConn->prepare($query);

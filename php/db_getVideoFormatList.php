@@ -1,7 +1,7 @@
 <?php
     require("config.php");
 
-    $query = "SELECT * FROM [".$dbDatabase."].[dbo].[RequestType]";
+    $query = "SELECT * FROM [".$dbDatabase."].[dbo].[VideoFormat]";
 
     $cmd = $dbConn->prepare($query);
     $cmd->execute(); 

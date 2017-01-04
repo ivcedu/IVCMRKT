@@ -3,165 +3,33 @@ var m_file_name_2 = "";
 
 var m_base64_data_1 = "";
 var m_base64_data_2 = "";
-
 ////////////////////////////////////////////////////////////////////////////////
 window.onload = function() {    
     if (sessionStorage.key(0) !== null) {
-        hideAllDeliverySection();
-        hideAllOptionSection();
-    
+        hideRequestTypeSection();
         isLoginAdmin();
         getLoginInfo();
         getRequestTypeList();
+        getVideoFormatList();
     }
     else {
         window.open('login.html', '_self');
     }
 };
-
-$(window).bind("load", function () {
-    // Remove splash screen after load
-    $('.splash').css('display', 'none');
-});
-
-$(window).bind("resize click", function () {
-    // Add special class to minimalize page elements when screen is less than 768px
-    setBodySmall();
-
-    // Waint until metsiMenu, collapse and other effect finish and set wrapper height
-    setTimeout(function () {
-        fixWrapperHeight();
-    }, 300);
-});
 ////////////////////////////////////////////////////////////////////////////////
-$(document).ready(function() {   
-    // Add special class to minimalize page elements when screen is less than 768px
-    setBodySmall();
-
-    // Handle minimalize sidebar menu
-    $('.hide-menu').on('click', function(event){
-        event.preventDefault();
-        if ($(window).width() < 769) {
-            $("body").toggleClass("show-sidebar");
-        } else {
-            $("body").toggleClass("hide-sidebar");
-        }
-    });
-
-    // Initialize metsiMenu plugin to sidebar menu
-    $('#side-menu').metisMenu();
-
-    // Initialize iCheck plugin
-    $('.i-checks').iCheck({
-        checkboxClass: 'icheckbox_square-green',
-        radioClass: 'iradio_square-green'
-    });
-
-    // Initialize animate panel function
-    $('.animate-panel').animatePanel();
-
-    // Function for collapse hpanel
-    $('.showhide').on('click', function (event) {
-        event.preventDefault();
-        var hpanel = $(this).closest('div.hpanel');
-        var icon = $(this).find('i:first');
-        var body = hpanel.find('div.panel-body');
-        var footer = hpanel.find('div.panel-footer');
-        body.slideToggle(300);
-        footer.slideToggle(200);
-
-        // Toggle icon from up to down
-        icon.toggleClass('fa-chevron-up').toggleClass('fa-chevron-down');
-        hpanel.toggleClass('').toggleClass('panel-collapse');
-        setTimeout(function () {
-            hpanel.resize();
-            hpanel.find('[id^=map-]').resize();
-        }, 50);
-    });
-
-    // Function for close hpanel
-    $('.closebox').on('click', function (event) {
-        event.preventDefault();
-        var hpanel = $(this).closest('div.hpanel');
-        hpanel.remove();
-        if($('body').hasClass('fullscreen-panel-mode')) { $('body').removeClass('fullscreen-panel-mode');}
-    });
-
-    // Fullscreen for fullscreen hpanel
-    $('.fullscreen').on('click', function() {
-        var hpanel = $(this).closest('div.hpanel');
-        var icon = $(this).find('i:first');
-        $('body').toggleClass('fullscreen-panel-mode');
-        icon.toggleClass('fa-expand').toggleClass('fa-compress');
-        hpanel.toggleClass('fullscreen');
-        setTimeout(function() {
-            $(window).trigger('resize');
-        }, 100);
-    });
-
-    // Open close right sidebar
-    $('.right-sidebar-toggle').on('click', function () {
-        $('#right-sidebar').toggleClass('sidebar-open');
-    });
-
-    // Function for small header
-    $('.small-header-action').on('click', function(event){
-        event.preventDefault();
-        var icon = $(this).find('i:first');
-        var breadcrumb  = $(this).parent().find('#hbreadcrumb');
-        $(this).parent().parent().parent().toggleClass('small-header');
-        breadcrumb.toggleClass('m-t-lg');
-        icon.toggleClass('fa-arrow-up').toggleClass('fa-arrow-down');
-    });
-
-    // Set minimal height of #wrapper to fit the window
-    setTimeout(function () {
-        fixWrapperHeight();
-    });
-
-    // Sparkline bar chart data and options used under Profile image on left navigation panel
-    $("#sparkline1").sparkline([5, 6, 7, 2, 0, 4, 2, 4, 5, 7, 2, 4, 12, 11, 4], {
-        type: 'bar',
-        barWidth: 7,
-        height: '30px',
-        barColor: '#62cb31',
-        negBarColor: '#53ac2a'
-    });
-
-    // Initialize tooltips
-    $('.tooltip-demo').tooltip({
-        selector: "[data-toggle=tooltip]"
-    });
-
-    // Initialize popover
-    $("[data-toggle=popover]").popover();
-
-    // Move modal to body
-    // Fix Bootstrap backdrop issu with animation.css
-    $('.modal').appendTo("body");
-    
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+$(document).ready(function() {
     $('#nav_logout').click(function() {
         sessionStorage.clear();
         window.open('login.html', '_self');
         return false;
     });
     
-    $('#mobile_nav_logout').click(function() {
-        sessionStorage.clear();
-        window.open('login.html', '_self');
+    // request type change event ///////////////////////////////////////////////
+    $('#sel_request_type').change(function() {
+        var req_type_id = $(this).val();
+        setEventSections(req_type_id);
         return false;
     });
-    
-    // request type change event ///////////////////////////////////////////////
-//    $('#sel_request_type').change(function() {
-//        var req_type_id = $(this).val();
-//        getDeliveryTypeList(req_type_id);
-//        if (req_type_id === "0") {
-//            deliveryOptions("0");
-//        }
-//    });
     
     // delivery type change event //////////////////////////////////////////////
 //    $('#sel_delivery_type').change(function() {
@@ -170,128 +38,128 @@ $(document).ready(function() {
 //    });
     
     // sherpa email check box change event /////////////////////////////////////
-    $('#ckb_email_student').on('ifChanged', function() {
-        if ($(this).is(':checked') || $('#ckb_email_faculty').is(':checked')) {
-            $('#sherpa_email_section').show();
-//            $('#sherpa_email_section').animatePanel();
-        }
-        else {
-            $('#sherpa_email_section').hide();
-            $('#email_subject').val("");
-            $('#email_body').val("").trigger('autosize.resize');
-        }
-    });
+//    $('#ckb_email_student').on('ifChanged', function() {
+//        if ($(this).is(':checked') || $('#ckb_email_faculty').is(':checked')) {
+//            $('#sherpa_email_section').show();
+////            $('#sherpa_email_section').animatePanel();
+//        }
+//        else {
+//            $('#sherpa_email_section').hide();
+//            $('#email_subject').val("");
+//            $('#email_body').val("").trigger('autosize.resize');
+//        }
+//    });
     
     // sherpa email check box change event /////////////////////////////////////
-    $('#ckb_email_faculty').on('ifChanged', function() {
-        if ($(this).is(':checked') || $('#ckb_email_student').is(':checked')) {
-            $('#sherpa_email_section').show();
-//            $('#sherpa_email_section').animatePanel();
-        }
-        else {
-            $('#sherpa_email_section').hide();
-            $('#email_subject').val("");
-            $('#email_body').val("").trigger('autosize.resize');
-        }
-    });
+//    $('#ckb_email_faculty').on('ifChanged', function() {
+//        if ($(this).is(':checked') || $('#ckb_email_student').is(':checked')) {
+//            $('#sherpa_email_section').show();
+////            $('#sherpa_email_section').animatePanel();
+//        }
+//        else {
+//            $('#sherpa_email_section').hide();
+//            $('#email_subject').val("");
+//            $('#email_body').val("").trigger('autosize.resize');
+//        }
+//    });
     
     // sherpa newsfeed check box change event //////////////////////////////////
-    $('#ckb_newsfeed').on('ifChanged', function() {
-        if ($(this).is(':checked')) {
-            $('#sherpa_newsfeed_section').show();
-//            $('#sherpa_newsfeed_section').animatePanel();
-        }
-        else {
-            $('#sherpa_newsfeed_section').hide();
-            $('#announ_start_date').val("");
-            $('#announ_start_time').val("");
-            $('#announ_end_date').val("");
-            $('#announ_end_time').val("");
-            $('#event_title').val("");
-            $('#event_location').val("");
-            $('#announ_text').val("").trigger('autosize.resize');
-            $('#announ_descrip').val("").trigger('autosize.resize');
-        }
-    });
+//    $('#ckb_newsfeed').on('ifChanged', function() {
+//        if ($(this).is(':checked')) {
+//            $('#sherpa_newsfeed_section').show();
+////            $('#sherpa_newsfeed_section').animatePanel();
+//        }
+//        else {
+//            $('#sherpa_newsfeed_section').hide();
+//            $('#announ_start_date').val("");
+//            $('#announ_start_time').val("");
+//            $('#announ_end_date').val("");
+//            $('#announ_end_time').val("");
+//            $('#event_title').val("");
+//            $('#event_location').val("");
+//            $('#announ_text').val("").trigger('autosize.resize');
+//            $('#announ_descrip').val("").trigger('autosize.resize');
+//        }
+//    });
     
     // suggest post check box change event /////////////////////////////////////
-    $('#ckb_facebook').on('ifChanged', function() {
-        if ($('#ckb_facebook').is(':checked') || $('#ckb_twitter').is(':checked') || $('#ckb_instagram').is(':checked')
-            || $('#ckb_bstic').is(':checked') || $('#ckb_ssc').is(':checked') || $('#ckb_lsb').is(':checked')) {
-            $('#suggest_post_section').show();
-        }
-        else {
-            $('#suggest_post_section').hide();
-            $('#suggest_post').val("").trigger('autosize.resize');
-        }
-    });
-    
-    $('#ckb_twitter').on('ifChanged', function() {
-        if ($('#ckb_facebook').is(':checked') || $('#ckb_twitter').is(':checked') || $('#ckb_instagram').is(':checked')
-            || $('#ckb_bstic').is(':checked') || $('#ckb_ssc').is(':checked') || $('#ckb_lsb').is(':checked')) {
-            $('#suggest_post_section').show();
-        }
-        else {
-            $('#suggest_post_section').hide();
-            $('#suggest_post').val("").trigger('autosize.resize');
-        }
-    });
-    
-    $('#ckb_instagram').on('ifChanged', function() {
-        if ($('#ckb_facebook').is(':checked') || $('#ckb_twitter').is(':checked') || $('#ckb_instagram').is(':checked')
-            || $('#ckb_bstic').is(':checked') || $('#ckb_ssc').is(':checked') || $('#ckb_lsb').is(':checked')) {
-            $('#suggest_post_section').show();
-        }
-        else {
-            $('#suggest_post_section').hide();
-            $('#suggest_post').val("").trigger('autosize.resize');
-        }
-    });
-    
-    $('#ckb_bstic').on('ifChanged', function() {
-        if ($('#ckb_facebook').is(':checked') || $('#ckb_twitter').is(':checked') || $('#ckb_instagram').is(':checked')
-            || $('#ckb_bstic').is(':checked') || $('#ckb_ssc').is(':checked') || $('#ckb_lsb').is(':checked')) {
-            $('#suggest_post_section').show();
-        }
-        else {
-            $('#suggest_post_section').hide();
-            $('#suggest_post').val("").trigger('autosize.resize');
-        }
-    });
-    
-    $('#ckb_ssc').on('ifChanged', function() {
-        if ($('#ckb_facebook').is(':checked') || $('#ckb_twitter').is(':checked') || $('#ckb_instagram').is(':checked')
-            || $('#ckb_bstic').is(':checked') || $('#ckb_ssc').is(':checked') || $('#ckb_lsb').is(':checked')) {
-            $('#suggest_post_section').show();
-        }
-        else {
-            $('#suggest_post_section').hide();
-            $('#suggest_post').val("").trigger('autosize.resize');
-        }
-    });
-    
-    $('#ckb_lsb').on('ifChanged', function() {
-        if ($('#ckb_facebook').is(':checked') || $('#ckb_twitter').is(':checked') || $('#ckb_instagram').is(':checked')
-            || $('#ckb_bstic').is(':checked') || $('#ckb_ssc').is(':checked') || $('#ckb_lsb').is(':checked')) {
-            $('#suggest_post_section').show();
-        }
-        else {
-            $('#suggest_post_section').hide();
-            $('#suggest_post').val("").trigger('autosize.resize');
-        }
-    });
+//    $('#ckb_facebook').on('ifChanged', function() {
+//        if ($('#ckb_facebook').is(':checked') || $('#ckb_twitter').is(':checked') || $('#ckb_instagram').is(':checked')
+//            || $('#ckb_bstic').is(':checked') || $('#ckb_ssc').is(':checked') || $('#ckb_lsb').is(':checked')) {
+//            $('#suggest_post_section').show();
+//        }
+//        else {
+//            $('#suggest_post_section').hide();
+//            $('#suggest_post').val("").trigger('autosize.resize');
+//        }
+//    });
+//    
+//    $('#ckb_twitter').on('ifChanged', function() {
+//        if ($('#ckb_facebook').is(':checked') || $('#ckb_twitter').is(':checked') || $('#ckb_instagram').is(':checked')
+//            || $('#ckb_bstic').is(':checked') || $('#ckb_ssc').is(':checked') || $('#ckb_lsb').is(':checked')) {
+//            $('#suggest_post_section').show();
+//        }
+//        else {
+//            $('#suggest_post_section').hide();
+//            $('#suggest_post').val("").trigger('autosize.resize');
+//        }
+//    });
+//    
+//    $('#ckb_instagram').on('ifChanged', function() {
+//        if ($('#ckb_facebook').is(':checked') || $('#ckb_twitter').is(':checked') || $('#ckb_instagram').is(':checked')
+//            || $('#ckb_bstic').is(':checked') || $('#ckb_ssc').is(':checked') || $('#ckb_lsb').is(':checked')) {
+//            $('#suggest_post_section').show();
+//        }
+//        else {
+//            $('#suggest_post_section').hide();
+//            $('#suggest_post').val("").trigger('autosize.resize');
+//        }
+//    });
+//    
+//    $('#ckb_bstic').on('ifChanged', function() {
+//        if ($('#ckb_facebook').is(':checked') || $('#ckb_twitter').is(':checked') || $('#ckb_instagram').is(':checked')
+//            || $('#ckb_bstic').is(':checked') || $('#ckb_ssc').is(':checked') || $('#ckb_lsb').is(':checked')) {
+//            $('#suggest_post_section').show();
+//        }
+//        else {
+//            $('#suggest_post_section').hide();
+//            $('#suggest_post').val("").trigger('autosize.resize');
+//        }
+//    });
+//    
+//    $('#ckb_ssc').on('ifChanged', function() {
+//        if ($('#ckb_facebook').is(':checked') || $('#ckb_twitter').is(':checked') || $('#ckb_instagram').is(':checked')
+//            || $('#ckb_bstic').is(':checked') || $('#ckb_ssc').is(':checked') || $('#ckb_lsb').is(':checked')) {
+//            $('#suggest_post_section').show();
+//        }
+//        else {
+//            $('#suggest_post_section').hide();
+//            $('#suggest_post').val("").trigger('autosize.resize');
+//        }
+//    });
+//    
+//    $('#ckb_lsb').on('ifChanged', function() {
+//        if ($('#ckb_facebook').is(':checked') || $('#ckb_twitter').is(':checked') || $('#ckb_instagram').is(':checked')
+//            || $('#ckb_bstic').is(':checked') || $('#ckb_ssc').is(':checked') || $('#ckb_lsb').is(':checked')) {
+//            $('#suggest_post_section').show();
+//        }
+//        else {
+//            $('#suggest_post_section').hide();
+//            $('#suggest_post').val("").trigger('autosize.resize');
+//        }
+//    });
     ////////////////////////////////////////////////////////////////////////////
     
     // announcement start date change event ////////////////////////////////////
-    $('#announ_start_date').change(function() {
-        var announ_start = $(this).val();
-        if (announ_start !== "") {
-            $('#announ_end_date').datepicker("option", "minDate", announ_start);
-//            var dt_event = new Date(announ_start);
-//            dt_event.setDate(dt_event.getDate()+14);
-//            $('#event_date').datepicker("option", "minDate", dt_event);
-        }
-    });
+//    $('#announ_start_date').change(function() {
+//        var announ_start = $(this).val();
+//        if (announ_start !== "") {
+//            $('#announ_end_date').datepicker("option", "minDate", announ_start);
+////            var dt_event = new Date(announ_start);
+////            dt_event.setDate(dt_event.getDate()+14);
+////            $('#event_date').datepicker("option", "minDate", dt_event);
+//        }
+//    });
     
     // attachment 1 button click ///////////////////////////////////////////////
 //    $('#attach_1').change(function() {
@@ -306,7 +174,7 @@ $(document).ready(function() {
 //    });
     
     // submit button click /////////////////////////////////////////////////////
-    $('#btn_submit').click(function() {          
+//    $('#btn_submit').click(function() {          
 //        if (!requestValidation()) {
 //            return false;
 //        }
@@ -334,139 +202,67 @@ $(document).ready(function() {
 //        else {
 //            swal({title: "Error", text: "There was a system error. please conatact IT support at 949.451.5696 or ivctech@ivc.edu", type: "error"});
 //        }
-    });
+//    });
     
     // cancel button click /////////////////////////////////////////////////////
-    $('#btn_cancel').click(function() {
-        window.open('userReqList.html', '_self');
-        return false;
-    });
-    
-    // bootstrap selectpicker
-    $('.selectpicker').selectpicker();
+//    $('#btn_cancel').click(function() {
+//        window.open('userReqList.html', '_self');
+//        return false;
+//    });
     
     // bootstrap datepicker
-    $('#email_send_date').datepicker();
-    $('#announ_start_date').datepicker();
-    $('#announ_end_date').datepicker();
-    
+    $('#pr_send_date').datepicker();
+    $('#vd_date').datepicker();
+    $('#wb_launch_date').datepicker();
+ 
     // timepicker
-    $('#announ_start_time').timepicker();
-    $('#announ_end_time').timepicker();
-    
+    $('#vd_time').timepicker();
+  
     // auto size
     $('#req_descrip').autosize();
-    $('#email_body').autosize();
-    $('#announ_text').autosize();
-    $('#announ_descrip').autosize();
-    $('#suggest_post').autosize();
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-});
-
-////////////////////////////////////////////////////////////////////////////////
-function fixWrapperHeight() {
-    // Get and set current height
-    var headerH = 62;
-    var navigationH = $("#navigation").height();
-    var contentH = $(".content").height();
-
-    // Set new height when contnet height is less then navigation
-    if (contentH < navigationH) {
-        $("#wrapper").css("min-height", navigationH + 'px');
-    }
-
-    // Set new height when contnet height is less then navigation and navigation is less then window
-    if (contentH < navigationH && navigationH < $(window).height()) {
-        $("#wrapper").css("min-height", $(window).height() - headerH  + 'px');
-    }
-
-    // Set new height when contnet is higher then navigation but less then window
-    if (contentH > navigationH && contentH < $(window).height()) {
-        $("#wrapper").css("min-height", $(window).height() - headerH + 'px');
-    }
-}
-
-function setBodySmall() {
-    if ($(this).width() < 769) {
-        $('body').addClass('page-small');
-    } else {
-        $('body').removeClass('page-small');
-        $('body').removeClass('show-sidebar');
-    }
-}
-
-// Animate panel function
-$.fn['animatePanel'] = function() {
-    var element = $(this);
-    var effect = $(this).data('effect');
-    var delay = $(this).data('delay');
-    var child = $(this).data('child');
-
-    // Set default values for attrs
-    if(!effect) { effect = 'zoomIn';}
-    if(!delay) { delay = 0.06; } else { delay = delay / 10; }
-    if(!child) { child = '.row > div';} else {child = "." + child;}
-
-    //Set defaul values for start animation and delay
-    var startAnimation = 0;
-    var start = Math.abs(delay) + startAnimation;
-
-    // Get all visible element and set opacity to 0
-    var panel = element.find(child);
-    panel.addClass('opacity-0');
-
-    // Get all elements and add effect class
-    panel = element.find(child);
-    panel.addClass('stagger').addClass('animated-panel').addClass(effect);
-
-    var panelsCount = panel.length + 10;
-    var animateTime = (panelsCount * delay * 10000) / 10;
-
-    // Add delay for each child elements
-    panel.each(function (i, elm) {
-        start += delay;
-        var rounded = Math.round(start * 10) / 10;
-        $(elm).css('animation-delay', rounded + 's');
-        // Remove opacity 0 after finish
-        $(elm).removeClass('opacity-0');
+    $('#pr_body').autosize();
+    $('#wb_body_copy').autosize();
+    
+    // file attachment
+    $(":file").filestyle({buttonName: "btn-primary"});
+    
+    // iCheck initialize
+    $('input').iCheck({
+        checkboxClass: 'icheckbox_polaris',
+        radioClass: 'iradio_polaris',
+        increaseArea: '-10%' // optional
     });
-
-    // Clear animation after finish
-    setTimeout(function(){
-        $('.stagger').css('animation', '');
-        $('.stagger').removeClass(effect).removeClass('animated-panel').removeClass('stagger');
-    }, animateTime);
-};
-
+});
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-function hideAllDeliverySection() {
-    $('#delivery_sherpa').hide();
-    $('#delivery_social_media').hide();
-    $('#delivery_digital_signage').hide();
-}
-
-function hideAllOptionSection() {
-    $('#sherpa_email_section').hide();
-    $('#sherpa_newsfeed_section').hide();
-    $('#suggest_post_section').hide();
-}
-
-function clearAllCheckBox() {
-    $('#ckb_email').iCheck('uncheck');
-    $('#ckb_newsfeed').iCheck('uncheck');
-    
-    $('#ckb_facebook').iCheck('uncheck');
-    $('#ckb_twitter').iCheck('uncheck');
-    $('#ckb_instagram').iCheck('uncheck');
-    
-    $('#ckb_bstic').iCheck('uncheck');
-    $('#ckb_ssc').iCheck('uncheck');
-    $('#ckb_lsb').iCheck('uncheck');
-}
+//function hideAllDeliverySection() {
+//    $('#delivery_sherpa').hide();
+//    $('#delivery_social_media').hide();
+//    $('#delivery_digital_signage').hide();
+//}
+//
+//
+//function clearAllCheckBox() {
+//    $('#ckb_email').iCheck('uncheck');
+//    $('#ckb_newsfeed').iCheck('uncheck');
+//    
+//    $('#ckb_facebook').iCheck('uncheck');
+//    $('#ckb_twitter').iCheck('uncheck');
+//    $('#ckb_instagram').iCheck('uncheck');
+//    
+//    $('#ckb_bstic').iCheck('uncheck');
+//    $('#ckb_ssc').iCheck('uncheck');
+//    $('#ckb_lsb').iCheck('uncheck');
+//}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+function hideRequestTypeSection() {
+    $('#pr_sections').hide();
+    $('#video_sections').hide();
+    $('#website_sections').hide();
+    $('#print_design_sections').hide();
+}
+
 function isLoginAdmin() {
     var result = new Array();
     result = db_getAdminByEmail(sessionStorage.getItem('ss_mrkt_loginEmail'));
@@ -479,21 +275,19 @@ function isLoginAdmin() {
     }
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-function getLoginInfo() {
+function getLoginInfo() {    
     $('#login_user').html(sessionStorage.getItem('ss_mrkt_loginName'));
     $('#req_name').val(sessionStorage.getItem('ss_mrkt_loginName'));
     $('#req_email').val(sessionStorage.getItem('ss_mrkt_loginEmail'));
     $('#req_phone').val(sessionStorage.getItem('ss_mrkt_phone'));
-    $('#department').val(sessionStorage.getItem('ss_mrkt_department'));
+    $('#req_depart').val(sessionStorage.getItem('ss_mrkt_department'));
     $('#req_date').val(getToday());
-    
-    $('#email_send_date').datepicker("option", "minDate", "+14d");
-    $('#announ_start_date').datepicker("option", "minDate", "+14d");
-    $('#announ_end_date').datepicker("option", "minDate", "+14d");
+//    
+//    $('#email_send_date').datepicker("option", "minDate", "+14d");
+//    $('#announ_start_date').datepicker("option", "minDate", "+14d");
+//    $('#announ_end_date').datepicker("option", "minDate", "+14d");
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function getRequestTypeList() {
     var result = new Array();
     result = db_getRequestTypeList();
@@ -505,43 +299,53 @@ function getRequestTypeList() {
     }
     
     $('#sel_request_type').append(html);
-    $('#sel_request_type').selectpicker('refresh');
 }
 
-function getDeliveryTypeList(req_type_id) {
+function getVideoFormatList() {
     var result = new Array();
-    result = db_getDeliveryTypeList(req_type_id);
+    result = db_getVideoFormatList();
     
-    $('#sel_delivery_type').empty();
-    if (result.length > 0) {
-        var html = "<option value='0'>Select...</option>";
-        for (var i = 0; i < result.length; i++) {
-            html += "<option value='" + result[i]['DeliveryTypeID']  + "'>" + result[i]['DeliveryType'] + "</option>";
-        }
+    $('#vd_req_format').empty();
+    var html = "<option value='0'>Select...</option>";
+    for (var i = 0; i < result.length; i++) {
+        html += "<option value='" + result[i]['VideoFormatID']  + "'>" + result[i]['VideoFormat'] + "</option>";
     }
     
-    $('#sel_delivery_type').append(html);
-    $('#sel_delivery_type').selectpicker('refresh');
+    $('#vd_req_format').append(html);
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-function deliveryOptions(del_type_id) {
-    hideAllDeliverySection();
-    hideAllOptionSection();
-    clearAllCheckBox();
-
-    switch(del_type_id) {
+function setEventSections(req_type) {
+    switch(req_type) {
+        case "0":
+            $('#pr_sections').hide();
+            $('#video_sections').hide();
+            $('#website_sections').hide();
+            $('#print_design_sections').hide();
+            break;
         case "1":
-            $('#delivery_sherpa').show();
-            $('#delivery_sherpa').animatePanel();
+            $('#pr_sections').show();
+            $('#video_sections').hide();
+            $('#website_sections').hide();
+            $('#print_design_sections').hide();
             break;
         case "2":
-            $('#delivery_social_media').show();
-            $('#delivery_social_media').animatePanel();
+            $('#pr_sections').hide();
+            $('#video_sections').show();
+            $('#website_sections').hide();
+            $('#print_design_sections').hide();
             break;
         case "3":
-            $('#delivery_digital_signage').show();
-            $('#delivery_digital_signage').animatePanel();
+            $('#pr_sections').hide();
+            $('#video_sections').hide();
+            $('#website_sections').show();
+            $('#print_design_sections').hide();
+            break;
+        case "4":
+            $('#pr_sections').hide();
+            $('#video_sections').hide();
+            $('#website_sections').hide();
+            $('#print_design_sections').show();
             break;
         default:
             break;
@@ -549,52 +353,76 @@ function deliveryOptions(del_type_id) {
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-function getImageFileInfo(id) {
-    var file = $(id).get(0).files[0];
-    var f_name = file.name.replace(/#/g, "");
-    
-    if (typeof file !== "undefined") {
-        var f_extension = getFileExtension(f_name);
-        if (f_extension !== "jpg" && f_extension !== "jpeg" && f_extension !== "pdf") {
-            swal({title: "Warning", text: "Only jpeg/jpg or pdf file can be upload", type: "warning"});
-            $(id).filestyle('clear');
-            return false;
-        } 
-        else {   
-            if (file.size >= 2000000) {
-                swal({title: "Warning", text: "Attached file size is too big, max. file size allow is 2Mb or less", type: "warning"});
-                $(id).filestyle('clear');
-                return false;
-            }
-            else {
-                return true;
-            }
-        }
-    }
-    else {
-        return false;
-    }
-}
+//function deliveryOptions(del_type_id) {
+//    hideAllDeliverySection();
+//    hideAllOptionSection();
+//    clearAllCheckBox();
+//
+//    switch(del_type_id) {
+//        case "1":
+//            $('#delivery_sherpa').show();
+//            $('#delivery_sherpa').animatePanel();
+//            break;
+//        case "2":
+//            $('#delivery_social_media').show();
+//            $('#delivery_social_media').animatePanel();
+//            break;
+//        case "3":
+//            $('#delivery_digital_signage').show();
+//            $('#delivery_digital_signage').animatePanel();
+//            break;
+//        default:
+//            break;
+//    }
+//}
 
-function convertImageFiletoBase64(id) {
-    var file = $(id).get(0).files[0];
-    var reader = new FileReader();
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//function getImageFileInfo(id) {
+//    var file = $(id).get(0).files[0];
+//    var f_name = file.name.replace(/#/g, "");
+//    
+//    if (typeof file !== "undefined") {
+//        var f_extension = getFileExtension(f_name);
+//        if (f_extension !== "jpg" && f_extension !== "jpeg" && f_extension !== "pdf") {
+//            swal({title: "Warning", text: "Only jpeg/jpg or pdf file can be upload", type: "warning"});
+//            $(id).filestyle('clear');
+//            return false;
+//        } 
+//        else {   
+//            if (file.size >= 2000000) {
+//                swal({title: "Warning", text: "Attached file size is too big, max. file size allow is 2Mb or less", type: "warning"});
+//                $(id).filestyle('clear');
+//                return false;
+//            }
+//            else {
+//                return true;
+//            }
+//        }
+//    }
+//    else {
+//        return false;
+//    }
+//}
 
-    reader.onloadend = function () {
-        if (id === "#attach_1") {
-            m_file_name_1 = file.name.replace(/#/g, "");
-            m_base64_data_1 = reader.result;
-        }
-        else {
-            m_file_name_2 = file.name.replace(/#/g, "");
-            m_base64_data_2 = reader.result;
-        }
-    };
-
-    if (file) {
-        reader.readAsDataURL(file);
-    } 
-}
+//function convertImageFiletoBase64(id) {
+//    var file = $(id).get(0).files[0];
+//    var reader = new FileReader();
+//
+//    reader.onloadend = function () {
+//        if (id === "#attach_1") {
+//            m_file_name_1 = file.name.replace(/#/g, "");
+//            m_base64_data_1 = reader.result;
+//        }
+//        else {
+//            m_file_name_2 = file.name.replace(/#/g, "");
+//            m_base64_data_2 = reader.result;
+//        }
+//    };
+//
+//    if (file) {
+//        reader.readAsDataURL(file);
+//    } 
+//}
 
 // user input validation ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

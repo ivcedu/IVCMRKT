@@ -1,7 +1,7 @@
 <?php
     require("config.php");
 
-    $query = "SELECT * FROM [IVCMRKT].[dbo].[Status]";
+    $query = "SELECT * FROM [".$dbDatabase."].[dbo].[Status]";
 
     $cmd = $dbConn->prepare($query);
     $cmd->execute(); 

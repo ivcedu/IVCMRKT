@@ -5,29 +5,32 @@ window.onload = function() {
     if (sessionStorage.key(0) !== null) {
         isLoginAdmin();
         getLoginInfo();
-        getAdminReqList();
+        getMyHistoryList();
     }
     else {
         window.open('login.html', '_self');
     }
 };
+
 ////////////////////////////////////////////////////////////////////////////////
-$(document).ready(function() {   
+$(document).ready(function() {    
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     $('#nav_logout').click(function() {
         sessionStorage.clear();
         window.open('login.html', '_self');
         return false;
     });
-    
+
     // table wsample title click event /////////////////////////////////////////
-    $('#tbl_user_req_list').on('click', 'a[id^="event_request_id_"]', function() {
+    $('#tbl_my_history_list').on('click', 'a[id^="event_request_id_"]', function() {
         var event_request_id = $(this).attr('id').replace("event_request_id_", "");
         window.open('viewRequest.html?event_request_id=' + event_request_id, '_self');
         return false;
     });
     
     // jquery datatables initialize ////////////////////////////////////////////
-    m_table = $('#tbl_user_req_list').DataTable({ paging: false, bInfo: false,
+    m_table = $('#tbl_my_history_list').DataTable({ paging: false, bInfo: false,
                                                     dom: "<'row'<'col-sm-4'l><'col-sm-4 text-center'B><'col-sm-4'f>>tp",
                                                     "lengthMenu": [ [10, 25, 50, -1], [10, 25, 50, "All"] ],
                                                     buttons: [  {extend: 'copy',className: 'btn-sm'},
@@ -44,23 +47,22 @@ function isLoginAdmin() {
     result = db_getAdminByEmail(sessionStorage.getItem('ss_mrkt_loginEmail'));
     
     if (result.length === 1) {
+        $('#nav_rpt_complete_list').show();
         $('#menu_administrator').show();
-    }
-    else {
-        $('#menu_administrator').hide();
     }
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function getLoginInfo() {
     var login_name = sessionStorage.getItem('ss_mrkt_loginName');
     $('#login_user').html(login_name);
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-function getAdminReqList() {
-    var result = new Array();
-    result = db_getAdminEventReqList();
-    
-    m_table.clear();
-    m_table.rows.add(result).draw();
+function getMyHistoryList() {
+//    var result = new Array();
+//    result = db_getAdminEventReqList();
+//    
+//    m_table.clear();
+//    m_table.rows.add(result).draw();
 }

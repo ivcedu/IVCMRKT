@@ -4,9 +4,10 @@
     $AdminID = filter_input(INPUT_POST, 'AdminID');
     $AdminName = filter_input(INPUT_POST, 'AdminName');
     $AdminEmail = filter_input(INPUT_POST, 'AdminEmail');
+    $FullAccess = filter_input(INPUT_POST, 'FullAccess');
 
-    $query = "UPDATE [IVCMRKT].[dbo].[Admin] "
-                ."SET AdminName = '".$AdminName."', AdminEmail = '".$AdminEmail."' "
+    $query = "UPDATE [".$dbDatabase."].[dbo].[Admin] "
+                ."SET AdminName = '".$AdminName."', AdminEmail = '".$AdminEmail."', FullAccess = '".$FullAccess."' "
                 ."WHERE AdminID = '".$AdminID."'";
     
     $cmd = $dbConn->prepare($query);

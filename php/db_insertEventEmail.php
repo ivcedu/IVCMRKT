@@ -6,7 +6,7 @@
     $Subject = filter_input(INPUT_POST, 'Subject');
     $Body = filter_input(INPUT_POST, 'Body');
     
-    $query = "INSERT INTO [IVCMRKT].[dbo].[EventEmail] (EventRequestID, SendDate, Subject, Body) "
+    $query = "INSERT INTO [".$dbDatabase."].[dbo].[EventEmail] (EventRequestID, SendDate, Subject, Body) "
             . "VALUES ('$RequestTypeID', '$SendDate', '$Subject', '$Body')";  
     
     $cmd = $dbConn->prepare($query);

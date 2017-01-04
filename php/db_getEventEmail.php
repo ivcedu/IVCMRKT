@@ -3,7 +3,7 @@
     
     $EventRequestID = filter_input(INPUT_POST, 'EventRequestID');
 
-    $query = "SELECT * FROM [IVCMRKT].[dbo].[EventEmail] WHERE EventRequestID = '".$EventRequestID."'";
+    $query = "SELECT * FROM [".$dbDatabase."].[dbo].[EventEmail] WHERE EventRequestID = '".$EventRequestID."'";
 
     $cmd = $dbConn->prepare($query);
     $cmd->execute(); 

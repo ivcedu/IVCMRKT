@@ -1,11 +1,7 @@
 <?php
     $dbHost = "IEXDBLISTNR";
-    // sql 2014 server (production DB)
-//    $dbDatabase = "IVCMRKT";
-    // sql 2014 server (development DB)
-    $dbDatabase = "DEVMRKT";
-    
-    $dbUser = "ivcmrkt";
+    $dbDatabase = "IREPORT";
+    $dbUser = "ireport";
     $dbPass = "~7QM#pd?X*";
 
     // MSSQL database connection

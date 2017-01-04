@@ -5,7 +5,7 @@
     $Email = filter_input(INPUT_POST, 'Email');
     $Newsfeed = filter_input(INPUT_POST, 'Newsfeed');
     
-    $query = "INSERT INTO [IVCMRKT].[dbo].[Sherpa] (EventRequestID, Email, Newsfeed) "
+    $query = "INSERT INTO [".$dbDatabase."].[dbo].[Sherpa] (EventRequestID, Email, Newsfeed) "
                 ."VALUES ('$EventRequestID', '$Email', '$Newsfeed')";  
     
     $cmd = $dbConn->prepare($query);

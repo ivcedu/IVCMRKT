@@ -6,7 +6,7 @@
     $Twitter = filter_input(INPUT_POST, 'Twitter');
     $Instagram = filter_input(INPUT_POST, 'Instagram');
     
-    $query = "INSERT INTO [IVCMRKT].[dbo].[SocialMedia] (EventRequestID, Facebook, Twitter, Instagram) "
+    $query = "INSERT INTO [".$dbDatabase."].[dbo].[SocialMedia] (EventRequestID, Facebook, Twitter, Instagram) "
                 ."VALUES ('$EventRequestID', '$Facebook', '$Twitter', '$Instagram')";  
     
     $cmd = $dbConn->prepare($query);

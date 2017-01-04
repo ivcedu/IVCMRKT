@@ -12,7 +12,7 @@
     $ReqTitle = filter_input(INPUT_POST, 'ReqTitle');
     $ReqDescrip = filter_input(INPUT_POST, 'ReqDescrip');
     
-    $query = "INSERT INTO [IVCMRKT].[dbo].[EventRequest] (RequestTypeID, DeliveryTypeID, StatusID, ReqName, ReqPhone, ReqEmail, Department, ReqDate, ReqTitle, ReqDescrip) "
+    $query = "INSERT INTO [".$dbDatabase."].[dbo].[EventRequest] (RequestTypeID, DeliveryTypeID, StatusID, ReqName, ReqPhone, ReqEmail, Department, ReqDate, ReqTitle, ReqDescrip) "
             . "VALUES ('$RequestTypeID', '$DeliveryTypeID', '$StatusID', '$ReqName', '$ReqPhone', '$ReqEmail', '$Department', '$ReqDate', '$ReqTitle', '$ReqDescrip')";  
     
     $cmd = $dbConn->prepare($query);

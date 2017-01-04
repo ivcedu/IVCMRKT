@@ -3,7 +3,7 @@
     
     $EventRequestID = filter_input(INPUT_POST, 'EventRequestID');
 
-    $query = "SELECT * FROM [IVCMRKT].[dbo].[Transaction] WHERE EventRequestID = '".$EventRequestID."' ORDER BY TransactionID DESC";
+    $query = "SELECT * FROM [".$dbDatabase."].[dbo].[Transaction] WHERE EventRequestID = '".$EventRequestID."' ORDER BY TransactionID DESC";
 
     $cmd = $dbConn->prepare($query);
     $cmd->execute(); 

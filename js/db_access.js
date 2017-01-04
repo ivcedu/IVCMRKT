@@ -29,6 +29,20 @@ function db_getAdminByEmail(AdminEmail) {
     return result;
 }
 
+function db_getAdminByID(AdminID) {
+    var result = new Array();
+    $.ajax({
+        type:"POST",
+        url:"php/db_getAdminByID.php",
+        data:{AdminID:AdminID},
+        async: false,  
+        success:function(data) {
+            result = JSON.parse(data);
+        }
+    });
+    return result;
+}
+
 function db_getAdminList() {
     var result = new Array();
     $.ajax({
@@ -262,13 +276,26 @@ function db_getDigitalSignage(EventRequestID) {
     return result;
 }
 
+function db_getVideoFormatList() {
+    var result = new Array();
+    $.ajax({
+        type:"POST",
+        url:"php/db_getVideoFormatList.php",
+        async: false,  
+        success:function(data) {
+            result = JSON.parse(data);
+        }
+    });
+    return result;
+}
+
 // insert DB ///////////////////////////////////////////////////////////////////
-function db_insertAdmin(AdminName, AdminEmail) {
+function db_insertAdmin(AdminName, AdminEmail, FullAccess) {
     var ResultID = "";
     $.ajax({
         type:"POST",
         url:"php/db_insertAdmin.php",
-        data:{AdminName:AdminName, AdminEmail:AdminEmail},
+        data:{AdminName:AdminName, AdminEmail:AdminEmail, FullAccess:FullAccess},
         async: false,  
         success:function(data) {
             ResultID = JSON.parse(data);
@@ -392,12 +419,12 @@ function db_insertTransaction(EventRequestID, LoginName, Note) {
 }
 
 // update DB ///////////////////////////////////////////////////////////////////
-function db_updateAdmin(AdminID, AdminName, AdminEmail) {
+function db_updateAdmin(AdminID, AdminName, AdminEmail, FullAccess) {
     var Result = false;
     $.ajax({
         type:"POST",
         url:"php/db_updateAdmin.php",
-        data:{AdminID:AdminID, AdminName:AdminName, AdminEmail:AdminEmail},
+        data:{AdminID:AdminID, AdminName:AdminName, AdminEmail:AdminEmail, FullAccess:FullAccess},
         async: false,  
         success:function(data) {
             Result = JSON.parse(data);
@@ -427,6 +454,22 @@ function db_deleteAdmin(AdminID) {
         type:"POST",
         url:"php/db_deleteAdmin.php",
         data:{AdminID:AdminID},
+        async: false,  
+        success:function(data) {
+            Result = JSON.parse(data);
+        }
+    });
+    return Result;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+function ireportDBgetUserAccess(Username) {   
+    var Result = "";
+    $.ajax({
+        type:"POST",
+        url:"php/ireport_db_getUserAccess.php",
+        data:{Username:Username},
         async: false,  
         success:function(data) {
             Result = JSON.parse(data);

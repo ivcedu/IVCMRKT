@@ -5,7 +5,7 @@
     $LoginName = filter_input(INPUT_POST, 'LoginName');
     $Note = filter_input(INPUT_POST, 'Note');
     
-    $query = "INSERT INTO [IVCMRKT].[dbo].[Transaction] (EventRequestID, LoginName, Note) "
+    $query = "INSERT INTO [".$dbDatabase."].[dbo].[Transaction] (EventRequestID, LoginName, Note) "
                 ."VALUES ('$EventRequestID', '$LoginName', '$Note')";  
     
     $cmd = $dbConn->prepare($query);
