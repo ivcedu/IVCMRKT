@@ -68,8 +68,8 @@
         <script src="../include/sweetalert/js/sweetalert.min.js"></script>
         <script src="../include/utilities/js/jquery.backstretch.min.js"></script>
         <!-- application javascript -->
-        <script src="js/login.js"></script>
-        <script src="js/session_data.js"></script>
-        <script src="js/db_access.js"></script>
+        <script src="js/login.js?v=1.0.0"></script>
+        <script src="js/session_data.js?v=1.0.0"></script>
+        <script src="js/db_access.js?v=1.0.0"></script>
     </body>
 </html>
