@@ -415,15 +415,13 @@ $(document).ready(function() {
             return false;
         }
         
-        alert("file type checked");
-        
-//        startSpinning();
-//        setTimeout(function() {
-//            if (!insertMrktAttachment()) {
-//                return false;
-//            }
-//            stopSpinning();
-//        }, 1500);
+        startSpinning();
+        setTimeout(function() {
+            if (!insertMrktAttachment()) {
+                return false;
+            }
+            stopSpinning();
+        }, 1500);
         
         this.blur();
         return false;
@@ -710,9 +708,8 @@ function mainSectionValidation() {
 function mainAttachmentFileValidation() {
     var file = $('#main_file_attachment').get(0).files[0];
 
-    if (typeof file !== "undefined" && file !== null) { 
-        var f_name = file.name.replace(/#/g, "");
-        var f_extension = getFileExtension(f_name);
+    if (typeof file !== "undefined" && file !== null) {
+        var f_extension = getFileExtension(file.name);
         
         if (f_extension !== "pdf" && f_extension !== "doc" && f_extension !== "docx" && f_extension !== "jpg" && f_extension !== "jpeg" && f_extension !== "png") {
             swal({title: "Error", text: "We only accept word doc, pdf, jpg or png image file type", type: "error"});
@@ -1523,6 +1520,7 @@ function insertMrktAttachment() {
     if (typeof file !== "undefined" && file !== null) {
         var file_data = new FormData();  
         var f_name = file.name.replace(/#/g, "").replace(/'/g, "");
+        f_name = removeDiacritics(f_name);
         
         var mrkt_attachment_id = db_insertMrktAttachment(f_name, getFileExtension(f_name));
         if (mrkt_attachment_id === "") {

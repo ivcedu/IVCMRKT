@@ -2821,6 +2821,7 @@ function insertMrktPrintFile() {
     if (typeof file !== "undefined" && file !== null) {
         var file_data = new FormData();  
         var f_name = file.name.replace(/#/g, "").replace(/'/g, "");
+        f_name = removeDiacritics(f_name);
         var php_flname = mrkt_print_id + "_" + mrkt_request_id + "_fileIndex_" + f_name;
         file_data.append("files[]", file, php_flname); 
 
@@ -2844,6 +2845,7 @@ function insertMrktPhotoFile() {
     if (typeof file !== "undefined" && file !== null) {
         var file_data = new FormData();  
         var f_name = file.name.replace(/#/g, "").replace(/'/g, "");
+        f_name = removeDiacritics(f_name);
         var php_flname = mrkt_photo_id + "_" + mrkt_request_id + "_fileIndex_" + f_name;
         file_data.append("files[]", file, php_flname); 
 
@@ -2867,6 +2869,7 @@ function insertMrktMediaFile() {
     if (typeof file !== "undefined" && file !== null) {
         var file_data = new FormData();  
         var f_name = file.name.replace(/#/g, "").replace(/'/g, "");
+        f_name = removeDiacritics(f_name);
         var php_flname = mrkt_media_id + "_" + mrkt_request_id + "_fileIndex_" + f_name;
         file_data.append("files[]", file, php_flname); 
 
@@ -2890,6 +2893,7 @@ function insertMrktWebFile() {
     if (typeof file !== "undefined" && file !== null) {
         var file_data = new FormData();  
         var f_name = file.name.replace(/#/g, "").replace(/'/g, "");
+        f_name = removeDiacritics(f_name);
         var php_flname = mrkt_web_id + "_" + mrkt_request_id + "_fileIndex_" + f_name;
         file_data.append("files[]", file, php_flname); 
 
@@ -2913,6 +2917,7 @@ function insertMrktVideoFile() {
     if (typeof file !== "undefined" && file !== null) {
         var file_data = new FormData();  
         var f_name = file.name.replace(/#/g, "").replace(/'/g, "");
+        f_name = removeDiacritics(f_name);
         var php_flname = mrkt_video_id + "_" + mrkt_request_id + "_fileIndex_" + f_name;
         file_data.append("files[]", file, php_flname); 
 
@@ -2936,6 +2941,7 @@ function insertMrktEditorialFile() {
     if (typeof file !== "undefined" && file !== null) {
         var file_data = new FormData();  
         var f_name = file.name.replace(/#/g, "").replace(/'/g, "");
+        f_name = removeDiacritics(f_name);
         var php_flname = mrkt_editorial_id + "_" + mrkt_request_id + "_fileIndex_" + f_name;
         file_data.append("files[]", file, php_flname); 
 
