@@ -1,25 +1,29 @@
 ////////////////////////////////////////////////////////////////////////////////
-window.onload = function() {
+window.onload = function() {    
     $('#logn_error').hide();
     var curBrowser = bowser.name;
     var curVersion = Number(bowser.version);
-    
+
     switch (curBrowser) {
         case "Safari":
             if (curVersion < 6)
                 window.open('browser_not_support.html', '_self');
+                return false;
             break;
         case "Chrome":
             if (curVersion < 7)
                 window.open('browser_not_support.html', '_self');
+                return false;
             break;
         case "Firefox":
             if (curVersion < 22)
                 window.open('browser_not_support.html', '_self');
+                return false;
             break;
         case "Internet Explorer":
             if (curVersion < 11)
                 window.open('browser_not_support.html', '_self');
+                return false;
             break;
         default:     
             break;
@@ -58,21 +62,16 @@ $(document).ready(function() {
         }
     });
     
-    $.backstretch(["images/ivcmrkt_back_web_3.jpg"], {duration: 3000, fade: 750});
+    $.backstretch(["images/ivcmrkt_back_web_3.jpg"], { duration: 3000, fade: 750 });
 });
 
 ////////////////////////////////////////////////////////////////////////////////
 function loginInfo() {   
-    var username = $('#username').val().toLowerCase();
+    var username = $('#username').val().toLowerCase().replace("@ivc.edu", "").replace("@saddleback.edu", "");
     var password = $('#password').val();
-    var error = loginEmailValidation(username);
-    if(error !== "") {
-        return error;
-    }
     
     var result = new Array();
-    username = username.replace("@ivc.edu", "");
-    result = getLoginUserInfo("php/login.php", username, password);    
+    result = getLoginUserInfo("php/ldap_ivc_login.php", username, password);    
     if (result.length === 0) {
         return "Invalid Email or Password";
     }
@@ -81,18 +80,15 @@ function loginInfo() {
         var email = objToString(result[1]);
         var department = objToString(result[2]);
         var phone = objToString(result[3]);
+        
+        // for testing
+//        if (email === "deantest@ivc.edu") {
+//            name = "Dalton Murray";
+//            email = "dmurray10@ivc.edu";
+//        }
+        
         sessionData_login(name, email, department, phone);
         return "";
-    }
-}
-
-////////////////////////////////////////////////////////////////////////////////
-function loginEmailValidation(login_email) {    
-    if (login_email.indexOf("@ivc.edu") !== -1) {
-        return "";
-    }
-    else {
-        return "Invalid Email";
     }
 }
 

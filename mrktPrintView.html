@@ -1,0 +1,1317 @@
+<!DOCTYPE HTML>
+<html>
+    <head>        
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+        <meta http-equiv="Cache-Control" content="no-cache"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+        <title>Marketing Team</title>
+        <!-- sing-3.4 css -->
+        <link rel="stylesheet" href="../sing-3.4/ajax-bootstrap3/css/application.min.css"/>
+        <link rel="shortcut icon" href="img/favicon.png"/>
+        <!-- CDN css link -->
+        <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"/>
+        <!-- include css -->
+        <link rel="stylesheet" href="../include/iconic-1.9.0/font/css/iconic-bootstrap.css"/>
+        <link rel="stylesheet" href="../include/font-awesome-4.6.3/css/font-awesome.min.css"/>
+        <link rel="stylesheet" href="../include/Icon-font-7-stroke/pe-icon-7-stroke/css/pe-icon-7-stroke.css"/>
+        <link rel="stylesheet" href="../include/Icon-font-7-stroke/pe-icon-7-stroke/css/helper.css"/>
+        <link rel="stylesheet" href="../include/DataTables-1.10.13/datatables.min.css"/>
+        <link rel="stylesheet" href="../include/sweetalert/css/sweetalert.css"/>
+        <link rel="stylesheet" href="../include/iCheck/skins/square/green.css"/>
+        <link rel="stylesheet" href="../include/fancyBox-2.1.5/source/jquery.fancybox.css"/>
+        <!-- application css -->
+        <link rel="stylesheet" href="css/ivcmarkt.css"/>
+        <link rel="stylesheet" href="css/print.css"/>
+        <link rel="stylesheet" href="css/spinner_loader.css"/>
+    </head>
+    <body>
+        <!-- main sidebar -->
+        <nav id="sidebar" class="sidebar" role="navigation">
+            <div class="js-sidebar-content">
+                <header class="logo hidden-xs">
+                    <a href="home.html"><i class="iconic iconic-md iconic-home ivcmarkt_active_color" id="home_icon"></i></a> 
+                </header>
+                <ul class="sidebar-nav">
+                    <li>
+                        <a href="#" id="nav_new_request"><span class="icon"><i class="fa fa-bullhorn"></i></span>New Request</a>
+                    </li>
+                    <li id="nav_sidebar_reports">
+                        <a class="collapsed" href="#sidebar-reports" data-toggle="collapse" data-parent="#sidebar">
+                            <span class="icon"><i class="fa fa-bar-chart-o"></i></span>Reports<i class="toggle fa fa-angle-down"></i>
+                        </a>
+                        <ul id="sidebar-reports" class="collapse">
+                            <li id="nav_rpt_my_history"><a href="rptMyHistoryList.html">My History</a></li>
+                            <li hidden class="rpt_mrkt_staff"><a href="#" id="nav_rpt_all_request">All Request</a></li>
+                            <li hidden class="rpt_mrkt_staff"><a href="#" id="nav_rpt_in_process">In Process</a></li>
+                            <li hidden class="rpt_mrkt_staff"><a href="#" id="nav_rpt_completed">Completed</a></li>
+                            <li hidden class="rpt_mrkt_staff"><a href="#" id="nav_rpt_canceled">Canceled</a></li>
+                        </ul>
+                    </li>
+                    <li hidden id='nav_sidebar_mrkt_staff'>
+                        <a class="collapsed" href="#sidebar-mrkt-staff" data-toggle="collapse" data-parent="#sidebar">
+                            <span class="icon"><i class="fa fa-lock"></i></span>MRKT Staff<i class="toggle fa fa-angle-down"></i>
+                        </a>
+                        <ul id="sidebar-mrkt-staff" class="collapse">
+                            <li id="nav_mrkt_staff_new"><a href="adminNewList.html">New List<span hidden class="label label-danger" style="margin-top: -1px;" id="new_req_count"></span></a></li>
+                            <li id="nav_mrkt_staff_req"><a href="adminProjectList.html">Project List</a></li>
+                            <li id="nav_mrkt_staff_com"><a href="adminCompleteList.html">Complete List</a></li>
+                        </ul>
+                    </li>
+                    <li hidden id='nav_sidebar_system'>
+                        <a class="collapsed" href="#sidebar-system" data-toggle="collapse" data-parent="#sidebar">
+                            <span class="icon"><i class="fa fa-wrench"></i></span>Systems<i class="toggle fa fa-angle-down"></i>
+                        </a>
+                        <ul id="sidebar-system" class="collapse">
+                            <li><a href="adminSetting.html">Staff Access</a></li>
+                            <li hidden id="nav_sidebar_sys_access_level"><a href="adminAccessLevel.html">Access Level</a></li>
+                            <li hidden id="nav_sidebar_sys_task"><a href="adminTasks.html">Tasks</a></li>
+                            <li><a href="adminTaskStaff.html">Task Staff</a></li>
+                            <li><a href="adminStatus.html">Status</a></li>
+                            <li><a href="adminEmailSetting.html">Email</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <!-- main sections -->
+        <nav class="page-controls navbar navbar-default">
+            <div class="container-fluid">
+                <!-- header navigation -->
+                <div class="navbar-header">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <a class="hidden-sm hidden-xs" id="nav-state-toggle" href="#" title="Turn on/off sidebar collapsing" data-placement="bottom">
+                                <i class="fa fa-bars fa-lg"></i>
+                            </a>
+                            <a class="visible-sm visible-xs" id="nav-collapse-toggle" href="#" title="show/hide sidebar" data-placement="bottom">
+                                <span class="rounded rounded-lg bg-gray text-white visible-xs"><i class="fa fa-bars fa-lg"></i></span>
+                                <i class="fa fa-bars fa-lg hidden-xs"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="#" id="nav_ivc_tech"><i class="iconic iconic-sm iconic-bug"></i>&nbsp;&nbsp;<b>IVC Tech</b></a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span id="login_user"></span><b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#" id="nav_logout"><i class="ion ion-log-out"></i>&nbsp;&nbsp;Log Out</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Main content -->
+        <div class="content-wrap">
+            <main id="content" class="content" role="main">
+                <div class="col-md-11">
+                    <h3 class="page-title">Marketing Team Process</h3>
+                </div>
+                <div class="col-md-1">
+                    <a href=# id="ico_btn_print"><i class="pe-7s-print pe-2x pe-va iconic-color-default"></i></a>
+                    <a class="pull-right" href=# id="ico_btn_close"><i class="pe-7s-close-circle pe-2x pe-va iconic-color-default"></i></a>
+                </div>
+                <!-- administrator section -->
+                <div class="row" hidden id="administrator_section">
+                    <div class="col-md-12">
+                        <section class="widget">
+                            <header>
+                                <h4>ADMINISTRATOR SECTION</h4>
+                                <div class="widget-controls">
+                                    <a data-widgster="expand" title="Expand" href="#"><i class="glyphicon glyphicon-chevron-up"></i></a>
+                                    <a data-widgster="collapse" title="Collapse" href="#"><i class="glyphicon glyphicon-chevron-down"></i></a>
+                                </div>
+                            </header>
+                            <div class="widget-body">
+                                <form class="form-horizontal" role="form">
+                                    <fieldset>
+                                        <legend><b>Marketing request status</b></legend>
+                                        <div class="form-group">
+                                            <label for="normal-field" class="col-sm-4 control-label">Marketing Request Status:</label>
+                                            <div class="col-sm-5">
+                                                <select class="form-control m-b" data-container="body" id="mrkt_req_status_list"></select>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <button class="col-sm-12 btn btn-primary" id="btn_mrkt_req_status_update">Update</button>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="elastic-textarea" class="col-sm-4 control-label">Details/Note/Explanation:</label>
+                                            <div class="col-sm-5">
+                                                <textarea rows="2" class="autogrow form-control transition-height" style="resize: vertical;" id="mrkt_req_status_note"></textarea>
+                                            </div>
+                                        </div>
+                                    </fieldset> 
+                                    <fieldset>
+                                        <legend><b>Marketing administrator task assigning process</b></legend>
+                                        <div class="form-group" hidden id="admin_task_assig_print">
+                                            <label for="normal-field" class="col-sm-4 control-label">Print/Graphics Task:</label>
+                                            <div class="col-sm-5">
+                                                <select class="form-control m-b" data-container="body" id="print_task_staff_list"></select>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <button class="col-sm-12 btn btn-primary" id="btn_admin_task_staff_print_update">Update</button>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" hidden id="admin_task_assig_photo">
+                                            <label for="normal-field" class="col-sm-4 control-label">Photography Task:</label>
+                                            <div class="col-sm-5">
+                                                <select class="form-control m-b" data-container="body" id="photo_task_staff_list"></select>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <button class="col-sm-12 btn btn-primary" id="btn_admin_task_staff_photo_update">Update</button>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" hidden id="admin_task_assig_media">
+                                            <label for="normal-field" class="col-sm-4 control-label">Social Media/Publicity Task:</label>
+                                            <div class="col-sm-5">
+                                                <select class="form-control m-b" data-container="body" id="media_task_staff_list"></select>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <button class="col-sm-12 btn btn-primary" id="btn_admin_task_staff_media_update">Update</button>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" hidden id="admin_task_assig_web">
+                                            <label for="normal-field" class="col-sm-4 control-label">Web Services Task:</label>
+                                            <div class="col-sm-5">
+                                                <select class="form-control m-b" data-container="body" id="web_task_staff_list"></select>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <button class="col-sm-12 btn btn-primary" id="btn_admin_task_staff_web_update">Update</button>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" hidden id="admin_task_assig_video">
+                                            <label for="normal-field" class="col-sm-4 control-label">Video Task:</label>
+                                            <div class="col-sm-5">
+                                                <select class="form-control m-b" data-container="body" id="video_task_staff_list"></select>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <button class="col-sm-12 btn btn-primary" id="btn_admin_task_staff_video_update">Update</button>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" hidden id="admin_task_assig_editorial">
+                                            <label for="normal-field" class="col-sm-4 control-label">Editorial Services Task:</label>
+                                            <div class="col-sm-5">
+                                                <select class="form-control m-b" data-container="body" id="editorial_task_staff_list"></select>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <button class="col-sm-12 btn btn-primary" id="btn_admin_task_staff_editorial_update">Update</button>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="elastic-textarea" class="col-sm-4 control-label">Details/Note/Explanation:</label>
+                                            <div class="col-sm-5">
+                                                <textarea rows="2" class="autogrow form-control transition-height" style="resize: vertical;" id="admin_task_staff_note"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="form-actions">
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="col-sm-10 col-sm-offset-1">
+                                                        <input class="control-label" type="checkbox" id="ckb_admin_show_task_staff">&nbsp;&nbsp;
+                                                        <label class="control-label" style="font-weight: bold;" for="ckb_admin_show_task_staff">Show Task Staff Status Section</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </form>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+                <!-- task staff section -->
+                <div class="row" hidden id="task_staff_section">
+                    <div class="col-md-12">
+                        <section class="widget">
+                            <header>
+                                <h4>TASK STAFF SECTION</h4>
+                                <div class="widget-controls">
+                                    <a data-widgster="expand" title="Expand" href="#"><i class="glyphicon glyphicon-chevron-up"></i></a>&nbsp;&nbsp;
+                                    <a data-widgster="collapse" title="Collapse" href="#"><i class="glyphicon glyphicon-chevron-down"></i></a>
+                                </div>
+                            </header>
+                            <div class="widget-body">
+                                <form class="form-horizontal" role="form">
+                                    <fieldset>
+                                        <b>Marketing task staff work process</b>
+                                    </fieldset>
+                                    <div hidden class="row" id="spinner_loader">
+                                        <img src="images/spinner.svg" id="spinner_loader_img">
+                                    </div>
+                                    <!-- task print -->
+                                    <fieldset hidden id="task_print_status_section">
+                                        <legend></legend>
+                                        <div class="form-group">
+                                            <label for="normal-field" class="col-sm-4 control-label">Print/Graphics Task Status:</label>
+                                            <div class="col-sm-5">
+                                                <select class="form-control m-b" data-container="body" id="task_print_status_list"></select>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <button class="col-sm-12 btn btn-primary" id="btn_task_print_status_update">Update</button>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" hidden id="task_print_file_section">
+                                            <label class="col-sm-4 control-label">Project File Attach:</label>
+                                            <div class="col-sm-5">
+                                                <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                                                    <div class="form-control" data-trigger="fileinput">
+                                                        <i class="glyphicon glyphicon-file fileinput-exists"></i>
+                                                        <span class="fileinput-filename"></span>
+                                                    </div>
+                                                    <span class="input-group-addon btn btn-default btn-file">
+                                                        <span class="fileinput-new">Select file</span>
+                                                        <span class="fileinput-exists">Change</span>
+                                                        <input class="task_project_file_input" type="file" id="task_print_file_attach">
+                                                    </span>
+                                                    <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" hidden id="task_print_file_view">
+                                            <label class="col-sm-4 control-label">Project File Attach:</label>
+                                            <div class="col-sm-5">
+                                                <p class="form-control" id="task_print_file_name"></p>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <button class="col-sm-12 btn btn-success" id="btn_print_file_download">Download</button>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <button class="col-sm-12 btn btn-danger" id="btn_print_file_delete">Delete</button>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                    <!-- task photo -->
+                                    <fieldset hidden id="task_photo_status_section">
+                                        <legend></legend>
+                                        <div class="form-group">
+                                            <label for="normal-field" class="col-sm-4 control-label">Photography Task Status:</label>
+                                            <div class="col-sm-5">
+                                                <select class="form-control m-b" data-container="body" id="task_photo_status_list"></select>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <button class="col-sm-12 btn btn-primary" id="btn_task_photo_status_update">Update</button>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" hidden id="task_photo_file_section">
+                                            <label class="col-sm-4 control-label">Project File Attach:</label>
+                                            <div class="col-sm-5">
+                                                <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                                                    <div class="form-control" data-trigger="fileinput">
+                                                        <i class="glyphicon glyphicon-file fileinput-exists"></i>
+                                                        <span class="fileinput-filename"></span>
+                                                    </div>
+                                                    <span class="input-group-addon btn btn-default btn-file">
+                                                        <span class="fileinput-new">Select file</span>
+                                                        <span class="fileinput-exists">Change</span>
+                                                        <input class="task_project_file_input" type="file" id="task_photo_file_attach">
+                                                    </span>
+                                                    <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" hidden id="task_photo_file_view">
+                                            <label class="col-sm-4 control-label">Project File Attach:</label>
+                                            <div class="col-sm-5">
+                                                <p class="form-control" id="task_photo_file_name"></p>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <button class="col-sm-12 btn btn-success" id="btn_photo_file_download">Download</button>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <button class="col-sm-12 btn btn-danger" id="btn_photo_file_delete">Delete</button>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                    <!-- task media -->
+                                    <fieldset hidden id="task_media_status_section">
+                                        <legend></legend>
+                                        <div class="form-group">
+                                            <label for="normal-field" class="col-sm-4 control-label">Social Media/Publicity Task Status:</label>
+                                            <div class="col-sm-5">
+                                                <select class="form-control m-b" data-container="body" id="task_media_status_list"></select>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <button class="col-sm-12 btn btn-primary" id="btn_task_media_status_update">Update</button>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" hidden id="task_media_file_section">
+                                            <label class="col-sm-4 control-label">Project File Attach:</label>
+                                            <div class="col-sm-5">
+                                                <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                                                    <div class="form-control" data-trigger="fileinput">
+                                                        <i class="glyphicon glyphicon-file fileinput-exists"></i>
+                                                        <span class="fileinput-filename"></span>
+                                                    </div>
+                                                    <span class="input-group-addon btn btn-default btn-file">
+                                                        <span class="fileinput-new">Select file</span>
+                                                        <span class="fileinput-exists">Change</span>
+                                                        <input class="task_project_file_input" type="file" id="task_media_file_attach">
+                                                    </span>
+                                                    <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" hidden id="task_media_file_view">
+                                            <label class="col-sm-4 control-label">Project File Attach:</label>
+                                            <div class="col-sm-5">
+                                                <p class="form-control" id="task_media_file_name"></p>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <button class="col-sm-12 btn btn-success" id="btn_media_file_download">Download</button>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <button class="col-sm-12 btn btn-danger" id="btn_media_file_delete">Delete</button>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                    <!-- task web -->
+                                    <fieldset hidden id="task_web_status_section">
+                                        <legend></legend>
+                                        <div class="form-group">
+                                            <label for="normal-field" class="col-sm-4 control-label">Web Services Task Status:</label>
+                                            <div class="col-sm-5">
+                                                <select class="form-control m-b" data-container="body" id="task_web_status_list"></select>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <button class="col-sm-12 btn btn-primary" id="btn_task_web_status_update">Update</button>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" hidden id="task_web_file_section">
+                                            <label class="col-sm-4 control-label">Project File Attach:</label>
+                                            <div class="col-sm-5">
+                                                <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                                                    <div class="form-control" data-trigger="fileinput">
+                                                        <i class="glyphicon glyphicon-file fileinput-exists"></i>
+                                                        <span class="fileinput-filename"></span>
+                                                    </div>
+                                                    <span class="input-group-addon btn btn-default btn-file">
+                                                        <span class="fileinput-new">Select file</span>
+                                                        <span class="fileinput-exists">Change</span>
+                                                        <input class="task_project_file_input" type="file" id="task_web_file_attach">
+                                                    </span>
+                                                    <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" hidden id="task_web_file_view">
+                                            <label class="col-sm-4 control-label">Project File Attach:</label>
+                                            <div class="col-sm-5">
+                                                <p class="form-control" id="task_web_file_name"></p>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <button class="col-sm-12 btn btn-success" id="btn_web_file_download">Download</button>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <button class="col-sm-12 btn btn-danger" id="btn_web_file_delete">Delete</button>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                    <!-- task video -->
+                                    <fieldset hidden id="task_video_status_section">
+                                        <legend></legend>
+                                        <div class="form-group">
+                                            <label for="normal-field" class="col-sm-4 control-label">Video Task Status:</label>
+                                            <div class="col-sm-5">
+                                                <select class="form-control m-b" data-container="body" id="task_video_status_list"></select>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <button class="col-sm-12 btn btn-primary" id="btn_task_video_status_update">Update</button>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" hidden id="task_video_file_section">
+                                            <label class="col-sm-4 control-label">Project File Attach:</label>
+                                            <div class="col-sm-5">
+                                                <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                                                    <div class="form-control" data-trigger="fileinput">
+                                                        <i class="glyphicon glyphicon-file fileinput-exists"></i>
+                                                        <span class="fileinput-filename"></span>
+                                                    </div>
+                                                    <span class="input-group-addon btn btn-default btn-file">
+                                                        <span class="fileinput-new">Select file</span>
+                                                        <span class="fileinput-exists">Change</span>
+                                                        <input class="task_project_file_input" type="file" id="task_video_file_attach">
+                                                    </span>
+                                                    <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" hidden id="task_video_file_view">
+                                            <label class="col-sm-4 control-label">Project File Attach:</label>
+                                            <div class="col-sm-5">
+                                                <p class="form-control" id="task_video_file_name"></p>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <button class="col-sm-12 btn btn-success" id="btn_video_file_download">Download</button>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <button class="col-sm-12 btn btn-danger" id="btn_video_file_delete">Delete</button>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                    <!-- task editorial -->
+                                    <fieldset hidden id="task_editorial_status_section">
+                                        <legend></legend>
+                                        <div class="form-group">
+                                            <label for="normal-field" class="col-sm-4 control-label">Editorial Services Task Status:</label>
+                                            <div class="col-sm-5">
+                                                <select class="form-control m-b" data-container="body" id="task_editorial_status_list"></select>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <button class="col-sm-12 btn btn-primary" id="btn_task_editorial_status_update">Update</button>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" hidden id="task_editorial_file_section">
+                                            <label class="col-sm-4 control-label">Project File Attach:</label>
+                                            <div class="col-sm-5">
+                                                <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                                                    <div class="form-control" data-trigger="fileinput">
+                                                        <i class="glyphicon glyphicon-file fileinput-exists"></i>
+                                                        <span class="fileinput-filename"></span>
+                                                    </div>
+                                                    <span class="input-group-addon btn btn-default btn-file">
+                                                        <span class="fileinput-new">Select file</span>
+                                                        <span class="fileinput-exists">Change</span>
+                                                        <input class="task_project_file_input" type="file" id="task_editorial_file_attach">
+                                                    </span>
+                                                    <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" hidden id="task_editorial_file_view">
+                                            <label class="col-sm-4 control-label">Project File Attach:</label>
+                                            <div class="col-sm-5">
+                                                <p class="form-control" id="task_editorial_file_name"></p>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <button class="col-sm-12 btn btn-success" id="btn_editorial_file_download">Download</button>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <button class="col-sm-12 btn btn-danger" id="btn_editorial_file_delete">Delete</button>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                    <!-- task note -->
+                                    <fieldset>
+                                        <legend></legend>
+                                        <div class="form-group">
+                                            <label for="elastic-textarea" class="col-sm-4 control-label">Details/Note/Explanation:</label>
+                                            <div class="col-sm-5">
+                                                <textarea rows="2" class="autogrow form-control transition-height" style="resize: vertical;" id="task_status_note"></textarea>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </form>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+                <!-- task process log section -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <section class="widget">
+                            <header>
+                                <h4>TASK PROCESS LOG</h4>
+                                <div class="widget-controls">
+                                    <a data-widgster="expand" title="Expand" href="#"><i class="glyphicon glyphicon-chevron-up"></i></a>
+                                    <a data-widgster="collapse" title="Collapse" href="#"><i class="glyphicon glyphicon-chevron-down"></i></a>
+                                </div>
+                            </header>
+                            <div class="widget-body">
+                                <table id="tbl_process_log_list" class="table table-striped table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>User</th>
+                                            <th>Task</th>
+                                            <th>Status</th>
+                                            <th>Note</th>
+                                            <th>Date Time</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tbl_body">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+                <!-- main section -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <section class="widget">
+                            <header>
+                                <h4>REQUESTOR INFORMATION</h4>
+                                <div class="widget-controls">
+                                    <a data-widgster="expand" title="Expand" href="#"><i class="glyphicon glyphicon-chevron-up"></i></a>
+                                    <a data-widgster="collapse" title="Collapse" href="#"><i class="glyphicon glyphicon-chevron-down"></i></a>
+                                </div>
+                            </header>
+                            <div class="widget-body">
+                                <form class="form-horizontal" role="form">
+                                    <fieldset>
+                                        <legend></legend>
+                                        <div class="form-group">
+                                            <label for="normal-field" class="col-sm-4 control-label">Requestor:</label>
+                                            <div class="col-sm-7">
+                                                <p class="form-control" id="req_name"></p>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="normal-field" class="col-sm-4 control-label">Email:</label>
+                                            <div class="col-sm-7">
+                                                <p class="form-control" id="req_email"></p>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="normal-field" class="col-sm-4 control-label">Phone:</label>
+                                            <div class="col-sm-7">
+                                                <p class="form-control" id="req_phone"></p>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="normal-field" class="col-sm-4 control-label">Department:</label>
+                                            <div class="col-sm-7">
+                                                <p class="form-control" id="req_depart"></p>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="normal-field" class="col-sm-4 control-label">Date:</label>
+                                            <div class="col-sm-7">
+                                                <p class="form-control" id="req_date"></p>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="normal-field" class="col-sm-4 control-label">Request Title:</label>
+                                            <div class="col-sm-7">
+                                                <p class="form-control" id="req_title"></p>
+                                            </div>
+                                        </div>
+                                        <div hidden id="req_file_view_section"> 
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="elastic-textarea" class="col-sm-4 control-label">Describe your request:</label>
+                                            <div class="col-sm-7">
+                                                <p class="form-control ivcmrkt-text-area-view" id="req_descrip"></p>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-4">
+                                                <div class="col-sm-12">
+                                                    <span id="ckb_main_print"></span>&nbsp;&nbsp;
+                                                    <label class="control-label ivcmrkt-pos-neg-15">Print/Graphics</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="col-sm-12">
+                                                    <span id="ckb_main_photo"></span>&nbsp;&nbsp;
+                                                    <label class="control-label ivcmrkt-pos-neg-15">Photography</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="col-sm-12">
+                                                    <span id="ckb_main_media"></span>&nbsp;&nbsp;
+                                                    <label class="control-label ivcmrkt-pos-neg-15">Social Media/Publicity</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-4">
+                                                <div class="col-sm-12">
+                                                    <span id="ckb_main_web"></span>&nbsp;&nbsp;
+                                                    <label class="control-label ivcmrkt-pos-neg-15">Web Services</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="col-sm-12">
+                                                    <span id="ckb_main_video"></span>&nbsp;&nbsp;
+                                                    <label class="control-label ivcmrkt-pos-neg-15">Video</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="col-sm-12">
+                                                    <span id="ckb_main_editorial"></span>&nbsp;&nbsp;
+                                                    <label class="control-label ivcmrkt-pos-neg-15">Editorial Services</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </form>
+                                
+                            </div>
+                        </section>
+                    </div>
+                </div>
+                <!-- print section -->
+                <div class="row" hidden id="main_print_section">
+                    <div class="col-md-12">
+                        <section class="widget">
+                            <header>
+                                <h4>PRINT/GRAPHICS</h4>
+                                <div class="widget-controls">
+                                    <a data-widgster="expand" title="Expand" href="#"><i class="glyphicon glyphicon-chevron-up"></i></a>
+                                    <a data-widgster="collapse" title="Collapse" href="#"><i class="glyphicon glyphicon-chevron-down"></i></a>
+                                </div>
+                            </header>
+                            <div class="widget-body">
+                                <form class="form-horizontal" role="form">
+                                    <fieldset>
+                                        <legend><b>Select item(s) needed. Attach content and/or supporting documents above.</b></legend>
+                                        <!-- print categories -->
+                                        <div class="form-group">
+                                            <div class="col-sm-4">
+                                                <div class="col-sm-12">
+                                                    <span id="ckb_prt_ad"></span>&nbsp;&nbsp;
+                                                    <label class="control-label ivcmrkt-pos-neg-15">Ad</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="col-sm-12">
+                                                    <span id="ckb_prt_brochure"></span>&nbsp;&nbsp;
+                                                    <label class="control-label ivcmrkt-pos-neg-15">Brochure</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="col-sm-12">
+                                                    <span id="ckb_prt_banner"></span>&nbsp;&nbsp;
+                                                    <label class="control-label ivcmrkt-pos-neg-15">Banner</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-4">
+                                                <div class="col-sm-12">
+                                                    <span id="ckb_prt_flyer"></span>&nbsp;&nbsp;
+                                                    <label class="control-label ivcmrkt-pos-neg-15">Flyer</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="col-sm-12">
+                                                    <span id="ckb_prt_certificate"></span>&nbsp;&nbsp;
+                                                    <label class="control-label ivcmrkt-pos-neg-15">Certificate</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="col-sm-12">
+                                                    <span id="ckb_prt_postcard"></span>&nbsp;&nbsp;
+                                                    <label class="control-label ivcmrkt-pos-neg-15">Postcard</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-4">
+                                                <div class="col-sm-12">
+                                                    <span id="ckb_prt_poster"></span>&nbsp;&nbsp;
+                                                    <label class="control-label ivcmrkt-pos-neg-15">Poster</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="col-sm-12">
+                                                    <span id="ckb_prt_program"></span>&nbsp;&nbsp;
+                                                    <label class="control-label ivcmrkt-pos-neg-15">Program</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="col-sm-12">
+                                                    <span id="ckb_prt_other"></span>&nbsp;&nbsp;
+                                                    <label class="control-label ivcmrkt-pos-neg-15">Other</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-4">
+                                                <div class="col-sm-12">
+                                                    <span id="ckb_prt_web_graphic"></span>&nbsp;&nbsp;
+                                                    <label class="control-label ivcmrkt-pos-neg-15">Web Graphic</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br/>
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label">Date Needed:</label>
+                                            <div class="col-sm-7">
+                                                <p class="form-control" id="prt_date_need"></p>
+                                            </div>
+                                        </div>
+                                        <!-- print ad -->
+                                        <div hidden id="prt_ad_section">
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Ad Size:</label>
+                                                <div class="col-sm-7">
+                                                    <p class="form-control" id="prt_ad_size"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- print brochure -->
+                                        <div hidden id="prt_brochure_section">
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Brochure (4 x 9 standard college Brochure) Qty:</label>
+                                                <div class="col-sm-7">
+                                                    <p class="form-control" id="prt_bro_qty"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- print banner -->
+                                        <div hidden id="prt_banner_section">
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Banner (8 x 4) Qty:</label>
+                                                <div class="col-sm-7">
+                                                    <p class="form-control" id="prt_ban_qty"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- print flyer -->
+                                        <div hidden id="prt_flyer_section">
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Flyer (8.5 x 11) Qty:</label>
+                                                <div class="col-sm-7">
+                                                    <p class="form-control" id="prt_fly_qty"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- print certificate -->
+                                        <div hidden id="prt_certificate_section">
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Certificate Qty:</label>
+                                                <div class="col-sm-7">
+                                                    <p class="form-control" id="prt_cer_qty"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- print postcard -->
+                                        <div hidden id="prt_postcard_section">
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Postcard Size:</label>
+                                                <div class="col-sm-7">
+                                                    <p class="form-control" id="prt_pcd_size"></p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Postcard Qty:</label>
+                                                <div class="col-sm-7">
+                                                    <p class="form-control" id="prt_pcd_qty"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- print poster -->
+                                        <div hidden id="prt_poster_section">
+                                            <!-- print poster 11x17 -->
+                                            <div class="form-group">
+                                                <div class="col-sm-4 control-label">
+                                                    <span id="ckb_prt_pst_11_17"></span>&nbsp;&nbsp;
+                                                    <label class="ivcmrkt-pos-neg-15">Poster (11 x 17) Qty:</label>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    <p class="form-control" id="prt_pst_11_17_qty"></p>
+                                                </div>
+                                            </div>
+                                            <!-- print poster 22x28 -->
+                                            <div class="form-group">
+                                                <div class="col-sm-4 control-label">
+                                                    <span id="ckb_prt_pst_22_28"></span>&nbsp;&nbsp;
+                                                    <label class="ivcmrkt-pos-neg-15">Poster (22 x 28 sign stand, window) Qty:</label>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    <p class="form-control" id="prt_pst_22_28_qty"></p>
+                                                </div>
+                                            </div>
+                                            <!-- print poster 24x36 -->
+                                            <div class="form-group">
+                                                <div class="col-sm-4 control-label">
+                                                    <span id="ckb_prt_pst_other"></span>&nbsp;&nbsp;
+                                                    <label class="ivcmrkt-pos-neg-15">Other Qty:</label>
+                                                </div>                                               
+                                                <div class="col-sm-3">
+                                                    <p class="form-control" id="prt_pst_other_qty"></p>
+                                                </div>
+                                                <label class="col-sm-1 control-label">Size:</label>
+                                                <div class="col-sm-3">
+                                                    <p class="form-control" id="prt_pst_other_size"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- print program -->
+                                        <div hidden id="prt_program_section">
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Program Qty:</label>
+                                                <div class="col-sm-7">
+                                                    <p class="form-control" id="prt_prg_qty"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- print other -->
+                                        <div hidden id="prt_other_section">
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Other (please describe):</label>
+                                                <div class="col-sm-7">
+                                                    <p class="form-control" id="prt_oth_descrip"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- print web graphic -->
+                                        <div hidden id="prt_web_graphic_section">
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Web Graphic (please describe):</label>
+                                                <div class="col-sm-7">
+                                                    <p class="form-control" id="prt_web_grap_descrip"></p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Dimensions (Pixel Size):</label>
+                                                <div class="col-sm-7">
+                                                    <p class="form-control" id="prt_web_grap_dimensions"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </form>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+                <!-- photography section -->
+                <div class="row" hidden id="main_photo_section">
+                    <div class="col-md-12">
+                        <section class="widget">
+                            <header>
+                                <h4>PHOTOGRAPHY</h4>
+                                <div class="widget-controls">
+                                    <a data-widgster="expand" title="Expand" href="#"><i class="glyphicon glyphicon-chevron-up"></i></a>
+                                    <a data-widgster="collapse" title="Collapse" href="#"><i class="glyphicon glyphicon-chevron-down"></i></a>
+                                </div>
+                            </header>
+                            <div class="widget-body">
+                                <form class="form-horizontal" role="form">
+                                    <fieldset>
+                                        <legend><b>Please describe event/subject to be photographed along with any special requests above.</b></legend>
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label">Event Date:</label>
+                                            <div class="col-sm-7">
+                                                <p class="form-control" id="pht_event_date"></p>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label">Event Time:</label>
+                                            <div class="col-sm-7">
+                                                <p class="form-control" id="pht_event_time"></p>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label">Location:</label>
+                                            <div class="col-sm-7">
+                                                <p class="form-control" id="pht_event_location"></p>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label">Estimated Time Required:</label>
+                                            <div class="col-sm-7">
+                                                <p class="form-control" id="pht_event_estimate_time"></p>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </form>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+                <!-- social media/publicity section -->
+                <div class="row" hidden id="main_media_section">
+                    <div class="col-md-12">
+                        <section class="widget">
+                            <header>
+                                <h4>SOCIAL MEDIA/PUBLICITY</h4>
+                                <div class="widget-controls">
+                                    <a data-widgster="expand" title="Expand" href="#"><i class="glyphicon glyphicon-chevron-up"></i></a>
+                                    <a data-widgster="collapse" title="Collapse" href="#"><i class="glyphicon glyphicon-chevron-down"></i></a>
+                                </div>
+                            </header>
+                            <div class="widget-body">
+                                <form class="form-horizontal" role="form">
+                                    <fieldset>
+                                        <legend><b>Select item(s) needed. Attach any content and/or supporting documents above.</b></legend>
+                                        <!-- social media categories -->
+                                        <div class="form-group">
+                                            <div class="col-sm-4">
+                                                <div class="col-sm-12">
+                                                    <span id="ckb_mda_collegewide_email"></span>&nbsp;&nbsp;
+                                                    <label class="control-label ivcmrkt-pos-neg-15">Collegewide Email</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="col-sm-12">
+                                                    <span id="ckb_mda_sherpa_email"></span>&nbsp;&nbsp;
+                                                    <label class="control-label ivcmrkt-pos-neg-15">Sherpa Email</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="col-sm-12">
+                                                    <span id="ckb_mda_monitor"></span>&nbsp;&nbsp;
+                                                    <label class="control-label ivcmrkt-pos-neg-15">Monitor Slide</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-4">
+                                                <div class="col-sm-12">
+                                                    <span id="ckb_mda_social_media"></span>&nbsp;&nbsp;
+                                                    <label class="control-label ivcmrkt-pos-neg-15">Social Media Post</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br/>
+                                        <!-- social media collegewide email -->
+                                        <div hidden id="mda_collegewide_email_section">
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Collegewide Email (to faculty/staff only):</label>
+                                                <div class="col-sm-7">
+                                                    <p class="form-control ivcmrkt-text-area-view" id="mda_college_email"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- social media sherpa email -->
+                                        <div hidden id="mda_sherpa_email_section">
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Sherpa Email (to students):</label>
+                                                <div class="col-sm-7">
+                                                    <p class="form-control ivcmrkt-text-area-view" id="mda_sherpa_email"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- social media monitor slide -->
+                                        <div hidden id="mda_monitor_section">
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Monitor Slide Start Date:</label>
+                                                <div class="col-sm-7">
+                                                    <p class="form-control" id="mda_monitor_start_date"></p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Monitor Slide End Date:</label>
+                                                <div class="col-sm-7">
+                                                    <p class="form-control" id="mda_monitor_end_date"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- social media social media -->
+                                        <div hidden id="mda_social_media_section">
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Social Media Post Date:</label>
+                                                <div class="col-sm-7">
+                                                    <p class="form-control" id="mda_soc_media_date"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </form>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+                <!-- web services section -->
+                <div class="row" hidden id="main_web_section">
+                    <div class="col-md-12">
+                        <section class="widget">
+                            <header>
+                                <h4>WEB SERVICES</h4>
+                                <div class="widget-controls">
+                                    <a data-widgster="expand" title="Expand" href="#"><i class="glyphicon glyphicon-chevron-up"></i></a>
+                                    <a data-widgster="collapse" title="Collapse" href="#"><i class="glyphicon glyphicon-chevron-down"></i></a>
+                                </div>
+                            </header>
+                            <div class="widget-body">
+                                <form class="form-horizontal" role="form">
+                                    <fieldset>
+                                        <legend><b>Select item(s) needed. Attach content and/or supporting documents above.</b></legend>
+                                        <div class="form-group">
+                                            <div class="col-sm-4">
+                                                <div class="col-sm-12">
+                                                    <span id="ckb_web_create_new"></span>&nbsp;&nbsp;
+                                                    <label class="control-label ivcmrkt-pos-neg-15">Create New Website</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="col-sm-12">
+                                                    <span id="ckb_web_update_existing"></span>&nbsp;&nbsp;
+                                                    <label class="control-label ivcmrkt-pos-neg-15">Update Existing Webpages</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="col-sm-12">
+                                                    <span id="ckb_web_add_page"></span>&nbsp;&nbsp;
+                                                    <label class="control-label ivcmrkt-pos-neg-15">Add Page to Existing Webstie</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-4">
+                                                <div class="col-sm-12">
+                                                    <span id="ckb_web_request_access"></span>&nbsp;&nbsp;
+                                                    <label class="control-label ivcmrkt-pos-neg-15">Request Access or Training</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="col-sm-12">
+                                                    <span id="ckb_web_request_website"></span>&nbsp;&nbsp;
+                                                    <label class="control-label ivcmrkt-pos-neg-15">Request Website Feature</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="col-sm-12">
+                                                    <span id="ckb_web_report_problem"></span>&nbsp;&nbsp;
+                                                    <label class="control-label ivcmrkt-pos-neg-15">Report Problem/Correction</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-7 col-sm-offset-4">
+                                                <p>Contact <a href="https://servicedesk.socccd.edu/" target="_blank">Technology Services</a> for faculty websites and <a href="https://inside.ivc.edu/" target="_blank">inside.ivc.edu</a> request.</p>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label">Date Needed (in hand):</label>
+                                            <div class="col-sm-7">
+                                                <p class="form-control" id="web_date_needed"></p>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </form>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+                <!-- video section -->
+                <div class="row" hidden id="main_video_section">
+                    <div class="col-md-12">
+                        <section class="widget">
+                            <header>
+                                <h4>VIDEO</h4>
+                                <div class="widget-controls">
+                                    <a data-widgster="expand" title="Expand" href="#"><i class="glyphicon glyphicon-chevron-up"></i></a>
+                                    <a data-widgster="collapse" title="Collapse" href="#"><i class="glyphicon glyphicon-chevron-down"></i></a>
+                                </div>
+                            </header>
+                            <div class="widget-body">
+                                <form class="form-horizontal" role="form">
+                                    <fieldset>
+                                        <legend><b>Select item(s) needed. Attach content and/or supporting documents above.</b></legend>
+                                        <div class="form-group">
+                                            <div class="col-sm-4">
+                                                <div class="col-sm-12">
+                                                    <span id="ckb_vdo_filming_request"></span>&nbsp;&nbsp;
+                                                    <label class="control-label ivcmrkt-pos-neg-15">Filming Request</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="col-sm-12">
+                                                    <span id="ckb_vdo_other"></span>&nbsp;&nbsp;
+                                                    <label class="control-label ivcmrkt-pos-neg-15">Other</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- video filming request section -->
+                                        <div hidden id="vdo_filming_request_section">
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Event Date:</label>
+                                                <div class="col-sm-7">
+                                                    <p class="form-control" id="vdo_filming_date"></p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Event Time:</label>
+                                                <div class="col-sm-7">
+                                                    <p class="form-control" id="vdo_filming_time"></p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Location:</label>
+                                                <div class="col-sm-7">
+                                                    <p class="form-control" id="vdo_filming_location"></p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">
+                                                    Purpose:
+                                                    <span class="help-block">
+                                                        Broadcast, Archival, Web, Academic (internal only)
+                                                    </span>
+                                                </label>
+                                                <div class="col-sm-7">
+                                                    <p class="form-control ivcmrkt-text-area-view" id="vdo_filming_purpose"></p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Estimated Time Required:</label>
+                                                <div class="col-sm-7">
+                                                    <p class="form-control" id="vdo_filming_estimate_time"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- video other section -->
+                                        <div hidden id="vdo_other_section">
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Other (please describe):</label>
+                                                <div class="col-sm-7">
+                                                    <p class="form-control ivcmrkt-text-area-view" id="vdo_other_descrip"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </form>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+                <!-- editorial services section -->
+                <div class="row" hidden id="main_editorial_section">
+                    <div class="col-md-12">
+                        <section class="widget">
+                            <header>
+                                <h4>EDITORIAL SERVICES</h4>
+                                <div class="widget-controls">
+                                    <a data-widgster="expand" title="Expand" href="#"><i class="glyphicon glyphicon-chevron-up"></i></a>
+                                    <a data-widgster="collapse" title="Collapse" href="#"><i class="glyphicon glyphicon-chevron-down"></i></a>
+                                </div>
+                            </header>
+                            <div class="widget-body">
+                                <form class="form-horizontal" role="form">
+                                    <fieldset>
+                                        <legend><b>Select item(s) needed. Attach content and/or supporting documents above.</b></legend>                                        
+                                        <div class="form-group">
+                                            <div class="col-sm-4 control-label">
+                                                <span id="ckb_edt_copywriting"></span>&nbsp;&nbsp;
+                                                <label class="ivcmrkt-pos-neg-15">Copywriting Date Needed (in hand):</label>
+                                            </div>
+                                            <div class="col-sm-7">
+                                                <p class="form-control" id="edt_copywriting_date_needed"></p>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-4 control-label">
+                                                <span id="ckb_edt_proofreading"></span>&nbsp;&nbsp;
+                                                <label class="ivcmrkt-pos-neg-15">Proof Reading Date Needed (in hand):</label>
+                                            </div>
+                                            <div class="col-sm-7">
+                                                <p class="form-control" id="edt_proofreading_date_needed"></p>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-7 col-sm-offset-4">
+                                                <p>*Note: copywriting/proof reading are for text only. For updates to previously printed materials, select print projects.</p>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </form>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+                <!-- transaction section -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <section class="widget">
+                            <header>
+                                <h4>TRANSACTIONS</h4>
+                                <div class="widget-controls">
+                                    <a data-widgster="expand" title="Expand" href="#"><i class="glyphicon glyphicon-chevron-up"></i></a>
+                                    <a data-widgster="collapse" title="Collapse" href="#"><i class="glyphicon glyphicon-chevron-down"></i></a>
+                                </div>
+                            </header>
+                            <div class="widget-body">
+                                <form class="form-horizontal" role="form">
+                                    <fieldset>
+                                        <legend><b>Transaction log history</b></legend>
+                                        <div class="form-group">
+                                            <div class="col-sm-12">
+                                                <p class="form-control ivcmrkt-text-area-view" style="border: none;" id="transaction_log"></p>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </form>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </main>
+        </div>
+        <!-- ivc tech support modal -->
+        <div class="modal fade" id="mod_ivc_tech_support" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header text-center">
+                        <h3 class="modal-title text-align-center fw-bold mt">IVC Tech Support Request</h3>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-3">Problems:</div>
+                                <div class="col-md-9">
+                                    <textarea rows="2" class="autogrow form-control transition-height" style="resize: vertical;" id="mod_ivc_tech_problems"></textarea>
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="row">
+                                <div class="col-md-12 text-center"><img height="200" width="200" id="mod_ivc_tech_img_screen"/></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="col-md-3">
+                            <button type="button" class="btn btn-primary btn-block" data-dismiss="modal" id="mod_btn_ivc_tech_submit">Submit</button>
+                        </div>
+                        <div class="col-md-3 pull-right">
+                            <button type="button" class="btn btn-inverse btn-block" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- The Loader. Is shown when pjax happens -->
+        <div class="loader-wrap hiding hide">
+            <i class="fa fa-circle-o-notch fa-spin-fast"></i>
+        </div>
+        <!-- sing-3.4 Vendor javascript -->
+        <script src="../sing-3.4/ajax-bootstrap3/vendor/jquery/dist/jquery.min.js"></script>
+        <script src="../sing-3.4/ajax-bootstrap3/vendor/jquery-pjax/jquery.pjax.js"></script>
+        <script src="../sing-3.4/ajax-bootstrap3/vendor/bootstrap-sass/assets/javascripts/bootstrap/transition.js"></script>
+        <script src="../sing-3.4/ajax-bootstrap3/vendor/bootstrap-sass/assets/javascripts/bootstrap/collapse.js"></script>
+        <script src="../sing-3.4/ajax-bootstrap3/vendor/bootstrap-sass/assets/javascripts/bootstrap/dropdown.js"></script>
+        <script src="../sing-3.4/ajax-bootstrap3/vendor/bootstrap-sass/assets/javascripts/bootstrap/button.js"></script>
+        <script src="../sing-3.4/ajax-bootstrap3/vendor/bootstrap-sass/assets/javascripts/bootstrap/tooltip.js"></script>
+        <script src="../sing-3.4/ajax-bootstrap3/vendor/bootstrap-sass/assets/javascripts/bootstrap/alert.js"></script>
+        <script src="../sing-3.4/ajax-bootstrap3/vendor/slimScroll/jquery.slimscroll.min.js"></script>
+        <script src="../sing-3.4/ajax-bootstrap3/vendor/widgster/widgster.js"></script>
+        <script src="../sing-3.4/ajax-bootstrap3/vendor/pace.js/pace.js" data-pace-options='{ "target": ".content-wrap", "ghostTime": 1000 }'></script>
+        <script src="../sing-3.4/ajax-bootstrap3/vendor/jquery-touchswipe/jquery.touchSwipe.js"></script>
+        <!-- sing-3.4 page libs javascript -->       
+        <script src="../sing-3.4/ajax-bootstrap3/vendor/bootstrap-sass/assets/javascripts/bootstrap/modal.js"></script>
+        <script src="../sing-3.4/ajax-bootstrap3/vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+        <script src="../sing-3.4/ajax-bootstrap3/vendor/select2/select2.min.js"></script>
+        <script src="../sing-3.4/ajax-bootstrap3/vendor/switchery/dist/switchery.min.js"></script>
+        <script src="../sing-3.4/ajax-bootstrap3/vendor/moment/min/moment.min.js"></script>
+        <script src="../sing-3.4/ajax-bootstrap3/vendor/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+        <script src="../sing-3.4/ajax-bootstrap3/vendor/jasny-bootstrap/js/inputmask.js"></script>
+        <script src="../sing-3.4/ajax-bootstrap3/vendor/jasny-bootstrap/js/fileinput.js"></script>
+        <!-- sing-3.4 common app javascript -->
+        <script src="../sing-3.4/ajax-bootstrap3/js/settings.js"></script>
+        <script src="../sing-3.4/ajax-bootstrap3/js/app.js"></script>
+        <!-- CDN js link -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/es6-promise/4.1.1/es6-promise.auto.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
+        <!-- include javascript -->
+        <script src="../include/DataTables-1.10.13/datatables.min.js"></script>
+        <script src="../include/DataTables-1.10.13/dataTables.bootstrap.min.js"></script>
+        <script src="../include/jquery-autosize-3.0.2/dist/autosize.min.js"></script>
+        <script src="../include/sweetalert/js/sweetalert.min.js"></script>
+        <script src="../include/iCheck/icheck.min.js"></script>
+        <script src="../include/fancyBox-2.1.5/source/jquery.fancybox.pack.js"></script>
+        <!-- application javascript -->
+        <script src="js/mrktPrintView.js"></script>
+        <script src="js/session_data.js"></script>
+        <script src="js/db_access.js"></script>
+        <script src="js/sendEmail.js"></script>
+    </body>
+</html>

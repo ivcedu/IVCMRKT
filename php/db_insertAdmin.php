@@ -1,12 +1,16 @@
 <?php
     require("config.php");
     
+    $Active = filter_input(INPUT_POST, 'Active');
     $AdminName = filter_input(INPUT_POST, 'AdminName');
     $AdminEmail = filter_input(INPUT_POST, 'AdminEmail');
-    $FullAccess = filter_input(INPUT_POST, 'FullAccess');
+    $AdminPrivilegeID = filter_input(INPUT_POST, 'AdminPrivilegeID');
     
-    $query = "INSERT INTO [".$dbDatabase."].[dbo].[Admin] (AdminName, AdminEmail, FullAccess) "
-                ."VALUES ('$AdminName', '$AdminEmail', '$FullAccess')";  
+    $AdminName = str_replace("'", "''", $AdminName);
+    $AdminEmail = str_replace("'", "", $AdminEmail);
+    
+    $query = "INSERT INTO [".$dbDatabase."].[dbo].[Admin] (Active, AdminName, AdminEmail, AdminPrivilegeID) "
+                ."VALUES ('$Active', '$AdminName', '$AdminEmail', '$AdminPrivilegeID')";  
     
     $cmd = $dbConn->prepare($query);
     $cmd->execute();

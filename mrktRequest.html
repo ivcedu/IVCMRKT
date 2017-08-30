@@ -2,376 +2,915 @@
 <html>
     <head>        
         <meta charset="utf-8"/>
-        <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
         <meta http-equiv="Cache-Control" content="no-cache"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
         <title>Marketing and Creative Services Request</title>
-        <!-- google api css -->
-        <link rel='stylesheet' type='text/css' href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900'>
-        <!-- luna-1.2 css -->
-        <link rel="stylesheet" href="../luna-1.2/vendor/bootstrap/css/bootstrap.min.css">
-        <link rel="stylesheet" href="../luna-1.2/vendor/animate.css/animate.css">
-        <link rel="stylesheet" href="../luna-1.2/vendor/toastr/toastr.min.css"/>
-        <link rel="stylesheet" href="../luna-1.2/vendor/datatables/datatables.min.css">
-        <link rel="stylesheet" href="../luna-1.2/styles/pe-icons/pe-icon-7-stroke.css"/>
-        <link rel="stylesheet" href="../luna-1.2/styles/pe-icons/helper.css"/>
-        <link rel="stylesheet" href="../luna-1.2/styles/stroke-icons/style.css"/>
-        <link rel="stylesheet" href="../luna-1.2/styles/style.css">
+        <!-- sing-3.4 css -->
+        <link rel="stylesheet" href="../sing-3.4/ajax-bootstrap3/css/application.min.css"/>
+        <link rel="shortcut icon" href="img/favicon.png"/>
+        <!-- CDN css link -->
+        <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/3.1.3/css/jasny-bootstrap.min.css"/>
         <!-- include css -->
-        <link rel="stylesheet" href="../include/jquery-ui-themes-1.11.4/themes/flick/jquery-ui.min.css"/>
-        <link rel="stylesheet" href="../include/bootstrap-3-timepicker/css/bootstrap-timepicker.min.css"/>
-        <link rel="stylesheet" href="../include/sweetalert/css/sweetalert.css"/>
         <link rel="stylesheet" href="../include/iconic-1.9.0/font/css/iconic-bootstrap.css"/>
         <link rel="stylesheet" href="../include/font-awesome-4.6.3/css/font-awesome.min.css"/>
-        <link rel="stylesheet" href="../include/iCheck/skins/polaris/polaris.css"/>
+        <link rel="stylesheet" href="../include/sweetalert/css/sweetalert.css"/>
+        <link rel="stylesheet" href="../include/iCheck/skins/square/green.css"/>
+        <link rel="stylesheet" href="../include/fancyBox-2.1.5/source/jquery.fancybox.css"/>
         <!-- application css -->
         <link rel="stylesheet" href="css/ivcmarkt.css"/>
+        <link rel="stylesheet" href="css/spinner_loader.css"/>
     </head>
     <body>
-        <!-- Wrapper-->
-        <div class="wrapper">
-            <!-- Header-->
-            <nav class="navbar navbar-default navbar-fixed-top">
-                <div class="container-fluid">
-                    <div class="navbar-header">
-                        <div id="mobile-menu">
-                            <div class="left-nav-toggle">
-                                <a href="#">
-                                    <i class="stroke-hamburgermenu"></i>
-                                </a>
-                            </div>
-                        </div>
-                        <a class="navbar-brand">
-                            <span id="login_user"></span>
+        <!-- main sidebar -->
+        <nav id="sidebar" class="sidebar" role="navigation">
+            <div class="js-sidebar-content">
+                <header class="logo hidden-xs">
+                    <a href="home.html"><i class="iconic iconic-md iconic-home"></i></a> 
+                </header>
+                <ul class="sidebar-nav">
+                    <li class="active">
+                        <a href="#" id="nav_new_request"><span class="icon"><i class="fa fa-bullhorn"></i></span>New Request</a>
+                    </li>
+                    <li>
+                        <a class="collapsed" href="#sidebar-reports" data-toggle="collapse" data-parent="#sidebar">
+                            <span class="icon"><i class="fa fa-bar-chart-o"></i></span>Reports<i class="toggle fa fa-angle-down"></i>
                         </a>
-                    </div>
-                    <div id="navbar" class="navbar-collapse collapse">
-                        <div class="left-nav-toggle">
-                            <a href="">
-                                <i class="stroke-hamburgermenu"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </nav>
-            <!-- End header-->
-            <!-- Navigation-->
-            <aside class="navigation">
-                <nav>
-                    <ul class="nav luna-nav">
-                        <li class="iconic-color-default">
-                            <a href="home.html"><i class="fa fa-home"></i> My Home</a>
-                        </li>
-                        <li class="active iconic-color-default">
-                            <a href="mrktRequest.html"><i class="fa fa-bullhorn"></i> New Request</a>
-                        </li>
+                        <ul id="sidebar-reports" class="collapse">
+                            <li><a href="rptMyHistoryList.html">My History</a></li>
+                            <li hidden class="rpt_mrkt_staff"><a href="#" id="nav_rpt_all_request">All Request</a></li>
+                            <li hidden class="rpt_mrkt_staff"><a href="#" id="nav_rpt_in_process">In Process</a></li>
+                            <li hidden class="rpt_mrkt_staff"><a href="#" id="nav_rpt_completed">Completed</a></li>
+                            <li hidden class="rpt_mrkt_staff"><a href="#" id="nav_rpt_canceled">Canceled</a></li>
+                        </ul>
+                    </li>
+                    <li hidden id='nav_sidebar_mrkt_staff'>
+                        <a class="collapsed" href="#sidebar-mrkt-staff" data-toggle="collapse" data-parent="#sidebar">
+                            <span class="icon"><i class="fa fa-lock"></i></span>MRKT Staff<i class="toggle fa fa-angle-down"></i>
+                        </a>
+                        <ul id="sidebar-mrkt-staff" class="collapse">
+                            <li><a href="adminNewList.html">New List<span hidden class="label label-danger" style="margin-top: -1px;" id="new_req_count"></span></a></li>
+                            <li><a href="adminProjectList.html">Project List</a></li>
+                            <li><a href="adminCompleteList.html">Complete List</a></li>
+                        </ul>
+                    </li>
+                    <li hidden id='nav_sidebar_system'>
+                        <a class="collapsed" href="#sidebar-system" data-toggle="collapse" data-parent="#sidebar">
+                            <span class="icon"><i class="fa fa-wrench"></i></span>Systems<i class="toggle fa fa-angle-down"></i>
+                        </a>
+                        <ul id="sidebar-system" class="collapse">
+                            <li><a href="adminSetting.html">Staff Access</a></li>
+                            <li hidden id="nav_sidebar_sys_access_level"><a href="adminAccessLevel.html">Access Level</a></li>
+                            <li hidden id="nav_sidebar_sys_task"><a href="adminTasks.html">Tasks</a></li>
+                            <li><a href="adminTaskStaff.html">Task Staff</a></li>
+                            <li><a href="adminStatus.html">Status</a></li>
+                            <li><a href="adminEmailSetting.html">Email</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <!-- main sections -->
+        <nav class="page-controls navbar navbar-default">
+            <div class="container-fluid">
+                <!-- header navigation -->
+                <div class="navbar-header">
+                    <ul class="nav navbar-nav">
                         <li>
-                            <a href="#uielements" data-toggle="collapse" aria-expanded="false">
-                                <i class="fa fa-bar-chart-o"></i> Reports<span class="sub-nav-icon"> <i class="stroke-arrow"></i> </span>
+                            <a class="hidden-sm hidden-xs" id="nav-state-toggle" href="#" title="Turn on/off sidebar collapsing" data-placement="bottom">
+                                <i class="fa fa-bars fa-lg"></i>
                             </a>
-                            <ul id="uielements" class="nav nav-second collapse">
-                                <li class="iconic-color-default"><a href="rptMyHistoryList.html">My History</a></li>
-                                <li class="iconic-color-default"><a href="rptCompleteList.html">Completed List</a></li>
-                            </ul>
-                        </li>
-                        <li style="display: none;" id="menu_administrator">
-                            <a href="#nav_administrator" data-toggle="collapse" aria-expanded="false">
-                                <i class="fa fa-lock"></i> Administrator<span class="sub-nav-icon"> <i class="stroke-arrow"></i> </span>
+                            <a class="visible-sm visible-xs" id="nav-collapse-toggle" href="#" title="show/hide sidebar" data-placement="bottom">
+                                <span class="rounded rounded-lg bg-gray text-white visible-xs"><i class="fa fa-bars fa-lg"></i></span>
+                                <i class="fa fa-bars fa-lg hidden-xs"></i>
                             </a>
-                            <ul id="nav_administrator" class="nav nav-second collapse">
-                                <li class="iconic-color-default"><a href="adminReqList.html">Request List</a></li>
-                                <li class="iconic-color-default"><a href="adminSetting.html">User Access</a></li>
-                            </ul>
-                        </li>
-                        <li class="iconic-color-default">
-                            <a href="#" id="nav_logout"><i class="fa fa-sign-out"></i> Log Out</a>
                         </li>
                     </ul>
-                </nav>
-            </aside>
-            <!-- End navigation-->
-            <!-- Main content-->
-            <section class="content">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="view-header">
-                                <div class="header-icon">
-                                    <i class="pe page-header-icon pe-7s-note2"></i>
+                </div>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="#" id="nav_ivc_tech"><i class="iconic iconic-sm iconic-bug"></i>&nbsp;&nbsp;<b>IVC Tech</b></a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span id="login_user"></span><b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#" id="nav_logout"><i class="ion ion-log-out"></i>&nbsp;&nbsp;Log Out</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Main content -->
+        <div class="content-wrap">
+            <main id="content" class="content" role="main">
+                <h3 class="page-title">Marketing and Creative Services Request Form</h3>
+                <div class="row">
+                    <div class="col-md-12">
+                        <section class="widget">
+                            <header>
+                                <h4>REQUESTOR INFORMATION</h4>
+                                <div class="widget-controls">
+                                    <a data-widgster="expand" title="Expand" href="#"><i class="glyphicon glyphicon-chevron-up"></i></a>
+                                    <a data-widgster="collapse" title="Collapse" href="#"><i class="glyphicon glyphicon-chevron-down"></i></a>
                                 </div>
-                                <div class="header-title">
-                                    <h3>New Request</h3>
-                                    <small>Marketing and Creative Services Request Form</small>
+                            </header>
+                            <div class="widget-body">
+                                <form class="form-horizontal" role="form">
+                                    <fieldset>
+                                        <legend></legend>
+                                        <div class="form-group">
+                                            <label for="normal-field" class="col-sm-4 control-label">Requestor:</label>
+                                            <div class="col-sm-7">
+                                                <input type="text" class="form-control" readonly id="req_name">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="normal-field" class="col-sm-4 control-label">Email:</label>
+                                            <div class="col-sm-7">
+                                                <input type="text" class="form-control" readonly id="req_email">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="normal-field" class="col-sm-4 control-label">Phone:</label>
+                                            <div class="col-sm-7">
+                                                <input type="text" class="form-control" id="req_phone">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="normal-field" class="col-sm-4 control-label">Department:</label>
+                                            <div class="col-sm-7">
+                                                <input type="text" class="form-control" readonly id="req_depart">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="normal-field" class="col-sm-4 control-label">Date:</label>
+                                            <div class="col-sm-7">
+                                                <input type="text" class="form-control" readonly id="req_date">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="normal-field" class="col-sm-4 control-label" style="color: #40aea9;"><b>Request Title:</b></label>
+                                            <div class="col-sm-7">
+                                                <input type="text" class="form-control" id="req_title">
+                                            </div>
+                                        </div>
+                                        <div class="form-group" id="req_file_upload_section">
+                                            <label class="col-sm-4 control-label">Attach any content and/or supporting documents:</label>
+                                            <div class="col-sm-6">
+                                                <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                                                    <div class="form-control" data-trigger="fileinput">
+                                                        <i class="glyphicon glyphicon-file fileinput-exists"></i>
+                                                        <span class="fileinput-filename"></span>
+                                                    </div>
+                                                    <span class="input-group-addon btn btn-default btn-file">
+                                                        <span class="fileinput-new">Select file</span>
+                                                        <span class="fileinput-exists">Change</span>
+                                                        <input type="file" accept="application/pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, image/jpg, image/jpeg, image/png" id="main_file_attachment">
+                                                    </span>
+                                                    <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <button class="col-sm-12 btn btn-success" id="btn_file_upload">Upload</button>
+                                            </div>
+                                        </div>
+                                        <!-- spinner -->
+                                        <div hidden class="row" id="spinner_loader">
+                                            <img src="images/spinner.svg" id="spinner_loader_img">
+                                        </div>
+                                        <div hidden id="req_file_view_section"> 
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="elastic-textarea" class="col-sm-4 control-label" style="color: #40aea9;"><b>Describe your request:</b></label>
+                                            <div class="col-sm-7">
+                                                <textarea rows="2" class="autogrow form-control transition-height" style="resize: vertical;" id="req_descrip"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-4">
+                                                <div class="col-sm-12">
+                                                    <input class="control-label" type="checkbox" id="ckb_main_print">&nbsp;&nbsp;
+                                                    <label class="control-label" for="ckb_main_print">Print/Graphics</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="col-sm-12">
+                                                    <input class="control-label" type="checkbox" id="ckb_main_photo">&nbsp;&nbsp;
+                                                    <label class="control-label" for="ckb_main_photo">Photography</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="col-sm-12">
+                                                    <input class="control-label" type="checkbox" id="ckb_main_media">&nbsp;&nbsp;
+                                                    <label class="control-label" for="ckb_main_media">Social Media/Publicity</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">                                            
+                                            <div class="col-sm-4">
+                                                <div class="col-sm-12">
+                                                    <input class="control-label" type="checkbox" id="ckb_main_web">&nbsp;&nbsp;
+                                                    <label class="control-label" for="ckb_main_web">Web Services</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="col-sm-12">
+                                                    <input class="control-label" type="checkbox" id="ckb_main_video">&nbsp;&nbsp;
+                                                    <label class="control-label" for="ckb_main_video">Video</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="col-sm-12">
+                                                    <input class="control-label" type="checkbox" id="ckb_main_editorial">&nbsp;&nbsp;
+                                                    <label class="control-label" for="ckb_main_editorial">Editorial Services</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-actions">
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <button class="col-sm-10 col-sm-offset-1 btn btn-primary" id="btn_main_submit">Submit</button>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <button class="col-sm-10 col-sm-offset-1 btn btn-info" id="btn_main_draft">Draft</button>
+                                                </div>
+                                                <div class="col-sm-3 col-sm-offset-3">
+                                                    <button class="col-sm-10 col-sm-offset-1 btn btn-inverse" id="btn_main_cancel">Cancel</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </form>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+                <!-- print section -->
+                <div class="row" hidden id="main_print_section">
+                    <div class="col-md-12">
+                        <section class="widget">
+                            <header>
+                                <h4>PRINT/GRAPHICS</h4>
+                                <div class="widget-controls">
+                                    <a data-widgster="expand" title="Expand" href="#"><i class="glyphicon glyphicon-chevron-up"></i></a>
+                                    <a data-widgster="collapse" title="Collapse" href="#"><i class="glyphicon glyphicon-chevron-down"></i></a>
+                                </div>
+                            </header>
+                            <div class="widget-body">
+                                <form class="form-horizontal" role="form">
+                                    <fieldset>
+                                        <legend><b>Select item(s) needed. Attach content and/or supporting documents above.</b></legend>
+                                        <!-- print categories -->
+                                        <div class="form-group">
+                                            <div class="col-sm-4">
+                                                <div class="col-sm-12">
+                                                    <input class="control-label" type="checkbox" id="ckb_prt_ad">&nbsp;&nbsp;
+                                                    <label class="control-label" for="ckb_prt_ad">Ad</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="col-sm-12">
+                                                    <input class="control-label" type="checkbox" id="ckb_prt_brochure">&nbsp;&nbsp;
+                                                    <label class="control-label" for="ckb_prt_brochure">Brochure</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="col-sm-12">
+                                                    <input class="control-label" type="checkbox" id="ckb_prt_banner">&nbsp;&nbsp;
+                                                    <label class="control-label" for="ckb_prt_banner">Banner</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-4">
+                                                <div class="col-sm-12">
+                                                    <input class="control-label" type="checkbox" id="ckb_prt_flyer">&nbsp;&nbsp;
+                                                    <label class="control-label" for="ckb_prt_flyer">Flyer</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="col-sm-12">
+                                                    <input class="control-label" type="checkbox" id="ckb_prt_certificate">&nbsp;&nbsp;
+                                                    <label class="control-label" for="ckb_prt_certificate">Certificate</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="col-sm-12">
+                                                    <input class="control-label" type="checkbox" id="ckb_prt_postcard">&nbsp;&nbsp;
+                                                    <label class="control-label" for="ckb_prt_postcard">Postcard</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-4">
+                                                <div class="col-sm-12">
+                                                    <input class="control-label" type="checkbox" id="ckb_prt_poster">&nbsp;&nbsp;
+                                                    <label class="control-label" for="ckb_prt_poster">Poster</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="col-sm-12">
+                                                    <input class="control-label" type="checkbox" id="ckb_prt_program">&nbsp;&nbsp;
+                                                    <label class="control-label" for="ckb_prt_program">Program</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="col-sm-12">
+                                                    <input class="control-label" type="checkbox" id="ckb_prt_other">&nbsp;&nbsp;
+                                                    <label class="control-label" for="ckb_prt_other">Other</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-4">
+                                                <div class="col-sm-12">
+                                                    <input class="control-label" type="checkbox" id="ckb_prt_web_graphic">&nbsp;&nbsp;
+                                                    <label class="control-label" for="ckb_prt_web_graphic">Web Graphic</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br/>
+                                        <div class="form-group">
+                                            <label for="prt_date_need" class="col-sm-4 control-label">Date Needed:</label>
+                                            <div class="col-sm-7">
+                                                <div class="input-group ivcmarkt_date_only_format" id="prt_date_need">
+                                                    <input class="form-control" type="text" readonly/>
+                                                    <span class="input-group-addon ivcmrkt-bk-color-white" onmouseover style="cursor: pointer;"><i class="fa fa-calendar"></i></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- print ad -->
+                                        <div hidden id="prt_ad_section">
+                                            <div class="form-group">
+                                                <label for="prt_ad_size" class="col-sm-4 control-label">Ad Size:</label>
+                                                <div class="col-sm-7">
+                                                    <input type="text" class="form-control" id="prt_ad_size">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- print brochure -->
+                                        <div hidden id="prt_brochure_section">
+                                            <div class="form-group">
+                                                <label for="prt_bro_qty" class="col-sm-4 control-label">Brochure (4 x 9 standard college Brochure) Qty:</label>
+                                                <div class="col-sm-7">
+                                                    <input type="text" class="form-control ivcmarkt_qty_data" id="prt_bro_qty">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- print banner -->
+                                        <div hidden id="prt_banner_section">
+                                            <div class="form-group">
+                                                <label for="prt_ban_qty" class="col-sm-4 control-label">Banner (8 x 4) Qty:</label>
+                                                <div class="col-sm-7">
+                                                    <input type="text" class="form-control ivcmarkt_qty_data" id="prt_ban_qty">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- print flyer -->
+                                        <div hidden id="prt_flyer_section">
+                                            <div class="form-group">
+                                                <label for="prt_fly_qty" class="col-sm-4 control-label">Flyer (8.5 x 11) Qty:</label>
+                                                <div class="col-sm-7">
+                                                    <input type="text" class="form-control ivcmarkt_qty_data" id="prt_fly_qty">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- print certificate -->
+                                        <div hidden id="prt_certificate_section">
+                                            <div class="form-group">
+                                                <label for="prt_cer_qty" class="col-sm-4 control-label">Certificate Qty:</label>
+                                                <div class="col-sm-7">
+                                                    <input type="text" class="form-control ivcmarkt_qty_data" id="prt_cer_qty">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- print postcard -->
+                                        <div hidden id="prt_postcard_section">
+                                            <div class="form-group">
+                                                <label for="prt_pcd_size" class="col-sm-4 control-label">Postcard Size:</label>
+                                                <div class="col-sm-7">
+                                                    <input type="text" class="form-control" id="prt_pcd_size">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="prt_pcd_qty" class="col-sm-4 control-label">Postcard Qty:</label>
+                                                <div class="col-sm-7">
+                                                    <input type="text" class="form-control ivcmarkt_qty_data" id="prt_pcd_qty">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- print poster -->
+                                        <div hidden id="prt_poster_section">
+                                            <!-- print poster 11x17 -->
+                                            <div class="form-group">
+                                                <label for="prt_pst_11_17_qty" class="col-sm-4 control-label">
+                                                    <input type="checkbox" id="ckb_prt_pst_11_17">&nbsp;&nbsp;Poster (11 x 17) Qty:
+                                                </label>
+                                                <div class="col-sm-7">
+                                                    <input type="text" class="form-control ivcmarkt_qty_data" id="prt_pst_11_17_qty">
+                                                </div>
+                                            </div>
+                                            <!-- print poster 22x28 -->
+                                            <div class="form-group">
+                                                <label for="prt_pst_22_28_qty" class="col-sm-4 control-label">
+                                                    <input type="checkbox" id="ckb_prt_pst_22_28">&nbsp;&nbsp;Poster (22 x 28 sign stand, window) Qty:
+                                                </label>
+                                                <div class="col-sm-7">
+                                                    <input type="text" class="form-control ivcmarkt_qty_data" id="prt_pst_22_28_qty">
+                                                </div>
+                                            </div>
+                                            <!-- print poster 24x36 -->
+                                            <div class="form-group">
+                                                <label for="prt_pst_other_qty" class="col-sm-4 control-label">
+                                                    <input type="checkbox" id="ckb_prt_pst_other">&nbsp;&nbsp;Other Qty:
+                                                </label>
+                                                <div class="col-sm-3">
+                                                    <input type="text" class="form-control ivcmarkt_qty_data" id="prt_pst_other_qty">
+                                                </div>
+                                                <label for="prt_pst_other_size" class="col-sm-1 control-label">Size:</label>
+                                                <div class="col-sm-3">
+                                                    <input type="text" class="form-control" id="prt_pst_other_size">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- print program -->
+                                        <div hidden id="prt_program_section">
+                                            <div class="form-group">
+                                                <label for="prt_prg_qty" class="col-sm-4 control-label">Program Qty:</label>
+                                                <div class="col-sm-7">
+                                                    <input type="text" class="form-control ivcmarkt_qty_data" id="prt_prg_qty">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- print other -->
+                                        <div hidden id="prt_other_section">
+                                            <div class="form-group">
+                                                <label for="prt_oth_descrip" class="col-sm-4 control-label">Other (please describe):</label>
+                                                <div class="col-sm-7">
+                                                    <input type="text" class="form-control" id="prt_oth_descrip">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- print web graphic -->
+                                        <div hidden id="prt_web_graphic_section">
+                                            <div class="form-group">
+                                                <label for="prt_web_grap_descrip" class="col-sm-4 control-label">Web Graphic (please describe):</label>
+                                                <div class="col-sm-7">
+                                                    <input type="text" class="form-control" id="prt_web_grap_descrip">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="prt_web_grap_dimensions" class="col-sm-4 control-label">Dimensions (Pixel Size):</label>
+                                                <div class="col-sm-7">
+                                                    <input type="text" class="form-control" id="prt_web_grap_dimensions">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </form>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+                <!-- photography section -->
+                <div class="row" hidden id="main_photo_section">
+                    <div class="col-md-12">
+                        <section class="widget">
+                            <header>
+                                <h4>PHOTOGRAPHY</h4>
+                                <div class="widget-controls">
+                                    <a data-widgster="expand" title="Expand" href="#"><i class="glyphicon glyphicon-chevron-up"></i></a>
+                                    <a data-widgster="collapse" title="Collapse" href="#"><i class="glyphicon glyphicon-chevron-down"></i></a>
+                                </div>
+                            </header>
+                            <div class="widget-body">
+                                <form class="form-horizontal" role="form">
+                                    <fieldset>
+                                        <legend><b>Please describe event/subject to be photographed along with any special requests above.</b></legend>
+                                        <div class="form-group">
+                                            <label for="pht_event_date" class="col-sm-4 control-label">Event Date:</label>
+                                            <div class="col-sm-7">
+                                                <div class="input-group ivcmarkt_date_only_format" id="pht_event_date">
+                                                    <input class="form-control" type="text" readonly/>
+                                                    <span class="input-group-addon ivcmrkt-bk-color-white" onmouseover style="cursor: pointer;"><i class="fa fa-calendar"></i></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="pht_event_time" class="col-sm-4 control-label">Event Time:</label>
+                                            <div class="col-sm-7">
+                                                <div class="input-group ivcmarkt_time_only_format" id="pht_event_time">
+                                                    <input class="form-control" type="text" readonly/>
+                                                    <span class="input-group-addon ivcmrkt-bk-color-white" onmouseover style="cursor: pointer;"><i class="fa fa-clock-o"></i></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="pht_event_location" class="col-sm-4 control-label">Location:</label>
+                                            <div class="col-sm-7">
+                                                <input type="text" class="form-control" id="pht_event_location">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="pht_event_estimate_time" class="col-sm-4 control-label">Estimated Time Required:</label>
+                                            <div class="col-sm-7">
+                                                <input type="text" class="form-control" id="pht_event_estimate_time">
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </form>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+                <!-- social media/publicity section -->
+                <div class="row" hidden id="main_media_section">
+                    <div class="col-md-12">
+                        <section class="widget">
+                            <header>
+                                <h4>SOCIAL MEDIA/PUBLICITY</h4>
+                                <div class="widget-controls">
+                                    <a data-widgster="expand" title="Expand" href="#"><i class="glyphicon glyphicon-chevron-up"></i></a>
+                                    <a data-widgster="collapse" title="Collapse" href="#"><i class="glyphicon glyphicon-chevron-down"></i></a>
+                                </div>
+                            </header>
+                            <div class="widget-body">
+                                <form class="form-horizontal" role="form">
+                                    <fieldset>
+                                        <legend><b>Select item(s) needed. Attach any content and/or supporting documents above.</b></legend>
+                                        <!-- social media categories -->
+                                        <div class="form-group">
+                                            <div class="col-sm-4">
+                                                <div class="col-sm-12">
+                                                    <input class="control-label" type="checkbox" id="ckb_mda_collegewide_email">&nbsp;&nbsp;
+                                                    <label class="control-label" for="ckb_mda_collegewide_email">Collegewide Email</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="col-sm-12">
+                                                    <input class="control-label" type="checkbox" id="ckb_mda_sherpa_email">&nbsp;&nbsp;
+                                                    <label class="control-label" for="ckb_mda_sherpa_email">Sherpa Email</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="col-sm-12">
+                                                    <input class="control-label" type="checkbox" id="ckb_mda_monitor">&nbsp;&nbsp;
+                                                    <label class="control-label" for="ckb_mda_monitor">Monitor Slide</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-4">
+                                                <div class="col-sm-12">
+                                                    <input class="control-label" type="checkbox" id="ckb_mda_social_media">&nbsp;&nbsp;
+                                                    <label class="control-label" for="ckb_mda_social_media">Social Media Post</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br/>
+                                        <!-- social media collegewide email -->
+                                        <div hidden id="mda_collegewide_email_section">
+                                            <div class="form-group">
+                                                <label for="mda_college_email" class="col-sm-4 control-label">Collegewide Email (sent to faculty/staff only):</label>
+                                                <div class="col-sm-7">
+                                                    <textarea rows="2" class="autogrow form-control transition-height" style="resize: vertical;" id="mda_college_email"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- social media sherpa email -->
+                                        <div hidden id="mda_sherpa_email_section">
+                                            <div class="form-group">
+                                                <label for="mda_sherpa_email" class="col-sm-4 control-label">Sherpa Email (sent to students):</label>
+                                                <div class="col-sm-7">
+                                                    <textarea rows="2" class="autogrow form-control transition-height" style="resize: vertical;" id="mda_sherpa_email"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- social media monitor slide -->
+                                        <div hidden id="mda_monitor_section">
+                                            <div class="form-group">
+                                                <label for="mda_start_date" class="col-sm-4 control-label">Monitor Slide Start Date:</label>
+                                                <div class="col-sm-7">
+                                                    <div class="input-group ivcmarkt_date_only_format" id="mda_monitor_start_date">
+                                                        <input class="form-control" type="text" readonly/>
+                                                        <span class="input-group-addon ivcmrkt-bk-color-white" onmouseover style="cursor: pointer;"><i class="fa fa-calendar"></i></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="mda_end_date" class="col-sm-4 control-label">Monitor Slide End Date:</label>
+                                                <div class="col-sm-7">
+                                                    <div class="input-group ivcmarkt_date_only_format" id="mda_monitor_end_date">
+                                                        <input class="form-control" type="text" readonly/>
+                                                        <span class="input-group-addon ivcmrkt-bk-color-white" onmouseover style="cursor: pointer;"><i class="fa fa-calendar"></i></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- social media social media -->
+                                        <div hidden id="mda_social_media_section">
+                                            <div class="form-group">
+                                                <label for="mda_soc_media_date" class="col-sm-4 control-label">Social Media Post Date:</label>
+                                                <div class="col-sm-7">
+                                                    <div class="input-group ivcmarkt_date_only_format" id="mda_soc_media_date">
+                                                        <input class="form-control" type="text" readonly/>
+                                                        <span class="input-group-addon ivcmrkt-bk-color-white" onmouseover style="cursor: pointer;"><i class="fa fa-calendar"></i></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </form>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+                <!-- web services section -->
+                <div class="row" hidden id="main_web_section">
+                    <div class="col-md-12">
+                        <section class="widget">
+                            <header>
+                                <h4>WEB SERVICES</h4>
+                                <div class="widget-controls">
+                                    <a data-widgster="expand" title="Expand" href="#"><i class="glyphicon glyphicon-chevron-up"></i></a>
+                                    <a data-widgster="collapse" title="Collapse" href="#"><i class="glyphicon glyphicon-chevron-down"></i></a>
+                                </div>
+                            </header>
+                            <div class="widget-body">
+                                <form class="form-horizontal" role="form">
+                                    <fieldset>
+                                        <legend><b>Select item(s) needed. Attach content and/or supporting documents above.</b></legend>
+                                        <div class="form-group">
+                                            <div class="col-sm-4">
+                                                <div class="col-sm-12">
+                                                    <input class="control-label" type="checkbox" id="ckb_web_create_new">&nbsp;&nbsp;
+                                                    <label class="control-label" for="ckb_web_create_new">Create New Website</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="col-sm-12">
+                                                    <input class="control-label" type="checkbox" id="ckb_web_update_existing">&nbsp;&nbsp;
+                                                    <label class="control-label" for="ckb_web_update_existing">Update Existing Webpages</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="col-sm-12">
+                                                    <input class="control-label" type="checkbox" id="ckb_web_add_page">&nbsp;&nbsp;
+                                                    <label class="control-label" for="ckb_web_add_page">Add Page to Existing Webstie</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-4">
+                                                <div class="col-sm-12">
+                                                    <input class="control-label" type="checkbox" id="ckb_web_request_access">&nbsp;&nbsp;
+                                                    <label class="control-label" for="ckb_web_request_access">Request Access or Training</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="col-sm-12">
+                                                    <input class="control-label" type="checkbox" id="ckb_web_request_website">&nbsp;&nbsp;
+                                                    <label class="control-label" for="ckb_web_request_website">Request Website Feature</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="col-sm-12">
+                                                    <input class="control-label" type="checkbox" id="ckb_web_report_problem">&nbsp;&nbsp;
+                                                    <label class="control-label" for="ckb_web_report_problem">Report Problem/Correction</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-7 col-sm-offset-4">
+                                                <p>Contact <a href="https://servicedesk.socccd.edu/" target="_blank">Technology Services</a> for faculty websites and <a href="https://inside.ivc.edu/" target="_blank">inside.ivc.edu</a> request.</p>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="web_date_needed" class="col-sm-4 control-label">Date Needed (in hand):</label>
+                                            <div class="col-sm-7">
+                                                <div class="input-group ivcmarkt_date_only_format" id="web_date_needed">
+                                                    <input class="form-control" type="text" readonly/>
+                                                    <span class="input-group-addon ivcmrkt-bk-color-white" onmouseover style="cursor: pointer;"><i class="fa fa-calendar"></i></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </form>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+                <!-- video section -->
+                <div class="row" hidden id="main_video_section">
+                    <div class="col-md-12">
+                        <section class="widget">
+                            <header>
+                                <h4>VIDEO</h4>
+                                <div class="widget-controls">
+                                    <a data-widgster="expand" title="Expand" href="#"><i class="glyphicon glyphicon-chevron-up"></i></a>
+                                    <a data-widgster="collapse" title="Collapse" href="#"><i class="glyphicon glyphicon-chevron-down"></i></a>
+                                </div>
+                            </header>
+                            <div class="widget-body">
+                                <form class="form-horizontal" role="form">
+                                    <fieldset>
+                                        <legend><b>Select item(s) needed. Attach content and/or supporting documents above.</b></legend>
+                                        <div class="form-group">
+                                            <div class="col-sm-4">
+                                                <div class="col-sm-12">
+                                                    <input class="control-label" type="checkbox" id="ckb_vdo_filming_request">&nbsp;&nbsp;
+                                                    <label class="control-label" for="ckb_vdo_filming_request">Filming Request</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="col-sm-12">
+                                                    <input class="control-label" type="checkbox" id="ckb_vdo_other">&nbsp;&nbsp;
+                                                    <label class="control-label" for="ckb_vdo_other">Other</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- video filming request section -->
+                                        <div hidden id="vdo_filming_request_section">
+                                            <div class="form-group">
+                                                <label for="vdo_filming_date" class="col-sm-4 control-label">Event Date:</label>
+                                                <div class="col-sm-7">
+                                                    <div class="input-group ivcmarkt_date_only_format" id="vdo_filming_date">
+                                                        <input class="form-control" type="text" readonly/>
+                                                        <span class="input-group-addon ivcmrkt-bk-color-white" onmouseover style="cursor: pointer;"><i class="fa fa-calendar"></i></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="vdo_filming_time" class="col-sm-4 control-label">Event Time:</label>
+                                                <div class="col-sm-7">
+                                                    <div class="input-group ivcmarkt_time_only_format" id="vdo_filming_time">
+                                                        <input class="form-control" type="text" readonly/>
+                                                        <span class="input-group-addon ivcmrkt-bk-color-white" onmouseover style="cursor: pointer;"><i class="fa fa-clock-o"></i></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="vdo_filming_location" class="col-sm-4 control-label">Location:</label>
+                                                <div class="col-sm-7">
+                                                    <input type="text" class="form-control" id="vdo_filming_location">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="vdo_filming_purpose" class="col-sm-4 control-label">
+                                                    Purpose:
+                                                    <span class="help-block">
+                                                        Broadcast, Archival, Web, Academic (internal only)
+                                                    </span>
+                                                </label>
+                                                <div class="col-sm-7">
+                                                    <textarea rows="2" class="autogrow form-control transition-height" style="resize: vertical;" id="vdo_filming_purpose"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="vdo_filming_estimate_time" class="col-sm-4 control-label">Estimated Time Required:</label>
+                                                <div class="col-sm-7">
+                                                    <input type="text" class="form-control" id="vdo_filming_estimate_time">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- video other section -->
+                                        <div hidden id="vdo_other_section">
+                                            <div class="form-group">
+                                                <label for="vdo_other_descrip" class="col-sm-4 control-label">Other (please describe):</label>
+                                                <div class="col-sm-7">
+                                                    <textarea rows="2" class="autogrow form-control transition-height" style="resize: vertical;" id="vdo_other_descrip"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </form>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+                <!-- editorial services section -->
+                <div class="row" hidden id="main_editorial_section">
+                    <div class="col-md-12">
+                        <section class="widget">
+                            <header>
+                                <h4>EDITORIAL SERVICES</h4>
+                                <div class="widget-controls">
+                                    <a data-widgster="expand" title="Expand" href="#"><i class="glyphicon glyphicon-chevron-up"></i></a>
+                                    <a data-widgster="collapse" title="Collapse" href="#"><i class="glyphicon glyphicon-chevron-down"></i></a>
+                                </div>
+                            </header>
+                            <div class="widget-body">
+                                <form class="form-horizontal" role="form">
+                                    <fieldset>
+                                        <legend><b>Select item(s) needed. Attach content and/or supporting documents above.</b></legend>                                        
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label" for="edt_copywriting_date_needed">
+                                                <input class="form-control" type="checkbox" id="ckb_edt_copywriting">&nbsp;&nbsp;Copywriting Date Needed (in hand):
+                                            </label>
+                                            <div class="col-sm-7">
+                                                <div class="input-group ivcmarkt_date_only_format" id="edt_copywriting_date_needed">
+                                                    <input class="form-control" type="text" readonly/>
+                                                    <span class="input-group-addon ivcmrkt-bk-color-white" onmouseover style="cursor: pointer;" id="edt_copywriting_icon"><i class="fa fa-calendar"></i></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label" for="edt_proofreading_date_needed">
+                                                <input class="form-control" type="checkbox" id="ckb_edt_proofreading">&nbsp;&nbsp;Proof Reading Date Needed (in hand):
+                                            </label>
+                                            <div class="col-sm-7">
+                                                <div class="input-group ivcmarkt_date_only_format" id="edt_proofreading_date_needed">
+                                                    <input class="form-control" type="text" readonly/>
+                                                    <span class="input-group-addon ivcmrkt-bk-color-white" onmouseover style="cursor: pointer;" id="edt_proofreading_icon"><i class="fa fa-calendar"></i></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-7 col-sm-offset-4">
+                                                <p>*Note: copywriting/proof reading are for text only. For updates to previously printed materials, select print projects.</p>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </form>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </main>
+        </div>
+        <!-- ivc tech support modal -->
+        <div class="modal fade" id="mod_ivc_tech_support" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header text-center">
+                        <h3 class="modal-title text-align-center fw-bold mt">IVC Tech Support Request</h3>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-3">Problems:</div>
+                                <div class="col-md-9">
+                                    <textarea rows="2" class="autogrow form-control transition-height" style="resize: vertical;" id="mod_ivc_tech_problems"></textarea>
                                 </div>
                             </div>
-                            <hr>
+                            <br/>
+                            <div class="row">
+                                <div class="col-md-12 text-center"><img height="200" width="200" id="mod_ivc_tech_img_screen"/></div>
+                            </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="panel panel-filled panel-c-info">
-                                <div class="panel-heading">
-                                    General Informations
-                                </div>
-                                <div class="panel-body">
-                                    <div class="container-fluid">
-                                        <div class="row">
-                                            <div class="col-md-3" style="padding-top: 7px;">Requestor:</div>
-                                            <div class="col-md-9"><input class="col-md-12 form-control" type="text" readonly id="req_name"></div>
-                                        </div>
-                                        <br>
-                                        <div class="row">
-                                            <div class="col-md-3" style="padding-top: 7px;">Email:</div>
-                                            <div class="col-md-9"><input class="col-md-12 form-control" type="text" readonly id="req_email"></div>
-                                        </div>
-                                        <br>
-                                        <div class="row">
-                                            <div class="col-md-3" style="padding-top: 7px;">Phone:</div>
-                                            <div class="col-md-9"><input class="col-md-12 form-control mrkt-input-color" type="text" id="req_phone"></div>
-                                        </div>
-                                        <br>
-                                        <div class="row">
-                                            <div class="col-md-3" style="padding-top: 7px;">Department:</div>
-                                            <div class="col-md-9"><input class="col-md-12 form-control" type="text" readonly id="req_depart"></div>
-                                        </div>
-                                        <br>
-                                        <div class="row">
-                                            <div class="col-md-3" style="padding-top: 7px;">Date:</div>
-                                            <div class="col-md-9"><input class="col-md-12 form-control" type="text" readonly id="req_date"></div>
-                                        </div>
-                                        <br>
-                                        <div class="row">
-                                            <div class="col-md-3" style="padding-top: 7px;">Reqest Title:</div>
-                                            <div class="col-md-9"><input class="col-md-12 form-control mrkt-input-color" type="text" id="req_title"></div>
-                                        </div>
-                                        <br>
-                                        <div class="row">
-                                            <div class="col-md-3" style="padding-top: 7px;">Describe your request:</div>
-                                            <div class="col-md-9"><textarea class="col-md-12 form-control mrkt-input-color" rows="2" style="resize: vertical;" id="req_descrip"></textarea></div>
-                                        </div>
-                                        <br>
-                                        <div class="row">
-                                            <div class="col-md-3" style="padding-top: 7px;">Request Type:</div>
-                                            <div class="col-md-9">
-                                                <select class="form-control m-b mrkt-input-color" data-container="body" id="sel_request_type"></select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--<div class="panel-footer">Panel footer</div>-->
-                            </div>
+                    <div class="modal-footer">
+                        <div class="col-md-3">
+                            <button type="button" class="btn btn-primary btn-block" data-dismiss="modal" id="mod_btn_ivc_tech_submit">Submit</button>
                         </div>
-                    </div>
-                    <!-- PR section -->
-                    <div class="row" id="pr_sections">
-                        <div class="col-md-6">
-                            <div class="panel panel-filled panel-c-success">
-                                <div class="panel-heading">
-                                    PR Sections
-                                </div>
-                                <div class="panel-body">
-                                    <div class="container-fluid">
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <input type="checkbox" id="pr_ckb_sherpa"> Sherpa Email (student)
-                                            </div>
-                                            <div class="col-md-4">
-                                                <input type="checkbox" id="pr_ckb_collegewide"> Collegewide Email (Faculty/Staff)
-                                            </div>
-                                            <div class="col-md-4">
-                                                <input type="checkbox" id="pr_ckb_other"> Other
-                                            </div>
-                                        </div>
-                                        <br>
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <input type="checkbox" id="pr_ckb_social_media"> Social Media
-                                            </div>
-                                            <div class="col-md-4">
-                                                <input type="checkbox" id="pr_ckb_digital_monitors"> Digital Monitors
-                                            </div>
-                                        </div>
-                                        <br>
-                                        <div class="row">
-                                            <div class="col-md-3" style="padding-top: 7px;">Send Date:</div>
-                                            <div class="col-md-9"><input class="col-md-12 form-control mrkt-input-color" type="text" placeholder="click here to select date" readonly id="pr_send_date"></div>
-                                        </div>
-                                        <br>
-                                        <div class="row">
-                                            <div class="col-md-3" style="padding-top: 7px;">Reply To:</div>
-                                            <div class="col-md-9"><input class="col-md-12 form-control mrkt-input-color" type="text" id="pr_reply_to"></div>
-                                        </div>
-                                        <br>
-                                        <div class="row">
-                                            <div class="col-md-3" style="padding-top: 7px;">Subject:</div>
-                                            <div class="col-md-9"><input class="col-md-12 form-control mrkt-input-color" type="text" id="pr_subject"></div>
-                                        </div>
-                                        <br>
-                                        <div class="row">
-                                            <div class="col-md-3" style="padding-top: 7px;">Body:</div>
-                                            <div class="col-md-9"><textarea class="col-md-12 form-control mrkt-input-color" rows="3" style="resize: vertical;" id="pr_body"></textarea></div>
-                                        </div>
-                                        <br>
-                                        <div class="row">
-                                            <div class="col-md-3" style="padding-top: 7px;">Attachment:</div>
-                                            <div class="col-md-9"><input type="file" class="filestyle mrkt-input-color" data-buttonName="btn btn-block btn-success" readonly id="pr_attachment"></div>
-                                        </div>
-                                        <br>
-                                    </div>
-                                </div>
-                                <div class="panel-footer">
-                                    <div class="container-fluid">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <button type="button" class="btn btn-block btn-success mrkt-input-color" id="pr_btn_submit">Submit</button>
-                                            </div>
-                                        </div>
-                                        <br>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Video section -->
-                    <div class="row" id="video_sections">
-                        <div class="col-md-6">
-                            <div class="panel panel-filled panel-c-warning">
-                                <div class="panel-heading">
-                                    Video Sections (Please note: all videos require captioning)
-                                </div>
-                                <div class="panel-body">
-                                    <div class="container-fluid">
-                                        <div class="row">
-                                            <div class="col-md-3" style="padding-top: 7px;">Date Time:</div>
-                                            <div class="col-md-4">
-                                                <input class="col-md-12 form-control mrkt-input-color" type="text" placeholder="click here to select date" readonly id="vd_date">
-                                            </div>
-                                            <div class="col-md-4 input-group bootstrap-timepicker timepicker">
-                                                <input class="col-md-12 form-control mrkt-input-color input-small" type="text" readonly id="vd_time">
-                                                <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
-                                            </div>
-                                        </div>
-                                        <br>
-                                        <div class="row">
-                                            <div class="col-md-3" style="padding-top: 7px;">Final Format Requested:</div>
-                                            <div class="col-md-9">
-                                                <select class="form-control m-b mrkt-input-color" data-container="body" id="vd_req_format"></select>
-                                            </div>
-                                        </div>
-                                        <br>
-                                    </div>
-                                </div>
-                                <div class="panel-footer">
-                                    <div class="container-fluid">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <button type="button" class="btn btn-block btn-warning mrkt-input-color" id="vd_btn_submit">Submit</button>
-                                            </div>
-                                        </div>
-                                        <br>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Website section -->
-                    <div class="row" id="website_sections">
-                        <div class="col-md-6">
-                            <div class="panel panel-filled panel-c-danger">
-                                <div class="panel-heading">
-                                    Website Sections
-                                </div>
-                                <div class="panel-body">
-                                    <div class="container-fluid">
-                                        <div class="row">
-                                            <div class="col-md-3" style="padding-top: 7px;">Launch Date:</div>
-                                            <div class="col-md-9"><input class="col-md-12 form-control mrkt-input-color" type="text" placeholder="click here to select date" readonly id="wb_launch_date"></div>
-                                        </div>
-                                        <br>
-                                        <div class="row">
-                                            <div class="col-md-3" style="padding-top: 7px;">Website Name:</div>
-                                            <div class="col-md-9"><input class="col-md-12 form-control mrkt-input-color" type="text" id="wb_site_name"></div>
-                                        </div>
-                                        <br>
-                                        <div class="row">
-                                            <div class="col-md-3" style="padding-top: 7px;">Body Copy:</div>
-                                            <div class="col-md-9"><textarea class="col-md-12 form-control mrkt-input-color" rows="3" style="resize: vertical;" id="wb_body_copy"></textarea></div>
-                                        </div>
-                                        <br>
-                                        <div class="row">
-                                            <div class="col-md-3" style="padding-top: 7px;">Example Link:</div>
-                                            <div class="col-md-9"><input class="col-md-12 form-control mrkt-input-color" type="text" id="wb_example_link"></div>
-                                        </div>
-                                        <br>
-                                        <div class="row">
-                                            <div class="col-md-3" style="padding-top: 7px;">Attachment:</div>
-                                            <div class="col-md-9"><input type="file" class="filestyle mrkt-input-color" data-buttonName="btn btn-block btn-danger" readonly id="wb_attachment"></div>
-                                        </div>
-                                        <br>
-                                    </div>
-                                </div>
-                                <div class="panel-footer">
-                                    <div class="container-fluid">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <button type="button" class="btn btn-block btn-danger mrkt-input-color" id="wb_btn_submit">Submit</button>
-                                            </div>
-                                        </div>
-                                        <br>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Print & Design section -->
-                    <div class="row" id="print_design_sections">
-                        <div class="col-md-6">
-                            <div class="panel panel-filled panel-c-primary">
-                                <div class="panel-heading">
-                                    Print & Design Sections
-                                </div>
-                                <div class="panel-body">
-                                    <div class="container-fluid">
-                                        
-                                    </div>
-                                </div>
-                                <div class="panel-footer">
-                                    <div class="container-fluid">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <button type="button" class="btn btn-block btn-primary mrkt-input-color" id="pd_btn_submit">Submit</button>
-                                            </div>
-                                        </div>
-                                        <br>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="col-md-3 pull-right">
+                            <button type="button" class="btn btn-inverse btn-block" data-dismiss="modal">Close</button>
                         </div>
                     </div>
                 </div>
-            </section>
-            <!-- End main content-->
+            </div>
         </div>
-        
-        <!-- luna-1.2 Vendor javascript -->
-        <script src="../luna-1.2/vendor/jquery/dist/jquery.min.js"></script>
-        <script src="../luna-1.2/vendor/jquery-ui/jquery-ui.min.js"></script>
-        <script src="../luna-1.2/vendor/bootstrap/js/bootstrap.min.js"></script>
-        <script src="../luna-1.2/vendor/pacejs/pace.min.js"></script>
-        <script src="../luna-1.2/vendor/toastr/toastr.min.js"></script>
-        <script src="../luna-1.2/vendor/sparkline/index.js"></script>
-        <script src="../luna-1.2/vendor/flot/jquery.flot.min.js"></script>
-        <script src="../luna-1.2/vendor/flot/jquery.flot.resize.min.js"></script>
-        <script src="../luna-1.2/vendor/flot/jquery.flot.spline.js"></script>
-        <script src="../luna-1.2/vendor/datatables/datatables.min.js"></script>
-        <script src="../luna-1.2/scripts/luna.js"></script>
+        <!-- The Loader. Is shown when pjax happens -->
+        <div class="loader-wrap hiding hide">
+            <i class="fa fa-circle-o-notch fa-spin-fast"></i>
+        </div>
+        <!-- sing-3.4 Vendor javascript -->
+        <script src="../sing-3.4/ajax-bootstrap3/vendor/jquery/dist/jquery.min.js"></script>
+        <script src="../sing-3.4/ajax-bootstrap3/vendor/jquery-pjax/jquery.pjax.js"></script>
+        <script src="../sing-3.4/ajax-bootstrap3/vendor/bootstrap-sass/assets/javascripts/bootstrap/transition.js"></script>
+        <script src="../sing-3.4/ajax-bootstrap3/vendor/bootstrap-sass/assets/javascripts/bootstrap/collapse.js"></script>
+        <script src="../sing-3.4/ajax-bootstrap3/vendor/bootstrap-sass/assets/javascripts/bootstrap/dropdown.js"></script>
+        <script src="../sing-3.4/ajax-bootstrap3/vendor/bootstrap-sass/assets/javascripts/bootstrap/button.js"></script>
+        <script src="../sing-3.4/ajax-bootstrap3/vendor/bootstrap-sass/assets/javascripts/bootstrap/tooltip.js"></script>
+        <script src="../sing-3.4/ajax-bootstrap3/vendor/bootstrap-sass/assets/javascripts/bootstrap/alert.js"></script>
+        <script src="../sing-3.4/ajax-bootstrap3/vendor/slimScroll/jquery.slimscroll.min.js"></script>
+        <script src="../sing-3.4/ajax-bootstrap3/vendor/widgster/widgster.js"></script>
+        <script src="../sing-3.4/ajax-bootstrap3/vendor/pace.js/pace.js" data-pace-options='{ "target": ".content-wrap", "ghostTime": 1000 }'></script>
+        <script src="../sing-3.4/ajax-bootstrap3/vendor/jquery-touchswipe/jquery.touchSwipe.js"></script>
+        <!-- sing-3.4 page libs javascript -->       
+        <script src="../sing-3.4/ajax-bootstrap3/vendor/bootstrap-sass/assets/javascripts/bootstrap/modal.js"></script>
+        <script src="../sing-3.4/ajax-bootstrap3/vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+        <script src="../sing-3.4/ajax-bootstrap3/vendor/select2/select2.min.js"></script>
+        <script src="../sing-3.4/ajax-bootstrap3/vendor/switchery/dist/switchery.min.js"></script>
+        <script src="../sing-3.4/ajax-bootstrap3/vendor/moment/min/moment.min.js"></script>
+        <script src="../sing-3.4/ajax-bootstrap3/vendor/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+        <!--<script src="../sing-3.4/ajax-bootstrap3/vendor/jasny-bootstrap/js/inputmask.js"></script>-->
+        <!--<script src="../sing-3.4/ajax-bootstrap3/vendor/jasny-bootstrap/js/fileinput.js"></script>-->
+        <!-- sing-3.4 common app javascript -->
+        <script src="../sing-3.4/ajax-bootstrap3/js/settings.js"></script>
+        <script src="../sing-3.4/ajax-bootstrap3/js/app.js"></script>
+        <!-- CDN js link -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/es6-promise/4.1.1/es6-promise.auto.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/3.1.3/js/jasny-bootstrap.min.js"></script>
         <!-- include javascript -->
-        <script src="../include/jquery-ui-1.11.4/js/jquery-ui.min.js"></script>
-        <script src="../include/jquery-autosize/jquery.autosize.1.18.1.min.js"></script>
-        <script src="../include/bootstrap-3-timepicker/js/bootstrap-timepicker.min.js"></script>
-        <script src="../include/bootstrap-filestyle/js/bootstrap-filestyle.1.1.2.min.js"></script>
+        <script src="../include/jquery-autosize-3.0.2/dist/autosize.min.js"></script>
         <script src="../include/sweetalert/js/sweetalert.min.js"></script>
         <script src="../include/iCheck/icheck.min.js"></script>
+        <script src="../include/fancyBox-2.1.5/source/jquery.fancybox.pack.js"></script>
         <!-- application javascript -->
         <script src="js/mrktRequest.js"></script>
         <script src="js/session_data.js"></script>

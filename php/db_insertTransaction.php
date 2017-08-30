@@ -1,12 +1,14 @@
 <?php
     require("config.php");
     
-    $EventRequestID = filter_input(INPUT_POST, 'EventRequestID');
+    $MrktRequestID = filter_input(INPUT_POST, 'MrktRequestID');
     $LoginName = filter_input(INPUT_POST, 'LoginName');
     $Note = filter_input(INPUT_POST, 'Note');
     
-    $query = "INSERT INTO [".$dbDatabase."].[dbo].[Transaction] (EventRequestID, LoginName, Note) "
-                ."VALUES ('$EventRequestID', '$LoginName', '$Note')";  
+    $Note = str_replace("'", "''", $Note);
+    
+    $query = "INSERT INTO [".$dbDatabase."].[dbo].[Transaction] (MrktRequestID, LoginName, Note) "
+                ."VALUES ('$MrktRequestID', '$LoginName', '$Note')";  
     
     $cmd = $dbConn->prepare($query);
     $cmd->execute();

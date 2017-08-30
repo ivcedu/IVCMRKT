@@ -3,7 +3,7 @@
     
     $AdminEmail = filter_input(INPUT_POST, 'AdminEmail');
 
-    $query = "SELECT * FROM [".$dbDatabase."].[dbo].[Admin] WHERE AdminEmail = '".$AdminEmail."'";
+    $query = "SELECT TOP(1) * FROM [".$dbDatabase."].[dbo].[Admin] WHERE AdminEmail = '".$AdminEmail."'";
 
     $cmd = $dbConn->prepare($query);
     $cmd->execute(); 
