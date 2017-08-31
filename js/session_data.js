@@ -1,21 +1,21 @@
 // global variables setting ////////////////////////////////////////////////////
-var status_draft_id = "1";
-var status_submitted_id = "2";
-var status_task_assigned_id = "5";
-var status_task_partially_assigned_id = "11";
-var status_waiting_for_more_info_id = "3";
-var status_complete_id = "4";
-var status_hold_id = "6";
-var status_cancel_id = "7";
-var status_in_progress_id = "9";
-var status_scheduled_id = "10";
+const status_draft_id = "1";
+const status_submitted_id = "2";
+const status_task_assigned_id = "5";
+const status_task_partially_assigned_id = "11";
+const status_waiting_for_more_info_id = "3";
+const status_complete_id = "4";
+const status_hold_id = "6";
+const status_cancel_id = "7";
+const status_in_progress_id = "9";
+const status_scheduled_id = "10";
 
-var task_print_id = "2";
-var task_photo_id = "3";
-var task_media_id = "4";
-var task_web_id = "5";
-var task_video_id = "6";
-var task_editorial_id = "7";
+const task_print_id = "2";
+const task_photo_id = "3";
+const task_media_id = "4";
+const task_web_id = "5";
+const task_video_id = "6";
+const task_editorial_id = "7";
 
 ////////////////////////////////////////////////////////////////////////////////
 function sessionData_login(loginName, loginEmail, department, phone) {  
