@@ -1,9 +1,9 @@
-var task_print_id = "2";
-var task_photo_id = "3";
-var task_media_id = "4";
-var task_web_id = "5";
-var task_video_id = "6";
-var task_editorial_id = "7";
+const task_print_id = "2";
+const task_photo_id = "3";
+const task_media_id = "4";
+const task_web_id = "5";
+const task_video_id = "6";
+const task_editorial_id = "7";
 
 var arr_mrkt_request = new Array();
 var arr_admin = new Array();
@@ -24,19 +24,17 @@ function proc_sendEmailToTechSupport(Subject, Message, StrImages) {
 }
 
 function proc_sendEmail(email, cc_email, subject, message) {
-//    var Result = false;
-//    $.ajax({
-//        type:"POST",
-//        url:"php/sendEmail.php",
-//        data:{Email:email, CCEmail:cc_email, Subject:subject, Message:message},
-//        async: false,  
-//        success:function(data) {
-//            Result = JSON.parse(data);
-//        }
-//    });
-//    return Result;
-
-    return true;
+    var Result = false;
+    $.ajax({
+        type:"POST",
+        url:"php/sendEmail.php",
+        data:{Email:email, CCEmail:cc_email, Subject:subject, Message:message},
+        async: false,  
+        success:function(data) {
+            Result = JSON.parse(data);
+        }
+    });
+    return Result;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
