@@ -2,7 +2,7 @@ var str_img = "";
 var m_table;
 ////////////////////////////////////////////////////////////////////////////////
 window.onload = function() {
-    if (sessionStorage.key(0) !== null) {
+    if (sessionStorage.key(0) !== null) {        
         sessionStorage.setItem('ss_mrkt_referrer', "home.html");
         isLoginAdmin();
         getLoginInfo();

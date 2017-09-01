@@ -29,7 +29,6 @@ function sessionData_MrktRequestID(mrkt_request_id) {
     sessionStorage.setItem('ss_mrkt_request_id', mrkt_request_id);
 }
 
-////////////////////////////////////////////////////////////////////////////////
 function objToString(obj) {
     if (obj === null) {
         return "";
