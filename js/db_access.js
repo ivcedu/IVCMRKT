@@ -1595,13 +1595,16 @@ function db_insertMrktMediaPost(MrktMediaID, MrktRequestID, PostDate) {
     return ResultID;
 }
 
-function db_insertMrktWeb(MrktRequestID, AdminID, StatusID, DateNeeded, ckb_web_create_new, ckb_web_update_existing, ckb_web_add_page, ckb_web_request_access, ckb_web_request_website, ckb_web_report_problem) {
+function db_insertMrktWeb(MrktRequestID, AdminID, StatusID, DateNeeded, ckb_web_create_new, ckb_web_update_existing, ckb_web_update_url,
+                            ckb_web_add_page, ckb_web_add_url, ckb_web_request_website, ckb_web_report_problem) {
     var ResultID = "";
     $.ajax({
         type:"POST",
         url:"php/db_insertMrktWeb.php",
-        data:{MrktRequestID:MrktRequestID, AdminID:AdminID, StatusID:StatusID, DateNeeded:DateNeeded, ckb_web_create_new:ckb_web_create_new, ckb_web_update_existing:ckb_web_update_existing,
-                ckb_web_add_page:ckb_web_add_page, ckb_web_request_access:ckb_web_request_access, ckb_web_request_website:ckb_web_request_website, ckb_web_report_problem:ckb_web_report_problem},
+        data:{MrktRequestID:MrktRequestID, AdminID:AdminID, StatusID:StatusID, DateNeeded:DateNeeded, ckb_web_create_new:ckb_web_create_new, 
+                ckb_web_update_existing:ckb_web_update_existing, ckb_web_update_url:ckb_web_update_url,
+                ckb_web_add_page:ckb_web_add_page, ckb_web_add_url:ckb_web_add_url,
+                ckb_web_request_website:ckb_web_request_website, ckb_web_report_problem:ckb_web_report_problem},
         async: false,  
         success:function(data) {
             ResultID = JSON.parse(data);
@@ -1880,6 +1883,20 @@ function db_updateMrktPrintStatusByReqID(MrktRequestID, StatusID) {
     return Result;
 }
 
+function db_updateMrktPrintDateNeededByReqID(MrktRequestID, DateNeeded) {
+    var Result = false;
+    $.ajax({
+        type:"POST",
+        url:"php/db_updateMrktPrintDateNeededByReqID.php",
+        data:{MrktRequestID:MrktRequestID, DateNeeded:DateNeeded},
+        async: false,  
+        success:function(data) {
+            Result = JSON.parse(data);
+        }
+    });
+    return Result;
+}
+
 function db_updateMrktPrintAdByReqID(MrktRequestID, AdSize) {
     var Result = false;
     $.ajax({
@@ -2063,6 +2080,34 @@ function db_updateMrktPhotoStatusByReqID(MrktRequestID, StatusID) {
     return Result;
 }
 
+function db_updateMrktPhotoEventDateByReqID(MrktRequestID, EventDate) {
+    var Result = false;
+    $.ajax({
+        type:"POST",
+        url:"php/db_updateMrktPhotoEventDateByReqID.php",
+        data:{MrktRequestID:MrktRequestID, EventDate:EventDate},
+        async: false,  
+        success:function(data) {
+            Result = JSON.parse(data);
+        }
+    });
+    return Result;
+}
+
+function db_updateMrktPhotoEventTimeByReqID(MrktRequestID, EventTime) {
+    var Result = false;
+    $.ajax({
+        type:"POST",
+        url:"php/db_updateMrktPhotoEventTimeByReqID.php",
+        data:{MrktRequestID:MrktRequestID, EventTime:EventTime},
+        async: false,  
+        success:function(data) {
+            Result = JSON.parse(data);
+        }
+    });
+    return Result;
+}
+
 function db_updateMrktMediaByReqID(MrktRequestID, AdminID, StatusID, ckb_mda_collegewide_email, ckb_mda_sherpa_email, ckb_mda_monitor, ckb_mda_social_media) {
     var Result = false;
     $.ajax({
@@ -2148,6 +2193,34 @@ function db_updateMrktMediaMonitorByReqID(MrktRequestID, StartDate, EndDate) {
     return Result;
 }
 
+function db_updateMrktMediaMonitorStartDateByReqID(MrktRequestID, StartDate) {
+    var Result = false;
+    $.ajax({
+        type:"POST",
+        url:"php/db_updateMrktMediaMonitorStartDateByReqID.php",
+        data:{MrktRequestID:MrktRequestID, StartDate:StartDate},
+        async: false,  
+        success:function(data) {
+            Result = JSON.parse(data);
+        }
+    });
+    return Result;
+}
+
+function db_updateMrktMediaMonitorEndDateByReqID(MrktRequestID, EndDate) {
+    var Result = false;
+    $.ajax({
+        type:"POST",
+        url:"php/db_updateMrktMediaMonitorEndDateByReqID.php",
+        data:{MrktRequestID:MrktRequestID, EndDate:EndDate},
+        async: false,  
+        success:function(data) {
+            Result = JSON.parse(data);
+        }
+    });
+    return Result;
+}
+
 function db_updateMrktMediaPostByReqID(MrktRequestID, PostDate) {
     var Result = false;
     $.ajax({
@@ -2162,13 +2235,16 @@ function db_updateMrktMediaPostByReqID(MrktRequestID, PostDate) {
     return Result;
 }
 
-function db_updateMrktWebByReqID(MrktRequestID, AdminID, StatusID, DateNeeded, ckb_web_create_new, ckb_web_update_existing, ckb_web_add_page, ckb_web_request_access, ckb_web_request_website, ckb_web_report_problem) {
+function db_updateMrktWebByReqID(MrktRequestID, AdminID, StatusID, DateNeeded, ckb_web_create_new, ckb_web_update_existing, ckb_web_update_url,
+                                    ckb_web_add_page, ckb_web_add_url, ckb_web_request_website, ckb_web_report_problem) {
     var Result = false;
     $.ajax({
         type:"POST",
         url:"php/db_updateMrktWebByReqID.php",
-        data:{MrktRequestID:MrktRequestID, AdminID:AdminID, StatusID:StatusID, DateNeeded:DateNeeded, ckb_web_create_new:ckb_web_create_new, ckb_web_update_existing:ckb_web_update_existing,
-                ckb_web_add_page:ckb_web_add_page, ckb_web_request_access:ckb_web_request_access, ckb_web_request_website:ckb_web_request_website, ckb_web_report_problem:ckb_web_report_problem},
+        data:{MrktRequestID:MrktRequestID, AdminID:AdminID, StatusID:StatusID, DateNeeded:DateNeeded, ckb_web_create_new:ckb_web_create_new, 
+                ckb_web_update_existing:ckb_web_update_existing, ckb_web_update_url:ckb_web_update_url,
+                ckb_web_add_page:ckb_web_add_page, ckb_web_add_url:ckb_web_add_url,
+                ckb_web_request_website:ckb_web_request_website, ckb_web_report_problem:ckb_web_report_problem},
         async: false,  
         success:function(data) {
             Result = JSON.parse(data);
@@ -2197,6 +2273,20 @@ function db_updateMrktWebStatusByReqID(MrktRequestID, StatusID) {
         type:"POST",
         url:"php/db_updateMrktWebStatusByReqID.php",
         data:{MrktRequestID:MrktRequestID, StatusID:StatusID},
+        async: false,  
+        success:function(data) {
+            Result = JSON.parse(data);
+        }
+    });
+    return Result;
+}
+
+function db_updateMrktWebDateNeededByReqID(MrktRequestID, DateNeeded) {
+    var Result = false;
+    $.ajax({
+        type:"POST",
+        url:"php/db_updateMrktWebDateNeededByReqID.php",
+        data:{MrktRequestID:MrktRequestID, DateNeeded:DateNeeded},
         async: false,  
         success:function(data) {
             Result = JSON.parse(data);
@@ -2261,6 +2351,34 @@ function db_updateMrktVideoFilmingByReqID(MrktRequestID, EventDate, EventTime, L
     return Result;
 }
 
+function db_updateMrktVideoFilmingEventDateByReqID(MrktRequestID, EventDate) {
+    var Result = false;
+    $.ajax({
+        type:"POST",
+        url:"php/db_updateMrktVideoFilmingEventDateByReqID.php",
+        data:{MrktRequestID:MrktRequestID, EventDate:EventDate},
+        async: false,  
+        success:function(data) {
+            Result = JSON.parse(data);
+        }
+    });
+    return Result;
+}
+
+function db_updateMrktVideoFilmingEventTimeByReqID(MrktRequestID, EventTime) {
+    var Result = false;
+    $.ajax({
+        type:"POST",
+        url:"php/db_updateMrktVideoFilmingEventTimeByReqID.php",
+        data:{MrktRequestID:MrktRequestID, EventTime:EventTime},
+        async: false,  
+        success:function(data) {
+            Result = JSON.parse(data);
+        }
+    });
+    return Result;
+}
+
 function db_updateMrktVideoOtherByReqID(MrktRequestID, Other) {
     var Result = false;
     $.ajax({
@@ -2309,6 +2427,34 @@ function db_updateMrktEditorialStatusByReqID(MrktRequestID, StatusID) {
         type:"POST",
         url:"php/db_updateMrktEditorialStatusByReqID.php",
         data:{MrktRequestID:MrktRequestID, StatusID:StatusID},
+        async: false,  
+        success:function(data) {
+            Result = JSON.parse(data);
+        }
+    });
+    return Result;
+}
+
+function db_updateMrktEditorialCWDateNeededByReqID(MrktRequestID, CWDateNeeded) {
+    var Result = false;
+    $.ajax({
+        type:"POST",
+        url:"php/db_updateMrktEditorialCWDateNeededByReqID.php",
+        data:{MrktRequestID:MrktRequestID, CWDateNeeded:CWDateNeeded},
+        async: false,  
+        success:function(data) {
+            Result = JSON.parse(data);
+        }
+    });
+    return Result;
+}
+
+function db_updateMrktEditorialPRDateNeededByReqID(MrktRequestID, PRDateNeeded) {
+    var Result = false;
+    $.ajax({
+        type:"POST",
+        url:"php/db_updateMrktEditorialPRDateNeededByReqID.php",
+        data:{MrktRequestID:MrktRequestID, PRDateNeeded:PRDateNeeded},
         async: false,  
         success:function(data) {
             Result = JSON.parse(data);

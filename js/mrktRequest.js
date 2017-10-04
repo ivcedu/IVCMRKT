@@ -2,7 +2,7 @@ var m_new_request;
 var mrkt_request_id = "";
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 window.onload = function() {
-    if (sessionStorage.key(0) !== null) {   
+    if (sessionStorage.key(0) !== null) {        
         isLoginAdmin();
         getLoginInfo();
         
@@ -344,6 +344,27 @@ $(document).ready(function() {
         return false;
     });
     
+    // web services checkbox click event ///////////////////////////////////////
+    $('#ckb_web_update_existing').on('ifChanged', function() {
+        if ($('#ckb_web_update_existing').is(':checked')) {
+            $('#web_update_existing_section').show();
+        }
+        else {
+            $('#web_update_existing_section').hide();
+        }
+        return false;
+    });
+    
+    $('#ckb_web_add_page').on('ifChanged', function() {
+        if ($('#ckb_web_add_page').is(':checked')) {
+            $('#web_add_page_section').show();
+        }
+        else {
+            $('#web_add_page_section').hide();
+        }
+        return false;
+    });
+    
     // video categories checkbox click event ///////////////////////////////////
     $('#ckb_vdo_filming_request').on('ifChanged', function() {
         if ($('#ckb_vdo_filming_request').is(':checked')) {
@@ -480,6 +501,7 @@ $(document).ready(function() {
     
     // draft button click //////////////////////////////////////////////////////
     $('#btn_main_draft').click(function() {
+        $('html,body').scrollTop(0);
         startSpinning();
         
         setTimeout(function() {
@@ -514,6 +536,7 @@ $(document).ready(function() {
     
     // submit button click /////////////////////////////////////////////////////
     $('#btn_main_submit').click(function() {
+        $('html,body').scrollTop(0);
         startSpinning();
         
         setTimeout(function() { 
@@ -1015,7 +1038,7 @@ function taskMediaMonitorValidation() {
 
 function taskWebValidation() {
     if (!$('#ckb_web_create_new').is(':checked') && !$('#ckb_web_update_existing').is(':checked') && !$('#ckb_web_add_page').is(':checked')
-        && !$('#ckb_web_request_access').is(':checked') && !$('#ckb_web_request_website').is(':checked') && !$('#ckb_web_report_problem').is(':checked')) {
+        && !$('#ckb_web_request_website').is(':checked') && !$('#ckb_web_report_problem').is(':checked')) {
         swal({title: "Error", text: "Please select at least one Web Services request category", type: "error"});
         return false;
     }
@@ -1112,13 +1135,13 @@ function getMrktAttachment() {
 function setMrktAttachmentHTML(mrkt_attachment_id, file_name) {
     var str_html = "<div class='form-group' id='mrkt_attachment_id_" + mrkt_attachment_id + "'>";
     str_html += "<div class='col-sm-5 col-sm-offset-4'>";
-    str_html += "<p class='form-control'>" + file_name + "</p>";
+    str_html += "<p class='form-control ivcmrkt-text-area-view'>" + file_name + "</p>";
     str_html += "</div>";
-    str_html += "<div class='col-sm-1'>";
-    str_html += "<button class='col-sm-12 btn btn-info' id='btn_file_download_" + mrkt_attachment_id + "'>Download</button>";
+    str_html += "<div class='col-md-1'>";
+    str_html += "<button class='col-sm-12 btn btn-info' id='btn_file_download_" + mrkt_attachment_id + "'><i class='iconic iconic-sm iconic-data-transfer-download'></i></button>";
     str_html += "</div>";
-    str_html += "<div class='col-sm-1'>";
-    str_html += "<button class='col-sm-12 btn btn-danger' id='btn_file_delete_" + mrkt_attachment_id + "'>Delete</button>";
+    str_html += "<div class='col-md-1'>";
+    str_html += "<button class='col-sm-12 btn btn-danger' id='btn_file_delete_" + mrkt_attachment_id + "'><i class='iconic iconic-sm iconic-trash'></i></button>";
     str_html += "</div>";
     str_html += "</div>";
     return str_html;
@@ -1332,7 +1355,7 @@ function getMrktPhoto() {
     
     if (result.length === 1) {
         $('#pht_event_date').data("DateTimePicker").date(moment(result[0]['EventDate']).format('MM/DD/YYYY'));
-        $('#pht_event_time').val(result[0]['EventTime']);
+        $('#pht_event_time').find('input').val(result[0]['EventTime']);
         $('#pht_event_location').val(result[0]['Location']);
         $('#pht_event_estimate_time').val(result[0]['EstimatedTime']);
     }
@@ -1417,12 +1440,11 @@ function getMrktWeb() {
         if (result[0]['ckb_web_update_existing'] === "1") {
             $('#ckb_web_update_existing').iCheck('check');
         }
+        $('#web_update_existing_url').val(result[0]['ckb_web_update_url']);
         if (result[0]['ckb_web_add_page'] === "1") {
             $('#ckb_web_add_page').iCheck('check');
         }
-        if (result[0]['ckb_web_request_access'] === "1") {
-            $('#ckb_web_request_access').iCheck('check');
-        }
+        $('#ckb_web_add_page_url').val(result[0]['ckb_web_add_url']);
         if (result[0]['ckb_web_request_website'] === "1") {
             $('#ckb_web_request_website').iCheck('check');
         }
@@ -1456,7 +1478,7 @@ function getMrktVideoFilming() {
     
     if (result.length === 1) {
         $('#vdo_filming_date').data("DateTimePicker").date(moment(result[0]['EventDate']).format('MM/DD/YYYY'));
-        $('#vdo_filming_time').val(result[0]['EventTime']);
+        $('#vdo_filming_time').find('input').val(result[0]['EventTime']);
         $('#vdo_filming_location').val(result[0]['Location']);        
         autosize.update($('#vdo_filming_purpose').val(result[0]['Purpose']));
         $('#vdo_filming_estimate_time').val(result[0]['EstimatedTime']);
@@ -2210,21 +2232,24 @@ function insertMrktWeb(status_id) {
     var web_date_needed = $('#web_date_needed').find('input').val();
     var ckb_web_create_new = ($('#ckb_web_create_new').is(':checked') ? true : false);
     var ckb_web_update_existing = ($('#ckb_web_update_existing').is(':checked') ? true : false);
+    var ckb_web_update_url = $.trim($('#web_update_existing_url').val());
     var ckb_web_add_page = ($('#ckb_web_add_page').is(':checked') ? true : false);
-    var ckb_web_request_access = ($('#ckb_web_request_access').is(':checked') ? true : false);
+    var ckb_web_add_url = $.trim($('#ckb_web_add_page_url').val());
     var ckb_web_request_website = ($('#ckb_web_request_website').is(':checked') ? true : false);
     var ckb_web_report_problem = ($('#ckb_web_report_problem').is(':checked') ? true : false);
     
     var result = new Array();
     result = db_getMrktWebByReqID(mrkt_request_id);
     if (result.length === 1) {
-        if (!db_updateMrktWebByReqID(mrkt_request_id, 0, status_id, web_date_needed, ckb_web_create_new, ckb_web_update_existing, ckb_web_add_page, ckb_web_request_access, ckb_web_request_website, ckb_web_report_problem)) {
+        if (!db_updateMrktWebByReqID(mrkt_request_id, 0, status_id, web_date_needed, ckb_web_create_new, ckb_web_update_existing, ckb_web_update_url,
+                                        ckb_web_add_page, ckb_web_add_url, ckb_web_request_website, ckb_web_report_problem)) {
             var str_msg = "DB system error UPDATE MRKT_WEB - MrktRequestID: " + mrkt_request_id;
             return dbSystemErrorHandling(str_msg);
         }
     }
     else {
-        if (db_insertMrktWeb(mrkt_request_id, 0, status_id, web_date_needed, ckb_web_create_new, ckb_web_update_existing, ckb_web_add_page, ckb_web_request_access, ckb_web_request_website, ckb_web_report_problem) === "") {
+        if (db_insertMrktWeb(mrkt_request_id, 0, status_id, web_date_needed, ckb_web_create_new, ckb_web_update_existing, ckb_web_update_url,
+                                ckb_web_add_page, ckb_web_add_url, ckb_web_request_website, ckb_web_report_problem) === "") {
             var str_msg = "DB system error INSERT MRKT_WEB";
             return dbSystemErrorHandling(str_msg);
         }

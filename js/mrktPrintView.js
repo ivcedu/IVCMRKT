@@ -11,6 +11,18 @@ var mrkt_web_id = "";
 var mrkt_video_id = "";
 var mrkt_editorial_id = "";
 
+var pre_prt_date_need = "";
+var pre_pht_event_date = "";
+var pre_pht_event_time = "";
+var pre_mda_monitor_start_date = "";
+var pre_mda_monitor_end_date = "";
+var pre_mda_soc_media_date = "";
+var pre_web_date_needed = "";
+var pre_vdo_filming_date = "";
+var pre_vdo_filming_time = "";
+var pre_edt_copywriting_date_needed = "";
+var pre_edt_proofreading_date_needed = "";
+
 var m_table;
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 window.onload = function() {
@@ -47,6 +59,10 @@ $(document).ready(function() {
     
     // auto size initialize ////////////////////////////////////////////////////
     autosize($('.autogrow'));
+    
+    // datepicker initialize ///////////////////////////////////////////////////
+    $('.ivcmarkt_date_only_format').datetimepicker({ format: 'MM/DD/YYYY', useCurrent: false, daysOfWeekDisabled: [0,6], ignoreReadonly: true }); 
+    $('.ivcmarkt_time_only_format').datetimepicker({ format: 'LT', ignoreReadonly: true }); 
     
     // iCheck initialize ///////////////////////////////////////////////////////
     $('input').iCheck({
@@ -1181,6 +1197,173 @@ $(document).ready(function() {
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // task print date needed update click /////////////////////////////////////
+    $('#btn_update_prt_date_need').click(function(e) {
+        e.preventDefault();
+        var new_prt_date_need = $('#prt_date_need_edit').find('input').val();
+        if (!updateMrktPrintDateNeeded(new_prt_date_need)) {
+            return false;
+        }
+        if (!insertTransaction("Print/Graphics Date Needed updated from " + pre_prt_date_need + " to " + new_prt_date_need)) {
+            return false;
+        }
+        getTransactions();
+        swal("Updated!", "PRINT/GRAPHICS Date Needed updated", "success");
+        return false;
+    });
+    
+    // task photography event date update click ////////////////////////////////
+    $('#btn_update_pht_event_date').click(function(e) {
+        e.preventDefault();
+        var new_pht_event_date = $('#pht_event_date_edit').find('input').val();
+        if (!updateMrktPhotoEventDate(new_pht_event_date)) {
+            return false;
+        }
+        if (!insertTransaction("Photography Event Date updated from " + pre_pht_event_date + " to " + new_pht_event_date)) {
+            return false;
+        }
+        getTransactions();
+        swal("Updated!", "PHOTOGRAPHY Event Date updated", "success");
+        return false;
+    });
+    
+    // task photography event time update click ////////////////////////////////
+    $('#btn_update_pht_event_time').click(function(e) {
+        e.preventDefault();
+        var new_pht_event_time = $('#pht_event_time_edit').find('input').val();
+        if (!updateMrktPhotoEventTime(new_pht_event_time)) {
+            return false;
+        }
+        if (!insertTransaction("Photography Event Time updated from " + pre_pht_event_time + " to " + new_pht_event_time)) {
+            return false;
+        }
+        getTransactions();
+        swal("Updated!", "PHOTOGRAPHY Event Time updated", "success");
+        return false;
+    });
+    
+    // task social media monitor start date update click ///////////////////////
+    $('#btn_update_mda_monitor_start_date').click(function(e) {
+        e.preventDefault();
+        var new_mda_monitor_start_date = $('#mda_monitor_start_date_edit').find('input').val();
+        if (!updateMrktMediaMonitorStartDate(new_mda_monitor_start_date)) {
+            return false;
+        }
+        if (!insertTransaction("Social Media/Publicity Monitor Slide Start Date updated from " + pre_mda_monitor_start_date + " to " + new_mda_monitor_start_date)) {
+            return false;
+        }
+        getTransactions();
+        swal("Updated!", "SOCIAL MEDIA/PUBLICITY Monitor Slide Start Date updated", "success");
+        return false;
+    });
+    
+    // task social media monitor end date update click /////////////////////////
+    $('#btn_update_mda_monitor_end_date').click(function(e) {
+        e.preventDefault();
+        var new_mda_monitor_end_date = $('#mda_monitor_end_date_edit').find('input').val();
+        if (!updateMrktMediaMonitorEndDate(new_mda_monitor_end_date)) {
+            return false;
+        }
+        if (!insertTransaction("Social Media/Publicity Monitor Slide End Date updated from " + pre_mda_monitor_end_date + " to " + new_mda_monitor_end_date)) {
+            return false;
+        }
+        getTransactions();
+        swal("Updated!", "SOCIAL MEDIA/PUBLICITY Monitor Slide End Date updated", "success");
+        return false;
+    });
+    
+    // task social media post date update click ////////////////////////////////
+    $('#btn_update_mda_soc_media_date').click(function(e) {
+        e.preventDefault();
+        var new_mda_soc_media_date = $('#mda_soc_media_date_edit').find('input').val();
+        if (!updateMrktWebDateNeeded(new_mda_soc_media_date)) {
+            return false;
+        }
+        if (!insertTransaction("Social Media/Publicity Social Media Post Date updated from " + pre_mda_soc_media_date + " to " + new_mda_soc_media_date)) {
+            return false;
+        }
+        getTransactions();
+        swal("Updated!", "SOCIAL MEDIA/PUBLICITY Social Media Post Date updated", "success");
+        return false;
+    });
+    
+    // task web launch date update click ///////////////////////////////////////
+    $('#btn_update_web_date_needed').click(function(e) {
+        e.preventDefault();
+        var new_web_date_needed = $('#web_date_needed_edit').find('input').val();
+        if (!updateMrktMediaPostDate(new_web_date_needed)) {
+            return false;
+        }
+        if (!insertTransaction("Web Services Estimated Launch Date updated from " + pre_web_date_needed + " to " + new_web_date_needed)) {
+            return false;
+        }
+        getTransactions();
+        swal("Updated!", "WEB SERVICES Estimated Launch Date updated", "success");
+        return false;
+    });
+    
+    // task video event date update click ///////////////////////////////////////
+    $('#btn_update_vdo_filming_date').click(function(e) {
+        e.preventDefault();
+        var new_vdo_filming_date = $('#vdo_filming_date_edit').find('input').val();
+        if (!updateMrktVideoFilmingEventDate(new_vdo_filming_date)) {
+            return false;
+        }
+        if (!insertTransaction("Video Event Date updated from " + pre_vdo_filming_date + " to " + new_vdo_filming_date)) {
+            return false;
+        }
+        getTransactions();
+        swal("Updated!", "VIDEO Event Date updated", "success");
+        return false;
+    });
+    
+    // task video event time update click ///////////////////////////////////////
+    $('#btn_update_vdo_filming_time').click(function(e) {
+        e.preventDefault();
+        var new_vdo_filming_time = $('#vdo_filming_time_edit').find('input').val();
+        if (!updateMrktVideoFilmingEventTime(new_vdo_filming_time)) {
+            return false;
+        }
+        if (!insertTransaction("Video Event Time updated from " + pre_vdo_filming_time + " to " + new_vdo_filming_time)) {
+            return false;
+        }
+        getTransactions();
+        swal("Updated!", "VIDEO Event Time updated", "success");
+        return false;
+    });
+    
+    // task editorial copywriting launch date update click //////////////////////
+    $('#btn_update_edt_copywriting_date_needed').click(function(e) {
+        e.preventDefault();
+        var new_edt_copywriting_date_needed = $('#copywriting_date_needed_edit').find('input').val();
+        if (!updateMrktEditorialCWDateNeeded(new_edt_copywriting_date_needed)) {
+            return false;
+        }
+        if (!insertTransaction("Editorial Services Copywriting Estimated Launch Date updated from " + pre_edt_copywriting_date_needed + " to " + new_edt_copywriting_date_needed)) {
+            return false;
+        }
+        getTransactions();
+        swal("Updated!", "EDITORIAL SERVICES Copywriting Estimated Launch Date updated", "success");
+        return false;
+    });
+    
+    // task editorial proofreading launch date update click /////////////////////
+    $('#btn_update_edt_proofreading_date_needed').click(function(e) {
+        e.preventDefault();
+        var new_edt_proofreading_date_needed = $('#proofreading_date_needed_edit').find('input').val();
+        if (!updateMrktEditorialPRDateNeeded(new_edt_proofreading_date_needed)) {
+            return false;
+        }
+        if (!insertTransaction("Editorial Services Proof Reading Estimated Launch Date updated from " + pre_edt_proofreading_date_needed + " to " + new_edt_proofreading_date_needed)) {
+            return false;
+        }
+        getTransactions();
+        swal("Updated!", "EDITORIAL SERVICES Proof Reading Estimated Launch Date updated", "success");
+        return false;
+    });
+    
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // ivc tech support click //////////////////////////////////////////////////
     $('#mod_btn_ivc_tech_submit').click(function() { 
         if (!appSystemTechSupport("Application Web Site: Marketing and Creative Services Request - MRKT Staff Print View<br/><br/>", $('#mod_ivc_tech_problems').val(), str_img)) {
@@ -1600,13 +1783,21 @@ function getMrktPrint() {
             m_task_staff = true;
             $('#task_print_status_section').show();
         }
-        
+
         $('#print_task_staff_list').val(result[0]['AdminID']);
         $('#task_print_status_list').val(result[0]['StatusID']);
         getMrktPrintFileAttachment(result[0]['StatusID']);
         
-        $('#prt_date_need').html(moment(result[0]['DateNeeded']).format('MM/DD/YYYY'));
-        
+        if (m_admin_id === result[0]['AdminID'] || m_administrator) {
+            $('#prt_date_need_edit').data("DateTimePicker").date(moment(result[0]['DateNeeded']).format('MM/DD/YYYY'));
+            pre_prt_date_need = moment(result[0]['DateNeeded']).format('MM/DD/YYYY');
+            $('#edit_prt_date_need_section').show();
+        }
+        else {
+            $('#prt_date_need_view').html(moment(result[0]['DateNeeded']).format('MM/DD/YYYY'));
+            $('#view_prt_date_need_section').show();
+        }
+
         if (result[0]['ckb_prt_ad'] === "1") {
             $("#ckb_prt_ad").append("<i class='ion-android-checkbox ivcmrkt-pos-neg-10' style='font-size: 28px;'></i>");
             $('#prt_ad_section').show();
@@ -1813,13 +2004,26 @@ function getMrktPhoto() {
             m_task_staff = true;
             $('#task_photo_status_section').show();
         }
-            
+        
         $('#photo_task_staff_list').val(result[0]['AdminID']);
         $('#task_photo_status_list').val(result[0]['StatusID']);
         getMrktPhotoFileAttachment(result[0]['StatusID']);
         
-        $('#pht_event_date').html(moment(result[0]['EventDate']).format('MM/DD/YYYY'));
-        $('#pht_event_time').html(result[0]['EventTime']);
+        if (m_admin_id === result[0]['AdminID'] || m_administrator) {
+            $('#pht_event_date_edit').data("DateTimePicker").date(moment(result[0]['EventDate']).format('MM/DD/YYYY'));
+            pre_pht_event_date = moment(result[0]['EventDate']).format('MM/DD/YYYY');
+            $('#pht_event_time_edit').find('input').val(result[0]['EventTime']);
+            pre_pht_event_time = result[0]['EventTime'];
+            $('#edit_pht_event_date_section').show();
+            $('#edit_pht_event_time_section').show();
+        }
+        else {
+            $('#pht_event_date_view').html(moment(result[0]['EventDate']).format('MM/DD/YYYY'));
+            $('#pht_event_time_view').html(result[0]['EventTime']);
+            $('#view_pht_event_date_section').show();
+            $('#view_pht_event_time_section').show();
+        }    
+
         $('#pht_event_location').html(result[0]['Location']);
         $('#pht_event_estimate_time').html(result[0]['EstimatedTime']);
     }
@@ -1831,14 +2035,16 @@ function getMrktMedia() {
     
     if (result.length === 1) {
         mrkt_media_id = result[0]['MrktMediaID'];
-        if (m_admin_id === result[0]['AdminID']) {
-            m_task_staff = true;
-            $('#task_media_status_section').show();
-        }
-        
         $('#media_task_staff_list').val(result[0]['AdminID']);
         $('#task_media_status_list').val(result[0]['StatusID']);
         getMrktMediaFileAttachment(result[0]['StatusID']);
+        
+        var media_task_staff = false;
+        if (m_admin_id === result[0]['AdminID']) {
+            m_task_staff = true;
+            media_task_staff = true;
+            $('#task_media_status_section').show();
+        }
         
         if (result[0]['ckb_mda_collegewide_email'] === "1") {
             $("#ckb_mda_collegewide_email").append("<i class='ion-android-checkbox ivcmrkt-pos-neg-10' style='font-size: 28px;'></i>");            
@@ -1859,7 +2065,7 @@ function getMrktMedia() {
         if (result[0]['ckb_mda_monitor'] === "1") {
             $("#ckb_mda_monitor").append("<i class='ion-android-checkbox ivcmrkt-pos-neg-10' style='font-size: 28px;'></i>");
             $('#mda_monitor_section').show();
-            getMrktMediaMonitor();
+            getMrktMediaMonitor(media_task_staff);
         }
         else {
             $("#ckb_mda_monitor").append("<i class='ion-android-checkbox-outline-blank ivcmrkt-pos-neg-10' style='font-size: 28px;'></i>");
@@ -1867,7 +2073,7 @@ function getMrktMedia() {
         if (result[0]['ckb_mda_social_media'] === "1") {
             $("#ckb_mda_social_media").append("<i class='ion-android-checkbox ivcmrkt-pos-neg-10' style='font-size: 28px;'></i>");
             $('#mda_social_media_section').show();
-            getMrktMediaPost();
+            getMrktMediaPost(media_task_staff);
         }
         else {
             $("#ckb_mda_social_media").append("<i class='ion-android-checkbox-outline-blank ivcmrkt-pos-neg-10' style='font-size: 28px;'></i>");
@@ -1893,22 +2099,42 @@ function getMrktMediaSherpa() {
     }
 }
 
-function getMrktMediaMonitor() {
+function getMrktMediaMonitor(media_task_staff) {
     var result = new Array();
     result = db_getMrktMediaMonitorByReqID(mrkt_request_id);
 
     if (result.length === 1) {
-        $('#mda_monitor_start_date').html(moment(result[0]['StartDate']).format('MM/DD/YYYY'));
-        $('#mda_monitor_end_date').html(moment(result[0]['EndDate']).format('MM/DD/YYYY'));
+        if (media_task_staff || m_administrator) {
+            $('#mda_monitor_start_date_edit').data("DateTimePicker").date(moment(result[0]['StartDate']).format('MM/DD/YYYY'));
+            pre_mda_monitor_start_date = moment(result[0]['StartDate']).format('MM/DD/YYYY');
+            $('#mda_monitor_end_date_edit').data("DateTimePicker").date(moment(result[0]['EndDate']).format('MM/DD/YYYY'));
+            pre_mda_monitor_end_date = moment(result[0]['EndDate']).format('MM/DD/YYYY');
+            $('#edit_mda_monitor_start_date_section').show();
+            $('#edit_mda_monitor_end_date_section').show();
+        }
+        else {
+            $('#mda_monitor_start_date_view').html(moment(result[0]['StartDate']).format('MM/DD/YYYY'));
+            $('#mda_monitor_end_date_view').html(moment(result[0]['EndDate']).format('MM/DD/YYYY'));
+            $('#view_mda_monitor_start_date_section').show();
+            $('#view_mda_monitor_end_date_section').show();
+        }
     }
 }
 
-function getMrktMediaPost() {
+function getMrktMediaPost(media_task_staff) {
     var result = new Array();
     result = db_getMrktMediaPostByReqID(mrkt_request_id);
     
     if (result.length === 1) {
-        $('#mda_soc_media_date').html(moment(result[0]['PostDate']).format('MM/DD/YYYY'));
+        if (media_task_staff || m_administrator) {
+            $('#mda_soc_media_date_edit').data("DateTimePicker").date(moment(result[0]['PostDate']).format('MM/DD/YYYY'));
+            pre_mda_soc_media_date = moment(result[0]['PostDate']).format('MM/DD/YYYY');
+            $('#edit_mda_soc_media_date_section').show();
+        }
+        else {
+            $('#mda_soc_media_date_view').html(moment(result[0]['PostDate']).format('MM/DD/YYYY'));
+            $('#view_mda_soc_media_date_section').show();
+        }
     }
 }
 
@@ -1927,7 +2153,15 @@ function getMrktWeb() {
         $('#task_web_status_list').val(result[0]['StatusID']);
         getMrktWebFileAttachment(result[0]['StatusID']);
         
-        $('#web_date_needed').html(moment(result[0]['DateNeeded']).format('MM/DD/YYYY'));
+        if (m_admin_id === result[0]['AdminID'] || m_administrator) {
+            $('#web_date_needed_edit').data("DateTimePicker").date(moment(result[0]['DateNeeded']).format('MM/DD/YYYY'));
+            pre_web_date_needed = moment(result[0]['DateNeeded']).format('MM/DD/YYYY');
+            $('#edit_web_date_needed_section').show();
+        }
+        else {
+            $('#web_date_needed_view').html(moment(result[0]['DateNeeded']).format('MM/DD/YYYY'));
+            $('#view_web_date_needed_section').show();
+        }
         
         if (result[0]['ckb_web_create_new'] === "1") {
             $("#ckb_web_create_new").append("<i class='ion-android-checkbox ivcmrkt-pos-neg-10' style='font-size: 28px;'></i>");
@@ -1937,21 +2171,27 @@ function getMrktWeb() {
         }
         if (result[0]['ckb_web_update_existing'] === "1") {
             $("#ckb_web_update_existing").append("<i class='ion-android-checkbox ivcmrkt-pos-neg-10' style='font-size: 28px;'></i>");
+            $('#web_update_existing_section').show();
+            if (result[0]['ckb_web_update_url'] === "") {
+                $('#web_update_existing_url').removeClass('ivcmrkt-text-area-view');
+            }
+            $('#web_update_existing_url').html(result[0]['ckb_web_update_url']);
         }
         else {
             $("#ckb_web_update_existing").append("<i class='ion-android-checkbox-outline-blank ivcmrkt-pos-neg-10' style='font-size: 28px;'></i>");
+            $('#web_update_existing_section').hide();
         }
         if (result[0]['ckb_web_add_page'] === "1") {
             $("#ckb_web_add_page").append("<i class='ion-android-checkbox ivcmrkt-pos-neg-10' style='font-size: 28px;'></i>");
+            $('#web_add_page_section').show();
+            if (result[0]['ckb_web_add_url'] === "") {
+                $('#ckb_web_add_page_url').removeClass('ivcmrkt-text-area-view');
+            }
+            $('#ckb_web_add_page_url').html(result[0]['ckb_web_add_url']);
         }
         else {
             $("#ckb_web_add_page").append("<i class='ion-android-checkbox-outline-blank ivcmrkt-pos-neg-10' style='font-size: 28px;'></i>");
-        }
-        if (result[0]['ckb_web_request_access'] === "1") {
-            $("#ckb_web_request_access").append("<i class='ion-android-checkbox ivcmrkt-pos-neg-10' style='font-size: 28px;'></i>");
-        }
-        else {
-            $("#ckb_web_request_access").append("<i class='ion-android-checkbox-outline-blank ivcmrkt-pos-neg-10' style='font-size: 28px;'></i>");
+            $('#web_add_page_section').hide();
         }
         if (result[0]['ckb_web_request_website'] === "1") {
             $("#ckb_web_request_website").append("<i class='ion-android-checkbox ivcmrkt-pos-neg-10' style='font-size: 28px;'></i>");
@@ -1974,18 +2214,21 @@ function getMrktVideo() {
     
     if (result.length === 1) {
         mrkt_video_id = result[0]['MrktVideoID'];
-        if (m_admin_id === result[0]['AdminID']) {
-            m_task_staff = true;$('#task_video_status_section').show();
-        }
-        
         $('#video_task_staff_list').val(result[0]['AdminID']);
         $('#task_video_status_list').val(result[0]['StatusID']);
         getMrktVideoFileAttachment(result[0]['StatusID']);
         
+        var video_task_staff = false;
+        if (m_admin_id === result[0]['AdminID']) {
+            m_task_staff = true;
+            video_task_staff = true;
+            $('#task_video_status_section').show();
+        }
+        
         if (result[0]['ckb_vdo_filming_request'] === "1") {
             $("#ckb_vdo_filming_request").append("<i class='ion-android-checkbox ivcmrkt-pos-neg-10' style='font-size: 28px;'></i>");
             $('#vdo_filming_request_section').show();
-            getMrktVideoFilming();
+            getMrktVideoFilming(video_task_staff);
         }
         else {
             $("#ckb_vdo_filming_request").append("<i class='ion-android-checkbox-outline-blank ivcmrkt-pos-neg-10' style='font-size: 28px;'></i>");
@@ -2001,13 +2244,26 @@ function getMrktVideo() {
     }
 }
 
-function getMrktVideoFilming() {
+function getMrktVideoFilming(video_task_staff) {
     var result = new Array();
     result = db_getMrktVideoFilmingByReqID(mrkt_request_id);
     
     if (result.length === 1) {
-        $('#vdo_filming_date').html(moment(result[0]['EventDate']).format('MM/DD/YYYY'));
-        $('#vdo_filming_time').html(result[0]['EventTime']);
+        if (video_task_staff || m_administrator) {
+            $('#vdo_filming_date_edit').data("DateTimePicker").date(moment(result[0]['EventDate']).format('MM/DD/YYYY'));
+            pre_vdo_filming_date = moment(result[0]['EventDate']).format('MM/DD/YYYY');
+            $('#vdo_filming_time_edit').find('input').val(result[0]['EventTime']);
+            pre_vdo_filming_time = result[0]['EventTime'];
+            $('#edit_vdo_filming_date_section').show();
+            $('#edit_vdo_filming_time_section').show();
+        }
+        else {
+            $('#vdo_filming_date_view').html(moment(result[0]['EventDate']).format('MM/DD/YYYY'));
+            $('#vdo_filming_time_view').html(result[0]['EventTime']);
+            $('#view_vdo_filming_date_section').show();
+            $('#view_vdo_filming_time_section').show();
+        }
+
         $('#vdo_filming_location').html(result[0]['Location']);   
         $('#vdo_filming_purpose').html(result[0]['Purpose'].replace(/\n/g, "<br/>"));
         $('#vdo_filming_estimate_time').html(result[0]['EstimatedTime']);
@@ -2038,19 +2294,44 @@ function getMrktEditorial() {
         $('#task_editorial_status_list').val(result[0]['StatusID']);
         getMrktEditorialFileAttachment(result[0]['StatusID']);
         
+        var editorial_task_staff = false;
+        if (m_admin_id === result[0]['AdminID'] || m_administrator) {
+            editorial_task_staff = true;
+        }
+        
         if (result[0]['ckb_edt_copywriting'] === "1") {
             $("#ckb_edt_copywriting").append("<i class='ion-android-checkbox ivcmrkt-pos-neg-10' style='font-size: 28px;'></i>");
-            $('#edt_copywriting_date_needed').html(moment(result[0]['CWDateNeeded']).format('MM/DD/YYYY'));
+            if (editorial_task_staff || m_administrator) {
+                $('#copywriting_date_needed_edit').data("DateTimePicker").date(moment(result[0]['CWDateNeeded']).format('MM/DD/YYYY'));
+                pre_edt_copywriting_date_needed = moment(result[0]['CWDateNeeded']).format('MM/DD/YYYY');
+                $('#edit_copywriting_date_needed_section').show();
+            }
+            else {
+                $('#copywriting_date_needed_view').html(moment(result[0]['CWDateNeeded']).format('MM/DD/YYYY'));
+                $('#view_copywriting_date_needed_section').show();
+            }
+            $('#edit_copywriting_checked').show();
         }
         else {
             $("#ckb_edt_copywriting").append("<i class='ion-android-checkbox-outline-blank ivcmrkt-pos-neg-10' style='font-size: 28px;'></i>");
+            $('#edit_copywriting_unchecked').show();
         }
         if (result[0]['ckb_edt_proofreading'] === "1") {
             $("#ckb_edt_proofreading").append("<i class='ion-android-checkbox ivcmrkt-pos-neg-10' style='font-size: 28px;'></i>");
-            $('#edt_proofreading_date_needed').html(moment(result[0]['PRDateNeeded']).format('MM/DD/YYYY'));
+            if (editorial_task_staff || m_administrator) {
+                $('#proofreading_date_needed_edit').data("DateTimePicker").date(moment(result[0]['PRDateNeeded']).format('MM/DD/YYYY'));
+                pre_edt_proofreading_date_needed = moment(result[0]['PRDateNeeded']).format('MM/DD/YYYY');
+                $('#edit_proofreading_date_needed_section').show();
+            }
+            else {
+                $('#proofreading_date_needed_view').html(moment(result[0]['PRDateNeeded']).format('MM/DD/YYYY'));
+                $('#view_proofreading_date_needed_section').show();
+            }
+            $('#edit_proofreading_checked').show();
         }
         else {
             $("#ckb_edt_proofreading").append("<i class='ion-android-checkbox-outline-blank ivcmrkt-pos-neg-10' style='font-size: 28px;'></i>");
+            $('#edit_proofreading_unchecked').show();
         }
     }
 }
@@ -3076,4 +3357,116 @@ function deleteFileEditorialAttachment(file_link_name) {
         return dbSystemErrorHandling(str_msg);
     }
     return true;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+function updateMrktPrintDateNeeded(prt_date_need) {
+    if (!db_updateMrktPrintDateNeededByReqID(mrkt_request_id, prt_date_need)) {
+        var str_msg = "DB system error UPDATE MRKT_PRINT DATE_NEEDED: MrktRequestID: " + mrkt_request_id + " - prt_date_need: " + prt_date_need;
+        return dbSystemErrorHandling(str_msg);
+    }
+    else {
+        return true;
+    }
+}
+
+function updateMrktPhotoEventDate(pht_event_date) {
+    if (!db_updateMrktPhotoEventDateByReqID(mrkt_request_id, pht_event_date)) {
+        var str_msg = "DB system error UPDATE MRKT_PHOTO EVENT_DATE: MrktRequestID: " + mrkt_request_id + " - EventDate: " + pht_event_date;
+        return dbSystemErrorHandling(str_msg);
+    }
+    else {
+        return true;
+    }
+}
+
+function updateMrktPhotoEventTime(pht_event_time) {
+    if (!db_updateMrktPhotoEventTimeByReqID(mrkt_request_id, pht_event_time)) {
+        var str_msg = "DB system error UPDATE MRKT_PHOTO EVENT_TIME: MrktRequestID: " + mrkt_request_id + " - EventTime: " + pht_event_time;
+        return dbSystemErrorHandling(str_msg);
+    }
+    else {
+        return true;
+    }
+}
+
+function updateMrktMediaMonitorStartDate(mda_monitor_start_date) {
+    if (!db_updateMrktMediaMonitorStartDateByReqID(mrkt_request_id, mda_monitor_start_date)) {
+        var str_msg = "DB system error UPDATE MRKT_MEDIA_MONITOR START_DATE: MrktRequestID: " + mrkt_request_id + " - StartDate: " + mda_monitor_start_date;
+        return dbSystemErrorHandling(str_msg);
+    }
+    else {
+        return true;
+    }
+}
+
+function updateMrktMediaMonitorEndDate(mda_monitor_end_date) {
+    if (!db_updateMrktMediaMonitorEndDateByReqID(mrkt_request_id, mda_monitor_end_date)) {
+        var str_msg = "DB system error UPDATE MRKT_MEDIA_MONITOR END_DATE: MrktRequestID: " + mrkt_request_id + " - EndDate: " + mda_monitor_end_date;
+        return dbSystemErrorHandling(str_msg);
+    }
+    else {
+        return true;
+    }
+}
+
+function updateMrktMediaPostDate(mda_soc_media_date) {
+    if (!db_updateMrktMediaPostByReqID(mrkt_request_id, mda_soc_media_date)) {
+        var str_msg = "DB system error UPDATE MRKT_MEDIA_POST POST_DATE: MrktRequestID: " + mrkt_request_id + " - PostDate: " + mda_soc_media_date;
+        return dbSystemErrorHandling(str_msg);
+    }
+    else {
+        return true;
+    }
+}
+
+function updateMrktWebDateNeeded(web_date_needed) {
+    if (!db_updateMrktWebDateNeededByReqID(mrkt_request_id, web_date_needed)) {
+        var str_msg = "DB system error UPDATE MRKT_WEB DATE_NEEDED: MrktRequestID: " + mrkt_request_id + " - DateNeeded: " + web_date_needed;
+        return dbSystemErrorHandling(str_msg);
+    }
+    else {
+        return true;
+    }
+}
+
+function updateMrktVideoFilmingEventDate(vdo_filming_date) {
+    if (!db_updateMrktVideoFilmingEventDateByReqID(mrkt_request_id, vdo_filming_date)) {
+        var str_msg = "DB system error UPDATE MRKT_VIDEO_FILMING EVENT_DATE: MrktRequestID: " + mrkt_request_id + " - EventDate: " + vdo_filming_date;
+        return dbSystemErrorHandling(str_msg);
+    }
+    else {
+        return true;
+    }
+}
+
+function updateMrktVideoFilmingEventTime(vdo_filming_time) {
+    if (!db_updateMrktVideoFilmingEventTimeByReqID(mrkt_request_id, vdo_filming_time)) {
+        var str_msg = "DB system error UPDATE MRKT_VIDEO_FILMING EVENT_TIME: MrktRequestID: " + mrkt_request_id + " - EventTime: " + vdo_filming_time;
+        return dbSystemErrorHandling(str_msg);
+    }
+    else {
+        return true;
+    }
+}
+
+function updateMrktEditorialCWDateNeeded(edt_copywriting_date_needed) {
+    if (!db_updateMrktEditorialCWDateNeededByReqID(mrkt_request_id, edt_copywriting_date_needed)) {
+        var str_msg = "DB system error UPDATE MRKT_EDITORIAL CW_DATE_NEEDED: MrktRequestID: " + mrkt_request_id + " - CWDateNeeded: " + edt_copywriting_date_needed;
+        return dbSystemErrorHandling(str_msg);
+    }
+    else {
+        return true;
+    }
+}
+
+function updateMrktEditorialPRDateNeeded(edt_proofreading_date_needed) {
+    if (!db_updateMrktEditorialPRDateNeededByReqID(mrkt_request_id, edt_proofreading_date_needed)) {
+        var str_msg = "DB system error UPDATE MRKT_EDITORIAL PR_DATE_NEEDED: MrktRequestID: " + mrkt_request_id + " - PRDateNeeded: " + edt_proofreading_date_needed;
+        return dbSystemErrorHandling(str_msg);
+    }
+    else {
+        return true;
+    }
 }

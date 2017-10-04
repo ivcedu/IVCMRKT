@@ -293,10 +293,10 @@ function getMrktAttachment() {
 
 function setMrktAttachmentHTML(mrkt_attachment_id, file_name) {
     var str_html = "<div class='form-group' id='mrkt_attachment_id_" + mrkt_attachment_id + "'>";
-    str_html += "<div class='col-sm-6 col-sm-offset-4'>";
-    str_html += "<p class='form-control'>" + file_name + "</p>";
+    str_html += "<div class='col-sm-5 col-sm-offset-4'>";
+    str_html += "<p class='form-control ivcmrkt-text-area-view'>" + file_name + "</p>";
     str_html += "</div>";
-    str_html += "<div class='col-sm-1'>";
+    str_html += "<div class='col-sm-2'>";
     str_html += "<button class='col-sm-12 btn btn-info' id='btn_file_download_" + mrkt_attachment_id + "'>Download</button>";
     str_html += "</div>";
     str_html += "</div>";
@@ -666,21 +666,27 @@ function getMrktWeb() {
         }
         if (result[0]['ckb_web_update_existing'] === "1") {
             $("#ckb_web_update_existing").append("<i class='ion-android-checkbox ivcmrkt-pos-neg-10' style='font-size: 28px;'></i>");
+            $('#web_update_existing_section').show();
+            if (result[0]['ckb_web_update_url'] === "") {
+                $('#web_update_existing_url').removeClass('ivcmrkt-text-area-view');
+            }
+            $('#web_update_existing_url').html(result[0]['ckb_web_update_url']);
         }
         else {
             $("#ckb_web_update_existing").append("<i class='ion-android-checkbox-outline-blank ivcmrkt-pos-neg-10' style='font-size: 28px;'></i>");
+            $('#web_update_existing_section').hide();
         }
         if (result[0]['ckb_web_add_page'] === "1") {
             $("#ckb_web_add_page").append("<i class='ion-android-checkbox ivcmrkt-pos-neg-10' style='font-size: 28px;'></i>");
+            $('#web_add_page_section').show();
+            if (result[0]['ckb_web_add_url'] === "") {
+                $('#ckb_web_add_page_url').removeClass('ivcmrkt-text-area-view');
+            }
+            $('#ckb_web_add_page_url').html(result[0]['ckb_web_add_url']);
         }
         else {
             $("#ckb_web_add_page").append("<i class='ion-android-checkbox-outline-blank ivcmrkt-pos-neg-10' style='font-size: 28px;'></i>");
-        }
-        if (result[0]['ckb_web_request_access'] === "1") {
-            $("#ckb_web_request_access").append("<i class='ion-android-checkbox ivcmrkt-pos-neg-10' style='font-size: 28px;'></i>");
-        }
-        else {
-            $("#ckb_web_request_access").append("<i class='ion-android-checkbox-outline-blank ivcmrkt-pos-neg-10' style='font-size: 28px;'></i>");
+            $('#web_add_page_section').hide();
         }
         if (result[0]['ckb_web_request_website'] === "1") {
             $("#ckb_web_request_website").append("<i class='ion-android-checkbox ivcmrkt-pos-neg-10' style='font-size: 28px;'></i>");

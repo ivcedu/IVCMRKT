@@ -1,9 +1,9 @@
-const task_print_id = "2";
-const task_photo_id = "3";
-const task_media_id = "4";
-const task_web_id = "5";
-const task_video_id = "6";
-const task_editorial_id = "7";
+var task_print_id = "2";
+var task_photo_id = "3";
+var task_media_id = "4";
+var task_web_id = "5";
+var task_video_id = "6";
+var task_editorial_id = "7";
 
 var arr_mrkt_request = new Array();
 var arr_admin = new Array();
@@ -63,7 +63,7 @@ function dbSystemErrorHandling(str_msg) {
 }
 
 function sendEmailToDeveloper(str_msg) {
-    proc_sendEmail("ykim160@ivc.edu", "", "Marketing Request 2017: DB System Error", str_msg);
+    return proc_sendEmail("ykim160@ivc.edu", "", "Marketing Request 2017: DB System Error", str_msg);
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
