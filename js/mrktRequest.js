@@ -31,12 +31,18 @@ $(document).ready(function() {
     // theme page setting //////////////////////////////////////////////////////
     $('.widget').widgster();
     
+    // navigation bar setting to static ////////////////////////////////////////
+    SingSettings.set('nav-static', true);
+    SingSettings.save();
+    
     // auto size initialize ////////////////////////////////////////////////////
     autosize($('.autogrow'));
     
     // datepicker initialize ///////////////////////////////////////////////////
-    $('.ivcmarkt_date_only_format').datetimepicker({ format: 'MM/DD/YYYY', useCurrent: false, minDate: moment().add(14, 'days'), daysOfWeekDisabled: [0,6], ignoreReadonly: true }); 
-    $('.ivcmarkt_time_only_format').datetimepicker({ format: 'LT', defaultDate: new Date(), ignoreReadonly: true });  
+    $('.ivcmarkt_date_only_format').datetimepicker({ format: 'MM/DD/YYYY', minDate: moment().add(14, 'days'), daysOfWeekDisabled: [0,6], ignoreReadonly: true });
+    $('.ivcmarkt_time_only_format').datetimepicker({ format: 'LT', ignoreReadonly: true });
+//    $('.ivcmarkt_date_only_format').datetimepicker({ format: 'MM/DD/YYYY', useCurrent: false, minDate: moment().add(14, 'days'), daysOfWeekDisabled: [0,6], ignoreReadonly: true }); 
+//    $('.ivcmarkt_time_only_format').datetimepicker({ format: 'LT', defaultDate: new Date(), ignoreReadonly: true });  
     
     // iCheck initialize ///////////////////////////////////////////////////////
     $('input').iCheck({
@@ -122,24 +128,27 @@ $(document).ready(function() {
     
     // main checkbox click event ///////////////////////////////////////////////
     $('#ckb_main_print').on('ifChanged', function() {
+        $('#prt_date_need').data("DateTimePicker").date(null);
         if ($('#ckb_main_print').is(':checked')) {
-            $('#prt_date_need').data("DateTimePicker").date(moment().add(14, 'days'));
+//            $('#prt_date_need').data("DateTimePicker").date(moment().add(14, 'days'));
             $('#main_print_section').show();
         }
         else {
-            $('#prt_date_need').data("DateTimePicker").date(null);
+//            $('#prt_date_need').data("DateTimePicker").date(null);
             $('#main_print_section').hide();
         }
         return false;
     });
 
     $('#ckb_main_photo').on('ifChanged', function() {
+        $('#pht_event_date').data("DateTimePicker").date(null);
+        $('#pht_event_time').find('input').val(null);
         if ($('#ckb_main_photo').is(':checked')) {
-            $('#pht_event_date').data("DateTimePicker").date(moment().add(14, 'days'));
+//            $('#pht_event_date').data("DateTimePicker").date(moment().add(14, 'days'));
             $('#main_photo_section').show();
         }
         else {
-            $('#pht_event_date').data("DateTimePicker").date(null);
+//            $('#pht_event_date').data("DateTimePicker").date(null);
             $('#main_photo_section').hide();
         }
         return false;
@@ -156,12 +165,13 @@ $(document).ready(function() {
     });
 
     $('#ckb_main_web').on('ifChanged', function() {
+        $('#web_date_needed').data("DateTimePicker").date(null);
         if ($('#ckb_main_web').is(':checked')) {
-            $('#web_date_needed').data("DateTimePicker").date(moment().add(14, 'days'));
+//            $('#web_date_needed').data("DateTimePicker").date(moment().add(14, 'days'));
             $('#main_web_section').show();
         }
         else {
-            $('#web_date_needed').data("DateTimePicker").date(null);
+//            $('#web_date_needed').data("DateTimePicker").date(null);
             $('#main_web_section').hide();
         }
         return false;
@@ -320,25 +330,28 @@ $(document).ready(function() {
     });
     
     $('#ckb_mda_monitor').on('ifChanged', function() {
+        $('#mda_monitor_start_date').data("DateTimePicker").date(null);
+        $('#mda_monitor_end_date').data("DateTimePicker").date(null);
         if ($('#ckb_mda_monitor').is(':checked')) {
-            $('#mda_monitor_start_date').data("DateTimePicker").date(moment().add(14, 'days'));
+//            $('#mda_monitor_start_date').data("DateTimePicker").date(moment().add(14, 'days'));
             $('#mda_monitor_section').show();
         }
         else {
-            $('#mda_monitor_start_date').data("DateTimePicker").date(null);
-            $('#mda_monitor_end_date').data("DateTimePicker").date(null);
+//            $('#mda_monitor_start_date').data("DateTimePicker").date(null);
+//            $('#mda_monitor_end_date').data("DateTimePicker").date(null);
             $('#mda_monitor_section').hide();
         }
         return false;
     });
     
     $('#ckb_mda_social_media').on('ifChanged', function() {
+        $('#mda_soc_media_date').data("DateTimePicker").date(null);
         if ($('#ckb_mda_social_media').is(':checked')) {
-            $('#mda_soc_media_date').data("DateTimePicker").date(moment().add(14, 'days'));
+//            $('#mda_soc_media_date').data("DateTimePicker").date(moment().add(14, 'days'));
             $('#mda_social_media_section').show();
         }
         else {
-            $('#mda_soc_media_date').data("DateTimePicker").date(null);
+//            $('#mda_soc_media_date').data("DateTimePicker").date(null);
             $('#mda_social_media_section').hide();
         }
         return false;
@@ -367,12 +380,14 @@ $(document).ready(function() {
     
     // video categories checkbox click event ///////////////////////////////////
     $('#ckb_vdo_filming_request').on('ifChanged', function() {
+        $('#vdo_filming_date').data("DateTimePicker").date(null);
+        $('#vdo_filming_time').find('input').val(null);
         if ($('#ckb_vdo_filming_request').is(':checked')) {
-            $('#vdo_filming_date').data("DateTimePicker").date(moment().add(14, 'days'));
+//            $('#vdo_filming_date').data("DateTimePicker").date(moment().add(14, 'days'));
             $('#vdo_filming_request_section').show();
         }
         else {
-            $('#vdo_filming_date').data("DateTimePicker").date(null);
+//            $('#vdo_filming_date').data("DateTimePicker").date(null);
             $('#vdo_filming_request_section').hide();
         }
         return false;
@@ -390,43 +405,45 @@ $(document).ready(function() {
     
     // editorial categories checkbox click event ///////////////////////////////
     $('#ckb_edt_copywriting').on('ifChanged', function() {
+        $('#edt_copywriting_date_needed').data("DateTimePicker").date(null);
         if ($('#ckb_edt_copywriting').is(':checked')) {
             $('#edt_copywriting_date_needed').data("DateTimePicker").enable();
             $('#edt_copywriting_icon').addClass('ivcmrkt-bk-color-white');
-            $('#edt_copywriting_date_needed').data("DateTimePicker").date(moment().add(14, 'days'));
+//            $('#edt_copywriting_date_needed').data("DateTimePicker").date(moment().add(14, 'days'));
         }
         else {
             $('#edt_copywriting_date_needed').data("DateTimePicker").disable();
             $('#edt_copywriting_icon').removeClass('ivcmrkt-bk-color-white');
-            $('#edt_copywriting_date_needed').data("DateTimePicker").date(null);
+//            $('#edt_copywriting_date_needed').data("DateTimePicker").date(null);
         }
         return false;
     });
     
     $('#ckb_edt_proofreading').on('ifChanged', function() {
+        $('#edt_proofreading_date_needed').data("DateTimePicker").date(null);
         if ($('#ckb_edt_proofreading').is(':checked')) {
             $('#edt_proofreading_date_needed').data("DateTimePicker").enable();
             $('#edt_proofreading_icon').addClass('ivcmrkt-bk-color-white');
-            $('#edt_proofreading_date_needed').data("DateTimePicker").date(moment().add(14, 'days'));
+//            $('#edt_proofreading_date_needed').data("DateTimePicker").date(moment().add(14, 'days'));
         }
         else {
             $('#edt_proofreading_date_needed').data("DateTimePicker").disable();
             $('#edt_proofreading_icon').removeClass('ivcmrkt-bk-color-white');
-            $('#edt_proofreading_date_needed').data("DateTimePicker").date(null);
+//            $('#edt_proofreading_date_needed').data("DateTimePicker").date(null);
         }
         return false;
     });
     
     // social media monitor slide date event ///////////////////////////////////
-    $("#mda_monitor_start_date").on("dp.change", function (e) {
-        $('#mda_monitor_end_date').data("DateTimePicker").minDate(e.date);
-        return false;
-    });
-    
-    $("#mda_monitor_end_date").on("dp.change", function (e) {
-        $('#mda_monitor_start_date').data("DateTimePicker").maxDate(e.date);
-        return false;
-    });
+//    $("#mda_monitor_start_date").on("dp.change", function (e) {
+//        $('#mda_monitor_end_date').data("DateTimePicker").minDate(e.date);
+//        return false;
+//    });
+//    
+//    $("#mda_monitor_end_date").on("dp.change", function (e) {
+//        $('#mda_monitor_start_date').data("DateTimePicker").maxDate(e.date);
+//        return false;
+//    });
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     // file upload button click ////////////////////////////////////////////////
@@ -790,6 +807,10 @@ function taskSectionValidation() {
 }
 
 function taskPrintValidation() {
+    if ($('#prt_date_need').find('input').val() === "") {
+        swal({title: "Error", text: "Print/Graphics Date Needed is a required field", type: "error"});
+        return false;
+    }
     if (!$('#ckb_prt_ad').is(':checked') && !$('#ckb_prt_brochure').is(':checked') && !$('#ckb_prt_banner').is(':checked')
         && !$('#ckb_prt_flyer').is(':checked') && !$('#ckb_prt_certificate').is(':checked') && !$('#ckb_prt_postcard').is(':checked')
         && !$('#ckb_prt_poster').is(':checked') && !$('#ckb_prt_program').is(':checked') && !$('#ckb_prt_other').is(':checked')
@@ -971,7 +992,15 @@ function taskPrintWebGraphicValidation() {
     return true;
 }
 
-function taskPhotoValidation() {
+function taskPhotoValidation() {   
+    if ($('#pht_event_date').find('input').val() === "") {
+        swal({title: "Error", text: "Photograpy Event Date is a required field", type: "error"});
+        return false;
+    }
+    if ($('#pht_event_time').find('input').val() === "") {
+        swal({title: "Error", text: "Photograpy Event Time is a required field", type: "error"});
+        return false;
+    }
     if ($.trim($('#pht_event_location').val()) === "") {
         swal({title: "Error", text: "Photograpy Location is a required field", type: "error"});
         return false;
@@ -1005,6 +1034,11 @@ function taskMediaValidation() {
             return false;
         }
     }
+    if ($('#ckb_mda_social_media').is(':checked')) {
+        if (!taskMediaPostValidation()) {
+            return false;
+        }
+    }
     
     return true;
 }
@@ -1028,8 +1062,21 @@ function taskMediaSherpaValidation() {
 }
 
 function taskMediaMonitorValidation() {
+    if ($('#mda_monitor_start_date').find('input').val() === "") {
+        swal({title: "Error", text: "Social Media/Publicity Monitor Slide Start Date is a required field", type: "error"});
+        return false;
+    }
     if ($('#mda_monitor_end_date').find('input').val() === "") {
         swal({title: "Error", text: "Social Media/Publicity Monitor Slide End Date is a required field", type: "error"});
+        return false;
+    }
+
+    return true;
+}
+
+function taskMediaPostValidation() {
+    if ($('#mda_soc_media_date').find('input').val() === "") {
+        swal({title: "Error", text: "Social Media/Publicity Social Media Post Date is a required field", type: "error"});
         return false;
     }
 
@@ -1040,6 +1087,10 @@ function taskWebValidation() {
     if (!$('#ckb_web_create_new').is(':checked') && !$('#ckb_web_update_existing').is(':checked') && !$('#ckb_web_add_page').is(':checked')
         && !$('#ckb_web_request_website').is(':checked') && !$('#ckb_web_report_problem').is(':checked')) {
         swal({title: "Error", text: "Please select at least one Web Services request category", type: "error"});
+        return false;
+    }
+    if ($('#web_date_needed').find('input').val() === "") {
+        swal({title: "Error", text: "Web Services Estimated Launch Date is a required field", type: "error"});
         return false;
     }
 
@@ -1066,6 +1117,14 @@ function taskVideoValidation() {
 }
 
 function taskVideoFilmingValidation() {
+    if ($('#vdo_filming_date').find('input').val() === "") {
+        swal({title: "Error", text: "Video Filming Request Event Date is a required field", type: "error"});
+        return false;
+    }
+    if ($('#vdo_filming_time').find('input').val() === "") {
+        swal({title: "Error", text: "Video Filming Request Event Time is a required field", type: "error"});
+        return false;
+    }
     if ($.trim($('#vdo_filming_location').val()) === "") {
         swal({title: "Error", text: "Video Location is a required field", type: "error"});
         return false;
@@ -1095,6 +1154,18 @@ function taskEditorialValidation() {
     if (!$('#ckb_edt_copywriting').is(':checked') && !$('#ckb_edt_proofreading').is(':checked')) {
         swal({title: "Error", text: "Please select at least one Editorial Services category", type: "error"});
         return false;
+    }
+    if ($('#ckb_edt_copywriting').is(':checked')) {
+        if ($('#edt_copywriting_date_needed').find('input').val() === "") {
+            swal({title: "Error", text: "Editorial Services Copywriting Estimated Launch Date is a required field", type: "error"});
+            return false;
+        }
+    }
+    if ($('#ckb_edt_proofreading').is(':checked')) {
+        if ($('#edt_proofreading_date_needed').find('input').val() === "") {
+            swal({title: "Error", text: "Editorial Services Proof Reading Estimated Launch Date is a required field", type: "error"});
+            return false;
+        }
     }
 
     return true;

@@ -57,6 +57,10 @@ $(document).ready(function() {
     // theme page setting //////////////////////////////////////////////////////
     $('.widget').widgster();
     
+    // navigation bar setting to static ////////////////////////////////////////
+    SingSettings.set('nav-static', true);
+    SingSettings.save();
+    
     // auto size initialize ////////////////////////////////////////////////////
     autosize($('.autogrow'));
     
