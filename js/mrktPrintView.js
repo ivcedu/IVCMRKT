@@ -16,6 +16,8 @@ var pre_pht_event_date = "";
 var pre_pht_event_time = "";
 var pre_mda_monitor_start_date = "";
 var pre_mda_monitor_end_date = "";
+var pre_mda_college_entrance_start_date = "";
+var pre_mda_college_entrance_end_date = "";
 var pre_mda_soc_media_date = "";
 var pre_web_date_needed = "";
 var pre_vdo_filming_date = "";
@@ -1290,7 +1292,37 @@ $(document).ready(function() {
         swal("Updated!", "SOCIAL MEDIA/PUBLICITY Social Media Post Date updated", "success");
         return false;
     });
+
+    // task social media college entrance start date update click ///////////////////////
+    $('#btn_update_mda_college_entrance_start_date').click(function(e) {
+        e.preventDefault();
+        var new_mda_college_entrance_start_date = $('#mda_college_entrance_start_date_edit').find('input').val();
+        if (!updateMrktMediaCollegeEntranceStartDate(new_mda_college_entrance_start_date)) {
+            return false;
+        }
+        if (!insertTransaction("Social Media/Publicity College Entrance Marquees Start Date updated from " + pre_mda_college_entrance_start_date + " to " + new_mda_college_entrance_start_date)) {
+            return false;
+        }
+        getTransactions();
+        swal("Updated!", "SOCIAL MEDIA/PUBLICITY College Entrance Marquees Start Date updated", "success");
+        return false;
+    });
     
+    // task social media college entrance end date update click /////////////////////////
+    $('#btn_update_mda_college_entrance_end_date').click(function(e) {
+        e.preventDefault();
+        var new_mda_college_entrance_end_date = $('#mda_college_entrance_end_date_edit').find('input').val();
+        if (!updateMrktMediaCollegeEntranceEndDate(new_mda_college_entrance_end_date)) {
+            return false;
+        }
+        if (!insertTransaction("Social Media/Publicity College Entrance Marquees End Date updated from " + pre_mda_college_entrance_end_date + " to " + new_mda_college_entrance_end_date)) {
+            return false;
+        }
+        getTransactions();
+        swal("Updated!", "SOCIAL MEDIA/PUBLICITY College Entrance Marquees End Date updated", "success");
+        return false;
+    });
+
     // task web launch date update click ///////////////////////////////////////
     $('#btn_update_web_date_needed').click(function(e) {
         e.preventDefault();
@@ -2082,6 +2114,14 @@ function getMrktMedia() {
         else {
             $("#ckb_mda_social_media").append("<i class='ion-android-checkbox-outline-blank ivcmrkt-pos-neg-10' style='font-size: 28px;'></i>");
         }
+        if (result[0]['ckb_mda_college_entrance'] === "1") {
+            $("#ckb_mda_college_entrance").append("<i class='ion-android-checkbox ivcmrkt-pos-neg-10' style='font-size: 28px;'></i>");
+            $('#mda_college_entrance_section').show();
+            getMrktMediaCollegeEntrance(media_task_staff);
+        }
+        else {
+            $("#ckb_mda_college_entrance").append("<i class='ion-android-checkbox-outline-blank ivcmrkt-pos-neg-10' style='font-size: 28px;'></i>");
+        }
     }
 }
 
@@ -2138,6 +2178,28 @@ function getMrktMediaPost(media_task_staff) {
         else {
             $('#mda_soc_media_date_view').html(moment(result[0]['PostDate']).format('MM/DD/YYYY'));
             $('#view_mda_soc_media_date_section').show();
+        }
+    }
+}
+
+function getMrktMediaCollegeEntrance(media_task_staff) {
+    var result = new Array();
+    result = db_getMrktMediaEntranceByReqID(mrkt_request_id);
+
+    if (result.length === 1) {
+        if (media_task_staff || m_administrator) {
+            $('#mda_college_entrance_start_date_edit').data("DateTimePicker").date(moment(result[0]['StartDate']).format('MM/DD/YYYY'));
+            pre_mda_college_entrance_start_date = moment(result[0]['StartDate']).format('MM/DD/YYYY');
+            $('#mda_college_entrance_end_date_edit').data("DateTimePicker").date(moment(result[0]['EndDate']).format('MM/DD/YYYY'));
+            pre_mda_college_entrance_end_date = moment(result[0]['EndDate']).format('MM/DD/YYYY');
+            $('#edit_mda_college_entrance_start_date_section').show();
+            $('#edit_mda_college_entrance_end_date_section').show();
+        }
+        else {
+            $('#mda_college_entrance_start_date_view').html(moment(result[0]['StartDate']).format('MM/DD/YYYY'));
+            $('#mda_college_entrance_end_date_view').html(moment(result[0]['EndDate']).format('MM/DD/YYYY'));
+            $('#view_mda_college_entrance_start_date_section').show();
+            $('#view_mda_college_entrance_end_date_section').show();
         }
     }
 }
@@ -3418,6 +3480,26 @@ function updateMrktMediaMonitorEndDate(mda_monitor_end_date) {
 function updateMrktMediaPostDate(mda_soc_media_date) {
     if (!db_updateMrktMediaPostByReqID(mrkt_request_id, mda_soc_media_date)) {
         var str_msg = "DB system error UPDATE MRKT_MEDIA_POST POST_DATE: MrktRequestID: " + mrkt_request_id + " - PostDate: " + mda_soc_media_date;
+        return dbSystemErrorHandling(str_msg);
+    }
+    else {
+        return true;
+    }
+}
+
+function updateMrktMediaCollegeEntranceStartDate(mda_college_entrance_start_date) {
+    if (!db_updateMrktMediaEntranceStartDateByReqID(mrkt_request_id, mda_college_entrance_start_date)) {
+        var str_msg = "DB system error UPDATE MRKT_MEDIA_ENTRANCE START_DATE: MrktRequestID: " + mrkt_request_id + " - StartDate: " + mda_college_entrance_start_date;
+        return dbSystemErrorHandling(str_msg);
+    }
+    else {
+        return true;
+    }
+}
+
+function updateMrktMediaCollegeEntranceEndDate(mda_college_entrance_end_date) {
+    if (!db_updateMrktMediaEntranceEndDateByReqID(mrkt_request_id, mda_college_entrance_end_date)) {
+        var str_msg = "DB system error UPDATE MRKT_MEDIA_ENTRANCE END_DATE: MrktRequestID: " + mrkt_request_id + " - EndDate: " + mda_college_entrance_end_date;
         return dbSystemErrorHandling(str_msg);
     }
     else {

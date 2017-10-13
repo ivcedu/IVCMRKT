@@ -1001,6 +1001,20 @@ function db_getMrktMediaPostByReqID(MrktRequestID) {
     return result;
 }
 
+function db_getMrktMediaEntranceByReqID(MrktRequestID) {
+    var result = new Array();
+    $.ajax({
+        type:"POST",
+        url:"php/db_getMrktMediaEntranceByReqID.php",
+        data:{MrktRequestID:MrktRequestID},
+        async: false,  
+        success:function(data) {
+            result = JSON.parse(data);
+        }
+    });
+    return result;
+}
+
 function db_getMrktWebByReqID(MrktRequestID) {
     var result = new Array();
     $.ajax({
@@ -1524,13 +1538,13 @@ function db_insertMrktPhoto(MrktRequestID, AdminID, StatusID, EventDate, EventTi
     return ResultID;
 }
 
-function db_insertMrktMedia(MrktRequestID, AdminID, StatusID, ckb_mda_collegewide_email, ckb_mda_sherpa_email, ckb_mda_monitor, ckb_mda_social_media) {
+function db_insertMrktMedia(MrktRequestID, AdminID, StatusID, ckb_mda_collegewide_email, ckb_mda_sherpa_email, ckb_mda_monitor, ckb_mda_social_media, ckb_mda_college_entrance) {
     var ResultID = "";
     $.ajax({
         type:"POST",
         url:"php/db_insertMrktMedia.php",
         data:{MrktRequestID:MrktRequestID, AdminID:AdminID, StatusID:StatusID, ckb_mda_collegewide_email:ckb_mda_collegewide_email, 
-                ckb_mda_sherpa_email:ckb_mda_sherpa_email, ckb_mda_monitor:ckb_mda_monitor, ckb_mda_social_media:ckb_mda_social_media},
+                ckb_mda_sherpa_email:ckb_mda_sherpa_email, ckb_mda_monitor:ckb_mda_monitor, ckb_mda_social_media:ckb_mda_social_media, ckb_mda_college_entrance:ckb_mda_college_entrance},
         async: false,  
         success:function(data) {
             ResultID = JSON.parse(data);
@@ -1587,6 +1601,20 @@ function db_insertMrktMediaPost(MrktMediaID, MrktRequestID, PostDate) {
         type:"POST",
         url:"php/db_insertMrktMediaPost.php",
         data:{MrktMediaID:MrktMediaID, MrktRequestID:MrktRequestID, PostDate:PostDate},
+        async: false,  
+        success:function(data) {
+            ResultID = JSON.parse(data);
+        }
+    });
+    return ResultID;
+}
+
+function db_insertMrktMediaEntrance(MrktMediaID, MrktRequestID, StartDate, EndDate) {
+    var ResultID = "";
+    $.ajax({
+        type:"POST",
+        url:"php/db_insertMrktMediaEntrance.php",
+        data:{MrktMediaID:MrktMediaID, MrktRequestID:MrktRequestID, StartDate:StartDate, EndDate:EndDate},
         async: false,  
         success:function(data) {
             ResultID = JSON.parse(data);
@@ -2108,13 +2136,13 @@ function db_updateMrktPhotoEventTimeByReqID(MrktRequestID, EventTime) {
     return Result;
 }
 
-function db_updateMrktMediaByReqID(MrktRequestID, AdminID, StatusID, ckb_mda_collegewide_email, ckb_mda_sherpa_email, ckb_mda_monitor, ckb_mda_social_media) {
+function db_updateMrktMediaByReqID(MrktRequestID, AdminID, StatusID, ckb_mda_collegewide_email, ckb_mda_sherpa_email, ckb_mda_monitor, ckb_mda_social_media, ckb_mda_college_entrance) {
     var Result = false;
     $.ajax({
         type:"POST",
         url:"php/db_updateMrktMediaByReqID.php",
         data:{MrktRequestID:MrktRequestID, AdminID:AdminID, StatusID:StatusID, ckb_mda_collegewide_email:ckb_mda_collegewide_email, 
-                ckb_mda_sherpa_email:ckb_mda_sherpa_email, ckb_mda_monitor:ckb_mda_monitor, ckb_mda_social_media:ckb_mda_social_media},
+                ckb_mda_sherpa_email:ckb_mda_sherpa_email, ckb_mda_monitor:ckb_mda_monitor, ckb_mda_social_media:ckb_mda_social_media, ckb_mda_college_entrance:ckb_mda_college_entrance},
         async: false,  
         success:function(data) {
             Result = JSON.parse(data);
@@ -2227,6 +2255,48 @@ function db_updateMrktMediaPostByReqID(MrktRequestID, PostDate) {
         type:"POST",
         url:"php/db_updateMrktMediaPostByReqID.php",
         data:{MrktRequestID:MrktRequestID, PostDate:PostDate},
+        async: false,  
+        success:function(data) {
+            Result = JSON.parse(data);
+        }
+    });
+    return Result;
+}
+
+function db_updateMrktMediaEntranceByReqID(MrktRequestID, StartDate, EndDate) {
+    var Result = false;
+    $.ajax({
+        type:"POST",
+        url:"php/db_updateMrktMediaEntranceByReqID.php",
+        data:{MrktRequestID:MrktRequestID, StartDate:StartDate, EndDate:EndDate},
+        async: false,  
+        success:function(data) {
+            Result = JSON.parse(data);
+        }
+    });
+    return Result;
+}
+
+function db_updateMrktMediaEntranceStartDateByReqID(MrktRequestID, StartDate) {
+    var Result = false;
+    $.ajax({
+        type:"POST",
+        url:"php/db_updateMrktMediaEntranceStartDateByReqID.php",
+        data:{MrktRequestID:MrktRequestID, StartDate:StartDate},
+        async: false,  
+        success:function(data) {
+            Result = JSON.parse(data);
+        }
+    });
+    return Result;
+}
+
+function db_updateMrktMediaEntranceEndDateByReqID(MrktRequestID, EndDate) {
+    var Result = false;
+    $.ajax({
+        type:"POST",
+        url:"php/db_updateMrktMediaEntranceEndDateByReqID.php",
+        data:{MrktRequestID:MrktRequestID, EndDate:EndDate},
         async: false,  
         success:function(data) {
             Result = JSON.parse(data);
@@ -2875,6 +2945,20 @@ function db_deleteMrktMediaPostByReqID(MrktRequestID) {
     $.ajax({
         type:"POST",
         url:"php/db_deleteMrktMediaPostByReqID.php",
+        data:{MrktRequestID:MrktRequestID},
+        async: false,  
+        success:function(data) {
+            Result = JSON.parse(data);
+        }
+    });
+    return Result;
+}
+
+function db_deleteMrktMediaEntranceByReqID(MrktRequestID) {
+    var Result = false;
+    $.ajax({
+        type:"POST",
+        url:"php/db_deleteMrktMediaEntranceByReqID.php",
         data:{MrktRequestID:MrktRequestID},
         async: false,  
         success:function(data) {

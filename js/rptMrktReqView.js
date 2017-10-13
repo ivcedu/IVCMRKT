@@ -615,6 +615,14 @@ function getMrktMedia() {
         else {
             $("#ckb_mda_social_media").append("<i class='ion-android-checkbox-outline-blank ivcmrkt-pos-neg-10' style='font-size: 28px;'></i>");
         }
+        if (result[0]['ckb_mda_college_entrance'] === "1") {
+            $("#ckb_mda_college_entrance").append("<i class='ion-android-checkbox ivcmrkt-pos-neg-10' style='font-size: 28px;'></i>");
+            $('#mda_college_entrance_section').show();
+            getMrktMediaEntrance();
+        }
+        else {
+            $("#ckb_mda_college_entrance").append("<i class='ion-android-checkbox-outline-blank ivcmrkt-pos-neg-10' style='font-size: 28px;'></i>");
+        }
     }
 }
 
@@ -652,6 +660,16 @@ function getMrktMediaPost() {
     
     if (result.length === 1) {
         $('#mda_soc_media_date').html(moment(result[0]['PostDate']).format('MM/DD/YYYY'));
+    }
+}
+
+function getMrktMediaEntrance() {
+    var result = new Array();
+    result = db_getMrktMediaEntranceByReqID(mrkt_request_id);
+
+    if (result.length === 1) {
+        $('#mda_college_entrance_start_date').html(moment(result[0]['StartDate']).format('MM/DD/YYYY'));
+        $('#mda_college_entrance_end_date').html(moment(result[0]['EndDate']).format('MM/DD/YYYY'));
     }
 }
 

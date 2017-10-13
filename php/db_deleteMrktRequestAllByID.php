@@ -30,6 +30,7 @@
     $query25 = "DELETE [".$dbDatabase."].[dbo].[MrktEditorial] WHERE MrktRequestID = '".$MrktRequestID."'";
     $query26 = "DELETE [".$dbDatabase."].[dbo].[MrktProcessLog] WHERE MrktRequestID = '".$MrktRequestID."'";
     $query27 = "DELETE [".$dbDatabase."].[dbo].[Transaction] WHERE MrktRequestID = '".$MrktRequestID."'";
+    $query28 = "DELETE [".$dbDatabase."].[dbo].[MrktMediaEntrance] WHERE MrktRequestID = '".$MrktRequestID."'";
     
     $cmd = $dbConn->prepare($query1);
     $result = $cmd->execute();
@@ -110,6 +111,9 @@
     $result = $cmd->execute();
     
     $cmd = $dbConn->prepare($query27);
+    $result = $cmd->execute();
+    
+    $cmd = $dbConn->prepare($query28);
     $result = $cmd->execute();
 
     echo json_encode($result);

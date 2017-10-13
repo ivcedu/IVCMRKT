@@ -357,6 +357,18 @@ $(document).ready(function() {
         return false;
     });
     
+    $('#ckb_mda_college_entrance').on('ifChanged', function() {
+        $('#mda_college_entrance_start_date').data("DateTimePicker").date(null);
+        $('#mda_college_entrance_end_date').data("DateTimePicker").date(null);
+        if ($('#ckb_mda_college_entrance').is(':checked')) {
+            $('#mda_college_entrance_section').show();
+        }
+        else {
+            $('#mda_college_entrance_section').hide();
+        }
+        return false;
+    });
+    
     // web services checkbox click event ///////////////////////////////////////
     $('#ckb_web_update_existing').on('ifChanged', function() {
         if ($('#ckb_web_update_existing').is(':checked')) {
@@ -1015,7 +1027,7 @@ function taskPhotoValidation() {
 
 function taskMediaValidation() {
     if (!$('#ckb_mda_collegewide_email').is(':checked') && !$('#ckb_mda_sherpa_email').is(':checked') && !$('#ckb_mda_monitor').is(':checked')
-        && !$('#ckb_mda_social_media').is(':checked')) {
+        && !$('#ckb_mda_social_media').is(':checked') && !$('#ckb_mda_college_entrance').is(':checked')) {
         swal({title: "Error", text: "Please select at least one Social Media/Publicity request category", type: "error"});
         return false;
     }
@@ -1036,6 +1048,11 @@ function taskMediaValidation() {
     }
     if ($('#ckb_mda_social_media').is(':checked')) {
         if (!taskMediaPostValidation()) {
+            return false;
+        }
+    }
+    if ($('#ckb_mda_college_entrance').is(':checked')) {
+        if (!taskMediaEntranceValidation()) {
             return false;
         }
     }
@@ -1077,6 +1094,19 @@ function taskMediaMonitorValidation() {
 function taskMediaPostValidation() {
     if ($('#mda_soc_media_date').find('input').val() === "") {
         swal({title: "Error", text: "Social Media/Publicity Social Media Post Date is a required field", type: "error"});
+        return false;
+    }
+
+    return true;
+}
+
+function taskMediaEntranceValidation() {
+    if ($('#mda_college_entrance_start_date').find('input').val() === "") {
+        swal({title: "Error", text: "Social Media/Publicity College Entrance Marquees Start Date is a required field", type: "error"});
+        return false;
+    }
+    if ($('#mda_college_entrance_end_date').find('input').val() === "") {
+        swal({title: "Error", text: "Social Media/Publicity College Entrance Marquees End Date is a required field", type: "error"});
         return false;
     }
 
@@ -1457,6 +1487,11 @@ function getMrktMedia() {
             $('#mda_social_media_section').show();
             getMrktMediaPost();
         }
+        if (result[0]['ckb_mda_college_entrance'] === "1") {
+            $('#ckb_mda_college_entrance').iCheck('check');
+            $('#mda_college_entrance_section').show();
+            getMrktMediaEntrance();
+        }
     }
 }
 
@@ -1483,9 +1518,8 @@ function getMrktMediaMonitor() {
     result = db_getMrktMediaMonitorByReqID(mrkt_request_id);
 
     if (result.length === 1) {
-        // need to set end date first for automatic min/max date range
-        $('#mda_monitor_end_date').data("DateTimePicker").date(moment(result[0]['EndDate']).format('MM/DD/YYYY'));
         $('#mda_monitor_start_date').data("DateTimePicker").date(moment(result[0]['StartDate']).format('MM/DD/YYYY'));
+        $('#mda_monitor_end_date').data("DateTimePicker").date(moment(result[0]['EndDate']).format('MM/DD/YYYY'));
     }
 }
 
@@ -1495,6 +1529,16 @@ function getMrktMediaPost() {
     
     if (result.length === 1) {
         $('#mda_soc_media_date').data("DateTimePicker").date(moment(result[0]['PostDate']).format('MM/DD/YYYY'));
+    }
+}
+
+function getMrktMediaEntrance() {
+    var result = new Array();
+    result = db_getMrktMediaEntranceByReqID(mrkt_request_id);
+
+    if (result.length === 1) {
+        $('#mda_college_entrance_start_date').data("DateTimePicker").date(moment(result[0]['StartDate']).format('MM/DD/YYYY'));
+        $('#mda_college_entrance_end_date').data("DateTimePicker").date(moment(result[0]['EndDate']).format('MM/DD/YYYY'));
     }
 }
 
@@ -2146,6 +2190,7 @@ function insertMrktMedia(status_id) {
     var ckb_mda_sherpa_email = ($('#ckb_mda_sherpa_email').is(':checked') ? true : false);
     var ckb_mda_monitor = ($('#ckb_mda_monitor').is(':checked') ? true : false);
     var ckb_mda_social_media = ($('#ckb_mda_social_media').is(':checked') ? true : false);
+    var ckb_mda_college_entrance = ($('#ckb_mda_college_entrance').is(':checked') ? true : false);
     
     var result = new Array();
     result = db_getMrktMediaByReqID(mrkt_request_id);
@@ -2153,13 +2198,13 @@ function insertMrktMedia(status_id) {
     
     if (result.length === 1) {
         mrkt_media_id = result[0]['MrktMediaID'];
-        if (!db_updateMrktMediaByReqID(mrkt_request_id, 0, status_id, ckb_mda_collegewide_email, ckb_mda_sherpa_email, ckb_mda_monitor, ckb_mda_social_media)) {
+        if (!db_updateMrktMediaByReqID(mrkt_request_id, 0, status_id, ckb_mda_collegewide_email, ckb_mda_sherpa_email, ckb_mda_monitor, ckb_mda_social_media, ckb_mda_college_entrance)) {
             var str_msg = "DB system error UPDATE MRKT_MEDIA - MrktRequestID: " + mrkt_request_id;
             return dbSystemErrorHandling(str_msg);
         }
     }
     else {
-        mrkt_media_id = db_insertMrktMedia(mrkt_request_id, 0, status_id, ckb_mda_collegewide_email, ckb_mda_sherpa_email, ckb_mda_monitor, ckb_mda_social_media);
+        mrkt_media_id = db_insertMrktMedia(mrkt_request_id, 0, status_id, ckb_mda_collegewide_email, ckb_mda_sherpa_email, ckb_mda_monitor, ckb_mda_social_media, ckb_mda_college_entrance);
         if (mrkt_media_id === "") {
             var str_msg = "DB system error INSERT MRKT_MEDIA";
             return dbSystemErrorHandling(str_msg);
@@ -2210,6 +2255,18 @@ function insertMrktMedia(status_id) {
     else {
         if (!m_new_request) {
             if (!deleteMrktMediaPost()) {
+                return false;
+            }
+        }
+    }
+    if (ckb_mda_college_entrance) {
+        if (!insertMrktMediaCollegeEntrance(mrkt_media_id)) {
+            return false;
+        }
+    }
+    else {
+        if (!m_new_request) {
+            if (!deleteMrktMediaEntrance()) {
                 return false;
             }
         }
@@ -2293,6 +2350,27 @@ function insertMrktMediaPost(mrkt_media_id) {
     else {
         if (db_insertMrktMediaPost(mrkt_media_id, mrkt_request_id, mda_soc_media_date) === "") {
             var str_msg = "DB system error INSERT MRKT_MEDIA_POST";
+            return dbSystemErrorHandling(str_msg);
+        }
+    }
+    return true;
+}
+
+function insertMrktMediaCollegeEntrance(mrkt_media_id) {
+    var mda_entrance_start_date = $('#mda_college_entrance_start_date').find('input').val();
+    var mda_entrance_end_date = $('#mda_college_entrance_end_date').find('input').val();
+    
+    var result = new Array();
+    result = db_getMrktMediaEntranceByReqID(mrkt_request_id);
+    if (result.length === 1) {
+        if (!db_updateMrktMediaEntranceByReqID(mrkt_request_id, mda_entrance_start_date, mda_entrance_end_date)) {
+            var str_msg = "DB system error UPDATE MRKT_MEDIA_ENTRANCE - MrktRequestID: " + mrkt_request_id;
+            return dbSystemErrorHandling(str_msg);
+        }
+    }
+    else {
+        if (db_insertMrktMediaEntrance(mrkt_media_id, mrkt_request_id, mda_entrance_start_date, mda_entrance_end_date) === "") {
+            var str_msg = "DB system error INSERT MRKT_MEDIA_ENTRANCE";
             return dbSystemErrorHandling(str_msg);
         }
     }
@@ -2634,6 +2712,9 @@ function deleteMrktMedia() {
     if (!deleteMrktMediaPost()) {
         return false;
     }
+    if (!deleteMrktMediaEntrance()) {
+        return false;
+    }
     return true;
 }
 
@@ -2660,9 +2741,18 @@ function deleteMrktMediaMonitor() {
     }
     return true;
 }
+
 function deleteMrktMediaPost() {
     if (!db_deleteMrktMediaPostByReqID(mrkt_request_id)) {
         var str_msg = "DB system error DELETE MRKT_POST - MrktRequestID: " + mrkt_request_id;
+        return dbSystemErrorHandling(str_msg);
+    }
+    return true;
+}
+
+function deleteMrktMediaEntrance() {
+    if (!db_deleteMrktMediaEntranceByReqID(mrkt_request_id)) {
+        var str_msg = "DB system error DELETE MRKT_ENTRANCE - MrktRequestID: " + mrkt_request_id;
         return dbSystemErrorHandling(str_msg);
     }
     return true;
