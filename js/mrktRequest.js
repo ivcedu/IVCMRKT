@@ -1656,7 +1656,7 @@ function insertMrktAttachment() {
     
     if (typeof file !== "undefined" && file !== null) {
         var file_data = new FormData();  
-        var f_name = file.name.replace(/#/g, "").replace(/'/g, "");
+        var f_name = removeIllegalCharacters(file.name);
         f_name = removeDiacritics(f_name);
         
         var mrkt_attachment_id = db_insertMrktAttachment(f_name, getFileExtension(f_name));
