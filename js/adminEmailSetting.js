@@ -314,6 +314,9 @@ $(document).ready(function() {
             }
         }
         else {
+            if (!emailMsgValidation()) {
+                return false;
+            }
             if (!db_updateEmailMsgByID(email_msg_id, email_msg_active, email_proc_id, email_msg_name, email_msg_subject, email_msg_content)) {
                 $('#mod_email_msg').modal('hide');
                 var str_msg = "DB system error UPDATE EMAIL_MSG - EmailMsgID: " + email_msg_id;
