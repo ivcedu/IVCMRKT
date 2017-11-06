@@ -30,6 +30,8 @@ window.onbeforeunload = function () {
 $(document).ready(function() {  
     // theme page setting //////////////////////////////////////////////////////
     $('.widget').widgster();
+    $('[data-toggle=tooltip]').tooltip();
+    $('[data-toggle=popover]').popover();
     
     // navigation bar setting to static ////////////////////////////////////////
     SingSettings.set('nav-static', true);
