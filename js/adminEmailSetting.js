@@ -290,7 +290,7 @@ $(document).ready(function() {
         var email_msg_content = $.trim($('#mod_email_msg_content').summernote('code'));
         
         if (email_msg_id === "") {
-            if (!emailMsgValidation()) {
+            if (!emailMsgValidation(true)) {
                 return false;
             }
             else {
@@ -314,7 +314,7 @@ $(document).ready(function() {
             }
         }
         else {
-            if (!emailMsgValidation()) {
+            if (!emailMsgValidation(false)) {
                 return false;
             }
             if (!db_updateEmailMsgByID(email_msg_id, email_msg_active, email_proc_id, email_msg_name, email_msg_subject, email_msg_content)) {
@@ -612,7 +612,7 @@ function emailProcValidation() {
     return true;
 }
 
-function emailMsgValidation() {
+function emailMsgValidation(email_msg_new) {
     if ($('#mod_email_msg_proc_list').val() === "0") {
         swal({title: "Error", text: "Procedure is a required field", type: "error"});
         return false;
@@ -633,12 +633,14 @@ function emailMsgValidation() {
         swal({title: "Error", text: "Email Message is a required field", type: "error"});
         return false;
     }
-
-    var result = new Array();
-    result = db_getEmailMsgByProcIDName($('#mod_email_msg_proc_list').val(), $.trim($('#mod_email_msg_name').val()));
-    if (result.length === 1) {
-        swal({title: "Error", text: "Email Procedure or System Email " + $('#mod_email_msg_proc_list option:selected').text() + ", " + $('#mod_email_msg_name').val() + " already exist", type: "error"});
-        return false;
+    
+    if (email_msg_new) {
+        var result = new Array();
+        result = db_getEmailMsgByProcIDName($('#mod_email_msg_proc_list').val(), $.trim($('#mod_email_msg_name').val()));
+        if (result.length === 1) {
+            swal({title: "Error", text: "Email Procedure or System Email " + $('#mod_email_msg_proc_list option:selected').text() + ", " + $('#mod_email_msg_name').val() + " already exist", type: "error"});
+            return false;
+        }
     }
 
     return true;
