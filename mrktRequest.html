@@ -39,7 +39,7 @@
                         </a>
                         <ul id="sidebar-reports" class="collapse">
                             <li><a href="rptMyHistoryList.html">My History</a></li>
-                            <li hidden class="rpt_mrkt_staff"><a href="#" id="nav_rpt_all_request">All Request</a></li>
+                            <li hidden class="rpt_mrkt_staff"><a href="#" id="nav_rpt_all_request">All Requests</a></li>
                             <li hidden class="rpt_mrkt_staff"><a href="#" id="nav_rpt_in_process">In Process</a></li>
                             <li hidden class="rpt_mrkt_staff"><a href="#" id="nav_rpt_completed">Completed</a></li>
                             <li hidden class="rpt_mrkt_staff"><a href="#" id="nav_rpt_canceled">Canceled</a></li>
@@ -200,6 +200,11 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
+                                            <div class="col-sm-7 col-sm-offset-4">
+                                                <p><b><i>If your request is for an event, please provide the event date.</i></b></p>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
                                             <div class="col-sm-4">
                                                 <div class="col-sm-12">
                                                     <input class="control-label" type="checkbox" id="ckb_main_print">&nbsp;&nbsp;
@@ -262,7 +267,7 @@
                                         <legend><b>Select item(s) needed. Attach content and/or supporting documents above.</b></legend>
                                         <div class="row">
                                             <div class="col-sm-7 col-sm-offset-4">
-                                                <p><b><i>If your request is a rush, needed sooner than 14 days, please contact the Office of Marketing and Creative Services directly at x5426.</i></b></p>
+                                                <p><b><i>If you have a rush request (i.e. it is needed in less than 14 days), please contact the Office of Marketing and Creative Services directly at x5426</i></b></p>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -302,7 +307,7 @@
                                             <!-- print brochure -->
                                             <div hidden id="prt_brochure_section">
                                                 <div class="form-group">
-                                                    <label for="prt_bro_qty" class="col-sm-4 control-label">Brochure (4 x 9 standard college Brochure) Qty:</label>
+                                                    <label for="prt_bro_qty" class="col-sm-4 control-label">Brochure (4 x 9 Standard College Brochure) Qty:</label>
                                                     <div class="col-sm-7">
                                                         <input type="text" class="form-control ivcmarkt_qty_data" id="prt_bro_qty">
                                                     </div>
@@ -404,7 +409,7 @@
                                                 <!-- print poster 22x28 -->
                                                 <div class="form-group">
                                                     <label for="prt_pst_22_28_qty" class="col-sm-4 control-label">
-                                                        <input type="checkbox" id="ckb_prt_pst_22_28">&nbsp;&nbsp;Poster (22 x 28 sign stand, window) Qty:
+                                                        <input type="checkbox" id="ckb_prt_pst_22_28">&nbsp;&nbsp;Poster (22 x 28 Sign Stand, Window) Qty:
                                                     </label>
                                                     <div class="col-sm-7">
                                                         <input type="text" class="form-control ivcmarkt_qty_data" id="prt_pst_22_28_qty">
@@ -452,7 +457,7 @@
                                             <!-- print other -->
                                             <div hidden id="prt_other_section">
                                                 <div class="form-group">
-                                                    <label for="prt_oth_descrip" class="col-sm-4 control-label">Other (please describe):</label>
+                                                    <label for="prt_oth_descrip" class="col-sm-4 control-label">Other (Please Describe):</label>
                                                     <div class="col-sm-7">
                                                         <input type="text" class="form-control" id="prt_oth_descrip">
                                                     </div>
@@ -469,7 +474,7 @@
                                             <!-- print web graphic -->
                                             <div hidden id="prt_web_graphic_section">
                                                 <div class="form-group">
-                                                    <label for="prt_web_grap_descrip" class="col-sm-4 control-label">Web Graphic (please describe):</label>
+                                                    <label for="prt_web_grap_descrip" class="col-sm-4 control-label">Web Graphic (Please Describe):</label>
                                                     <div class="col-sm-7">
                                                         <input type="text" class="form-control" id="prt_web_grap_descrip">
                                                     </div>
@@ -559,13 +564,13 @@
                                             <div class="col-sm-4">
                                                 <div class="col-sm-12">
                                                     <input class="control-label" type="checkbox" id="ckb_mda_collegewide_email">&nbsp;&nbsp;
-                                                    <label class="control-label" for="ckb_mda_collegewide_email">Collegewide Email (faculty/staff)</label>
+                                                    <label class="control-label" for="ckb_mda_collegewide_email">Collegewide Email (Faculty/Staff)</label>
                                                 </div>
                                             </div>
                                             <div class="col-sm-4">
                                                 <div class="col-sm-12">
                                                     <input class="control-label" type="checkbox" id="ckb_mda_sherpa_email">&nbsp;&nbsp;
-                                                    <label class="control-label" for="ckb_mda_sherpa_email">Sherpa Email (students)</label>
+                                                    <label class="control-label" for="ckb_mda_sherpa_email">Sherpa Email (Students)</label>
                                                 </div>
                                             </div>
                                             <div class="col-sm-4">
@@ -719,12 +724,12 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-sm-7 col-sm-offset-4">
-                                                <p>Contact <a href="https://servicedesk.socccd.edu/" target="_blank">Technology Services</a> for faculty websites and <a href="https://inside.ivc.edu/" target="_blank">inside.ivc.edu</a> request.</p>
+                                                <p>Contact <a href="https://servicedesk.socccd.edu/" target="_blank">Technology Services</a> for faculty websites and <a href="https://inside.ivc.edu/" target="_blank">inside.ivc.edu</a> requests.</p>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-sm-7 col-sm-offset-4">
-                                                <p>The MCS web team will schedule a meeting to discuss your website needed and requirements.</p>
+                                                <p>The MCS web team will schedule a meeting to discuss your website needs and requirements.</p>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -836,7 +841,7 @@
                                         <!-- video other section -->
                                         <div hidden id="vdo_other_section">
                                             <div class="form-group">
-                                                <label for="vdo_other_descrip" class="col-sm-4 control-label">Other (please describe):</label>
+                                                <label for="vdo_other_descrip" class="col-sm-4 control-label">Other (Please Describe):</label>
                                                 <div class="col-sm-7">
                                                     <textarea rows="2" class="autogrow form-control transition-height" style="resize: vertical;" id="vdo_other_descrip"></textarea>
                                                 </div>
@@ -865,7 +870,7 @@
                                         <legend><b>Select item(s) needed. Attach content and/or supporting documents above.</b></legend>                                        
                                         <div class="form-group">
                                             <label class="col-sm-4 control-label" for="edt_copywriting_date_needed">
-                                                <input class="form-control" type="checkbox" id="ckb_edt_copywriting">&nbsp;&nbsp;Copywriting Estimated Launch Date:
+                                                <input class="form-control" type="checkbox" id="ckb_edt_copywriting">&nbsp;&nbsp;Copywriting - Date Needed By:
                                             </label>
                                             <div class="col-sm-7">
                                                 <div class="input-group ivcmarkt_date_only_format" id="edt_copywriting_date_needed">
@@ -876,7 +881,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label class="col-sm-4 control-label" for="edt_proofreading_date_needed">
-                                                <input class="form-control" type="checkbox" id="ckb_edt_proofreading">&nbsp;&nbsp;Proof Reading Estimated Launch Date:
+                                                <input class="form-control" type="checkbox" id="ckb_edt_proofreading">&nbsp;&nbsp;Proofreading - Date Needed By:
                                             </label>
                                             <div class="col-sm-7">
                                                 <div class="input-group ivcmarkt_date_only_format" id="edt_proofreading_date_needed">
@@ -887,7 +892,7 @@
                                         </div>
                                         <div class="form-group">
                                             <div class="col-sm-7 col-sm-offset-4">
-                                                <p>*Note: copywriting/proof reading are for text only. For updates to previously printed materials, select print projects.</p>
+                                                <p>*Note: This section is to request copywriting and/or proofreading services for <b>New</b> content. To request on update of <b>existing</b> materials, select the Print/Graphics, Web Services or Social Media/Publicity checkbox as appropriate.</p>
                                             </div>
                                         </div>
                                     </fieldset>
