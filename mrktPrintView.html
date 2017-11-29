@@ -105,115 +105,6 @@
                     <a href=# id="ico_btn_print"><i class="pe-7s-print pe-2x pe-va iconic-color-default"></i></a>&nbsp;&nbsp;
                     <a href=# id="ico_btn_close"><i class="pe-7s-close-circle pe-2x pe-va iconic-color-default"></i></a>
                 </div>
-                <!-- administrator section -->
-                <div class="row" hidden id="administrator_section">
-                    <div class="col-md-12">
-                        <section class="widget">
-                            <header>
-                                <h4>ADMINISTRATOR SECTION</h4>
-                                <div class="widget-controls">
-                                    <a data-widgster="expand" title="Expand" href="#"><i class="glyphicon glyphicon-chevron-up"></i></a>
-                                    <a data-widgster="collapse" title="Collapse" href="#"><i class="glyphicon glyphicon-chevron-down"></i></a>
-                                </div>
-                            </header>
-                            <div class="widget-body">
-                                <form class="form-horizontal" role="form">
-                                    <fieldset>
-                                        <legend><b>Marketing request status</b></legend>
-                                        <div class="form-group">
-                                            <label for="normal-field" class="col-sm-4 control-label">Marketing Request Status:</label>
-                                            <div class="col-sm-5">
-                                                <select class="form-control m-b" data-container="body" id="mrkt_req_status_list"></select>
-                                            </div>
-                                            <div class="col-sm-2">
-                                                <button class="col-sm-12 btn btn-primary" id="btn_mrkt_req_status_update">Update</button>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="elastic-textarea" class="col-sm-4 control-label">Details/Note/Explanation:</label>
-                                            <div class="col-sm-5">
-                                                <textarea rows="2" class="autogrow form-control transition-height" style="resize: vertical;" id="mrkt_req_status_note"></textarea>
-                                            </div>
-                                        </div>
-                                    </fieldset> 
-                                    <fieldset>
-                                        <legend><b>Marketing administrator task assigning process</b></legend>
-                                        <div class="form-group" hidden id="admin_task_assig_print">
-                                            <label for="normal-field" class="col-sm-4 control-label">Print/Graphics Task:</label>
-                                            <div class="col-sm-5">
-                                                <select class="form-control m-b" data-container="body" id="print_task_staff_list"></select>
-                                            </div>
-                                            <div class="col-sm-2">
-                                                <button class="col-sm-12 btn btn-primary" id="btn_admin_task_staff_print_update">Update</button>
-                                            </div>
-                                        </div>
-                                        <div class="form-group" hidden id="admin_task_assig_photo">
-                                            <label for="normal-field" class="col-sm-4 control-label">Photography Task:</label>
-                                            <div class="col-sm-5">
-                                                <select class="form-control m-b" data-container="body" id="photo_task_staff_list"></select>
-                                            </div>
-                                            <div class="col-sm-2">
-                                                <button class="col-sm-12 btn btn-primary" id="btn_admin_task_staff_photo_update">Update</button>
-                                            </div>
-                                        </div>
-                                        <div class="form-group" hidden id="admin_task_assig_media">
-                                            <label for="normal-field" class="col-sm-4 control-label">Social Media/Publicity Task:</label>
-                                            <div class="col-sm-5">
-                                                <select class="form-control m-b" data-container="body" id="media_task_staff_list"></select>
-                                            </div>
-                                            <div class="col-sm-2">
-                                                <button class="col-sm-12 btn btn-primary" id="btn_admin_task_staff_media_update">Update</button>
-                                            </div>
-                                        </div>
-                                        <div class="form-group" hidden id="admin_task_assig_web">
-                                            <label for="normal-field" class="col-sm-4 control-label">Web Services Task:</label>
-                                            <div class="col-sm-5">
-                                                <select class="form-control m-b" data-container="body" id="web_task_staff_list"></select>
-                                            </div>
-                                            <div class="col-sm-2">
-                                                <button class="col-sm-12 btn btn-primary" id="btn_admin_task_staff_web_update">Update</button>
-                                            </div>
-                                        </div>
-                                        <div class="form-group" hidden id="admin_task_assig_video">
-                                            <label for="normal-field" class="col-sm-4 control-label">Video Task:</label>
-                                            <div class="col-sm-5">
-                                                <select class="form-control m-b" data-container="body" id="video_task_staff_list"></select>
-                                            </div>
-                                            <div class="col-sm-2">
-                                                <button class="col-sm-12 btn btn-primary" id="btn_admin_task_staff_video_update">Update</button>
-                                            </div>
-                                        </div>
-                                        <div class="form-group" hidden id="admin_task_assig_editorial">
-                                            <label for="normal-field" class="col-sm-4 control-label">Editorial Services Task:</label>
-                                            <div class="col-sm-5">
-                                                <select class="form-control m-b" data-container="body" id="editorial_task_staff_list"></select>
-                                            </div>
-                                            <div class="col-sm-2">
-                                                <button class="col-sm-12 btn btn-primary" id="btn_admin_task_staff_editorial_update">Update</button>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="elastic-textarea" class="col-sm-4 control-label">Details/Note/Explanation:</label>
-                                            <div class="col-sm-5">
-                                                <textarea rows="2" class="autogrow form-control transition-height" style="resize: vertical;" id="admin_task_staff_note"></textarea>
-                                            </div>
-                                        </div>
-                                        <div class="form-actions">
-                                            <div class="row">
-                                                <div class="col-sm-6">
-                                                    <div class="col-sm-10 col-sm-offset-1">
-                                                        <input class="control-label" type="checkbox" id="ckb_admin_show_task_staff">&nbsp;&nbsp;
-                                                        <label class="control-label" style="font-weight: bold;" for="ckb_admin_show_task_staff">Show Task Staff Status Section</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </fieldset>
-                                </form>
-                            </div>
-                        </section>
-                    </div>
-                </div>
                 <!-- task staff section -->
                 <div class="row" hidden id="task_staff_section">
                     <div class="col-md-12">
@@ -534,7 +425,7 @@
                     <div class="col-md-12">
                         <section class="widget">
                             <header>
-                                <h4>REQUESTOR INFORMATION</h4>
+                                <h4 id="requestor_information">REQUESTOR INFORMATION</h4>
                                 <div class="widget-controls">
                                     <a data-widgster="expand" title="Expand" href="#"><i class="glyphicon glyphicon-chevron-up"></i></a>
                                     <a data-widgster="collapse" title="Collapse" href="#"><i class="glyphicon glyphicon-chevron-down"></i></a>
@@ -1425,6 +1316,115 @@
                         </section>
                     </div>
                 </div>
+                <!-- administrator section -->
+                <div class="row" hidden id="administrator_section">
+                    <div class="col-md-12">
+                        <section class="widget">
+                            <header>
+                                <h4>ADMINISTRATOR SECTION</h4>
+                                <div class="widget-controls">
+                                    <a data-widgster="expand" title="Expand" href="#"><i class="glyphicon glyphicon-chevron-up"></i></a>
+                                    <a data-widgster="collapse" title="Collapse" href="#"><i class="glyphicon glyphicon-chevron-down"></i></a>
+                                </div>
+                            </header>
+                            <div class="widget-body">
+                                <form class="form-horizontal" role="form">
+                                    <fieldset>
+                                        <legend><b>Marketing request status</b></legend>
+                                        <div class="form-group">
+                                            <label for="normal-field" class="col-sm-4 control-label">Marketing Request Status:</label>
+                                            <div class="col-sm-5">
+                                                <select class="form-control m-b" data-container="body" id="mrkt_req_status_list"></select>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <button class="col-sm-12 btn btn-primary" id="btn_mrkt_req_status_update">Update</button>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="elastic-textarea" class="col-sm-4 control-label">Details/Note/Explanation:</label>
+                                            <div class="col-sm-5">
+                                                <textarea rows="2" class="autogrow form-control transition-height" style="resize: vertical;" id="mrkt_req_status_note"></textarea>
+                                            </div>
+                                        </div>
+                                    </fieldset> 
+                                    <fieldset>
+                                        <legend><b>Marketing administrator task assigning process</b></legend>
+                                        <div class="form-group" hidden id="admin_task_assig_print">
+                                            <label for="normal-field" class="col-sm-4 control-label">Print/Graphics Task:</label>
+                                            <div class="col-sm-5">
+                                                <select class="form-control m-b" data-container="body" id="print_task_staff_list"></select>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <button class="col-sm-12 btn btn-primary" id="btn_admin_task_staff_print_update">Update</button>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" hidden id="admin_task_assig_photo">
+                                            <label for="normal-field" class="col-sm-4 control-label">Photography Task:</label>
+                                            <div class="col-sm-5">
+                                                <select class="form-control m-b" data-container="body" id="photo_task_staff_list"></select>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <button class="col-sm-12 btn btn-primary" id="btn_admin_task_staff_photo_update">Update</button>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" hidden id="admin_task_assig_media">
+                                            <label for="normal-field" class="col-sm-4 control-label">Social Media/Publicity Task:</label>
+                                            <div class="col-sm-5">
+                                                <select class="form-control m-b" data-container="body" id="media_task_staff_list"></select>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <button class="col-sm-12 btn btn-primary" id="btn_admin_task_staff_media_update">Update</button>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" hidden id="admin_task_assig_web">
+                                            <label for="normal-field" class="col-sm-4 control-label">Web Services Task:</label>
+                                            <div class="col-sm-5">
+                                                <select class="form-control m-b" data-container="body" id="web_task_staff_list"></select>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <button class="col-sm-12 btn btn-primary" id="btn_admin_task_staff_web_update">Update</button>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" hidden id="admin_task_assig_video">
+                                            <label for="normal-field" class="col-sm-4 control-label">Video Task:</label>
+                                            <div class="col-sm-5">
+                                                <select class="form-control m-b" data-container="body" id="video_task_staff_list"></select>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <button class="col-sm-12 btn btn-primary" id="btn_admin_task_staff_video_update">Update</button>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" hidden id="admin_task_assig_editorial">
+                                            <label for="normal-field" class="col-sm-4 control-label">Editorial Services Task:</label>
+                                            <div class="col-sm-5">
+                                                <select class="form-control m-b" data-container="body" id="editorial_task_staff_list"></select>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <button class="col-sm-12 btn btn-primary" id="btn_admin_task_staff_editorial_update">Update</button>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="elastic-textarea" class="col-sm-4 control-label">Details/Note/Explanation:</label>
+                                            <div class="col-sm-5">
+                                                <textarea rows="2" class="autogrow form-control transition-height" style="resize: vertical;" id="admin_task_staff_note"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="form-actions">
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="col-sm-10 col-sm-offset-1">
+                                                        <input class="control-label" type="checkbox" id="ckb_admin_show_task_staff">&nbsp;&nbsp;
+                                                        <label class="control-label" style="font-weight: bold;" for="ckb_admin_show_task_staff">Show Task Staff Status Section</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </form>
+                            </div>
+                        </section>
+                    </div>
+                </div>
                 <!-- transaction section -->
                 <div class="row">
                     <div class="col-md-12">
@@ -1528,7 +1528,7 @@
         <script src="../include/iCheck/icheck.min.js"></script>
         <script src="../include/fancyBox-2.1.5/source/jquery.fancybox.pack.js"></script>
         <!-- application javascript -->
-        <script src="js/mrktPrintView.js?v=1.0.5"></script>
+        <script src="js/mrktPrintView.js?v=1.0.6"></script>
         <script src="js/session_data.js?v=1.0.1"></script>
         <script src="js/db_access.js?v=1.0.2"></script>
         <script src="js/sendEmail.js?v=1.0.0"></script>

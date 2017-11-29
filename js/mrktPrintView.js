@@ -1677,6 +1677,7 @@ function getTaskStatusListActive() {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function getMrktRequest() {
+    $('#requestor_information').append(' - ID: ' + mrkt_request_id);
     var result = new Array();
     result = db_getMrktRequestByID(mrkt_request_id);
     
