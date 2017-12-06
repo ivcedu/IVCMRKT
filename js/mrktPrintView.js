@@ -205,6 +205,10 @@ $(document).ready(function() {
     // admin task staff print update button click //////////////////////////////
     $('#btn_admin_task_staff_print_update').click(function() {        
         var print_admin_id = $('#print_task_staff_list').val();
+        if (print_admin_id === "0") {
+            swal({title: "Error", text: "Please select Print/Graphics task staff!", type: "error"});
+            return false;
+        }
         var print_task_staff = $('#print_task_staff_list option:selected').text();
         var admin_note = $.trim($('#admin_task_staff_note').val());
         if (admin_note !== "") {
@@ -244,6 +248,10 @@ $(document).ready(function() {
     // admin task staff photo update button click //////////////////////////////
     $('#btn_admin_task_staff_photo_update').click(function() {        
         var photo_admin_id = $('#photo_task_staff_list').val();
+        if (photo_admin_id === "0") {
+            swal({title: "Error", text: "Please select Photography task staff!", type: "error"});
+            return false;
+        }
         var photo_task_staff = $('#photo_task_staff_list option:selected').text();
         var admin_note = $.trim($('#admin_task_staff_note').val());
         if (admin_note !== "") {
@@ -283,6 +291,10 @@ $(document).ready(function() {
     // admin task staff media update button click //////////////////////////////
     $('#btn_admin_task_staff_media_update').click(function() {        
         var media_admin_id = $('#media_task_staff_list').val();
+        if (media_admin_id === "0") {
+            swal({title: "Error", text: "Please select Social Media/Publicity task staff!", type: "error"});
+            return false;
+        }
         var media_task_staff = $('#media_task_staff_list option:selected').text();
         var admin_note = $.trim($('#admin_task_staff_note').val());
         if (admin_note !== "") {
@@ -322,6 +334,10 @@ $(document).ready(function() {
     // admin task staff web update button click ////////////////////////////////
     $('#btn_admin_task_staff_web_update').click(function() {        
         var web_admin_id = $('#web_task_staff_list').val();
+        if (web_admin_id === "0") {
+            swal({title: "Error", text: "Please select Web Services task staff!", type: "error"});
+            return false;
+        }
         var web_task_staff = $('#web_task_staff_list option:selected').text();
         var admin_note = $.trim($('#admin_task_staff_note').val());
         if (admin_note !== "") {
@@ -361,6 +377,10 @@ $(document).ready(function() {
     // admin task staff video update button click //////////////////////////////
     $('#btn_admin_task_staff_video_update').click(function() {        
         var video_admin_id = $('#video_task_staff_list').val();
+        if (video_admin_id === "0") {
+            swal({title: "Error", text: "Please select Video task staff!", type: "error"});
+            return false;
+        }
         var video_task_staff = $('#video_task_staff_list option:selected').text();
         var admin_note = $.trim($('#admin_task_staff_note').val());
         if (admin_note !== "") {
@@ -400,6 +420,10 @@ $(document).ready(function() {
     // admin task staff editorial update button click //////////////////////////
     $('#btn_admin_task_staff_editorial_update').click(function() {        
         var editorial_admin_id = $('#editorial_task_staff_list').val();
+        if (editorial_admin_id === "0") {
+            swal({title: "Error", text: "Please select Editorial Services task staff!", type: "error"});
+            return false;
+        }
         var editorial_task_staff = $('#editorial_task_staff_list option:selected').text();
         var admin_note = $.trim($('#admin_task_staff_note').val());
         if (admin_note !== "") {
@@ -1504,6 +1528,7 @@ function isLoginAdmin() {
             if (result[0]['AdminPrivilegeID'] === "1") {
                 $('#nav_sidebar_sys_access_level').show();
                 $('#nav_sidebar_sys_task').show();
+                $('#master_status_section').show();
             }
         }
     }
@@ -2656,8 +2681,8 @@ function getAllTaskAssignedStatus() {
             if (result[0]['ckbMrktPrint'] === "1") {
                 var ar_mrkt_print = new Array();
                 ar_mrkt_print = db_getMrktPrintByReqID(mrkt_request_id);
-                if (ar_mrkt_print.length === 1) {
-                    if (ar_mrkt_print[0]['StatusID'] === status_task_assigned_id && ar_mrkt_print[0]['AdminID'] !== "0") {
+                if (ar_mrkt_print.length === 1) {                    
+                    if (ar_mrkt_print[0]['StatusID'] !== status_submitted_id && ar_mrkt_print[0]['AdminID'] !== "0") {
                         all_task_status = status_task_assigned_id;
                     }
                     else {
@@ -2675,7 +2700,7 @@ function getAllTaskAssignedStatus() {
                 var ar_mrkt_photo = new Array();
                 ar_mrkt_photo = db_getMrktPhotoByReqID(mrkt_request_id);
                 if (ar_mrkt_photo.length === 1) {
-                    if (ar_mrkt_photo[0]['StatusID'] === status_task_assigned_id && ar_mrkt_photo[0]['AdminID'] !== "0") {
+                    if (ar_mrkt_photo[0]['StatusID'] !== status_submitted_id && ar_mrkt_photo[0]['AdminID'] !== "0") {
                         all_task_status = status_task_assigned_id;
                     }
                     else {
@@ -2693,7 +2718,7 @@ function getAllTaskAssignedStatus() {
                 var ar_mrkt_media = new Array();
                 ar_mrkt_media = db_getMrktMediaByReqID(mrkt_request_id);
                 if (ar_mrkt_media.length === 1) {
-                    if (ar_mrkt_media[0]['StatusID'] === status_task_assigned_id && ar_mrkt_media[0]['AdminID'] !== "0") {
+                    if (ar_mrkt_media[0]['StatusID'] !== status_submitted_id && ar_mrkt_media[0]['AdminID'] !== "0") {
                         all_task_status = status_task_assigned_id;
                     }
                     else {
@@ -2711,7 +2736,7 @@ function getAllTaskAssignedStatus() {
                 var ar_mrkt_web = new Array();
                 ar_mrkt_web = db_getMrktWebByReqID(mrkt_request_id);
                 if (ar_mrkt_web.length === 1) {
-                    if (ar_mrkt_web[0]['StatusID'] === status_task_assigned_id && ar_mrkt_web[0]['AdminID'] !== "0") {
+                    if (ar_mrkt_web[0]['StatusID'] !== status_submitted_id && ar_mrkt_web[0]['AdminID'] !== "0") {
                         all_task_status = status_task_assigned_id;
                     }
                     else {
@@ -2729,7 +2754,7 @@ function getAllTaskAssignedStatus() {
                 var ar_mrkt_video = new Array();
                 ar_mrkt_video = db_getMrktVideoByReqID(mrkt_request_id);
                 if (ar_mrkt_video.length === 1) {
-                    if (ar_mrkt_video[0]['StatusID'] === status_task_assigned_id && ar_mrkt_video[0]['AdminID'] !== "0") {
+                    if (ar_mrkt_video[0]['StatusID'] !== status_submitted_id && ar_mrkt_video[0]['AdminID'] !== "0") {
                         all_task_status = status_task_assigned_id;
                     }
                     else {
@@ -2747,7 +2772,7 @@ function getAllTaskAssignedStatus() {
                 var ar_mrkt_editorial = new Array();
                 ar_mrkt_editorial = db_getMrktEditorialByReqID(mrkt_request_id);
                 if (ar_mrkt_editorial.length === 1) {
-                    if (ar_mrkt_editorial[0]['StatusID'] === status_task_assigned_id && ar_mrkt_editorial[0]['AdminID'] !== "0") {
+                    if (ar_mrkt_editorial[0]['StatusID'] !== status_submitted_id && ar_mrkt_editorial[0]['AdminID'] !== "0") {
                         all_task_status = status_task_assigned_id;
                     }
                     else {
@@ -2767,6 +2792,7 @@ function getAllTaskAssignedStatus() {
 function getAllTaskProjectStatus() {
     var all_project_status = "0";
     var task_count = 0;
+    var complete_count = 0;
     var cancel_count = 0;
     var hold_count = 0;
     var sched_count = 0;
@@ -2788,8 +2814,12 @@ function getAllTaskProjectStatus() {
                         all_project_status = status_in_progress_id;
                         break;
                     }
+                    else if (ar_mrkt_print[0]['StatusID'] === status_submitted_id) {
+                        task_count++;
+                    }
                     else if (ar_mrkt_print[0]['StatusID'] === status_complete_id) {
                         task_count++;
+                        complete_count++;
                     }
                     else if (ar_mrkt_print[0]['StatusID'] === status_cancel_id) {
                         task_count++;
@@ -2826,8 +2856,12 @@ function getAllTaskProjectStatus() {
                         all_project_status = status_in_progress_id;
                         break;
                     }
+                    else if (ar_mrkt_photo[0]['StatusID'] === status_submitted_id) {
+                        task_count++;
+                    }
                     else if (ar_mrkt_photo[0]['StatusID'] === status_complete_id) {
                         task_count++;
+                        complete_count++;
                     }
                     else if (ar_mrkt_photo[0]['StatusID'] === status_cancel_id) {
                         task_count++;
@@ -2864,8 +2898,12 @@ function getAllTaskProjectStatus() {
                         all_project_status = status_in_progress_id;
                         break;
                     }
+                    else if (ar_mrkt_media[0]['StatusID'] === status_submitted_id) {
+                        task_count++;
+                    }
                     else if (ar_mrkt_media[0]['StatusID'] === status_complete_id) {
                         task_count++;
+                        complete_count++;
                     }
                     else if (ar_mrkt_media[0]['StatusID'] === status_cancel_id) {
                         task_count++;
@@ -2902,8 +2940,12 @@ function getAllTaskProjectStatus() {
                         all_project_status = status_in_progress_id;
                         break;
                     }
+                    else if (ar_mrkt_web[0]['StatusID'] === status_submitted_id) {
+                        task_count++;
+                    }
                     else if (ar_mrkt_web[0]['StatusID'] === status_complete_id) {
                         task_count++;
+                        complete_count++;
                     }
                     else if (ar_mrkt_web[0]['StatusID'] === status_cancel_id) {
                         task_count++;
@@ -2940,8 +2982,12 @@ function getAllTaskProjectStatus() {
                         all_project_status = status_in_progress_id;
                         break;
                     }
+                    else if (ar_mrkt_video[0]['StatusID'] === status_submitted_id) {
+                        task_count++;
+                    }
                     else if (ar_mrkt_video[0]['StatusID'] === status_complete_id) {
                         task_count++;
+                        complete_count++;
                     }
                     else if (ar_mrkt_video[0]['StatusID'] === status_cancel_id) {
                         task_count++;
@@ -2978,8 +3024,12 @@ function getAllTaskProjectStatus() {
                         all_project_status = status_in_progress_id;
                         break;
                     }
+                    else if (ar_mrkt_editorial[0]['StatusID'] === status_submitted_id) {
+                        task_count++;
+                    }
                     else if (ar_mrkt_editorial[0]['StatusID'] === status_complete_id) {
                         task_count++;
+                        complete_count++;
                     }
                     else if (ar_mrkt_editorial[0]['StatusID'] === status_cancel_id) {
                         task_count++;
@@ -3009,7 +3059,10 @@ function getAllTaskProjectStatus() {
         return all_project_status;
     }
     else {
-        if (cancel_count === task_count) {
+        if (complete_count === task_count) {
+            return status_complete_id;
+        }
+        else if (cancel_count === task_count) {
             return status_cancel_id;
         }
         else if (hold_count === task_count) {
@@ -3024,8 +3077,11 @@ function getAllTaskProjectStatus() {
         else if (hold_count > 0 || sched_count > 0 || more_info_count > 0) {
             return status_in_progress_id;
         }
-        else {
+        else if (complete_count + cancel_count === task_count) {
             return status_complete_id;
+        }
+        else {
+            return status_task_partially_assigned_id;
         }
     }
 }

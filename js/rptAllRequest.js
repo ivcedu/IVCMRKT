@@ -107,7 +107,7 @@ $(document).ready(function() {
     
     // refresh button click ////////////////////////////////////////////////////
     $('#btn_refresh').click(function() {
-        getAdminCompleteList();
+        getRptAllRequestList();
         return false;
     });
     

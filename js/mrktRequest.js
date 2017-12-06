@@ -41,10 +41,8 @@ $(document).ready(function() {
     autosize($('.autogrow'));
     
     // datepicker initialize ///////////////////////////////////////////////////
-    $('.ivcmarkt_date_only_format').datetimepicker({ format: 'MM/DD/YYYY', minDate: moment().add(14, 'days'), daysOfWeekDisabled: [0,6], ignoreReadonly: true });
+    $('.ivcmarkt_date_only_format').datetimepicker({ format: 'MM/DD/YYYY', minDate: moment().add(14, 'days').hour(0).minute(0).second(0).millisecond(0), daysOfWeekDisabled: [0,6], ignoreReadonly: true });
     $('.ivcmarkt_time_only_format').datetimepicker({ format: 'LT', ignoreReadonly: true });
-//    $('.ivcmarkt_date_only_format').datetimepicker({ format: 'MM/DD/YYYY', useCurrent: false, minDate: moment().add(14, 'days'), daysOfWeekDisabled: [0,6], ignoreReadonly: true }); 
-//    $('.ivcmarkt_time_only_format').datetimepicker({ format: 'LT', defaultDate: new Date(), ignoreReadonly: true });  
     
     // iCheck initialize ///////////////////////////////////////////////////////
     $('input').iCheck({
@@ -132,11 +130,9 @@ $(document).ready(function() {
     $('#ckb_main_print').on('ifChanged', function() {
         $('#prt_date_need').data("DateTimePicker").date(null);
         if ($('#ckb_main_print').is(':checked')) {
-//            $('#prt_date_need').data("DateTimePicker").date(moment().add(14, 'days'));
             $('#main_print_section').show();
         }
         else {
-//            $('#prt_date_need').data("DateTimePicker").date(null);
             $('#main_print_section').hide();
         }
         return false;
@@ -146,11 +142,9 @@ $(document).ready(function() {
         $('#pht_event_date').data("DateTimePicker").date(null);
         $('#pht_event_time').find('input').val(null);
         if ($('#ckb_main_photo').is(':checked')) {
-//            $('#pht_event_date').data("DateTimePicker").date(moment().add(14, 'days'));
             $('#main_photo_section').show();
         }
         else {
-//            $('#pht_event_date').data("DateTimePicker").date(null);
             $('#main_photo_section').hide();
         }
         return false;
@@ -169,11 +163,9 @@ $(document).ready(function() {
     $('#ckb_main_web').on('ifChanged', function() {
         $('#web_date_needed').data("DateTimePicker").date(null);
         if ($('#ckb_main_web').is(':checked')) {
-//            $('#web_date_needed').data("DateTimePicker").date(moment().add(14, 'days'));
             $('#main_web_section').show();
         }
         else {
-//            $('#web_date_needed').data("DateTimePicker").date(null);
             $('#main_web_section').hide();
         }
         return false;
@@ -335,12 +327,9 @@ $(document).ready(function() {
         $('#mda_monitor_start_date').data("DateTimePicker").date(null);
         $('#mda_monitor_end_date').data("DateTimePicker").date(null);
         if ($('#ckb_mda_monitor').is(':checked')) {
-//            $('#mda_monitor_start_date').data("DateTimePicker").date(moment().add(14, 'days'));
             $('#mda_monitor_section').show();
         }
         else {
-//            $('#mda_monitor_start_date').data("DateTimePicker").date(null);
-//            $('#mda_monitor_end_date').data("DateTimePicker").date(null);
             $('#mda_monitor_section').hide();
         }
         return false;
@@ -349,11 +338,9 @@ $(document).ready(function() {
     $('#ckb_mda_social_media').on('ifChanged', function() {
         $('#mda_soc_media_date').data("DateTimePicker").date(null);
         if ($('#ckb_mda_social_media').is(':checked')) {
-//            $('#mda_soc_media_date').data("DateTimePicker").date(moment().add(14, 'days'));
             $('#mda_social_media_section').show();
         }
         else {
-//            $('#mda_soc_media_date').data("DateTimePicker").date(null);
             $('#mda_social_media_section').hide();
         }
         return false;
@@ -397,11 +384,9 @@ $(document).ready(function() {
         $('#vdo_filming_date').data("DateTimePicker").date(null);
         $('#vdo_filming_time').find('input').val(null);
         if ($('#ckb_vdo_filming_request').is(':checked')) {
-//            $('#vdo_filming_date').data("DateTimePicker").date(moment().add(14, 'days'));
             $('#vdo_filming_request_section').show();
         }
         else {
-//            $('#vdo_filming_date').data("DateTimePicker").date(null);
             $('#vdo_filming_request_section').hide();
         }
         return false;
@@ -423,12 +408,10 @@ $(document).ready(function() {
         if ($('#ckb_edt_copywriting').is(':checked')) {
             $('#edt_copywriting_date_needed').data("DateTimePicker").enable();
             $('#edt_copywriting_icon').addClass('ivcmrkt-bk-color-white');
-//            $('#edt_copywriting_date_needed').data("DateTimePicker").date(moment().add(14, 'days'));
         }
         else {
             $('#edt_copywriting_date_needed').data("DateTimePicker").disable();
             $('#edt_copywriting_icon').removeClass('ivcmrkt-bk-color-white');
-//            $('#edt_copywriting_date_needed').data("DateTimePicker").date(null);
         }
         return false;
     });
@@ -438,26 +421,13 @@ $(document).ready(function() {
         if ($('#ckb_edt_proofreading').is(':checked')) {
             $('#edt_proofreading_date_needed').data("DateTimePicker").enable();
             $('#edt_proofreading_icon').addClass('ivcmrkt-bk-color-white');
-//            $('#edt_proofreading_date_needed').data("DateTimePicker").date(moment().add(14, 'days'));
         }
         else {
             $('#edt_proofreading_date_needed').data("DateTimePicker").disable();
             $('#edt_proofreading_icon').removeClass('ivcmrkt-bk-color-white');
-//            $('#edt_proofreading_date_needed').data("DateTimePicker").date(null);
         }
         return false;
     });
-    
-    // social media monitor slide date event ///////////////////////////////////
-//    $("#mda_monitor_start_date").on("dp.change", function (e) {
-//        $('#mda_monitor_end_date').data("DateTimePicker").minDate(e.date);
-//        return false;
-//    });
-//    
-//    $("#mda_monitor_end_date").on("dp.change", function (e) {
-//        $('#mda_monitor_start_date').data("DateTimePicker").maxDate(e.date);
-//        return false;
-//    });
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     // file upload button click ////////////////////////////////////////////////
@@ -755,7 +725,6 @@ function mainSectionValidation() {
         swal({title: "Error", text: "Please select at least one marketing request category", type: "error"});
         return false;
     }
-
     return true;
 }
 
@@ -816,7 +785,6 @@ function taskSectionValidation() {
             return false;
         }
     }
-    
     return true;
 }
 
@@ -882,7 +850,6 @@ function taskPrintValidation() {
             return false;
         } 
     }
-
     return true;
 }
 
@@ -891,7 +858,6 @@ function taskPrintAdValidation() {
         swal({title: "Error", text: "Print/Graphics Ad Size is a required field", type: "error"});
         return false;
     }
-
     return true;
 }
 
@@ -900,7 +866,6 @@ function taskPrintBrochureValidation() {
         swal({title: "Error", text: "Print/Graphics Brochure Qty is a required field", type: "error"});
         return false;
     }
-
     return true;
 }
 
@@ -909,7 +874,6 @@ function taskPrintBannerValidation() {
         swal({title: "Error", text: "Print/Graphics Banner Qty is a required field", type: "error"});
         return false;
     }
-
     return true;
 }
 
@@ -918,7 +882,6 @@ function taskPrintFlyerValidation() {
         swal({title: "Error", text: "Print/Graphics Flyer Qty is a required field", type: "error"});
         return false;
     }
-
     return true;
 }
 
@@ -927,7 +890,6 @@ function taskPrintCertificateValidation() {
         swal({title: "Error", text: "Print/Graphics Certificate Qty is a required field", type: "error"});
         return false;
     }
-
     return true;
 }
 
@@ -940,7 +902,6 @@ function taskPrintPostcardValidation() {
         swal({title: "Error", text: "Print/Graphics Postcard Qty is a required field", type: "error"});
         return false;
     }
-
     return true;
 }
 
@@ -971,7 +932,6 @@ function taskPrintPosterValidation() {
             return false;
         }
     }
-
     return true;
 }
 
@@ -980,7 +940,6 @@ function taskPrintProgramValidation() {
         swal({title: "Error", text: "Print/Graphics Program Qty is a required field", type: "error"});
         return false;
     }
-
     return true;
 }
 
@@ -989,7 +948,6 @@ function taskPrintOtherValidation() {
         swal({title: "Error", text: "Print/Graphics Other (describe) is a required field", type: "error"});
         return false;
     }
-
     return true;
 }
 
@@ -1002,7 +960,6 @@ function taskPrintWebGraphicValidation() {
         swal({title: "Error", text: "Print/Graphics Web Graphic Dimensions is a required field", type: "error"});
         return false;
     }
-
     return true;
 }
 
@@ -1023,7 +980,6 @@ function taskPhotoValidation() {
         swal({title: "Error", text: "Photograpy Estimated Time is a required field", type: "error"});
         return false;
     }
-
     return true;
 }
 
@@ -1058,7 +1014,6 @@ function taskMediaValidation() {
             return false;
         }
     }
-    
     return true;
 }
 
@@ -1067,7 +1022,6 @@ function taskMediaCollegewideValidation() {
         swal({title: "Error", text: "Social Media/Publicity Collegewide Email is a required field", type: "error"});
         return false;
     }
-
     return true;
 }
 
@@ -1076,7 +1030,6 @@ function taskMediaSherpaValidation() {
         swal({title: "Error", text: "Social Media/Publicity Sherpa Email is a required field", type: "error"});
         return false;
     }
-
     return true;
 }
 
@@ -1089,7 +1042,6 @@ function taskMediaMonitorValidation() {
         swal({title: "Error", text: "Social Media/Publicity Monitor Slide End Date is a required field", type: "error"});
         return false;
     }
-
     return true;
 }
 
@@ -1098,7 +1050,6 @@ function taskMediaPostValidation() {
         swal({title: "Error", text: "Social Media/Publicity Social Media Post Date is a required field", type: "error"});
         return false;
     }
-
     return true;
 }
 
@@ -1111,7 +1062,6 @@ function taskMediaEntranceValidation() {
         swal({title: "Error", text: "Social Media/Publicity College Entrance Marquees End Date is a required field", type: "error"});
         return false;
     }
-
     return true;
 }
 
@@ -1125,7 +1075,6 @@ function taskWebValidation() {
         swal({title: "Error", text: "Web Services Estimated Launch Date is a required field", type: "error"});
         return false;
     }
-
     return true;
 }
 
@@ -1144,7 +1093,6 @@ function taskVideoValidation() {
             return false;
         }
     }
-    
     return true;
 }
 
@@ -1169,7 +1117,6 @@ function taskVideoFilmingValidation() {
         swal({title: "Error", text: "Video Estimated Time is a required field", type: "error"});
         return false;
     }
-
     return true;
 }
 
@@ -1178,7 +1125,6 @@ function taskVideoOtherValidation() {
         swal({title: "Error", text: "Video Other describe is a required field", type: "error"});
         return false;
     }
-
     return true;
 }
 
@@ -1199,7 +1145,6 @@ function taskEditorialValidation() {
             return false;
         }
     }
-
     return true;
 }
 
@@ -1292,9 +1237,8 @@ function getMrktPrint() {
     var result = new Array();
     result = db_getMrktPrintByReqID(mrkt_request_id);
     
-    if (result.length === 1) {
+    if (result.length === 1) {        
         $('#prt_date_need').data("DateTimePicker").date(moment(result[0]['DateNeeded']).format('MM/DD/YYYY'));
-        
         if (result[0]['ckb_prt_ad'] === "1") {
             $('#ckb_prt_ad').iCheck('check');
             $('#prt_ad_section').show();
@@ -1940,7 +1884,6 @@ function insertMrktPrint(status_id) {
             }
         }
     }
-    
     return true;
 }
 
@@ -2273,7 +2216,6 @@ function insertMrktMedia(status_id) {
             }
         }
     }
-    
     return true;
 }
 
@@ -2430,7 +2372,6 @@ function insertMrktVideo(status_id) {
             return dbSystemErrorHandling(str_msg);
         }
     }
-    
     
     if (ckb_vdo_filming_request) {
         if (!insertMrktVideoFilming(mrkt_video_id)) {

@@ -105,292 +105,6 @@
                     <a href=# id="ico_btn_print"><i class="pe-7s-print pe-2x pe-va iconic-color-default"></i></a>&nbsp;&nbsp;
                     <a href=# id="ico_btn_close"><i class="pe-7s-close-circle pe-2x pe-va iconic-color-default"></i></a>
                 </div>
-                <!-- task staff section -->
-                <div class="row" hidden id="task_staff_section">
-                    <div class="col-md-12">
-                        <section class="widget">
-                            <header>
-                                <h4>TASK STAFF SECTION</h4>
-                                <div class="widget-controls">
-                                    <a data-widgster="expand" title="Expand" href="#"><i class="glyphicon glyphicon-chevron-up"></i></a>&nbsp;&nbsp;
-                                    <a data-widgster="collapse" title="Collapse" href="#"><i class="glyphicon glyphicon-chevron-down"></i></a>
-                                </div>
-                            </header>
-                            <div class="widget-body">
-                                <form class="form-horizontal" role="form">
-                                    <fieldset>
-                                        <b>Marketing task staff work process</b>
-                                    </fieldset>
-                                    <div hidden class="row" id="spinner_loader">
-                                        <img src="images/spinner.svg" id="spinner_loader_img">
-                                    </div>
-                                    <!-- task print -->
-                                    <fieldset hidden id="task_print_status_section">
-                                        <legend></legend>
-                                        <div class="form-group">
-                                            <label for="normal-field" class="col-sm-4 control-label">Print/Graphics Task Status:</label>
-                                            <div class="col-sm-5">
-                                                <select class="form-control m-b" data-container="body" id="task_print_status_list"></select>
-                                            </div>
-                                            <div class="col-sm-2">
-                                                <button class="col-sm-12 btn btn-primary" id="btn_task_print_status_update">Update</button>
-                                            </div>
-                                        </div>
-                                        <div class="form-group" hidden id="task_print_file_section">
-                                            <label class="col-sm-4 control-label">Project File Attach:</label>
-                                            <div class="col-sm-5">
-                                                <div class="fileinput fileinput-new input-group" data-provides="fileinput">
-                                                    <div class="form-control" data-trigger="fileinput">
-                                                        <i class="glyphicon glyphicon-file fileinput-exists"></i>
-                                                        <span class="fileinput-filename"></span>
-                                                    </div>
-                                                    <span class="input-group-addon btn btn-default btn-file">
-                                                        <span class="fileinput-new">Select file</span>
-                                                        <span class="fileinput-exists">Change</span>
-                                                        <input class="task_project_file_input" type="file" id="task_print_file_attach">
-                                                    </span>
-                                                    <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group" hidden id="task_print_file_view">
-                                            <label class="col-sm-4 control-label">Project File Attach:</label>
-                                            <div class="col-sm-5">
-                                                <p class="form-control" id="task_print_file_name"></p>
-                                            </div>
-                                            <div class="col-sm-1">
-                                                <button class="col-sm-12 btn btn-success" id="btn_print_file_download">Download</button>
-                                            </div>
-                                            <div class="col-sm-1">
-                                                <button class="col-sm-12 btn btn-danger" id="btn_print_file_delete">Delete</button>
-                                            </div>
-                                        </div>
-                                    </fieldset>
-                                    <!-- task photo -->
-                                    <fieldset hidden id="task_photo_status_section">
-                                        <legend></legend>
-                                        <div class="form-group">
-                                            <label for="normal-field" class="col-sm-4 control-label">Photography Task Status:</label>
-                                            <div class="col-sm-5">
-                                                <select class="form-control m-b" data-container="body" id="task_photo_status_list"></select>
-                                            </div>
-                                            <div class="col-sm-2">
-                                                <button class="col-sm-12 btn btn-primary" id="btn_task_photo_status_update">Update</button>
-                                            </div>
-                                        </div>
-                                        <div class="form-group" hidden id="task_photo_file_section">
-                                            <label class="col-sm-4 control-label">Project File Attach:</label>
-                                            <div class="col-sm-5">
-                                                <div class="fileinput fileinput-new input-group" data-provides="fileinput">
-                                                    <div class="form-control" data-trigger="fileinput">
-                                                        <i class="glyphicon glyphicon-file fileinput-exists"></i>
-                                                        <span class="fileinput-filename"></span>
-                                                    </div>
-                                                    <span class="input-group-addon btn btn-default btn-file">
-                                                        <span class="fileinput-new">Select file</span>
-                                                        <span class="fileinput-exists">Change</span>
-                                                        <input class="task_project_file_input" type="file" id="task_photo_file_attach">
-                                                    </span>
-                                                    <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group" hidden id="task_photo_file_view">
-                                            <label class="col-sm-4 control-label">Project File Attach:</label>
-                                            <div class="col-sm-5">
-                                                <p class="form-control" id="task_photo_file_name"></p>
-                                            </div>
-                                            <div class="col-sm-1">
-                                                <button class="col-sm-12 btn btn-success" id="btn_photo_file_download">Download</button>
-                                            </div>
-                                            <div class="col-sm-1">
-                                                <button class="col-sm-12 btn btn-danger" id="btn_photo_file_delete">Delete</button>
-                                            </div>
-                                        </div>
-                                    </fieldset>
-                                    <!-- task media -->
-                                    <fieldset hidden id="task_media_status_section">
-                                        <legend></legend>
-                                        <div class="form-group">
-                                            <label for="normal-field" class="col-sm-4 control-label">Social Media/Publicity Task Status:</label>
-                                            <div class="col-sm-5">
-                                                <select class="form-control m-b" data-container="body" id="task_media_status_list"></select>
-                                            </div>
-                                            <div class="col-sm-2">
-                                                <button class="col-sm-12 btn btn-primary" id="btn_task_media_status_update">Update</button>
-                                            </div>
-                                        </div>
-                                        <div class="form-group" hidden id="task_media_file_section">
-                                            <label class="col-sm-4 control-label">Project File Attach:</label>
-                                            <div class="col-sm-5">
-                                                <div class="fileinput fileinput-new input-group" data-provides="fileinput">
-                                                    <div class="form-control" data-trigger="fileinput">
-                                                        <i class="glyphicon glyphicon-file fileinput-exists"></i>
-                                                        <span class="fileinput-filename"></span>
-                                                    </div>
-                                                    <span class="input-group-addon btn btn-default btn-file">
-                                                        <span class="fileinput-new">Select file</span>
-                                                        <span class="fileinput-exists">Change</span>
-                                                        <input class="task_project_file_input" type="file" id="task_media_file_attach">
-                                                    </span>
-                                                    <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group" hidden id="task_media_file_view">
-                                            <label class="col-sm-4 control-label">Project File Attach:</label>
-                                            <div class="col-sm-5">
-                                                <p class="form-control" id="task_media_file_name"></p>
-                                            </div>
-                                            <div class="col-sm-1">
-                                                <button class="col-sm-12 btn btn-success" id="btn_media_file_download">Download</button>
-                                            </div>
-                                            <div class="col-sm-1">
-                                                <button class="col-sm-12 btn btn-danger" id="btn_media_file_delete">Delete</button>
-                                            </div>
-                                        </div>
-                                    </fieldset>
-                                    <!-- task web -->
-                                    <fieldset hidden id="task_web_status_section">
-                                        <legend></legend>
-                                        <div class="form-group">
-                                            <label for="normal-field" class="col-sm-4 control-label">Web Services Task Status:</label>
-                                            <div class="col-sm-5">
-                                                <select class="form-control m-b" data-container="body" id="task_web_status_list"></select>
-                                            </div>
-                                            <div class="col-sm-2">
-                                                <button class="col-sm-12 btn btn-primary" id="btn_task_web_status_update">Update</button>
-                                            </div>
-                                        </div>
-                                        <div class="form-group" hidden id="task_web_file_section">
-                                            <label class="col-sm-4 control-label">Project File Attach:</label>
-                                            <div class="col-sm-5">
-                                                <div class="fileinput fileinput-new input-group" data-provides="fileinput">
-                                                    <div class="form-control" data-trigger="fileinput">
-                                                        <i class="glyphicon glyphicon-file fileinput-exists"></i>
-                                                        <span class="fileinput-filename"></span>
-                                                    </div>
-                                                    <span class="input-group-addon btn btn-default btn-file">
-                                                        <span class="fileinput-new">Select file</span>
-                                                        <span class="fileinput-exists">Change</span>
-                                                        <input class="task_project_file_input" type="file" id="task_web_file_attach">
-                                                    </span>
-                                                    <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group" hidden id="task_web_file_view">
-                                            <label class="col-sm-4 control-label">Project File Attach:</label>
-                                            <div class="col-sm-5">
-                                                <p class="form-control" id="task_web_file_name"></p>
-                                            </div>
-                                            <div class="col-sm-1">
-                                                <button class="col-sm-12 btn btn-success" id="btn_web_file_download">Download</button>
-                                            </div>
-                                            <div class="col-sm-1">
-                                                <button class="col-sm-12 btn btn-danger" id="btn_web_file_delete">Delete</button>
-                                            </div>
-                                        </div>
-                                    </fieldset>
-                                    <!-- task video -->
-                                    <fieldset hidden id="task_video_status_section">
-                                        <legend></legend>
-                                        <div class="form-group">
-                                            <label for="normal-field" class="col-sm-4 control-label">Video Task Status:</label>
-                                            <div class="col-sm-5">
-                                                <select class="form-control m-b" data-container="body" id="task_video_status_list"></select>
-                                            </div>
-                                            <div class="col-sm-2">
-                                                <button class="col-sm-12 btn btn-primary" id="btn_task_video_status_update">Update</button>
-                                            </div>
-                                        </div>
-                                        <div class="form-group" hidden id="task_video_file_section">
-                                            <label class="col-sm-4 control-label">Project File Attach:</label>
-                                            <div class="col-sm-5">
-                                                <div class="fileinput fileinput-new input-group" data-provides="fileinput">
-                                                    <div class="form-control" data-trigger="fileinput">
-                                                        <i class="glyphicon glyphicon-file fileinput-exists"></i>
-                                                        <span class="fileinput-filename"></span>
-                                                    </div>
-                                                    <span class="input-group-addon btn btn-default btn-file">
-                                                        <span class="fileinput-new">Select file</span>
-                                                        <span class="fileinput-exists">Change</span>
-                                                        <input class="task_project_file_input" type="file" id="task_video_file_attach">
-                                                    </span>
-                                                    <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group" hidden id="task_video_file_view">
-                                            <label class="col-sm-4 control-label">Project File Attach:</label>
-                                            <div class="col-sm-5">
-                                                <p class="form-control" id="task_video_file_name"></p>
-                                            </div>
-                                            <div class="col-sm-1">
-                                                <button class="col-sm-12 btn btn-success" id="btn_video_file_download">Download</button>
-                                            </div>
-                                            <div class="col-sm-1">
-                                                <button class="col-sm-12 btn btn-danger" id="btn_video_file_delete">Delete</button>
-                                            </div>
-                                        </div>
-                                    </fieldset>
-                                    <!-- task editorial -->
-                                    <fieldset hidden id="task_editorial_status_section">
-                                        <legend></legend>
-                                        <div class="form-group">
-                                            <label for="normal-field" class="col-sm-4 control-label">Editorial Services Task Status:</label>
-                                            <div class="col-sm-5">
-                                                <select class="form-control m-b" data-container="body" id="task_editorial_status_list"></select>
-                                            </div>
-                                            <div class="col-sm-2">
-                                                <button class="col-sm-12 btn btn-primary" id="btn_task_editorial_status_update">Update</button>
-                                            </div>
-                                        </div>
-                                        <div class="form-group" hidden id="task_editorial_file_section">
-                                            <label class="col-sm-4 control-label">Project File Attach:</label>
-                                            <div class="col-sm-5">
-                                                <div class="fileinput fileinput-new input-group" data-provides="fileinput">
-                                                    <div class="form-control" data-trigger="fileinput">
-                                                        <i class="glyphicon glyphicon-file fileinput-exists"></i>
-                                                        <span class="fileinput-filename"></span>
-                                                    </div>
-                                                    <span class="input-group-addon btn btn-default btn-file">
-                                                        <span class="fileinput-new">Select file</span>
-                                                        <span class="fileinput-exists">Change</span>
-                                                        <input class="task_project_file_input" type="file" id="task_editorial_file_attach">
-                                                    </span>
-                                                    <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group" hidden id="task_editorial_file_view">
-                                            <label class="col-sm-4 control-label">Project File Attach:</label>
-                                            <div class="col-sm-5">
-                                                <p class="form-control" id="task_editorial_file_name"></p>
-                                            </div>
-                                            <div class="col-sm-1">
-                                                <button class="col-sm-12 btn btn-success" id="btn_editorial_file_download">Download</button>
-                                            </div>
-                                            <div class="col-sm-1">
-                                                <button class="col-sm-12 btn btn-danger" id="btn_editorial_file_delete">Delete</button>
-                                            </div>
-                                        </div>
-                                    </fieldset>
-                                    <!-- task note -->
-                                    <fieldset>
-                                        <legend></legend>
-                                        <div class="form-group">
-                                            <label for="elastic-textarea" class="col-sm-4 control-label">Details/Note/Explanation:</label>
-                                            <div class="col-sm-5">
-                                                <textarea rows="2" class="autogrow form-control transition-height" style="resize: vertical;" id="task_status_note"></textarea>
-                                            </div>
-                                        </div>
-                                    </fieldset>
-                                </form>
-                            </div>
-                        </section>
-                    </div>
-                </div>
                 <!-- task process log section -->
                 <div class="row">
                     <div class="col-md-12">
@@ -1329,7 +1043,7 @@
                             </header>
                             <div class="widget-body">
                                 <form class="form-horizontal" role="form">
-                                    <fieldset>
+                                    <fieldset hidden id="master_status_section">
                                         <legend><b>Marketing request status</b></legend>
                                         <div class="form-group">
                                             <label for="normal-field" class="col-sm-4 control-label">Marketing Request Status:</label>
@@ -1346,7 +1060,7 @@
                                                 <textarea rows="2" class="autogrow form-control transition-height" style="resize: vertical;" id="mrkt_req_status_note"></textarea>
                                             </div>
                                         </div>
-                                    </fieldset> 
+                                    </fieldset>
                                     <fieldset>
                                         <legend><b>Marketing administrator task assigning process</b></legend>
                                         <div class="form-group" hidden id="admin_task_assig_print">
@@ -1417,6 +1131,292 @@
                                                         <label class="control-label" style="font-weight: bold;" for="ckb_admin_show_task_staff">Show Task Staff Status Section</label>
                                                     </div>
                                                 </div>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </form>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+                <!-- task staff section -->
+                <div class="row" hidden id="task_staff_section">
+                    <div class="col-md-12">
+                        <section class="widget">
+                            <header>
+                                <h4>TASK STAFF SECTION</h4>
+                                <div class="widget-controls">
+                                    <a data-widgster="expand" title="Expand" href="#"><i class="glyphicon glyphicon-chevron-up"></i></a>&nbsp;&nbsp;
+                                    <a data-widgster="collapse" title="Collapse" href="#"><i class="glyphicon glyphicon-chevron-down"></i></a>
+                                </div>
+                            </header>
+                            <div class="widget-body">
+                                <form class="form-horizontal" role="form">
+                                    <fieldset>
+                                        <b>Marketing task staff work process</b>
+                                    </fieldset>
+                                    <div hidden class="row" id="spinner_loader">
+                                        <img src="images/spinner.svg" id="spinner_loader_img">
+                                    </div>
+                                    <!-- task print -->
+                                    <fieldset hidden id="task_print_status_section">
+                                        <legend></legend>
+                                        <div class="form-group">
+                                            <label for="normal-field" class="col-sm-4 control-label">Print/Graphics Task Status:</label>
+                                            <div class="col-sm-5">
+                                                <select class="form-control m-b" data-container="body" id="task_print_status_list"></select>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <button class="col-sm-12 btn btn-primary" id="btn_task_print_status_update">Update</button>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" hidden id="task_print_file_section">
+                                            <label class="col-sm-4 control-label">Project File Attach:</label>
+                                            <div class="col-sm-5">
+                                                <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                                                    <div class="form-control" data-trigger="fileinput">
+                                                        <i class="glyphicon glyphicon-file fileinput-exists"></i>
+                                                        <span class="fileinput-filename"></span>
+                                                    </div>
+                                                    <span class="input-group-addon btn btn-default btn-file">
+                                                        <span class="fileinput-new">Select file</span>
+                                                        <span class="fileinput-exists">Change</span>
+                                                        <input class="task_project_file_input" type="file" id="task_print_file_attach">
+                                                    </span>
+                                                    <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" hidden id="task_print_file_view">
+                                            <label class="col-sm-4 control-label">Project File Attach:</label>
+                                            <div class="col-sm-5">
+                                                <p class="form-control" id="task_print_file_name"></p>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <button class="col-sm-12 btn btn-success" id="btn_print_file_download">Download</button>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <button class="col-sm-12 btn btn-danger" id="btn_print_file_delete">Delete</button>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                    <!-- task photo -->
+                                    <fieldset hidden id="task_photo_status_section">
+                                        <legend></legend>
+                                        <div class="form-group">
+                                            <label for="normal-field" class="col-sm-4 control-label">Photography Task Status:</label>
+                                            <div class="col-sm-5">
+                                                <select class="form-control m-b" data-container="body" id="task_photo_status_list"></select>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <button class="col-sm-12 btn btn-primary" id="btn_task_photo_status_update">Update</button>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" hidden id="task_photo_file_section">
+                                            <label class="col-sm-4 control-label">Project File Attach:</label>
+                                            <div class="col-sm-5">
+                                                <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                                                    <div class="form-control" data-trigger="fileinput">
+                                                        <i class="glyphicon glyphicon-file fileinput-exists"></i>
+                                                        <span class="fileinput-filename"></span>
+                                                    </div>
+                                                    <span class="input-group-addon btn btn-default btn-file">
+                                                        <span class="fileinput-new">Select file</span>
+                                                        <span class="fileinput-exists">Change</span>
+                                                        <input class="task_project_file_input" type="file" id="task_photo_file_attach">
+                                                    </span>
+                                                    <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" hidden id="task_photo_file_view">
+                                            <label class="col-sm-4 control-label">Project File Attach:</label>
+                                            <div class="col-sm-5">
+                                                <p class="form-control" id="task_photo_file_name"></p>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <button class="col-sm-12 btn btn-success" id="btn_photo_file_download">Download</button>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <button class="col-sm-12 btn btn-danger" id="btn_photo_file_delete">Delete</button>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                    <!-- task media -->
+                                    <fieldset hidden id="task_media_status_section">
+                                        <legend></legend>
+                                        <div class="form-group">
+                                            <label for="normal-field" class="col-sm-4 control-label">Social Media/Publicity Task Status:</label>
+                                            <div class="col-sm-5">
+                                                <select class="form-control m-b" data-container="body" id="task_media_status_list"></select>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <button class="col-sm-12 btn btn-primary" id="btn_task_media_status_update">Update</button>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" hidden id="task_media_file_section">
+                                            <label class="col-sm-4 control-label">Project File Attach:</label>
+                                            <div class="col-sm-5">
+                                                <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                                                    <div class="form-control" data-trigger="fileinput">
+                                                        <i class="glyphicon glyphicon-file fileinput-exists"></i>
+                                                        <span class="fileinput-filename"></span>
+                                                    </div>
+                                                    <span class="input-group-addon btn btn-default btn-file">
+                                                        <span class="fileinput-new">Select file</span>
+                                                        <span class="fileinput-exists">Change</span>
+                                                        <input class="task_project_file_input" type="file" id="task_media_file_attach">
+                                                    </span>
+                                                    <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" hidden id="task_media_file_view">
+                                            <label class="col-sm-4 control-label">Project File Attach:</label>
+                                            <div class="col-sm-5">
+                                                <p class="form-control" id="task_media_file_name"></p>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <button class="col-sm-12 btn btn-success" id="btn_media_file_download">Download</button>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <button class="col-sm-12 btn btn-danger" id="btn_media_file_delete">Delete</button>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                    <!-- task web -->
+                                    <fieldset hidden id="task_web_status_section">
+                                        <legend></legend>
+                                        <div class="form-group">
+                                            <label for="normal-field" class="col-sm-4 control-label">Web Services Task Status:</label>
+                                            <div class="col-sm-5">
+                                                <select class="form-control m-b" data-container="body" id="task_web_status_list"></select>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <button class="col-sm-12 btn btn-primary" id="btn_task_web_status_update">Update</button>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" hidden id="task_web_file_section">
+                                            <label class="col-sm-4 control-label">Project File Attach:</label>
+                                            <div class="col-sm-5">
+                                                <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                                                    <div class="form-control" data-trigger="fileinput">
+                                                        <i class="glyphicon glyphicon-file fileinput-exists"></i>
+                                                        <span class="fileinput-filename"></span>
+                                                    </div>
+                                                    <span class="input-group-addon btn btn-default btn-file">
+                                                        <span class="fileinput-new">Select file</span>
+                                                        <span class="fileinput-exists">Change</span>
+                                                        <input class="task_project_file_input" type="file" id="task_web_file_attach">
+                                                    </span>
+                                                    <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" hidden id="task_web_file_view">
+                                            <label class="col-sm-4 control-label">Project File Attach:</label>
+                                            <div class="col-sm-5">
+                                                <p class="form-control" id="task_web_file_name"></p>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <button class="col-sm-12 btn btn-success" id="btn_web_file_download">Download</button>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <button class="col-sm-12 btn btn-danger" id="btn_web_file_delete">Delete</button>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                    <!-- task video -->
+                                    <fieldset hidden id="task_video_status_section">
+                                        <legend></legend>
+                                        <div class="form-group">
+                                            <label for="normal-field" class="col-sm-4 control-label">Video Task Status:</label>
+                                            <div class="col-sm-5">
+                                                <select class="form-control m-b" data-container="body" id="task_video_status_list"></select>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <button class="col-sm-12 btn btn-primary" id="btn_task_video_status_update">Update</button>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" hidden id="task_video_file_section">
+                                            <label class="col-sm-4 control-label">Project File Attach:</label>
+                                            <div class="col-sm-5">
+                                                <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                                                    <div class="form-control" data-trigger="fileinput">
+                                                        <i class="glyphicon glyphicon-file fileinput-exists"></i>
+                                                        <span class="fileinput-filename"></span>
+                                                    </div>
+                                                    <span class="input-group-addon btn btn-default btn-file">
+                                                        <span class="fileinput-new">Select file</span>
+                                                        <span class="fileinput-exists">Change</span>
+                                                        <input class="task_project_file_input" type="file" id="task_video_file_attach">
+                                                    </span>
+                                                    <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" hidden id="task_video_file_view">
+                                            <label class="col-sm-4 control-label">Project File Attach:</label>
+                                            <div class="col-sm-5">
+                                                <p class="form-control" id="task_video_file_name"></p>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <button class="col-sm-12 btn btn-success" id="btn_video_file_download">Download</button>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <button class="col-sm-12 btn btn-danger" id="btn_video_file_delete">Delete</button>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                    <!-- task editorial -->
+                                    <fieldset hidden id="task_editorial_status_section">
+                                        <legend></legend>
+                                        <div class="form-group">
+                                            <label for="normal-field" class="col-sm-4 control-label">Editorial Services Task Status:</label>
+                                            <div class="col-sm-5">
+                                                <select class="form-control m-b" data-container="body" id="task_editorial_status_list"></select>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <button class="col-sm-12 btn btn-primary" id="btn_task_editorial_status_update">Update</button>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" hidden id="task_editorial_file_section">
+                                            <label class="col-sm-4 control-label">Project File Attach:</label>
+                                            <div class="col-sm-5">
+                                                <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                                                    <div class="form-control" data-trigger="fileinput">
+                                                        <i class="glyphicon glyphicon-file fileinput-exists"></i>
+                                                        <span class="fileinput-filename"></span>
+                                                    </div>
+                                                    <span class="input-group-addon btn btn-default btn-file">
+                                                        <span class="fileinput-new">Select file</span>
+                                                        <span class="fileinput-exists">Change</span>
+                                                        <input class="task_project_file_input" type="file" id="task_editorial_file_attach">
+                                                    </span>
+                                                    <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" hidden id="task_editorial_file_view">
+                                            <label class="col-sm-4 control-label">Project File Attach:</label>
+                                            <div class="col-sm-5">
+                                                <p class="form-control" id="task_editorial_file_name"></p>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <button class="col-sm-12 btn btn-success" id="btn_editorial_file_download">Download</button>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <button class="col-sm-12 btn btn-danger" id="btn_editorial_file_delete">Delete</button>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                    <!-- task note -->
+                                    <fieldset>
+                                        <legend></legend>
+                                        <div class="form-group">
+                                            <label for="elastic-textarea" class="col-sm-4 control-label">Details/Note/Explanation:</label>
+                                            <div class="col-sm-5">
+                                                <textarea rows="2" class="autogrow form-control transition-height" style="resize: vertical;" id="task_status_note"></textarea>
                                             </div>
                                         </div>
                                     </fieldset>
