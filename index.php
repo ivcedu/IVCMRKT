@@ -26,7 +26,7 @@
         <div class="bg-pattern"></div>
         <!-- back to ivc application site -->
         <div class="back-link iconic-color-default">
-            <a href="https://services.ivc.edu/" style="color: white;">IVC Applicate Site</a>
+            <a href="https://services.ivc.edu/" style="color: white;">IVC Application Site</a>
         </div>
         <!-- login form -->
         <div class="login-container">
