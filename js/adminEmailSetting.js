@@ -59,13 +59,13 @@ $(document).ready(function() {
     // ivc tech support dialog occures when the modal is fully shown ///////////
     $('#mod_ivc_tech_support').on('shown.bs.modal', function () {
         autosize.update($('#mod_ivc_tech_problems').val(""));
+        $('#mod_ivc_tech_img_screen').prop('src', str_img);
     });
     
     // ivc tech support click //////////////////////////////////////////////////
     $('#nav_ivc_tech').click(function() {
         capture();
         $('#mod_ivc_tech_problems').val("");
-        $('#mod_ivc_tech_img_screen').prop('src', str_img);
         $('#mod_ivc_tech_support').modal('show');
     });
     
