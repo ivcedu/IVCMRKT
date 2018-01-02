@@ -11,33 +11,33 @@
     
     $query_get_print = "INSERT INTO #PROJECTS "
                     . "SELECT mkpr.MrktRequestID, 'Print/Graphics', mkpr.AdminID, mkpr.StatusID, mkpr.Modified "
-                    . "FROM [".$dbDatabase."].[dbo].[MrktPrint] AS mkpr "
-                    . "WHERE mkpr.StatusID = 4";
+                    . "FROM [".$dbDatabase."].[dbo].[MrktRequest] AS mkrq INNER JOIN [".$dbDatabase."].[dbo].[MrktPrint] AS mkpr ON mkrq.MrktRequestID = mkpr.MrktRequestID "
+                    . "WHERE mkpr.StatusID = 4 AND mkrq.ReqDate BETWEEN '".$StartDate."' AND '".$EndDate."'";
     
     $query_get_photo = "INSERT INTO #PROJECTS "
                     . "SELECT mkph.MrktRequestID, 'Photography', mkph.AdminID, mkph.StatusID, mkph.Modified "
-                    . "FROM [".$dbDatabase."].[dbo].[MrktPhoto] AS mkph "
-                    . "WHERE mkph.StatusID = 4";
+                    . "FROM [".$dbDatabase."].[dbo].[MrktRequest] AS mkrq INNER JOIN [".$dbDatabase."].[dbo].[MrktPhoto] AS mkph ON mkrq.MrktRequestID = mkph.MrktRequestID "
+                    . "WHERE mkph.StatusID = 4 AND mkrq.ReqDate BETWEEN '".$StartDate."' AND '".$EndDate."'";
     
     $query_get_media = "INSERT INTO #PROJECTS "
                     . "SELECT mkmd.MrktRequestID, 'Social Media/Publicity', mkmd.AdminID, mkmd.StatusID, mkmd.Modified "
-                    . "FROM [".$dbDatabase."].[dbo].[MrktMedia] AS mkmd "
-                    . "WHERE mkmd.StatusID = 4";
+                    . "FROM [".$dbDatabase."].[dbo].[MrktRequest] AS mkrq INNER JOIN [".$dbDatabase."].[dbo].[MrktMedia] AS mkmd ON mkrq.MrktRequestID = mkmd.MrktRequestID "
+                    . "WHERE mkmd.StatusID = 4 AND mkrq.ReqDate BETWEEN '".$StartDate."' AND '".$EndDate."'";
     
     $query_get_web = "INSERT INTO #PROJECTS "
                     . "SELECT mkwb.MrktRequestID, 'Web Services', mkwb.AdminID, mkwb.StatusID, mkwb.Modified "
-                    . "FROM [".$dbDatabase."].[dbo].[MrktWeb] AS mkwb "
-                    . "WHERE mkwb.StatusID = 4";
+                    . "FROM [".$dbDatabase."].[dbo].[MrktRequest] AS mkrq INNER JOIN [".$dbDatabase."].[dbo].[MrktWeb] AS mkwb ON mkrq.MrktRequestID = mkwb.MrktRequestID "
+                    . "WHERE mkwb.StatusID = 4 AND mkrq.ReqDate BETWEEN '".$StartDate."' AND '".$EndDate."'";
     
     $query_get_video = "INSERT INTO #PROJECTS "
                     . "SELECT mkvd.MrktRequestID, 'Video', mkvd.AdminID, mkvd.StatusID, mkvd.Modified "
-                    . "FROM [".$dbDatabase."].[dbo].[MrktVideo] AS mkvd "
-                    . "WHERE mkvd.StatusID = 4";
+                    . "FROM [".$dbDatabase."].[dbo].[MrktRequest] AS mkrq INNER JOIN [".$dbDatabase."].[dbo].[MrktVideo] AS mkvd ON mkrq.MrktRequestID = mkvd.MrktRequestID "
+                    . "WHERE mkvd.StatusID = 4 AND mkrq.ReqDate BETWEEN '".$StartDate."' AND '".$EndDate."'";
     
     $query_get_editorial = "INSERT INTO #PROJECTS "
                     . "SELECT mked.MrktRequestID, 'Editorial Services', mked.AdminID, mked.StatusID, mked.Modified "
-                    . "FROM [".$dbDatabase."].[dbo].[MrktEditorial] AS mked "
-                    . "WHERE mked.StatusID = 4";
+                    . "FROM [".$dbDatabase."].[dbo].[MrktRequest] AS mkrq INNER JOIN [".$dbDatabase."].[dbo].[MrktEditorial] AS mked ON mkrq.MrktRequestID = mked.MrktRequestID "
+                    . "WHERE mked.StatusID = 4 AND mkrq.ReqDate BETWEEN '".$StartDate."' AND '".$EndDate."'";
 
     $query_get_result = "SELECT mkrq.MrktRequestID, "
                     . "'<a href=# id=''mrkt_request_id_' + CONVERT(NVARCHAR(255), mkrq.MrktRequestID) + '''>' + mkrq.ReqTitle + '</a>', "
