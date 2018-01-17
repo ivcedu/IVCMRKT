@@ -87,7 +87,7 @@
                     . "proj.Project, "
                     . "CASE WHEN admn.AdminName IS NULL THEN '' ELSE admn.AdminName END, "
                     . "stus.Status, "
-                    . "CASE WHEN proj.Modified IS NULL THEN '' ELSE CONVERT(VARCHAR(10), proj.Modified, 101) END "
+                    . "CASE WHEN proj.Modified IS NULL THEN '' WHEN PROJ.StatusID <> 4 THEN '' ELSE CONVERT(VARCHAR(10), proj.Modified, 101) END "
                     . "FROM #PROJECTS AS proj INNER JOIN [".$dbDatabase."].[dbo].[MrktRequest] AS mkrq ON proj.MrktRequestID = mkrq.MrktRequestID "
                     . "INNER JOIN [".$dbDatabase."].[dbo].[Status] AS stus ON proj.StatusID = stus.StatusID "
                     . "LEFT JOIN [".$dbDatabase."].[dbo].[Admin] AS admn ON proj.AdminID = admn.AdminID";
