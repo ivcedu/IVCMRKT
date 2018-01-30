@@ -1,9 +1,9 @@
 <?php
     $dbHost = "IEXDBLISTNR";
     // sql 2014 server (production DB)
-    $dbDatabase = "IVCMRKT";
+//    $dbDatabase = "IVCMRKT";
     // sql 2014 server (development DB)
-//    $dbDatabase = "DEVMRKT";
+    $dbDatabase = "DEVMRKT";
     
     $dbUser = "ivcmrkt";
     $dbPass = "~7QM#pd?X*";
