@@ -33,6 +33,3 @@
 .ivcmrkt-text-area-view {
     height: auto;
 }
-
-/*for multiple line of text in datatables cell */
-td { white-space:pre; }

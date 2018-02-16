@@ -1,4 +1,5 @@
 var m_table;
+var m_master = false;
 var admin_id = "";
 ////////////////////////////////////////////////////////////////////////////////
 window.onload = function() {
@@ -213,6 +214,7 @@ function isLoginAdmin() {
     
     if (result.length === 1 && result[0]['Active'] === "1" && (result[0]['AdminPrivilegeID'] === "1" || result[0]['AdminPrivilegeID'] === "2")) {
         if (result[0]['AdminPrivilegeID'] === "1") {
+            m_master = true;
             $('#nav_sidebar_sys_access_level').show();
             $('#nav_sidebar_sys_task').show();
         }
@@ -248,6 +250,9 @@ function getAdminPrivilegeList() {
     $('#mod_access_level').empty();
     var html = "<option value='0'>Select...</option>";
     for (var i = 0; i < result.length; i++) {
+        if (result[i]['AdminPrivilegeID'] === "1" && !m_master) {
+            continue;
+        }
         html += "<option value='" + result[i]['AdminPrivilegeID']  + "'>" + result[i]['AccessLevel'] + "</option>";
     }
     

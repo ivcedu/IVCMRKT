@@ -1538,12 +1538,12 @@ function db_insertMrktPhoto(MrktRequestID, AdminID, StatusID, EventDate, EventTi
     return ResultID;
 }
 
-function db_insertMrktMedia(MrktRequestID, AdminID, StatusID, ckb_mda_collegewide_email, ckb_mda_sherpa_email, ckb_mda_monitor, ckb_mda_social_media, ckb_mda_college_entrance) {
+function db_insertMrktMedia(MrktRequestID, AdminID, StatusID, DueDate, ckb_mda_collegewide_email, ckb_mda_sherpa_email, ckb_mda_monitor, ckb_mda_social_media, ckb_mda_college_entrance) {
     var ResultID = "";
     $.ajax({
         type:"POST",
         url:"php/db_insertMrktMedia.php",
-        data:{MrktRequestID:MrktRequestID, AdminID:AdminID, StatusID:StatusID, ckb_mda_collegewide_email:ckb_mda_collegewide_email, 
+        data:{MrktRequestID:MrktRequestID, AdminID:AdminID, StatusID:StatusID, DueDate:DueDate, ckb_mda_collegewide_email:ckb_mda_collegewide_email, 
                 ckb_mda_sherpa_email:ckb_mda_sherpa_email, ckb_mda_monitor:ckb_mda_monitor, ckb_mda_social_media:ckb_mda_social_media, ckb_mda_college_entrance:ckb_mda_college_entrance},
         async: false,  
         success:function(data) {
@@ -1641,12 +1641,12 @@ function db_insertMrktWeb(MrktRequestID, AdminID, StatusID, DateNeeded, ckb_web_
     return ResultID;
 }
 
-function db_insertMrktVideo(MrktRequestID, AdminID, StatusID, ckb_vdo_filming_request, ckb_vdo_other) {
+function db_insertMrktVideo(MrktRequestID, AdminID, StatusID, DueDate, ckb_vdo_filming_request, ckb_vdo_other) {
     var ResultID = "";
     $.ajax({
         type:"POST",
         url:"php/db_insertMrktVideo.php",
-        data:{MrktRequestID:MrktRequestID, AdminID:AdminID, StatusID:StatusID, ckb_vdo_filming_request:ckb_vdo_filming_request, ckb_vdo_other:ckb_vdo_other},
+        data:{MrktRequestID:MrktRequestID, AdminID:AdminID, StatusID:StatusID, DueDate:DueDate, ckb_vdo_filming_request:ckb_vdo_filming_request, ckb_vdo_other:ckb_vdo_other},
         async: false,  
         success:function(data) {
             ResultID = JSON.parse(data);
@@ -1683,12 +1683,13 @@ function db_insertMrktVideoOther(MrktVideoID, MrktRequestID, Other) {
     return ResultID;
 }
 
-function db_insertMrktEditorial(MrktRequestID, AdminID, StatusID, ckb_edt_copywriting, CWDateNeeded, ckb_edt_proofreading, PRDateNeeded) {
+function db_insertMrktEditorial(MrktRequestID, AdminID, StatusID, DueDate, ckb_edt_copywriting, CWDateNeeded, ckb_edt_proofreading, PRDateNeeded) {
     var ResultID = "";
     $.ajax({
         type:"POST",
         url:"php/db_insertMrktEditorial.php",
-        data:{MrktRequestID:MrktRequestID, AdminID:AdminID, StatusID:StatusID, ckb_edt_copywriting:ckb_edt_copywriting, CWDateNeeded:CWDateNeeded, ckb_edt_proofreading:ckb_edt_proofreading, PRDateNeeded:PRDateNeeded},
+        data:{MrktRequestID:MrktRequestID, AdminID:AdminID, StatusID:StatusID, DueDate:DueDate, 
+                ckb_edt_copywriting:ckb_edt_copywriting, CWDateNeeded:CWDateNeeded, ckb_edt_proofreading:ckb_edt_proofreading, PRDateNeeded:PRDateNeeded},
         async: false,  
         success:function(data) {
             ResultID = JSON.parse(data);
@@ -2136,12 +2137,12 @@ function db_updateMrktPhotoEventTimeByReqID(MrktRequestID, EventTime) {
     return Result;
 }
 
-function db_updateMrktMediaByReqID(MrktRequestID, AdminID, StatusID, ckb_mda_collegewide_email, ckb_mda_sherpa_email, ckb_mda_monitor, ckb_mda_social_media, ckb_mda_college_entrance) {
+function db_updateMrktMediaByReqID(MrktRequestID, AdminID, StatusID, DueDate, ckb_mda_collegewide_email, ckb_mda_sherpa_email, ckb_mda_monitor, ckb_mda_social_media, ckb_mda_college_entrance) {
     var Result = false;
     $.ajax({
         type:"POST",
         url:"php/db_updateMrktMediaByReqID.php",
-        data:{MrktRequestID:MrktRequestID, AdminID:AdminID, StatusID:StatusID, ckb_mda_collegewide_email:ckb_mda_collegewide_email, 
+        data:{MrktRequestID:MrktRequestID, AdminID:AdminID, StatusID:StatusID, DueDate:DueDate, ckb_mda_collegewide_email:ckb_mda_collegewide_email, 
                 ckb_mda_sherpa_email:ckb_mda_sherpa_email, ckb_mda_monitor:ckb_mda_monitor, ckb_mda_social_media:ckb_mda_social_media, ckb_mda_college_entrance:ckb_mda_college_entrance},
         async: false,  
         success:function(data) {
@@ -2171,6 +2172,20 @@ function db_updateMrktMediaStatusByReqID(MrktRequestID, StatusID) {
         type:"POST",
         url:"php/db_updateMrktMediaStatusByReqID.php",
         data:{MrktRequestID:MrktRequestID, StatusID:StatusID},
+        async: false,  
+        success:function(data) {
+            Result = JSON.parse(data);
+        }
+    });
+    return Result;
+}
+
+function db_updateMrktMediaDueDateByReqID(MrktRequestID, DueDate) {
+    var Result = false;
+    $.ajax({
+        type:"POST",
+        url:"php/db_updateMrktMediaDueDateByReqID.php",
+        data:{MrktRequestID:MrktRequestID, DueDate:DueDate},
         async: false,  
         success:function(data) {
             Result = JSON.parse(data);
@@ -2365,12 +2380,12 @@ function db_updateMrktWebDateNeededByReqID(MrktRequestID, DateNeeded) {
     return Result;
 }
 
-function db_updateMrktVideoByReqID(MrktRequestID, AdminID, StatusID, ckb_vdo_filming_request, ckb_vdo_other) {
+function db_updateMrktVideoByReqID(MrktRequestID, AdminID, StatusID, DueDate, ckb_vdo_filming_request, ckb_vdo_other) {
     var Result = false;
     $.ajax({
         type:"POST",
         url:"php/db_updateMrktVideoByReqID.php",
-        data:{MrktRequestID:MrktRequestID, AdminID:AdminID, StatusID:StatusID, ckb_vdo_filming_request:ckb_vdo_filming_request, ckb_vdo_other:ckb_vdo_other},
+        data:{MrktRequestID:MrktRequestID, AdminID:AdminID, StatusID:StatusID, DueDate:DueDate, ckb_vdo_filming_request:ckb_vdo_filming_request, ckb_vdo_other:ckb_vdo_other},
         async: false,  
         success:function(data) {
             Result = JSON.parse(data);
@@ -2399,6 +2414,20 @@ function db_updateMrktVideoStatusByReqID(MrktRequestID, StatusID) {
         type:"POST",
         url:"php/db_updateMrktVideoStatusByReqID.php",
         data:{MrktRequestID:MrktRequestID, StatusID:StatusID},
+        async: false,  
+        success:function(data) {
+            Result = JSON.parse(data);
+        }
+    });
+    return Result;
+}
+
+function db_updateMrktVideoDueDateByReqID(MrktRequestID, DueDate) {
+    var Result = false;
+    $.ajax({
+        type:"POST",
+        url:"php/db_updateMrktVideoDueDateByReqID.php",
+        data:{MrktRequestID:MrktRequestID, DueDate:DueDate},
         async: false,  
         success:function(data) {
             Result = JSON.parse(data);
@@ -2463,12 +2492,13 @@ function db_updateMrktVideoOtherByReqID(MrktRequestID, Other) {
     return Result;
 }
 
-function db_updateMrktEditorialByReqID(MrktRequestID, AdminID, StatusID, ckb_edt_copywriting, CWDateNeeded, ckb_edt_proofreading, PRDateNeeded) {
+function db_updateMrktEditorialByReqID(MrktRequestID, AdminID, StatusID, DueDate, ckb_edt_copywriting, CWDateNeeded, ckb_edt_proofreading, PRDateNeeded) {
     var Result = false;
     $.ajax({
         type:"POST",
         url:"php/db_updateMrktEditorialByReqID.php",
-        data:{MrktRequestID:MrktRequestID, AdminID:AdminID, StatusID:StatusID, ckb_edt_copywriting:ckb_edt_copywriting, CWDateNeeded:CWDateNeeded, ckb_edt_proofreading:ckb_edt_proofreading, PRDateNeeded:PRDateNeeded},
+        data:{MrktRequestID:MrktRequestID, AdminID:AdminID, StatusID:StatusID, DueDate:DueDate, 
+                ckb_edt_copywriting:ckb_edt_copywriting, CWDateNeeded:CWDateNeeded, ckb_edt_proofreading:ckb_edt_proofreading, PRDateNeeded:PRDateNeeded},
         async: false,  
         success:function(data) {
             Result = JSON.parse(data);
@@ -2497,6 +2527,20 @@ function db_updateMrktEditorialStatusByReqID(MrktRequestID, StatusID) {
         type:"POST",
         url:"php/db_updateMrktEditorialStatusByReqID.php",
         data:{MrktRequestID:MrktRequestID, StatusID:StatusID},
+        async: false,  
+        success:function(data) {
+            Result = JSON.parse(data);
+        }
+    });
+    return Result;
+}
+
+function db_updateMrktEditorialDueDateByReqID(MrktRequestID, DueDate) {
+    var Result = false;
+    $.ajax({
+        type:"POST",
+        url:"php/db_updateMrktEditorialDueDateByReqID.php",
+        data:{MrktRequestID:MrktRequestID, DueDate:DueDate},
         async: false,  
         success:function(data) {
             Result = JSON.parse(data);

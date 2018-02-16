@@ -572,6 +572,26 @@
                                 <form class="form-horizontal" role="form">
                                     <fieldset>
                                         <legend><b>Select item(s) needed. Attach any content and/or supporting documents above.</b></legend>
+                                        <!-- social media due date -->
+                                        <div class="form-group">
+                                            <label for="mda_due_date" class="col-sm-4 control-label">Due Date:</label>
+                                            <div hidden id="edit_mda_due_date_section">
+                                                <div class="col-sm-5">
+                                                    <div class="input-group ivcmarkt_date_only_format" id="mda_due_date_edit">
+                                                        <input class="form-control" type="text" readonly/>
+                                                        <span class="input-group-addon ivcmrkt-bk-color-white" onmouseover style="cursor: pointer;"><i class="fa fa-calendar"></i></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <button class="col-sm-12 btn btn-success" id="btn_update_mda_due_date">Update</button>
+                                                </div>
+                                            </div>
+                                            <div hidden id="view_mda_due_date_section">
+                                                <div class="col-sm-7">
+                                                    <p class="form-control" id="mda_due_date_view"></p>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <!-- social media categories -->
                                         <div class="form-group">
                                             <div class="col-sm-4">
@@ -853,6 +873,26 @@
                                 <form class="form-horizontal" role="form">
                                     <fieldset>
                                         <legend><b>Select item(s) needed. Attach content and/or supporting documents above.</b></legend>
+                                        <!-- video due date -->
+                                        <div class="form-group">
+                                            <label for="vdo_due_date" class="col-sm-4 control-label">Due Date:</label>
+                                            <div hidden id="edit_vdo_due_date_section">
+                                                <div class="col-sm-5">
+                                                    <div class="input-group ivcmarkt_date_only_format" id="vdo_due_date_edit">
+                                                        <input class="form-control" type="text" readonly/>
+                                                        <span class="input-group-addon ivcmrkt-bk-color-white" onmouseover style="cursor: pointer;"><i class="fa fa-calendar"></i></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <button class="col-sm-12 btn btn-success" id="btn_update_vdo_due_date">Update</button>
+                                                </div>
+                                            </div>
+                                            <div hidden id="view_vdo_due_date_section">
+                                                <div class="col-sm-7">
+                                                    <p class="form-control" id="vdo_due_date_view"></p>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <div class="form-group">
                                             <div class="col-sm-4">
                                                 <div class="col-sm-12">
@@ -960,7 +1000,27 @@
                             <div class="widget-body">
                                 <form class="form-horizontal" role="form">
                                     <fieldset>
-                                        <legend><b>Select item(s) needed. Attach content and/or supporting documents above.</b></legend>                                        
+                                        <legend><b>Select item(s) needed. Attach content and/or supporting documents above.</b></legend>
+                                        <!-- editorial due date -->
+                                        <div class="form-group">
+                                            <label for="edt_due_date" class="col-sm-4 control-label">Due Date:</label>
+                                            <div hidden id="edit_edt_due_date_section">
+                                                <div class="col-sm-5">
+                                                    <div class="input-group ivcmarkt_date_only_format" id="edt_due_date_edit">
+                                                        <input class="form-control" type="text" readonly/>
+                                                        <span class="input-group-addon ivcmrkt-bk-color-white" onmouseover style="cursor: pointer;"><i class="fa fa-calendar"></i></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <button class="col-sm-12 btn btn-success" id="btn_update_edt_due_date">Update</button>
+                                                </div>
+                                            </div>
+                                            <div hidden id="view_edt_due_date_section">
+                                                <div class="col-sm-7">
+                                                    <p class="form-control" id="edt_due_date_view"></p>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <div class="form-group">
                                             <div class="col-sm-4 control-label">
                                                 <span id="ckb_edt_copywriting"></span>&nbsp;&nbsp;
@@ -1528,9 +1588,9 @@
         <script src="../include/iCheck/icheck.min.js"></script>
         <script src="../include/fancyBox-2.1.5/source/jquery.fancybox.pack.js"></script>
         <!-- application javascript -->
-        <script src="js/mrktPrintView.js?v=1.0.7"></script>
+        <script src="js/mrktPrintView.js?v=1.0.8"></script>
         <script src="js/session_data.js?v=1.0.1"></script>
-        <script src="js/db_access.js?v=1.0.2"></script>
+        <script src="js/db_access.js?v=1.0.3"></script>
         <script src="js/sendEmail.js?v=1.0.0"></script>
     </body>
 </html>

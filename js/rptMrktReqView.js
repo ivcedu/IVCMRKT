@@ -163,7 +163,9 @@ $(document).ready(function() {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     // jquery datatables initialize ////////////////////////////////////////////
-    m_table = $('#tbl_process_log_list').DataTable({ paging: false, bInfo: false, searching: false, bSort: false });
+    m_table = $('#tbl_process_log_list').DataTable({ paging: false, bInfo: false, searching: false, bSort: false,
+                                                        columnDefs: [{ render: function (data) { return data.replace(/\n/g, "<br/>"); }, targets: 3 }]
+                                                    });
 });
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -586,7 +588,9 @@ function getMrktMedia() {
     var result = new Array();
     result = db_getMrktMediaByReqID(mrkt_request_id);
     
-    if (result.length === 1) {        
+    if (result.length === 1) {
+        $('#mda_due_date').html(moment(result[0]['DueDate']).format('MM/DD/YYYY'));
+        
         if (result[0]['ckb_mda_collegewide_email'] === "1") {
             $("#ckb_mda_collegewide_email").append("<i class='ion-android-checkbox ivcmrkt-pos-neg-10' style='font-size: 28px;'></i>");            
             $('#mda_collegewide_email_section').show();
@@ -733,7 +737,9 @@ function getMrktVideo() {
     var result = new Array();
     result = db_getMrktVideoByReqID(mrkt_request_id);
     
-    if (result.length === 1) {        
+    if (result.length === 1) { 
+        $('#vdo_due_date').html(moment(result[0]['DueDate']).format('MM/DD/YYYY'));
+        
         if (result[0]['ckb_vdo_filming_request'] === "1") {
             $("#ckb_vdo_filming_request").append("<i class='ion-android-checkbox ivcmrkt-pos-neg-10' style='font-size: 28px;'></i>");
             $('#vdo_filming_request_section').show();
@@ -779,7 +785,9 @@ function getMrktEditorial() {
     var result = new Array();
     result = db_getMrktEditorialByReqID(mrkt_request_id);
     
-    if (result.length === 1) {        
+    if (result.length === 1) {   
+        $('#edt_due_date').html(moment(result[0]['DueDate']).format('MM/DD/YYYY'));
+        
         if (result[0]['ckb_edt_copywriting'] === "1") {
             $("#ckb_edt_copywriting").append("<i class='ion-android-checkbox ivcmrkt-pos-neg-10' style='font-size: 28px;'></i>");
             $('#edt_copywriting_date_needed').html(moment(result[0]['CWDateNeeded']).format('MM/DD/YYYY'));

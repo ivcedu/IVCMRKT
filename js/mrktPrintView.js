@@ -14,14 +14,17 @@ var mrkt_editorial_id = "";
 var pre_prt_date_need = "";
 var pre_pht_event_date = "";
 var pre_pht_event_time = "";
+var pre_mda_due_date = "";
 var pre_mda_monitor_start_date = "";
 var pre_mda_monitor_end_date = "";
 var pre_mda_college_entrance_start_date = "";
 var pre_mda_college_entrance_end_date = "";
 var pre_mda_soc_media_date = "";
 var pre_web_date_needed = "";
+var pre_vdo_due_date = "";
 var pre_vdo_filming_date = "";
 var pre_vdo_filming_time = "";
+var pre_edt_due_date = "";
 var pre_edt_copywriting_date_needed = "";
 var pre_edt_proofreading_date_needed = "";
 
@@ -69,7 +72,7 @@ $(document).ready(function() {
     autosize($('.autogrow'));
     
     // datepicker initialize ///////////////////////////////////////////////////
-    $('.ivcmarkt_date_only_format').datetimepicker({ format: 'MM/DD/YYYY', useCurrent: false, daysOfWeekDisabled: [0,6], ignoreReadonly: true }); 
+    $('.ivcmarkt_date_only_format').datetimepicker({ format: 'MM/DD/YYYY', useCurrent: false, /* daysOfWeekDisabled: [0,6], */ ignoreReadonly: true }); 
     $('.ivcmarkt_time_only_format').datetimepicker({ format: 'LT', ignoreReadonly: true }); 
     
     // iCheck initialize ///////////////////////////////////////////////////////
@@ -1273,6 +1276,21 @@ $(document).ready(function() {
         return false;
     });
     
+    // task social media monitor due date update click /////////////////////////
+    $('#btn_update_mda_due_date').click(function(e) {
+        e.preventDefault();
+        var new_mda_due_date = $('#mda_due_date_edit').find('input').val();
+        if (!updateMrktMediaDueDate(new_mda_due_date)) {
+            return false;
+        }
+        if (!insertTransaction("Social Media/Publicity Due Date updated from " + pre_mda_due_date + " to " + new_mda_due_date)) {
+            return false;
+        }
+        getTransactions();
+        swal("Updated!", "SOCIAL MEDIA/PUBLICITY Due Date updated", "success");
+        return false;
+    });
+    
     // task social media monitor start date update click ///////////////////////
     $('#btn_update_mda_monitor_start_date').click(function(e) {
         e.preventDefault();
@@ -1363,6 +1381,21 @@ $(document).ready(function() {
         return false;
     });
     
+    // task video due date update click ////////////////////////////////////////
+    $('#btn_update_vdo_due_date').click(function(e) {
+        e.preventDefault();
+        var new_vdo_due_date = $('#vdo_due_date_edit').find('input').val();
+        if (!updateMrktVideoDueDate(new_vdo_due_date)) {
+            return false;
+        }
+        if (!insertTransaction("VIDEO Due Date updated from " + pre_vdo_due_date + " to " + new_vdo_due_date)) {
+            return false;
+        }
+        getTransactions();
+        swal("Updated!", "VIDEO Due Date updated", "success");
+        return false;
+    });
+    
     // task video event date update click ///////////////////////////////////////
     $('#btn_update_vdo_filming_date').click(function(e) {
         e.preventDefault();
@@ -1390,6 +1423,21 @@ $(document).ready(function() {
         }
         getTransactions();
         swal("Updated!", "VIDEO Event Time updated", "success");
+        return false;
+    });
+    
+    // task editorial due date update click /////////////////////////////////////
+    $('#btn_update_edt_due_date').click(function(e) {
+        e.preventDefault();
+        var new_edt_due_date = $('#edt_due_date_edit').find('input').val();
+        if (!updateMrktEditorialDueDate(new_edt_due_date)) {
+            return false;
+        }
+        if (!insertTransaction("EDITORIAL Due Date updated from " + pre_edt_due_date + " to " + new_edt_due_date)) {
+            return false;
+        }
+        getTransactions();
+        swal("Updated!", "EDITORIAL Due Date updated", "success");
         return false;
     });
     
@@ -1455,7 +1503,9 @@ $(document).ready(function() {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     // jquery datatables initialize ////////////////////////////////////////////
-    m_table = $('#tbl_process_log_list').DataTable({ paging: false, bInfo: false, searching: false, bSort: false });
+    m_table = $('#tbl_process_log_list').DataTable({ paging: false, bInfo: false, searching: false, bSort: false,
+                                                        columnDefs: [{ render: function (data) { return data.replace(/\n/g, "<br/>"); }, targets: 3 }]
+                                                    });
 });
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -2101,15 +2151,25 @@ function getMrktMedia() {
     
     if (result.length === 1) {
         mrkt_media_id = result[0]['MrktMediaID'];
-        $('#media_task_staff_list').val(result[0]['AdminID']);
-        $('#task_media_status_list').val(result[0]['StatusID']);
-        getMrktMediaFileAttachment(result[0]['StatusID']);
-        
         var media_task_staff = false;
         if (m_admin_id === result[0]['AdminID']) {
             m_task_staff = true;
             media_task_staff = true;
             $('#task_media_status_section').show();
+        }
+        
+        $('#media_task_staff_list').val(result[0]['AdminID']);
+        $('#task_media_status_list').val(result[0]['StatusID']);
+        getMrktMediaFileAttachment(result[0]['StatusID']);
+        
+        if (m_admin_id === result[0]['AdminID'] || m_administrator) {
+            $('#mda_due_date_edit').data("DateTimePicker").date(moment(result[0]['DueDate']).format('MM/DD/YYYY'));
+            pre_mda_due_date = moment(result[0]['DueDate']).format('MM/DD/YYYY');
+            $('#edit_mda_due_date_section').show();
+        }
+        else {
+            $('#mda_due_date_view').html(moment(result[0]['DueDate']).format('MM/DD/YYYY'));
+            $('#view_mda_due_date_section').show();
         }
         
         if (result[0]['ckb_mda_collegewide_email'] === "1") {
@@ -2310,15 +2370,25 @@ function getMrktVideo() {
     
     if (result.length === 1) {
         mrkt_video_id = result[0]['MrktVideoID'];
-        $('#video_task_staff_list').val(result[0]['AdminID']);
-        $('#task_video_status_list').val(result[0]['StatusID']);
-        getMrktVideoFileAttachment(result[0]['StatusID']);
-        
         var video_task_staff = false;
         if (m_admin_id === result[0]['AdminID']) {
             m_task_staff = true;
             video_task_staff = true;
             $('#task_video_status_section').show();
+        }
+        
+        $('#video_task_staff_list').val(result[0]['AdminID']);
+        $('#task_video_status_list').val(result[0]['StatusID']);
+        getMrktVideoFileAttachment(result[0]['StatusID']);
+        
+        if (m_admin_id === result[0]['AdminID'] || m_administrator) {
+            $('#vdo_due_date_edit').data("DateTimePicker").date(moment(result[0]['DueDate']).format('MM/DD/YYYY'));
+            pre_vdo_due_date = moment(result[0]['DueDate']).format('MM/DD/YYYY');
+            $('#edit_vdo_due_date_section').show();
+        }
+        else {
+            $('#vdo_due_date_view').html(moment(result[0]['DueDate']).format('MM/DD/YYYY'));
+            $('#view_vdo_due_date_section').show();
         }
         
         if (result[0]['ckb_vdo_filming_request'] === "1") {
@@ -2393,6 +2463,13 @@ function getMrktEditorial() {
         var editorial_task_staff = false;
         if (m_admin_id === result[0]['AdminID'] || m_administrator) {
             editorial_task_staff = true;
+            $('#edt_due_date_edit').data("DateTimePicker").date(moment(result[0]['DueDate']).format('MM/DD/YYYY'));
+            pre_edt_due_date = moment(result[0]['DueDate']).format('MM/DD/YYYY');
+            $('#edit_edt_due_date_section').show();
+        }
+        else {
+            $('#edt_due_date_view').html(moment(result[0]['DueDate']).format('MM/DD/YYYY'));
+            $('#view_edt_due_date_section').show();
         }
         
         if (result[0]['ckb_edt_copywriting'] === "1") {
@@ -3518,6 +3595,16 @@ function updateMrktPhotoEventTime(pht_event_time) {
     }
 }
 
+function updateMrktMediaDueDate(mda_due_date) {
+    if (!db_updateMrktMediaDueDateByReqID(mrkt_request_id, mda_due_date)) {
+        var str_msg = "DB system error UPDATE MRKT_MEDIA DUE_DATE: MrktRequestID: " + mrkt_request_id + " - DueDate: " + mda_due_date;
+        return dbSystemErrorHandling(str_msg);
+    }
+    else {
+        return true;
+    }
+}
+
 function updateMrktMediaMonitorStartDate(mda_monitor_start_date) {
     if (!db_updateMrktMediaMonitorStartDateByReqID(mrkt_request_id, mda_monitor_start_date)) {
         var str_msg = "DB system error UPDATE MRKT_MEDIA_MONITOR START_DATE: MrktRequestID: " + mrkt_request_id + " - StartDate: " + mda_monitor_start_date;
@@ -3578,6 +3665,16 @@ function updateMrktWebDateNeeded(web_date_needed) {
     }
 }
 
+function updateMrktVideoDueDate(vdo_due_date) {
+    if (!db_updateMrktVideoDueDateByReqID(mrkt_request_id, vdo_due_date)) {
+        var str_msg = "DB system error UPDATE MRKT_VIDEO DUE_DATE: MrktRequestID: " + mrkt_request_id + " - DueDate: " + vdo_due_date;
+        return dbSystemErrorHandling(str_msg);
+    }
+    else {
+        return true;
+    }
+}
+
 function updateMrktVideoFilmingEventDate(vdo_filming_date) {
     if (!db_updateMrktVideoFilmingEventDateByReqID(mrkt_request_id, vdo_filming_date)) {
         var str_msg = "DB system error UPDATE MRKT_VIDEO_FILMING EVENT_DATE: MrktRequestID: " + mrkt_request_id + " - EventDate: " + vdo_filming_date;
@@ -3591,6 +3688,16 @@ function updateMrktVideoFilmingEventDate(vdo_filming_date) {
 function updateMrktVideoFilmingEventTime(vdo_filming_time) {
     if (!db_updateMrktVideoFilmingEventTimeByReqID(mrkt_request_id, vdo_filming_time)) {
         var str_msg = "DB system error UPDATE MRKT_VIDEO_FILMING EVENT_TIME: MrktRequestID: " + mrkt_request_id + " - EventTime: " + vdo_filming_time;
+        return dbSystemErrorHandling(str_msg);
+    }
+    else {
+        return true;
+    }
+}
+
+function updateMrktEditorialDueDate(edt_due_date) {
+    if (!db_updateMrktEditorialDueDateByReqID(mrkt_request_id, edt_due_date)) {
+        var str_msg = "DB system error UPDATE MRKT_EDITORIAL DUE_DATE: MrktRequestID: " + mrkt_request_id + " - DueDate: " + edt_due_date;
         return dbSystemErrorHandling(str_msg);
     }
     else {

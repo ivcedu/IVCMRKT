@@ -41,7 +41,7 @@ $(document).ready(function() {
     autosize($('.autogrow'));
     
     // datepicker initialize ///////////////////////////////////////////////////
-    $('.ivcmarkt_date_only_format').datetimepicker({ format: 'MM/DD/YYYY', minDate: moment().add(14, 'days').hour(0).minute(0).second(0).millisecond(0), daysOfWeekDisabled: [0,6], ignoreReadonly: true });
+    $('.ivcmarkt_date_only_format').datetimepicker({ format: 'MM/DD/YYYY', minDate: moment().add(14, 'days').hour(0).minute(0).second(0).millisecond(0), /* daysOfWeekDisabled: [0,6], */ ignoreReadonly: true });
     $('.ivcmarkt_time_only_format').datetimepicker({ format: 'LT', ignoreReadonly: true });
     
     // iCheck initialize ///////////////////////////////////////////////////////
@@ -150,6 +150,7 @@ $(document).ready(function() {
     });
 
     $('#ckb_main_media').on('ifChanged', function() {
+        $('#mda_due_date').data("DateTimePicker").date(null);
         if ($('#ckb_main_media').is(':checked')) {
             $('#main_media_section').show();
         }
@@ -171,6 +172,7 @@ $(document).ready(function() {
     });
 
     $('#ckb_main_video').on('ifChanged', function() {
+        $('#vdo_due_date').data("DateTimePicker").date(null);
         if ($('#ckb_main_video').is(':checked')) {
             $('#main_video_section').show();
         }
@@ -181,6 +183,7 @@ $(document).ready(function() {
     });
 
     $('#ckb_main_editorial').on('ifChanged', function() {
+        $('#edt_due_date').data("DateTimePicker").date(null);
         if ($('#ckb_main_editorial').is(':checked')) {
             $('#edt_copywriting_date_needed').data("DateTimePicker").disable();
             $('#edt_copywriting_icon').removeClass('ivcmrkt-bk-color-white');
@@ -986,6 +989,10 @@ function taskPhotoValidation() {
 }
 
 function taskMediaValidation() {
+    if ($('#mda_due_date').find('input').val() === "") {
+        swal({title: "Error", text: "Social Media/Publicity due date is a required field", type: "error"});
+        return false;
+    }
     if (!$('#ckb_mda_collegewide_email').is(':checked') && !$('#ckb_mda_sherpa_email').is(':checked') && !$('#ckb_mda_monitor').is(':checked')
         && !$('#ckb_mda_social_media').is(':checked') && !$('#ckb_mda_college_entrance').is(':checked')) {
         swal({title: "Error", text: "Please select at least one Social Media/Publicity request category", type: "error"});
@@ -1081,6 +1088,10 @@ function taskWebValidation() {
 }
 
 function taskVideoValidation() {
+    if ($('#vdo_due_date').find('input').val() === "") {
+        swal({title: "Error", text: "Video due date is a required field", type: "error"});
+        return false;
+    }
     if (!$('#ckb_vdo_filming_request').is(':checked') && !$('#ckb_vdo_other').is(':checked')) {
         swal({title: "Error", text: "Please select at least one Video request category", type: "error"});
         return false;
@@ -1131,6 +1142,10 @@ function taskVideoOtherValidation() {
 }
 
 function taskEditorialValidation() {
+    if ($('#edt_due_date').find('input').val() === "") {
+        swal({title: "Error", text: "Editorial Services due date is a required field", type: "error"});
+        return false;
+    }
     if (!$('#ckb_edt_copywriting').is(':checked') && !$('#ckb_edt_proofreading').is(':checked')) {
         swal({title: "Error", text: "Please select at least one Editorial Services category", type: "error"});
         return false;
@@ -1415,6 +1430,8 @@ function getMrktMedia() {
     result = db_getMrktMediaByReqID(mrkt_request_id);
     
     if (result.length === 1) {
+        $('#mda_due_date').data("DateTimePicker").date(moment(result[0]['DueDate']).format('MM/DD/YYYY'));
+        
         if (result[0]['ckb_mda_collegewide_email'] === "1") {
             $('#ckb_mda_collegewide_email').iCheck('check');
             $('#mda_collegewide_email_section').show();
@@ -1522,6 +1539,8 @@ function getMrktVideo() {
     result = db_getMrktVideoByReqID(mrkt_request_id);
     
     if (result.length === 1) {
+        $('#vdo_due_date').data("DateTimePicker").date(moment(result[0]['DueDate']).format('MM/DD/YYYY'));
+        
         if (result[0]['ckb_vdo_filming_request'] === "1") {
             $('#ckb_vdo_filming_request').iCheck('check');
             $('#vdo_filming_request_section').show();
@@ -1562,6 +1581,8 @@ function getMrktEditorial() {
     result = db_getMrktEditorialByReqID(mrkt_request_id);
     
     if (result.length === 1) {
+        $('#edt_due_date').data("DateTimePicker").date(moment(result[0]['DueDate']).format('MM/DD/YYYY'));
+        
         if (result[0]['ckb_edt_copywriting'] === "1") {
             $('#ckb_edt_copywriting').iCheck('check');
             $('#edt_copywriting_date_needed').data("DateTimePicker").date(moment(result[0]['CWDateNeeded']).format('MM/DD/YYYY'));
@@ -2133,6 +2154,7 @@ function insertMrktPhoto(status_id) {
 }
 
 function insertMrktMedia(status_id) {
+    var mda_due_date = $('#mda_due_date').find('input').val();
     var ckb_mda_collegewide_email = ($('#ckb_mda_collegewide_email').is(':checked') ? true : false);
     var ckb_mda_sherpa_email = ($('#ckb_mda_sherpa_email').is(':checked') ? true : false);
     var ckb_mda_monitor = ($('#ckb_mda_monitor').is(':checked') ? true : false);
@@ -2145,13 +2167,13 @@ function insertMrktMedia(status_id) {
     
     if (result.length === 1) {
         mrkt_media_id = result[0]['MrktMediaID'];
-        if (!db_updateMrktMediaByReqID(mrkt_request_id, 0, status_id, ckb_mda_collegewide_email, ckb_mda_sherpa_email, ckb_mda_monitor, ckb_mda_social_media, ckb_mda_college_entrance)) {
+        if (!db_updateMrktMediaByReqID(mrkt_request_id, 0, status_id, mda_due_date, ckb_mda_collegewide_email, ckb_mda_sherpa_email, ckb_mda_monitor, ckb_mda_social_media, ckb_mda_college_entrance)) {
             var str_msg = "DB system error UPDATE MRKT_MEDIA - MrktRequestID: " + mrkt_request_id;
             return dbSystemErrorHandling(str_msg);
         }
     }
     else {
-        mrkt_media_id = db_insertMrktMedia(mrkt_request_id, 0, status_id, ckb_mda_collegewide_email, ckb_mda_sherpa_email, ckb_mda_monitor, ckb_mda_social_media, ckb_mda_college_entrance);
+        mrkt_media_id = db_insertMrktMedia(mrkt_request_id, 0, status_id, mda_due_date, ckb_mda_collegewide_email, ckb_mda_sherpa_email, ckb_mda_monitor, ckb_mda_social_media, ckb_mda_college_entrance);
         if (mrkt_media_id === "") {
             var str_msg = "DB system error INSERT MRKT_MEDIA";
             return dbSystemErrorHandling(str_msg);
@@ -2353,6 +2375,7 @@ function insertMrktWeb(status_id) {
 }
 
 function insertMrktVideo(status_id) {
+    var vdo_due_date = $('#vdo_due_date').find('input').val();
     var ckb_vdo_filming_request = ($('#ckb_vdo_filming_request').is(':checked') ? true : false);
     var ckb_vdo_other = ($('#ckb_vdo_other').is(':checked') ? true : false);
     
@@ -2362,13 +2385,13 @@ function insertMrktVideo(status_id) {
     
     if (result.length === 1) {
         mrkt_video_id = result[0]['MrktVideoID'];
-        if (!db_updateMrktVideoByReqID(mrkt_request_id, 0, status_id, ckb_vdo_filming_request, ckb_vdo_other)) {
+        if (!db_updateMrktVideoByReqID(mrkt_request_id, 0, status_id, vdo_due_date, ckb_vdo_filming_request, ckb_vdo_other)) {
             var str_msg = "DB system error UPDATE MRKT_VIDEO - MrktRequestID: " + mrkt_request_id;
             return dbSystemErrorHandling(str_msg);
         }
     }
     else {
-        var mrkt_video_id = db_insertMrktVideo(mrkt_request_id, 0, status_id, ckb_vdo_filming_request, ckb_vdo_other);
+        var mrkt_video_id = db_insertMrktVideo(mrkt_request_id, 0, status_id, vdo_due_date, ckb_vdo_filming_request, ckb_vdo_other);
         if (mrkt_video_id === "") {
             var str_msg = "DB system error INSERT MRKT_VIDEO";
             return dbSystemErrorHandling(str_msg);
@@ -2448,6 +2471,7 @@ function insertMrktVideoOther(mrkt_video_id) {
 }
 
 function insertMrktEditorial(status_id) {
+    var edt_due_date = $('#edt_due_date').find('input').val();
     var ckb_edt_copywriting = ($('#ckb_edt_copywriting').is(':checked') ? true : false);
     var ckb_edt_proofreading = ($('#ckb_edt_proofreading').is(':checked') ? true : false);
     
@@ -2464,13 +2488,13 @@ function insertMrktEditorial(status_id) {
     var result = new Array();
     result = db_getMrktEditorialByReqID(mrkt_request_id);
     if (result.length === 1) {
-        if (!db_updateMrktEditorialByReqID(mrkt_request_id, 0, status_id, ckb_edt_copywriting, edt_copywriting_date_needed, ckb_edt_proofreading, edt_proofreading_date_needed)) {
+        if (!db_updateMrktEditorialByReqID(mrkt_request_id, 0, status_id, edt_due_date, ckb_edt_copywriting, edt_copywriting_date_needed, ckb_edt_proofreading, edt_proofreading_date_needed)) {
             var str_msg = "DB system error UPDATE MRKT_EDITORIAL - MrktRequestID: " + mrkt_request_id;
             return dbSystemErrorHandling(str_msg);
         }
     }
     else {
-        if (db_insertMrktEditorial(mrkt_request_id, 0, status_id, ckb_edt_copywriting, edt_copywriting_date_needed, ckb_edt_proofreading, edt_proofreading_date_needed) === "") {
+        if (db_insertMrktEditorial(mrkt_request_id, 0, status_id, edt_due_date, ckb_edt_copywriting, edt_copywriting_date_needed, ckb_edt_proofreading, edt_proofreading_date_needed) === "") {
             var str_msg = "DB system error INSERT MRKT_EDITORIAL";
             return dbSystemErrorHandling(str_msg);
         }

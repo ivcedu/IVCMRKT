@@ -143,7 +143,7 @@ $(document).ready(function() {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     // jquery datatables initialize ////////////////////////////////////////////
-    m_table = $('#tbl_my_history_list').DataTable({ paging: false, bInfo: false,
+    m_table = $('#tbl_my_history_list').DataTable({ paging: false, bInfo: false, order:[[0, 'desc']],
                                                     dom: "<'row'<'col-sm-4'l><'col-sm-4 text-center'B><'col-sm-4'f>>tp",
                                                     "lengthMenu": [ [10, 25, 50, -1], [10, 25, 50, "All"] ],
                                                     buttons: [  {extend: 'copy',className: 'btn-sm'},
