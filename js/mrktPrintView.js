@@ -3239,7 +3239,12 @@ function updateMrktEditorialAdmin(admin_id) {
     }
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-function updateMrktPrintStatus(status_id) {
+function updateMrktPrintStatus(status_id) {    
+    if ($('#print_task_staff_list').val() === "0") {
+        swal({title: "Error", text: "Please select and update Print/Graphics task staff first", type: "error"});
+        $('#task_print_status_list').val("0");
+        return false;
+    }
     if (!db_updateMrktPrintStatusByReqID(mrkt_request_id, status_id)) {
         var str_msg = "DB system error UPDATE MRKT_PRINT:StatusID - MrktRequestID: " + mrkt_request_id + " - StatusID: " + status_id;
         return dbSystemErrorHandling(str_msg);
@@ -3250,6 +3255,11 @@ function updateMrktPrintStatus(status_id) {
 }
 
 function updateMrktPhotoStatus(status_id) {
+    if ($('#photo_task_staff_list').val() === "0") {
+        swal({title: "Error", text: "Please select and update Photography task staff first", type: "error"});
+        $('#task_photo_status_list').val("0");
+        return false;
+    }
     if (!db_updateMrktPhotoStatusByReqID(mrkt_request_id, status_id)) {
         var str_msg = "DB system error UPDATE MRKT_PHOTO:StatusID - MrktRequestID: " + mrkt_request_id + " - StatusID: " + status_id;
         return dbSystemErrorHandling(str_msg);
@@ -3260,6 +3270,11 @@ function updateMrktPhotoStatus(status_id) {
 }
 
 function updateMrktMediaStatus(status_id) {
+    if ($('#media_task_staff_list').val() === "0") {
+        swal({title: "Error", text: "Please select and update Social Media/Publicity task staff first", type: "error"});
+        $('#task_media_status_list').val("0");
+        return false;
+    }
     if (!db_updateMrktMediaStatusByReqID(mrkt_request_id, status_id)) {
         var str_msg = "DB system error UPDATE MRKT_MEDIA:StatusID - MrktRequestID: " + mrkt_request_id + " - StatusID: " + status_id;
         return dbSystemErrorHandling(str_msg);
@@ -3270,6 +3285,11 @@ function updateMrktMediaStatus(status_id) {
 }
 
 function updateMrktWebStatus(status_id) {
+    if ($('#web_task_staff_list').val() === "0") {
+        swal({title: "Error", text: "Please select and update Web Services task staff first", type: "error"});
+        $('#task_web_status_list').val("0");
+        return false;
+    }
     if (!db_updateMrktWebStatusByReqID(mrkt_request_id, status_id)) {
         var str_msg = "DB system error UPDATE MRKT_WEB:StatusID - MrktRequestID: " + mrkt_request_id + " - StatusID: " + status_id;
         return dbSystemErrorHandling(str_msg);
@@ -3280,6 +3300,11 @@ function updateMrktWebStatus(status_id) {
 }
 
 function updateMrktVideoStatus(status_id) {
+    if ($('#video_task_staff_list').val() === "0") {
+        swal({title: "Error", text: "Please select and update Video task staff first", type: "error"});
+        $('#task_video_status_list').val("0");
+        return false;
+    }
     if (!db_updateMrktVideoStatusByReqID(mrkt_request_id, status_id)) {
         var str_msg = "DB system error UPDATE MRKT_VIDEO:StatusID - MrktRequestID: " + mrkt_request_id + " - StatusID: " + status_id;
         return dbSystemErrorHandling(str_msg);
@@ -3290,6 +3315,11 @@ function updateMrktVideoStatus(status_id) {
 }
 
 function updateMrktEditorialStatus(status_id) {
+    if ($('#editorial_task_staff_list').val() === "0") {
+        swal({title: "Error", text: "Please select and update Editorial Services task staff first", type: "error"});
+        $('#task_editorial_status_list').val("0");
+        return false;
+    }
     if (!db_updateMrktEditorialStatusByReqID(mrkt_request_id, status_id)) {
         var str_msg = "DB system error UPDATE MRKT_EDITORIAL:StatusID - MrktRequestID: " + mrkt_request_id + " - StatusID: " + status_id;
         return dbSystemErrorHandling(str_msg);
