@@ -2,28 +2,30 @@ var m_previous_url = "";
 var mrkt_request_id = "";
 var rpt_option_id = "";
 var m_table;
+
+var m_obj_User;
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 window.onload = function() {
-    if (sessionStorage.key(0) !== null) {
-        isLoginAdmin();
-        getLoginInfo();
-        setActiveNavMenu();
-        
-        if(!getMrktRequestID()) {
-            window.open('home.html', '_self');
-            return false;
-        }
-        else {
-            getMrktRequest();
-            getMrktTask();
-            getMrktProcessLog();
-            getTransactions();
-        }
-    }
-    else {
+    if (sessionStorage.key(0) === null) {
         window.open('login.html', '_self');
         return false;
     }
+    if(!getMrktRequestID()) {
+        window.open('home.html', '_self');
+        return false;
+    }
+    
+    getLoginInfo();
+    m_obj_User =  new userRole.isActiveMRKTStaff();
+    if (typeof m_obj_User.AdminID !== 'undefined') {
+        setUserAccessView();
+    }
+    setActiveNavMenu();
+    
+    getMrktRequest();
+    getMrktTask();
+    getMrktProcessLog();
+    getTransactions();
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -178,27 +180,30 @@ function capture() {
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-function isLoginAdmin() {
-    var result = new Array();
-    result = db_getAdminByEmail(sessionStorage.getItem('ss_mrkt_loginEmail'));
-    
-    if (result.length === 1 && result[0]['Active'] === "1") {
-        $('.rpt_mrkt_staff').show();
-        $('#nav_sidebar_mrkt_staff').show();
-        if (result[0]['AdminPrivilegeID'] === "1" || result[0]['AdminPrivilegeID'] === "2") {
-            $('#nav_sidebar_system').show();
-            if (result[0]['AdminPrivilegeID'] === "1") {
-                $('#nav_sidebar_sys_access_level').show();
-                $('#nav_sidebar_sys_task').show();
-            }
-        }
-    }
-}
-
 function getLoginInfo() {    
     $('#login_user').html("<b>" + sessionStorage.getItem('ss_mrkt_loginName') + "</b> ");
     setNewRequestCount();
     rpt_option_id = sessionStorage.getItem('ss_rpt_option_id');
+}
+
+function setUserAccessView() {
+    var privilege = userRole.getActiveAdminPrivilege(m_obj_User.AdminPrivilegeID);
+    if (privilege === "Master") {
+        $('.rpt_mrkt_staff').show();
+        $('#nav_sidebar_mrkt_staff').show();
+        $('#nav_sidebar_system').show();
+        $('#nav_sidebar_sys_access_level').show();
+        $('#nav_sidebar_sys_task').show();
+    }
+    else if (privilege === "Administrator") {
+        $('.rpt_mrkt_staff').show();
+        $('#nav_sidebar_mrkt_staff').show();
+        $('#nav_sidebar_system').show();
+    }
+    else if (privilege === "Staff") {
+        $('.rpt_mrkt_staff').show();
+        $('#nav_sidebar_mrkt_staff').show();
+    }
 }
 
 function setNewRequestCount() {
@@ -303,11 +308,11 @@ function getMrktAttachment() {
 
 function setMrktAttachmentHTML(mrkt_attachment_id, file_name) {
     var str_html = "<div class='form-group' id='mrkt_attachment_id_" + mrkt_attachment_id + "'>";
-    str_html += "<div class='col-sm-5 col-sm-offset-4'>";
+    str_html += "<div class='col-sm-6 col-sm-offset-4'>";
     str_html += "<p class='form-control ivcmrkt-text-area-view'>" + file_name + "</p>";
     str_html += "</div>";
-    str_html += "<div class='col-sm-2'>";
-    str_html += "<button class='col-sm-12 btn btn-info' id='btn_file_download_" + mrkt_attachment_id + "'>Download</button>";
+    str_html += "<div class='col-sm-1'>";
+    str_html += "<button class='col-sm-12 btn btn-info' id='btn_file_download_" + mrkt_attachment_id + "'><i class='iconic iconic-sm iconic-data-transfer-download'></i></button>";
     str_html += "</div>";
     str_html += "</div>";
     return str_html;

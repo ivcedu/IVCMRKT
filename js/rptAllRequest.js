@@ -1,18 +1,25 @@
 var rpt_option_id = "";
 var m_table;
+
+var m_obj_User;
 ////////////////////////////////////////////////////////////////////////////////
 window.onload = function() {
-    if (sessionStorage.key(0) !== null && isLoginAdmin()) {
-        sessionStorage.setItem('ss_mrkt_referrer', "rptAllRequest.html");
-        getLoginInfo();
-        setActiveNavMenu();
-        getDefaultStartEndDate();
-        getRptAllRequestList();
-    }
-    else {
+    if (sessionStorage.key(0) === null) {
         window.open('login.html', '_self');
         return false;
     }
+    m_obj_User =  new userRole.isActiveMRKTStaff();
+    if (typeof m_obj_User.AdminID === 'undefined' || !getAdminAccessLevel()) {
+        sessionStorage.clear();
+        window.open('login.html', '_self');
+        return false;
+    }
+    
+    sessionStorage.setItem('ss_mrkt_referrer', "rptAllRequest.html");
+    getLoginInfo();
+    setActiveNavMenu();
+    getDefaultStartEndDate();
+    getRptAllRequestList();
 };
 ////////////////////////////////////////////////////////////////////////////////
 $(document).ready(function() {
@@ -162,23 +169,23 @@ function capture() {
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-function isLoginAdmin() {
-    var result = new Array();
-    result = db_getAdminByEmail(sessionStorage.getItem('ss_mrkt_loginEmail'));
-    
-    if (result.length === 1 && result[0]['Active'] === "1") {
-        if (result[0]['AdminPrivilegeID'] === "1" || result[0]['AdminPrivilegeID'] === "2") {
-            $('#nav_sidebar_system').show();
-            if (result[0]['AdminPrivilegeID'] === "1") {
-                $('#nav_sidebar_sys_access_level').show();
-                $('#nav_sidebar_sys_task').show();
-            }
-        }
+function getAdminAccessLevel() {
+    var privilege = userRole.getActiveAdminPrivilege(m_obj_User.AdminPrivilegeID);
+    if (privilege === "Master") {
+        $('#nav_sidebar_system').show();
+        $('#nav_sidebar_sys_access_level').show();
+        $('#nav_sidebar_sys_task').show();
         return true;
     }
-    else {
-        return false;
+    if (privilege === "Administrator") {
+        $('#nav_sidebar_system').show();
+        return true;
     }
+    if (privilege === "Staff") {
+        return true;
+    }
+
+    return false;
 }
 
 function getLoginInfo() {

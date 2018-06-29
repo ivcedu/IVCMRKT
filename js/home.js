@@ -2,16 +2,15 @@ var str_img = "";
 var m_table;
 ////////////////////////////////////////////////////////////////////////////////
 window.onload = function() {
-    if (sessionStorage.key(0) !== null) {        
-        sessionStorage.setItem('ss_mrkt_referrer', "home.html");
-        isLoginAdmin();
-        getLoginInfo();
-        getMyRequestList();
-    }
-    else {
+    if (sessionStorage.key(0) === null) {
         window.open('login.html', '_self');
         return false;
     }
+    
+    sessionStorage.setItem('ss_mrkt_referrer', "home.html");
+    isLoginAdmin();
+    getLoginInfo();
+    getMyRequestList();
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -1,22 +1,25 @@
 var m_new_request;
 var mrkt_request_id = "";
+
+var m_obj_User;
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 window.onload = function() {
-    if (sessionStorage.key(0) !== null) {        
-        isLoginAdmin();
-        getLoginInfo();
-        
-        if(getMrktRequestID()) {
-            getMrktRequest();
-            getMrktTask();
-        }
-        else {
-            setLoginUserInfo();
-        }
-    }
-    else {
+    if (sessionStorage.key(0) === null) {
         window.open('login.html', '_self');
         return false;
+    }
+    
+    getLoginInfo();
+    m_obj_User =  new userRole.isActiveMRKTStaff();
+    if (typeof m_obj_User.AdminID !== 'undefined') {
+        setUserAccessView();
+    }
+    if(getMrktRequestID()) {
+        getMrktRequest();
+        getMrktTask();
+    }
+    else {
+        setLoginUserInfo();
     }
 };
 
@@ -50,7 +53,10 @@ $(document).ready(function() {
         radioClass: 'iradio_square-green',
         increaseArea: '-10%' // optional
     });
-
+    
+    // jQuery form validator initialize ////////////////////////////////////////
+    $.validate();
+    
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // logout button click /////////////////////////////////////////////////////
@@ -134,6 +140,7 @@ $(document).ready(function() {
         else {
             $('#main_print_section').hide();
         }
+        $('#main_form_validation').isValid();
         return false;
     });
 
@@ -146,6 +153,7 @@ $(document).ready(function() {
         else {
             $('#main_photo_section').hide();
         }
+        $('#main_form_validation').isValid();
         return false;
     });
 
@@ -157,6 +165,7 @@ $(document).ready(function() {
         else {
             $('#main_media_section').hide();
         }
+        $('#main_form_validation').isValid();
         return false;
     });
 
@@ -168,6 +177,7 @@ $(document).ready(function() {
         else {
             $('#main_web_section').hide();
         }
+        $('#main_form_validation').isValid();
         return false;
     });
 
@@ -179,6 +189,7 @@ $(document).ready(function() {
         else {
             $('#main_video_section').hide();
         }
+        $('#main_form_validation').isValid();
         return false;
     });
 
@@ -200,132 +211,213 @@ $(document).ready(function() {
             $('#ckb_edt_proofreading').iCheck('uncheck');
             $('#main_editorial_section').hide();
         }
+        $('#main_form_validation').isValid();
         return false;
     });
     
     // print categories checkbox click event ///////////////////////////////////
     $('#ckb_prt_ad').on('ifChanged', function() {
+        var tempScrollTop = $(window).scrollTop();
         if ($('#ckb_prt_ad').is(':checked')) {
             $('#prt_ad_section').show();
         }
         else {
             $('#prt_ad_section').hide();
         }
+        $('#print_form_validation').isValid();
+        $(window).scrollTop(tempScrollTop);
         return false;
     });
     
     $('#ckb_prt_brochure').on('ifChanged', function() {
+        var tempScrollTop = $(window).scrollTop();
         if ($('#ckb_prt_brochure').is(':checked')) {
             $('#prt_brochure_section').show();
         }
         else {
             $('#prt_brochure_section').hide();
         }
+        $('#print_form_validation').isValid();
+        $(window).scrollTop(tempScrollTop);
         return false;
     });
     
     $('#ckb_prt_banner').on('ifChanged', function() {
+        var tempScrollTop = $(window).scrollTop();
         if ($('#ckb_prt_banner').is(':checked')) {
             $('#prt_banner_section').show();
         }
         else {
             $('#prt_banner_section').hide();
         }
+        $('#print_form_validation').isValid();
+        $(window).scrollTop(tempScrollTop);
         return false;
     });
     
     $('#ckb_prt_flyer').on('ifChanged', function() {
+        var tempScrollTop = $(window).scrollTop();
         if ($('#ckb_prt_flyer').is(':checked')) {
             $('#prt_flyer_section').show();
         }
         else {
             $('#prt_flyer_section').hide();
         }
+        $('#print_form_validation').isValid();
+        $(window).scrollTop(tempScrollTop);
         return false;
     });
     
     $('#ckb_prt_certificate').on('ifChanged', function() {
+        var tempScrollTop = $(window).scrollTop();
         if ($('#ckb_prt_certificate').is(':checked')) {
             $('#prt_certificate_section').show();
         }
         else {
             $('#prt_certificate_section').hide();
         }
+        $('#print_form_validation').isValid();
+        $(window).scrollTop(tempScrollTop);
         return false;
     });
     
     $('#ckb_prt_postcard').on('ifChanged', function() {
+        var tempScrollTop = $(window).scrollTop();
         if ($('#ckb_prt_postcard').is(':checked')) {
             $('#prt_postcard_section').show();
         }
         else {
             $('#prt_postcard_section').hide();
         }
+        $('#print_form_validation').isValid();
+        $(window).scrollTop(tempScrollTop);
         return false;
     });
     
+    ////////////////////////////////////////////////////////////////////////////
     $('#ckb_prt_poster').on('ifChanged', function() {
+        var tempScrollTop = $(window).scrollTop();
         if ($('#ckb_prt_poster').is(':checked')) {
             $('#prt_poster_section').show();
         }
         else {
             $('#prt_poster_section').hide();
         }
+        $('#print_form_validation').isValid();
+        $(window).scrollTop(tempScrollTop);
         return false;
     });
     
+    $('#ckb_prt_pst_11_17').on('ifChanged', function() {
+        var tempScrollTop = $(window).scrollTop();
+        if ($('#ckb_prt_pst_11_17').is(':checked')) {
+            $('#prt_pst_11_17_qty').attr('data-validation', 'number');
+        }
+        else {
+            $('#prt_pst_11_17_qty').attr('data-validation', '');
+        }
+        $('#print_form_validation').isValid();
+        $(window).scrollTop(tempScrollTop);
+        return false;
+    });
+    
+    $('#ckb_prt_pst_22_28').on('ifChanged', function() {
+        var tempScrollTop = $(window).scrollTop();
+        if ($('#ckb_prt_pst_22_28').is(':checked')) {
+            $('#prt_pst_22_28_qty').attr('data-validation', 'number');
+        }
+        else {
+            $('#prt_pst_22_28_qty').attr('data-validation', '');
+        }
+        $('#print_form_validation').isValid();
+        $(window).scrollTop(tempScrollTop);
+        return false;
+    });
+    
+    $('#ckb_prt_pst_other').on('ifChanged', function() {
+        var tempScrollTop = $(window).scrollTop();
+        if ($('#ckb_prt_pst_other').is(':checked')) {
+            $('#prt_pst_other_qty').attr('data-validation', 'number');
+            $('#prt_pst_other_size').attr('data-validation', 'required');
+        }
+        else {
+            $('#prt_pst_other_qty').attr('data-validation', '');
+            $('#prt_pst_other_size').attr('data-validation', '');
+        }
+        $('#print_form_validation').isValid();
+        $(window).scrollTop(tempScrollTop);
+        return false;
+    });
+    ////////////////////////////////////////////////////////////////////////////
+    
     $('#ckb_prt_program').on('ifChanged', function() {
+        var tempScrollTop = $(window).scrollTop();
         if ($('#ckb_prt_program').is(':checked')) {
             $('#prt_program_section').show();
         }
         else {
             $('#prt_program_section').hide();
         }
+        $('#print_form_validation').isValid();
+        $(window).scrollTop(tempScrollTop);
         return false;
     });
     
     $('#ckb_prt_other').on('ifChanged', function() {
+        var tempScrollTop = $(window).scrollTop();
         if ($('#ckb_prt_other').is(':checked')) {
             $('#prt_other_section').show();
         }
         else {
             $('#prt_other_section').hide();
         }
+        $('#print_form_validation').isValid();
+        $(window).scrollTop(tempScrollTop);
         return false;
     });
     
     $('#ckb_prt_web_graphic').on('ifChanged', function() {
+        var tempScrollTop = $(window).scrollTop();
         if ($('#ckb_prt_web_graphic').is(':checked')) {
             $('#prt_web_graphic_section').show();
         }
         else {
             $('#prt_web_graphic_section').hide();
         }
+        $('#print_form_validation').isValid();
+        $(window).scrollTop(tempScrollTop);
         return false;
     });
     
     // social media categories checkbox click event ////////////////////////////
     $('#ckb_mda_collegewide_email').on('ifChanged', function() {
+        var tempScrollTop = $(window).scrollTop();
         if ($('#ckb_mda_collegewide_email').is(':checked')) {
             $('#mda_collegewide_email_section').show();
         }
         else {
             $('#mda_collegewide_email_section').hide();
         }
+        $('#media_form_validation').isValid();
+        $(window).scrollTop(tempScrollTop);
         return false;
     });
     
     $('#ckb_mda_sherpa_email').on('ifChanged', function() {
+        var tempScrollTop = $(window).scrollTop();
         if ($('#ckb_mda_sherpa_email').is(':checked')) {
             $('#mda_sherpa_email_section').show();
         }
         else {
             $('#mda_sherpa_email_section').hide();
         }
+        $('#media_form_validation').isValid();
+        $(window).scrollTop(tempScrollTop);
         return false;
     });
     
     $('#ckb_mda_monitor').on('ifChanged', function() {
+        var tempScrollTop = $(window).scrollTop();
         $('#mda_monitor_start_date').data("DateTimePicker").date(null);
         $('#mda_monitor_end_date').data("DateTimePicker").date(null);
         if ($('#ckb_mda_monitor').is(':checked')) {
@@ -334,10 +426,13 @@ $(document).ready(function() {
         else {
             $('#mda_monitor_section').hide();
         }
+        $('#media_form_validation').isValid();
+        $(window).scrollTop(tempScrollTop);
         return false;
     });
     
     $('#ckb_mda_social_media').on('ifChanged', function() {
+        var tempScrollTop = $(window).scrollTop();
         $('#mda_soc_media_date').data("DateTimePicker").date(null);
         if ($('#ckb_mda_social_media').is(':checked')) {
             $('#mda_social_media_section').show();
@@ -345,10 +440,13 @@ $(document).ready(function() {
         else {
             $('#mda_social_media_section').hide();
         }
+        $('#media_form_validation').isValid();
+        $(window).scrollTop(tempScrollTop);
         return false;
     });
     
     $('#ckb_mda_college_entrance').on('ifChanged', function() {
+        var tempScrollTop = $(window).scrollTop();
         $('#mda_college_entrance_start_date').data("DateTimePicker").date(null);
         $('#mda_college_entrance_end_date').data("DateTimePicker").date(null);
         if ($('#ckb_mda_college_entrance').is(':checked')) {
@@ -357,32 +455,62 @@ $(document).ready(function() {
         else {
             $('#mda_college_entrance_section').hide();
         }
+        $('#media_form_validation').isValid();
+        $(window).scrollTop(tempScrollTop);
         return false;
     });
     
     // web services checkbox click event ///////////////////////////////////////
+    $('#ckb_web_create_new').on('ifChanged', function() {
+        var tempScrollTop = $(window).scrollTop();
+        $('#web_form_validation').isValid();
+        $(window).scrollTop(tempScrollTop);
+        return false;
+    });
+    
     $('#ckb_web_update_existing').on('ifChanged', function() {
+        var tempScrollTop = $(window).scrollTop();
         if ($('#ckb_web_update_existing').is(':checked')) {
             $('#web_update_existing_section').show();
         }
         else {
             $('#web_update_existing_section').hide();
         }
+        $('#web_form_validation').isValid();
+        $(window).scrollTop(tempScrollTop);
         return false;
     });
     
     $('#ckb_web_add_page').on('ifChanged', function() {
+        var tempScrollTop = $(window).scrollTop();
         if ($('#ckb_web_add_page').is(':checked')) {
             $('#web_add_page_section').show();
         }
         else {
             $('#web_add_page_section').hide();
         }
+        $('#web_form_validation').isValid();
+        $(window).scrollTop(tempScrollTop);
+        return false;
+    });
+    
+    $('#ckb_web_request_website').on('ifChanged', function() {
+        var tempScrollTop = $(window).scrollTop();
+        $('#web_form_validation').isValid();
+        $(window).scrollTop(tempScrollTop);
+        return false;
+    });
+    
+    $('#ckb_web_report_problem').on('ifChanged', function() {
+        var tempScrollTop = $(window).scrollTop();
+        $('#web_form_validation').isValid();
+        $(window).scrollTop(tempScrollTop);
         return false;
     });
     
     // video categories checkbox click event ///////////////////////////////////
     $('#ckb_vdo_filming_request').on('ifChanged', function() {
+        var tempScrollTop = $(window).scrollTop();
         $('#vdo_filming_date').data("DateTimePicker").date(null);
         $('#vdo_filming_time').find('input').val(null);
         if ($('#ckb_vdo_filming_request').is(':checked')) {
@@ -391,43 +519,58 @@ $(document).ready(function() {
         else {
             $('#vdo_filming_request_section').hide();
         }
+        $('#video_form_validation').isValid();
+        $(window).scrollTop(tempScrollTop);
         return false;
     });
     
     $('#ckb_vdo_other').on('ifChanged', function() {
+        var tempScrollTop = $(window).scrollTop();
         if ($('#ckb_vdo_other').is(':checked')) {
             $('#vdo_other_section').show();
         }
         else {
             $('#vdo_other_section').hide();
         }
+        $('#video_form_validation').isValid();
+        $(window).scrollTop(tempScrollTop);
         return false;
     });
     
     // editorial categories checkbox click event ///////////////////////////////
     $('#ckb_edt_copywriting').on('ifChanged', function() {
+        var tempScrollTop = $(window).scrollTop();
         $('#edt_copywriting_date_needed').data("DateTimePicker").date(null);
         if ($('#ckb_edt_copywriting').is(':checked')) {
             $('#edt_copywriting_date_needed').data("DateTimePicker").enable();
             $('#edt_copywriting_icon').addClass('ivcmrkt-bk-color-white');
+            $('#edt_copywriting_date_needed').find('input').attr('data-validation', 'date');
         }
         else {
             $('#edt_copywriting_date_needed').data("DateTimePicker").disable();
             $('#edt_copywriting_icon').removeClass('ivcmrkt-bk-color-white');
+            $('#edt_copywriting_date_needed').find('input').attr('data-validation', '');
         }
+        $('#editorial_form_validation').isValid();
+        $(window).scrollTop(tempScrollTop);
         return false;
     });
     
     $('#ckb_edt_proofreading').on('ifChanged', function() {
+        var tempScrollTop = $(window).scrollTop();
         $('#edt_proofreading_date_needed').data("DateTimePicker").date(null);
         if ($('#ckb_edt_proofreading').is(':checked')) {
             $('#edt_proofreading_date_needed').data("DateTimePicker").enable();
             $('#edt_proofreading_icon').addClass('ivcmrkt-bk-color-white');
+            $('#edt_proofreading_date_needed').find('input').attr('data-validation', 'date');
         }
         else {
             $('#edt_proofreading_date_needed').data("DateTimePicker").disable();
             $('#edt_proofreading_icon').removeClass('ivcmrkt-bk-color-white');
+            $('#edt_proofreading_date_needed').find('input').attr('data-validation', '');
         }
+        $('#editorial_form_validation').isValid();
+        $(window).scrollTop(tempScrollTop);
         return false;
     });
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -499,25 +642,29 @@ $(document).ready(function() {
                         return false;
                     }
                 });
+                
         return false;
     });
     
     // draft button click //////////////////////////////////////////////////////
     $('#btn_main_draft').click(function() {
         $('html,body').scrollTop(0);
-        startSpinning();
         
+        startSpinning();
         setTimeout(function() {
             if (!insertMrktRequest(status_draft_id)) {
+                stopSpinning();
                 window.open('home.html', '_self');
                 return false;
             }
             if (!updateMrktAttachmentReqID()) {
                 db_deleteMrktRequestByID(mrkt_request_id);
+                stopSpinning();
                 window.open('home.html', '_self');
                 return false;
             }
             if (!insertTaskSection(status_draft_id)) {
+                stopSpinning();
                 window.open('home.html', '_self');
                 return false;
             }
@@ -533,34 +680,37 @@ $(document).ready(function() {
                         return false; });
         }, 1500);
 
-        this.blur();
         return false;
     });
     
     // submit button click /////////////////////////////////////////////////////
     $('#btn_main_submit').click(function() {
+        if (!mainSectionValidation()) {
+            swal({title: "Error", text: "Please fill out all required field(s)", type: "error"});
+            return false;
+        }
+        if (!taskSectionValidation()) {
+            swal({title: "Error", text: "Please fill out all required field(s)", type: "error"});
+            return false;
+        }
+        
         $('html,body').scrollTop(0);
         startSpinning();
         
         setTimeout(function() { 
-            if (!mainSectionValidation()) {
-                stopSpinning();
-                return false;
-            }
-            if (!taskSectionValidation()) {
-                stopSpinning();
-                return false;
-            }
             if (!insertMrktRequest(status_submitted_id)) {
+                stopSpinning();
                 window.open('home.html', '_self');
                 return false;
             }
             if (!updateMrktAttachmentReqID()) {
                 db_deleteMrktRequestByID(mrkt_request_id);
+                stopSpinning();
                 window.open('home.html', '_self');
                 return false;
             }
             if (!insertTaskSection(status_submitted_id)) {
+                stopSpinning();
                 window.open('home.html', '_self');
                 return false;
             }
@@ -587,7 +737,6 @@ $(document).ready(function() {
                        return false; });
         }, 1500);
         
-        this.blur();
         return false;
     });
     
@@ -595,6 +744,7 @@ $(document).ready(function() {
     $('#btn_main_cancel').click(function() {
         deleteUnsavedFileAttachment();
         window.open('home.html', '_self');
+        
         return false;
     });
     
@@ -655,21 +805,23 @@ function stopSpinning() {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-function isLoginAdmin() {
-    var result = new Array();
-    result = db_getAdminByEmail(sessionStorage.getItem('ss_mrkt_loginEmail'));
-    
-    if (result.length === 1 && result[0]['Active'] === "1") {
+function setUserAccessView() {
+    var privilege = userRole.getActiveAdminPrivilege(m_obj_User.AdminPrivilegeID);
+    if (privilege === "Master") {
         $('.rpt_mrkt_staff').show();
         $('#nav_sidebar_mrkt_staff').show();
-        if (result[0]['AdminPrivilegeID'] === "1" || result[0]['AdminPrivilegeID'] === "2") {
-            $('#nav_sidebar_system').show();
-            
-            if (result[0]['AdminPrivilegeID'] === "1") {
-                $('#nav_sidebar_sys_access_level').show();
-                $('#nav_sidebar_sys_task').show();
-            }
-        }
+        $('#nav_sidebar_system').show();
+        $('#nav_sidebar_sys_access_level').show();
+        $('#nav_sidebar_sys_task').show();
+    }
+    else if (privilege === "Administrator") {
+        $('.rpt_mrkt_staff').show();
+        $('#nav_sidebar_mrkt_staff').show();
+        $('#nav_sidebar_system').show();
+    }
+    else if (privilege === "Staff") {
+        $('.rpt_mrkt_staff').show();
+        $('#nav_sidebar_mrkt_staff').show();
     }
 }
 
@@ -713,21 +865,25 @@ function getMrktRequestID() {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function mainSectionValidation() {
-    if (!isValidPhoneNumber($.trim($('#req_phone').val()))) {
-        swal({title: "Error", text: "INVALID or Blank phone number\n please use sample format 949-451-5696", type: "error"});
-        return false;
-    }
-    if ($.trim($('#req_title').val()) === "") {
-        swal({title: "Error", text: "Request title is a required field", type: "error"});
-        return false;
-    }
-    if ($.trim($('#req_descrip').val()) === "") {
-        swal({title: "Error", text: "Describe your request is a required field", type: "error"});
-        return false;
-    }
-    if (!$('#ckb_main_print').is(':checked') && !$('#ckb_main_photo').is(':checked') && !$('#ckb_main_media').is(':checked')
-        && !$('#ckb_main_web').is(':checked') && !$('#ckb_main_video').is(':checked') && !$('#ckb_main_editorial').is(':checked')) {
-        swal({title: "Error", text: "Please select at least one marketing request category", type: "error"});
+//    if (!isValidPhoneNumber($.trim($('#req_phone').val()))) {
+//        swal({title: "Error", text: "INVALID or Blank phone number\n please use sample format 949-451-5696", type: "error"});
+//        return false;
+//    }
+//    if ($.trim($('#req_title').val()) === "") {
+//        swal({title: "Error", text: "Request title is a required field", type: "error"});
+//        return false;
+//    }
+//    if ($.trim($('#req_descrip').val()) === "") {
+//        swal({title: "Error", text: "Describe your request is a required field", type: "error"});
+//        return false;
+//    }
+//    if (!$('#ckb_main_print').is(':checked') && !$('#ckb_main_photo').is(':checked') && !$('#ckb_main_media').is(':checked')
+//        && !$('#ckb_main_web').is(':checked') && !$('#ckb_main_video').is(':checked') && !$('#ckb_main_editorial').is(':checked')) {
+//        swal({title: "Error", text: "Please select at least one marketing request category", type: "error"});
+//        return false;
+//    }
+        
+    if (!$('#main_form_validation').isValid()) {
         return false;
     }
     return true;
@@ -760,410 +916,412 @@ function mainAttachmentFileValidation() {
 }
 
 function taskSectionValidation() {
+    var all_task = true;
+    
     if ($('#ckb_main_print').is(':checked')) {
-        if (!taskPrintValidation()) {
-            return false;
+        if(!$('#print_form_validation').isValid()) {
+            all_task = false;
         }
     }
     if ($('#ckb_main_photo').is(':checked')) {
-        if (!taskPhotoValidation()) {
-            return false;
+        if(!$('#photo_form_validation').isValid()) {
+            all_task = false;
         }
     }
     if ($('#ckb_main_media').is(':checked')) {
-        if (!taskMediaValidation()) {
-            return false;
+        if(!$('#media_form_validation').isValid()) {
+            all_task = false;
         }
     }
     if ($('#ckb_main_web').is(':checked')) {
-        if (!taskWebValidation()) {
-            return false;
+        if(!$('#web_form_validation').isValid()) {
+            all_task = false;
         }
     }
     if ($('#ckb_main_video').is(':checked')) {
-        if (!taskVideoValidation()) {
-            return false;
+        if(!$('#video_form_validation').isValid()) {
+            all_task = false;
         }
     }
     if ($('#ckb_main_editorial').is(':checked')) {
-        if (!taskEditorialValidation()) {
-            return false;
+        if(!$('#editorial_form_validation').isValid()) {
+            all_task = false;
         }
     }
-    return true;
+    return all_task;
 }
 
-function taskPrintValidation() {
-    if ($('#prt_date_need').find('input').val() === "") {
-        swal({title: "Error", text: "Print/Graphics Date Needed is a required field", type: "error"});
-        return false;
-    }
-    if (!$('#ckb_prt_ad').is(':checked') && !$('#ckb_prt_brochure').is(':checked') && !$('#ckb_prt_banner').is(':checked')
-        && !$('#ckb_prt_flyer').is(':checked') && !$('#ckb_prt_certificate').is(':checked') && !$('#ckb_prt_postcard').is(':checked')
-        && !$('#ckb_prt_poster').is(':checked') && !$('#ckb_prt_program').is(':checked') && !$('#ckb_prt_other').is(':checked')
-        && !$('#ckb_prt_web_graphic').is(':checked')) {
-        swal({title: "Error", text: "Please select at least one Print/Graphics request category", type: "error"});
-        return false;
-    }    
-    if ($('#ckb_prt_ad').is(':checked')) {
-        if (!taskPrintAdValidation()) {
-            return false;
-        }
-    }
-    if ($('#ckb_prt_brochure').is(':checked')) {
-        if (!taskPrintBrochureValidation()) {
-            return false;
-        } 
-    }
-    if ($('#ckb_prt_banner').is(':checked')) {
-        if (!taskPrintBannerValidation()) {
-            return false;
-        } 
-    }
-    if ($('#ckb_prt_flyer').is(':checked')) {
-        if (!taskPrintFlyerValidation()) {
-            return false;
-        } 
-    }
-    if ($('#ckb_prt_certificate').is(':checked')) {
-        if (!taskPrintCertificateValidation()) {
-            return false;
-        } 
-    }
-    if ($('#ckb_prt_postcard').is(':checked')) {
-        if (!taskPrintPostcardValidation()) {
-            return false;
-        } 
-    }
-    if ($('#ckb_prt_poster').is(':checked')) {
-        if (!taskPrintPosterValidation()) {
-            return false;
-        } 
-    }
-    if ($('#ckb_prt_program').is(':checked')) {
-        if (!taskPrintProgramValidation()) {
-            return false;
-        } 
-    }
-    if ($('#ckb_prt_other').is(':checked')) {
-        if (!taskPrintOtherValidation()) {
-            return false;
-        } 
-    }
-    if ($('#ckb_prt_web_graphic').is(':checked')) {
-        if (!taskPrintWebGraphicValidation()) {
-            return false;
-        } 
-    }
-    return true;
-}
+//function taskPrintValidation() {
+//    if ($('#prt_date_need').find('input').val() === "") {
+//        swal({title: "Error", text: "Print/Graphics Date Needed is a required field", type: "error"});
+//        return false;
+//    }
+//    if (!$('#ckb_prt_ad').is(':checked') && !$('#ckb_prt_brochure').is(':checked') && !$('#ckb_prt_banner').is(':checked')
+//        && !$('#ckb_prt_flyer').is(':checked') && !$('#ckb_prt_certificate').is(':checked') && !$('#ckb_prt_postcard').is(':checked')
+//        && !$('#ckb_prt_poster').is(':checked') && !$('#ckb_prt_program').is(':checked') && !$('#ckb_prt_other').is(':checked')
+//        && !$('#ckb_prt_web_graphic').is(':checked')) {
+//        swal({title: "Error", text: "Please select at least one Print/Graphics request category", type: "error"});
+//        return false;
+//    }    
+//    if ($('#ckb_prt_ad').is(':checked')) {
+//        if (!taskPrintAdValidation()) {
+//            return false;
+//        }
+//    }
+//    if ($('#ckb_prt_brochure').is(':checked')) {
+//        if (!taskPrintBrochureValidation()) {
+//            return false;
+//        } 
+//    }
+//    if ($('#ckb_prt_banner').is(':checked')) {
+//        if (!taskPrintBannerValidation()) {
+//            return false;
+//        } 
+//    }
+//    if ($('#ckb_prt_flyer').is(':checked')) {
+//        if (!taskPrintFlyerValidation()) {
+//            return false;
+//        } 
+//    }
+//    if ($('#ckb_prt_certificate').is(':checked')) {
+//        if (!taskPrintCertificateValidation()) {
+//            return false;
+//        } 
+//    }
+//    if ($('#ckb_prt_postcard').is(':checked')) {
+//        if (!taskPrintPostcardValidation()) {
+//            return false;
+//        } 
+//    }
+//    if ($('#ckb_prt_poster').is(':checked')) {
+//        if (!taskPrintPosterValidation()) {
+//            return false;
+//        } 
+//    }
+//    if ($('#ckb_prt_program').is(':checked')) {
+//        if (!taskPrintProgramValidation()) {
+//            return false;
+//        } 
+//    }
+//    if ($('#ckb_prt_other').is(':checked')) {
+//        if (!taskPrintOtherValidation()) {
+//            return false;
+//        } 
+//    }
+//    if ($('#ckb_prt_web_graphic').is(':checked')) {
+//        if (!taskPrintWebGraphicValidation()) {
+//            return false;
+//        } 
+//    }
+//    return true;
+//}
 
-function taskPrintAdValidation() {
-    if ($.trim($('#prt_ad_size').val()) === "") {
-        swal({title: "Error", text: "Print/Graphics Ad Size is a required field", type: "error"});
-        return false;
-    }
-    return true;
-}
+//function taskPrintAdValidation() {
+//    if ($.trim($('#prt_ad_size').val()) === "") {
+//        swal({title: "Error", text: "Print/Graphics Ad Size is a required field", type: "error"});
+//        return false;
+//    }
+//    return true;
+//}
 
-function taskPrintBrochureValidation() {
-    if ($.trim($('#prt_bro_qty').val()) === "") {
-        swal({title: "Error", text: "Print/Graphics Brochure Qty is a required field", type: "error"});
-        return false;
-    }
-    return true;
-}
+//function taskPrintBrochureValidation() {
+//    if ($.trim($('#prt_bro_qty').val()) === "") {
+//        swal({title: "Error", text: "Print/Graphics Brochure Qty is a required field", type: "error"});
+//        return false;
+//    }
+//    return true;
+//}
 
-function taskPrintBannerValidation() {
-    if ($.trim($('#prt_ban_qty').val()) === "") {
-        swal({title: "Error", text: "Print/Graphics Banner Qty is a required field", type: "error"});
-        return false;
-    }
-    return true;
-}
+//function taskPrintBannerValidation() {
+//    if ($.trim($('#prt_ban_qty').val()) === "") {
+//        swal({title: "Error", text: "Print/Graphics Banner Qty is a required field", type: "error"});
+//        return false;
+//    }
+//    return true;
+//}
 
-function taskPrintFlyerValidation() {
-    if ($.trim($('#prt_fly_qty').val()) === "") {
-        swal({title: "Error", text: "Print/Graphics Flyer Qty is a required field", type: "error"});
-        return false;
-    }
-    return true;
-}
+//function taskPrintFlyerValidation() {
+//    if ($.trim($('#prt_fly_qty').val()) === "") {
+//        swal({title: "Error", text: "Print/Graphics Flyer Qty is a required field", type: "error"});
+//        return false;
+//    }
+//    return true;
+//}
 
-function taskPrintCertificateValidation() {
-    if ($.trim($('#prt_cer_qty').val()) === "") {
-        swal({title: "Error", text: "Print/Graphics Certificate Qty is a required field", type: "error"});
-        return false;
-    }
-    return true;
-}
+//function taskPrintCertificateValidation() {
+//    if ($.trim($('#prt_cer_qty').val()) === "") {
+//        swal({title: "Error", text: "Print/Graphics Certificate Qty is a required field", type: "error"});
+//        return false;
+//    }
+//    return true;
+//}
 
-function taskPrintPostcardValidation() {
-    if ($.trim($('#prt_pcd_size').val()) === "") {
-        swal({title: "Error", text: "Print/Graphics Postcard Size is a required field", type: "error"});
-        return false;
-    }
-    if ($.trim($('#prt_pcd_qty').val()) === "") {
-        swal({title: "Error", text: "Print/Graphics Postcard Qty is a required field", type: "error"});
-        return false;
-    }
-    return true;
-}
+//function taskPrintPostcardValidation() {
+//    if ($.trim($('#prt_pcd_size').val()) === "") {
+//        swal({title: "Error", text: "Print/Graphics Postcard Size is a required field", type: "error"});
+//        return false;
+//    }
+//    if ($.trim($('#prt_pcd_qty').val()) === "") {
+//        swal({title: "Error", text: "Print/Graphics Postcard Qty is a required field", type: "error"});
+//        return false;
+//    }
+//    return true;
+//}
 
-function taskPrintPosterValidation() {
-    if (!$('#ckb_prt_pst_11_17').is(':checked') && !$('#ckb_prt_pst_22_28').is(':checked') && !$('#ckb_prt_pst_other').is(':checked')) {
-        swal({title: "Error", text: "Please select at least one Print/Graphics Poster category", type: "error"});
-        return false;
-    }
-    if ($('#ckb_prt_pst_11_17').is(':checked')) {
-        if ($.trim($('#prt_pst_11_17_qty').val()) === "") {
-            swal({title: "Error", text: "Print/Graphics Poster (11 X 17) Qty is a required field", type: "error"});
-            return false;
-        }
-    }
-    if ($('#ckb_prt_pst_22_28').is(':checked')) {
-        if ($.trim($('#prt_pst_22_28_qty').val()) === "") {
-            swal({title: "Error", text: "Print/Graphics Poster (22 X 28) Qty is a required field", type: "error"});
-            return false;
-        }
-    }
-    if ($('#ckb_prt_pst_other').is(':checked')) {
-        if ($.trim($('#prt_pst_other_qty').val()) === "") {
-            swal({title: "Error", text: "Print/Graphics Poster Other Qty is a required field", type: "error"});
-            return false;
-        }
-        if ($.trim($('#prt_pst_other_size').val()) === "") {
-            swal({title: "Error", text: "Print/Graphics Poster Other Size is a required field", type: "error"});
-            return false;
-        }
-    }
-    return true;
-}
+//function taskPrintPosterValidation() {
+//    if (!$('#ckb_prt_pst_11_17').is(':checked') && !$('#ckb_prt_pst_22_28').is(':checked') && !$('#ckb_prt_pst_other').is(':checked')) {
+//        swal({title: "Error", text: "Please select at least one Print/Graphics Poster category", type: "error"});
+//        return false;
+//    }
+//    if ($('#ckb_prt_pst_11_17').is(':checked')) {
+//        if ($.trim($('#prt_pst_11_17_qty').val()) === "") {
+//            swal({title: "Error", text: "Print/Graphics Poster (11 X 17) Qty is a required field", type: "error"});
+//            return false;
+//        }
+//    }
+//    if ($('#ckb_prt_pst_22_28').is(':checked')) {
+//        if ($.trim($('#prt_pst_22_28_qty').val()) === "") {
+//            swal({title: "Error", text: "Print/Graphics Poster (22 X 28) Qty is a required field", type: "error"});
+//            return false;
+//        }
+//    }
+//    if ($('#ckb_prt_pst_other').is(':checked')) {
+//        if ($.trim($('#prt_pst_other_qty').val()) === "") {
+//            swal({title: "Error", text: "Print/Graphics Poster Other Qty is a required field", type: "error"});
+//            return false;
+//        }
+//        if ($.trim($('#prt_pst_other_size').val()) === "") {
+//            swal({title: "Error", text: "Print/Graphics Poster Other Size is a required field", type: "error"});
+//            return false;
+//        }
+//    }
+//    return true;
+//}
 
-function taskPrintProgramValidation() {
-    if ($.trim($('#prt_prg_qty').val()) === "") {
-        swal({title: "Error", text: "Print/Graphics Program Qty is a required field", type: "error"});
-        return false;
-    }
-    return true;
-}
+//function taskPrintProgramValidation() {
+//    if ($.trim($('#prt_prg_qty').val()) === "") {
+//        swal({title: "Error", text: "Print/Graphics Program Qty is a required field", type: "error"});
+//        return false;
+//    }
+//    return true;
+//}
 
-function taskPrintOtherValidation() {
-    if ($.trim($('#prt_oth_descrip').val()) === "") {
-        swal({title: "Error", text: "Print/Graphics Other (describe) is a required field", type: "error"});
-        return false;
-    }
-    return true;
-}
+//function taskPrintOtherValidation() {
+//    if ($.trim($('#prt_oth_descrip').val()) === "") {
+//        swal({title: "Error", text: "Print/Graphics Other (describe) is a required field", type: "error"});
+//        return false;
+//    }
+//    return true;
+//}
 
-function taskPrintWebGraphicValidation() {
-    if ($.trim($('#prt_web_grap_descrip').val()) === "") {
-        swal({title: "Error", text: "Print/Graphics Web Graphic is a required field", type: "error"});
-        return false;
-    }
-    if ($.trim($('#prt_web_grap_dimensions').val()) === "") {
-        swal({title: "Error", text: "Print/Graphics Web Graphic Dimensions is a required field", type: "error"});
-        return false;
-    }
-    return true;
-}
+//function taskPrintWebGraphicValidation() {
+//    if ($.trim($('#prt_web_grap_descrip').val()) === "") {
+//        swal({title: "Error", text: "Print/Graphics Web Graphic is a required field", type: "error"});
+//        return false;
+//    }
+//    if ($.trim($('#prt_web_grap_dimensions').val()) === "") {
+//        swal({title: "Error", text: "Print/Graphics Web Graphic Dimensions is a required field", type: "error"});
+//        return false;
+//    }
+//    return true;
+//}
 
-function taskPhotoValidation() {   
-    if ($('#pht_event_date').find('input').val() === "") {
-        swal({title: "Error", text: "Photograpy Event Date is a required field", type: "error"});
-        return false;
-    }
-    if ($('#pht_event_time').find('input').val() === "") {
-        swal({title: "Error", text: "Photograpy Event Time is a required field", type: "error"});
-        return false;
-    }
-    if ($.trim($('#pht_event_location').val()) === "") {
-        swal({title: "Error", text: "Photograpy Location is a required field", type: "error"});
-        return false;
-    }
-    if ($.trim($('#pht_event_estimate_time').val()) === "") {
-        swal({title: "Error", text: "Photograpy Estimated Time is a required field", type: "error"});
-        return false;
-    }
-    return true;
-}
+//function taskPhotoValidation() {   
+//    if ($('#pht_event_date').find('input').val() === "") {
+//        swal({title: "Error", text: "Photograpy Event Date is a required field", type: "error"});
+//        return false;
+//    }
+//    if ($('#pht_event_time').find('input').val() === "") {
+//        swal({title: "Error", text: "Photograpy Event Time is a required field", type: "error"});
+//        return false;
+//    }
+//    if ($.trim($('#pht_event_location').val()) === "") {
+//        swal({title: "Error", text: "Photograpy Location is a required field", type: "error"});
+//        return false;
+//    }
+//    if ($.trim($('#pht_event_estimate_time').val()) === "") {
+//        swal({title: "Error", text: "Photograpy Estimated Time is a required field", type: "error"});
+//        return false;
+//    }
+//    return true;
+//}
 
-function taskMediaValidation() {
-    if ($('#mda_due_date').find('input').val() === "") {
-        swal({title: "Error", text: "Social Media/Publicity due date is a required field", type: "error"});
-        return false;
-    }
-    if (!$('#ckb_mda_collegewide_email').is(':checked') && !$('#ckb_mda_sherpa_email').is(':checked') && !$('#ckb_mda_monitor').is(':checked')
-        && !$('#ckb_mda_social_media').is(':checked') && !$('#ckb_mda_college_entrance').is(':checked')) {
-        swal({title: "Error", text: "Please select at least one Social Media/Publicity request category", type: "error"});
-        return false;
-    }
-    if ($('#ckb_mda_collegewide_email').is(':checked')) {
-        if (!taskMediaCollegewideValidation()) {
-            return false;
-        }
-    }
-    if ($('#ckb_mda_sherpa_email').is(':checked')) {
-        if (!taskMediaSherpaValidation()) {
-            return false;
-        }
-    }
-    if ($('#ckb_mda_monitor').is(':checked')) {
-        if (!taskMediaMonitorValidation()) {
-            return false;
-        }
-    }
-    if ($('#ckb_mda_social_media').is(':checked')) {
-        if (!taskMediaPostValidation()) {
-            return false;
-        }
-    }
-    if ($('#ckb_mda_college_entrance').is(':checked')) {
-        if (!taskMediaEntranceValidation()) {
-            return false;
-        }
-    }
-    return true;
-}
+//function taskMediaValidation() {
+//    if ($('#mda_due_date').find('input').val() === "") {
+//        swal({title: "Error", text: "Social Media/Publicity due date is a required field", type: "error"});
+//        return false;
+//    }
+//    if (!$('#ckb_mda_collegewide_email').is(':checked') && !$('#ckb_mda_sherpa_email').is(':checked') && !$('#ckb_mda_monitor').is(':checked')
+//        && !$('#ckb_mda_social_media').is(':checked') && !$('#ckb_mda_college_entrance').is(':checked')) {
+//        swal({title: "Error", text: "Please select at least one Social Media/Publicity request category", type: "error"});
+//        return false;
+//    }
+//    if ($('#ckb_mda_collegewide_email').is(':checked')) {
+//        if (!taskMediaCollegewideValidation()) {
+//            return false;
+//        }
+//    }
+//    if ($('#ckb_mda_sherpa_email').is(':checked')) {
+//        if (!taskMediaSherpaValidation()) {
+//            return false;
+//        }
+//    }
+//    if ($('#ckb_mda_monitor').is(':checked')) {
+//        if (!taskMediaMonitorValidation()) {
+//            return false;
+//        }
+//    }
+//    if ($('#ckb_mda_social_media').is(':checked')) {
+//        if (!taskMediaPostValidation()) {
+//            return false;
+//        }
+//    }
+//    if ($('#ckb_mda_college_entrance').is(':checked')) {
+//        if (!taskMediaEntranceValidation()) {
+//            return false;
+//        }
+//    }
+//    return true;
+//}
 
-function taskMediaCollegewideValidation() {
-    if ($.trim($('#mda_college_email').val()) === "") {
-        swal({title: "Error", text: "Social Media/Publicity Collegewide Email is a required field", type: "error"});
-        return false;
-    }
-    return true;
-}
+//function taskMediaCollegewideValidation() {
+//    if ($.trim($('#mda_college_email').val()) === "") {
+//        swal({title: "Error", text: "Social Media/Publicity Collegewide Email is a required field", type: "error"});
+//        return false;
+//    }
+//    return true;
+//}
 
-function taskMediaSherpaValidation() {
-    if ($.trim($('#mda_sherpa_email').val()) === "") {
-        swal({title: "Error", text: "Social Media/Publicity Sherpa Email is a required field", type: "error"});
-        return false;
-    }
-    return true;
-}
+//function taskMediaSherpaValidation() {
+//    if ($.trim($('#mda_sherpa_email').val()) === "") {
+//        swal({title: "Error", text: "Social Media/Publicity Sherpa Email is a required field", type: "error"});
+//        return false;
+//    }
+//    return true;
+//}
 
-function taskMediaMonitorValidation() {
-    if ($('#mda_monitor_start_date').find('input').val() === "") {
-        swal({title: "Error", text: "Social Media/Publicity Monitor Slide Start Date is a required field", type: "error"});
-        return false;
-    }
-    if ($('#mda_monitor_end_date').find('input').val() === "") {
-        swal({title: "Error", text: "Social Media/Publicity Monitor Slide End Date is a required field", type: "error"});
-        return false;
-    }
-    return true;
-}
+//function taskMediaMonitorValidation() {
+//    if ($('#mda_monitor_start_date').find('input').val() === "") {
+//        swal({title: "Error", text: "Social Media/Publicity Monitor Slide Start Date is a required field", type: "error"});
+//        return false;
+//    }
+//    if ($('#mda_monitor_end_date').find('input').val() === "") {
+//        swal({title: "Error", text: "Social Media/Publicity Monitor Slide End Date is a required field", type: "error"});
+//        return false;
+//    }
+//    return true;
+//}
 
-function taskMediaPostValidation() {
-    if ($('#mda_soc_media_date').find('input').val() === "") {
-        swal({title: "Error", text: "Social Media/Publicity Social Media Post Date is a required field", type: "error"});
-        return false;
-    }
-    return true;
-}
+//function taskMediaPostValidation() {
+//    if ($('#mda_soc_media_date').find('input').val() === "") {
+//        swal({title: "Error", text: "Social Media/Publicity Social Media Post Date is a required field", type: "error"});
+//        return false;
+//    }
+//    return true;
+//}
 
-function taskMediaEntranceValidation() {
-    if ($('#mda_college_entrance_start_date').find('input').val() === "") {
-        swal({title: "Error", text: "Social Media/Publicity College Entrance Marquees Start Date is a required field", type: "error"});
-        return false;
-    }
-    if ($('#mda_college_entrance_end_date').find('input').val() === "") {
-        swal({title: "Error", text: "Social Media/Publicity College Entrance Marquees End Date is a required field", type: "error"});
-        return false;
-    }
-    return true;
-}
+//function taskMediaEntranceValidation() {
+//    if ($('#mda_college_entrance_start_date').find('input').val() === "") {
+//        swal({title: "Error", text: "Social Media/Publicity College Entrance Marquees Start Date is a required field", type: "error"});
+//        return false;
+//    }
+//    if ($('#mda_college_entrance_end_date').find('input').val() === "") {
+//        swal({title: "Error", text: "Social Media/Publicity College Entrance Marquees End Date is a required field", type: "error"});
+//        return false;
+//    }
+//    return true;
+//}
 
-function taskWebValidation() {
-    if (!$('#ckb_web_create_new').is(':checked') && !$('#ckb_web_update_existing').is(':checked') && !$('#ckb_web_add_page').is(':checked')
-        && !$('#ckb_web_request_website').is(':checked') && !$('#ckb_web_report_problem').is(':checked')) {
-        swal({title: "Error", text: "Please select at least one Web Services request category", type: "error"});
-        return false;
-    }
-    if ($('#web_date_needed').find('input').val() === "") {
-        swal({title: "Error", text: "Web Services Estimated Launch Date is a required field", type: "error"});
-        return false;
-    }
-    return true;
-}
+//function taskWebValidation() {
+//    if (!$('#ckb_web_create_new').is(':checked') && !$('#ckb_web_update_existing').is(':checked') && !$('#ckb_web_add_page').is(':checked')
+//        && !$('#ckb_web_request_website').is(':checked') && !$('#ckb_web_report_problem').is(':checked')) {
+//        swal({title: "Error", text: "Please select at least one Web Services request category", type: "error"});
+//        return false;
+//    }
+//    if ($('#web_date_needed').find('input').val() === "") {
+//        swal({title: "Error", text: "Web Services Estimated Launch Date is a required field", type: "error"});
+//        return false;
+//    }
+//    return true;
+//}
 
-function taskVideoValidation() {
-    if ($('#vdo_due_date').find('input').val() === "") {
-        swal({title: "Error", text: "Video due date is a required field", type: "error"});
-        return false;
-    }
-    if (!$('#ckb_vdo_filming_request').is(':checked') && !$('#ckb_vdo_other').is(':checked')) {
-        swal({title: "Error", text: "Please select at least one Video request category", type: "error"});
-        return false;
-    }
-    if ($('#ckb_vdo_filming_request').is(':checked')) {
-        if (!taskVideoFilmingValidation()) {
-            return false;
-        }
-    }
-    if ($('#ckb_vdo_other').is(':checked')) {
-        if (!taskVideoOtherValidation()) {
-            return false;
-        }
-    }
-    return true;
-}
+//function taskVideoValidation() {
+//    if ($('#vdo_due_date').find('input').val() === "") {
+//        swal({title: "Error", text: "Video due date is a required field", type: "error"});
+//        return false;
+//    }
+//    if (!$('#ckb_vdo_filming_request').is(':checked') && !$('#ckb_vdo_other').is(':checked')) {
+//        swal({title: "Error", text: "Please select at least one Video request category", type: "error"});
+//        return false;
+//    }
+//    if ($('#ckb_vdo_filming_request').is(':checked')) {
+//        if (!taskVideoFilmingValidation()) {
+//            return false;
+//        }
+//    }
+//    if ($('#ckb_vdo_other').is(':checked')) {
+//        if (!taskVideoOtherValidation()) {
+//            return false;
+//        }
+//    }
+//    return true;
+//}
 
-function taskVideoFilmingValidation() {
-    if ($('#vdo_filming_date').find('input').val() === "") {
-        swal({title: "Error", text: "Video Filming Request Event Date is a required field", type: "error"});
-        return false;
-    }
-    if ($('#vdo_filming_time').find('input').val() === "") {
-        swal({title: "Error", text: "Video Filming Request Event Time is a required field", type: "error"});
-        return false;
-    }
-    if ($.trim($('#vdo_filming_location').val()) === "") {
-        swal({title: "Error", text: "Video Location is a required field", type: "error"});
-        return false;
-    }
-    if ($.trim($('#vdo_filming_purpose').val()) === "") {
-        swal({title: "Error", text: "Video Purpose is a required field", type: "error"});
-        return false;
-    }
-    if ($.trim($('#vdo_filming_estimate_time').val()) === "") {
-        swal({title: "Error", text: "Video Estimated Time is a required field", type: "error"});
-        return false;
-    }
-    return true;
-}
+//function taskVideoFilmingValidation() {
+//    if ($('#vdo_filming_date').find('input').val() === "") {
+//        swal({title: "Error", text: "Video Filming Request Event Date is a required field", type: "error"});
+//        return false;
+//    }
+//    if ($('#vdo_filming_time').find('input').val() === "") {
+//        swal({title: "Error", text: "Video Filming Request Event Time is a required field", type: "error"});
+//        return false;
+//    }
+//    if ($.trim($('#vdo_filming_location').val()) === "") {
+//        swal({title: "Error", text: "Video Location is a required field", type: "error"});
+//        return false;
+//    }
+//    if ($.trim($('#vdo_filming_purpose').val()) === "") {
+//        swal({title: "Error", text: "Video Purpose is a required field", type: "error"});
+//        return false;
+//    }
+//    if ($.trim($('#vdo_filming_estimate_time').val()) === "") {
+//        swal({title: "Error", text: "Video Estimated Time is a required field", type: "error"});
+//        return false;
+//    }
+//    return true;
+//}
 
-function taskVideoOtherValidation() {
-    if ($.trim($('#vdo_other_descrip').val()) === "") {
-        swal({title: "Error", text: "Video Other describe is a required field", type: "error"});
-        return false;
-    }
-    return true;
-}
+//function taskVideoOtherValidation() {
+//    if ($.trim($('#vdo_other_descrip').val()) === "") {
+//        swal({title: "Error", text: "Video Other describe is a required field", type: "error"});
+//        return false;
+//    }
+//    return true;
+//}
 
-function taskEditorialValidation() {
-    if ($('#edt_due_date').find('input').val() === "") {
-        swal({title: "Error", text: "Editorial Services due date is a required field", type: "error"});
-        return false;
-    }
-    if (!$('#ckb_edt_copywriting').is(':checked') && !$('#ckb_edt_proofreading').is(':checked')) {
-        swal({title: "Error", text: "Please select at least one Editorial Services category", type: "error"});
-        return false;
-    }
-    if ($('#ckb_edt_copywriting').is(':checked')) {
-        if ($('#edt_copywriting_date_needed').find('input').val() === "") {
-            swal({title: "Error", text: "Editorial Services Copywriting Estimated Launch Date is a required field", type: "error"});
-            return false;
-        }
-    }
-    if ($('#ckb_edt_proofreading').is(':checked')) {
-        if ($('#edt_proofreading_date_needed').find('input').val() === "") {
-            swal({title: "Error", text: "Editorial Services Proof Reading Estimated Launch Date is a required field", type: "error"});
-            return false;
-        }
-    }
-    return true;
-}
+//function taskEditorialValidation() {
+//    if ($('#edt_due_date').find('input').val() === "") {
+//        swal({title: "Error", text: "Editorial Services due date is a required field", type: "error"});
+//        return false;
+//    }
+//    if (!$('#ckb_edt_copywriting').is(':checked') && !$('#ckb_edt_proofreading').is(':checked')) {
+//        swal({title: "Error", text: "Please select at least one Editorial Services category", type: "error"});
+//        return false;
+//    }
+//    if ($('#ckb_edt_copywriting').is(':checked')) {
+//        if ($('#edt_copywriting_date_needed').find('input').val() === "") {
+//            swal({title: "Error", text: "Editorial Services Copywriting Estimated Launch Date is a required field", type: "error"});
+//            return false;
+//        }
+//    }
+//    if ($('#ckb_edt_proofreading').is(':checked')) {
+//        if ($('#edt_proofreading_date_needed').find('input').val() === "") {
+//            swal({title: "Error", text: "Editorial Services Proof Reading Estimated Launch Date is a required field", type: "error"});
+//            return false;
+//        }
+//    }
+//    return true;
+//}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function getMrktRequest() {
@@ -1179,6 +1337,7 @@ function getMrktRequest() {
         $('#req_title').val(result[0]['ReqTitle']);
         autosize.update($('#req_descrip').val(result[0]['Description']));
         getMrktAttachment();
+        $('#main_form_validation').isValid();
     }
 }
 
@@ -1221,31 +1380,37 @@ function getMrktTask() {
             $('#ckb_main_print').iCheck('check');
             $('#main_print_section').show();
             getMrktPrint();
+            $('#print_form_validation').isValid();
         }
         if (result[0]['ckbMrktPhoto'] === "1") {
             $('#ckb_main_photo').iCheck('check');
             $('#main_photo_section').show();
             getMrktPhoto();
+            $('#photo_form_validation').isValid();
         }
         if (result[0]['ckbMrktMedia'] === "1") {
             $('#ckb_main_media').iCheck('check');
             $('#main_media_section').show();
             getMrktMedia();
+            $('#media_form_validation').isValid();
         }
         if (result[0]['ckbMrktWeb'] === "1") {
             $('#ckb_main_web').iCheck('check');
             $('#main_web_section').show();
             getMrktWeb();
+            $('#web_form_validation').isValid();
         }
         if (result[0]['ckbMrktVideo'] === "1") {
             $('#ckb_main_video').iCheck('check');
             $('#main_video_section').show();
             getMrktVideo();
+            $('#video_form_validation').isValid();
         }
         if (result[0]['ckbMrktEditorial'] === "1") {
             $('#ckb_main_editorial').iCheck('check');
             $('#main_editorial_section').show();
             getMrktEditorial();
+            $('#editorial_form_validation').isValid();
         }
     }
 }
@@ -2355,6 +2520,13 @@ function insertMrktWeb(status_id) {
     var ckb_web_request_website = ($('#ckb_web_request_website').is(':checked') ? true : false);
     var ckb_web_report_problem = ($('#ckb_web_report_problem').is(':checked') ? true : false);
     
+    if (!ckb_web_update_existing) {
+        ckb_web_update_url = "";
+    }
+    if (!ckb_web_add_page) {
+        ckb_web_add_url = "";
+    }
+    
     var result = new Array();
     result = db_getMrktWebByReqID(mrkt_request_id);
     if (result.length === 1) {
@@ -2613,6 +2785,7 @@ function deleteMrktPrintFlyer() {
     }
     return true;
 }
+
 function deleteMrktPrintCert() {
     if (!db_deleteMrktPrintCertByReqID(mrkt_request_id)) {
         var str_msg = "DB system error DELETE MRKT_PRINT_CERT - MrktRequestID: " + mrkt_request_id;
@@ -2620,6 +2793,7 @@ function deleteMrktPrintCert() {
     }
     return true;
 }
+
 function deleteMrktPrintPostCard() {
     if (!db_deleteMrktPrintPostCardByReqID(mrkt_request_id)) {
         var str_msg = "DB system error DELETE MRKT_PRINT_POST_CARD - MrktRequestID: " + mrkt_request_id;
@@ -2627,6 +2801,7 @@ function deleteMrktPrintPostCard() {
     }
     return true;
 }
+
 function deleteMrktPrintPoster() {
     if (!db_deleteMrktPrintPosterByReqID(mrkt_request_id)) {
         var str_msg = "DB system error DELETE MRKT_PRINT_POSTER - MrktRequestID: " + mrkt_request_id;
@@ -2634,6 +2809,7 @@ function deleteMrktPrintPoster() {
     }
     return true;
 }
+
 function deleteMrktPrintProgram() {
     if (!db_deleteMrktPrintProgramByReqID(mrkt_request_id)) {
         var str_msg = "DB system error DELETE MRKT_PRINT_PROGRAM - MrktRequestID: " + mrkt_request_id;
@@ -2641,6 +2817,7 @@ function deleteMrktPrintProgram() {
     }
     return true;
 }
+
 function deleteMrktPrintOther() {
     if (!db_deleteMrktPrintOtherByReqID(mrkt_request_id)) {
         var str_msg = "DB system error DELETE MRKT_PRINT_OTHER - MrktRequestID: " + mrkt_request_id;
@@ -2648,6 +2825,7 @@ function deleteMrktPrintOther() {
     }
     return true;
 }
+
 function deleteMrktPrintWGraphic() {
     if (!db_deleteMrktPrintWGraphicByReqID(mrkt_request_id)) {
         var str_msg = "DB system error DELETE MRKT_PRINT_WGRAPHIC - MrktRequestID: " + mrkt_request_id;

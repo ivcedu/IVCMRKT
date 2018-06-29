@@ -1,15 +1,22 @@
 var m_table;
 var admin_privilege_id = "";
+
+var m_obj_User;
 ////////////////////////////////////////////////////////////////////////////////
 window.onload = function() {
-    if (sessionStorage.key(0) !== null && isLoginAdmin()) {
-        getLoginInfo();
-        getAccessLevelList();
-    }
-    else {
+    if (sessionStorage.key(0) === null) {
         window.open('login.html', '_self');
         return false;
     }
+    m_obj_User =  new userRole.isActiveMRKTStaff();
+    if (typeof m_obj_User.AdminID === 'undefined' || !getAdminAccessLevel()) {
+        sessionStorage.clear();
+        window.open('login.html', '_self');
+        return false;
+    }
+    
+    getLoginInfo();
+    getAccessLevelList();
 };
 ////////////////////////////////////////////////////////////////////////////////
 $(document).ready(function() {
@@ -172,6 +179,7 @@ $(document).ready(function() {
         
         swal("Success!", "Your request has been submitted successfully", "success");
         $('#mod_ivc_tech_support').modal('hide');
+        return false;
     });
     
     // ivc tech support image click event //////////////////////////////////////
@@ -202,20 +210,13 @@ function capture() {
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-function isLoginAdmin() {
-    var result = new Array();
-    result = db_getAdminByEmail(sessionStorage.getItem('ss_mrkt_loginEmail'));
-    
-    if (result.length === 1 && result[0]['Active'] === "1" && (result[0]['AdminPrivilegeID'] === "1" || result[0]['AdminPrivilegeID'] === "2")) {
-        if (result[0]['AdminPrivilegeID'] === "1") {
-            $('#nav_sidebar_sys_access_level').show();
-            $('#nav_sidebar_sys_task').show();
-        }
+function getAdminAccessLevel() {   
+    var privilege = userRole.getActiveAdminPrivilege(m_obj_User.AdminPrivilegeID);
+    if (privilege === "Master") {
         return true;
     }
-    else {
-        return false;
-    }
+
+    return false;
 }
 
 function getLoginInfo() {

@@ -73,19 +73,13 @@ function loginInfo() {
     var result = new Array();
     result = getLoginUserInfo("php/ldap_ivc_login.php", username, password);    
     if (result.length === 0) {
-        return "Invalid Email or Password";
+        return "Invalid Username/Email or Password";
     }
     else {
         var name = objToString(result[0]);
         var email = objToString(result[1]);
         var department = objToString(result[2]);
         var phone = objToString(result[3]);
-        
-        // for testing
-//        if (email === "deantest@ivc.edu") {
-//            name = "Dalton Murray";
-//            email = "dmurray10@ivc.edu";
-//        }
         
         sessionData_login(name, email, department, phone);
         return "";

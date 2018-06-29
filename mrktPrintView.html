@@ -42,10 +42,10 @@
                         </a>
                         <ul id="sidebar-reports" class="collapse">
                             <li id="nav_rpt_my_history"><a href="rptMyHistoryList.html">My History</a></li>
-                            <li hidden class="rpt_mrkt_staff"><a href="#" id="nav_rpt_all_request">All Requests</a></li>
-                            <li hidden class="rpt_mrkt_staff"><a href="#" id="nav_rpt_in_process">In Process</a></li>
-                            <li hidden class="rpt_mrkt_staff"><a href="#" id="nav_rpt_completed">Completed</a></li>
-                            <li hidden class="rpt_mrkt_staff"><a href="#" id="nav_rpt_canceled">Canceled</a></li>
+                            <li><a href="#" id="nav_rpt_all_request">All Requests</a></li>
+                            <li><a href="#" id="nav_rpt_in_process">In Process</a></li>
+                            <li><a href="#" id="nav_rpt_completed">Completed</a></li>
+                            <li><a href="#" id="nav_rpt_canceled">Canceled</a></li>
                         </ul>
                     </li>
                     <li hidden id='nav_sidebar_mrkt_staff'>
@@ -185,8 +185,35 @@
                                                 <p class="form-control" id="req_title"></p>
                                             </div>
                                         </div>
-                                        <div hidden id="req_file_view_section"> 
+                                        <!-- attachment section from new request -->
+                                        <div hidden class="form-group" id="req_file_upload_section">
+                                            <label class="col-sm-4 control-label">Attach any content and/or supporting documents:</label>
+                                            <div class="col-sm-5">
+                                                <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                                                    <div class="form-control" data-trigger="fileinput">
+                                                        <i class="glyphicon glyphicon-file fileinput-exists"></i>
+                                                        <span class="fileinput-filename"></span>
+                                                    </div>
+                                                    <span class="input-group-addon btn btn-default btn-file">
+                                                        <span class="fileinput-new">Select file</span>
+                                                        <span class="fileinput-exists">Change</span>
+                                                        <input type="file" accept="application/pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, image/jpg, image/jpeg, image/png" id="main_file_attachment">
+                                                    </span>
+                                                    <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <button class="col-sm-12 btn btn-success" id="btn_file_upload"><i class="iconic iconic-sm iconic-paperclip"></i> Attach</button>
+                                            </div>
+                                            <div class="row col-sm-7 col-sm-offset-4">
+                                                <p><b style="color: red">To add attachments, click "select file." Once your file has been selected, click "attach."</b></p>
+                                            </div>
                                         </div>
+                                        <!-- spinner -->
+                                        <div hidden class="row" id="spinner_loader_main">
+                                            <img src="images/spinner.svg" id="spinner_img_main">
+                                        </div>
+                                        <div hidden id="req_file_view_section"></div>
                                         <div class="form-group">
                                             <label for="elastic-textarea" class="col-sm-4 control-label">Describe your request:</label>
                                             <div class="col-sm-7">
@@ -240,7 +267,6 @@
                                         </div>
                                     </fieldset>
                                 </form>
-                                
                             </div>
                         </section>
                     </div>
@@ -257,7 +283,221 @@
                                 </div>
                             </header>
                             <div class="widget-body">
-                                <form class="form-horizontal" role="form">
+                                <form hidden class="form-horizontal" role="form" id="print_form_view_only">
+                                    <fieldset>
+                                        <legend>
+                                            <b>Select item(s) needed. Attach content and/or supporting documents above.</b>
+                                        </legend>
+                                        <div class="row">
+                                            <div class="col-sm-7 col-sm-offset-4">
+                                                <p><b><i>If you have a rush request (i.e. it is needed in less than 14 days), please contact the Office of Marketing and Creative Services directly at x5426</i></b></p>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="prt_date_need" class="col-sm-4 control-label">Date Needed:</label>
+                                            <div class="col-sm-7">
+                                                <p class="form-control" id="prt_date_need_view"></p>
+                                            </div>
+                                        </div>
+                                        <!-- print ad -->
+                                        <div class="form-group">
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-12">
+                                                    <span id="ckb_prt_ad_view"></span>&nbsp;&nbsp;
+                                                    <label class="control-label ivcmrkt-pos-neg-15">Ad</label>
+                                                </div>
+                                            </div>
+                                            <div hidden id="prt_ad_section_view">
+                                                <label class="col-sm-4 control-label">Ad Size:</label>
+                                                <div class="col-sm-7">
+                                                    <p class="form-control" id="prt_ad_size_view"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- print brochure -->
+                                        <div class="form-group">
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-12">
+                                                    <span id="ckb_prt_brochure_view"></span>&nbsp;&nbsp;
+                                                    <label class="control-label ivcmrkt-pos-neg-15">Brochure</label>
+                                                </div>
+                                            </div>
+                                            <div hidden id="prt_brochure_section_view">
+                                                <label class="col-sm-4 control-label">Brochure (4 x 9 Standard College Brochure) Qty:</label>
+                                                <div class="col-sm-7">
+                                                    <p class="form-control" id="prt_bro_qty_view"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- print banner -->
+                                        <div class="form-group">
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-12">
+                                                    <span id="ckb_prt_banner_view"></span>&nbsp;&nbsp;
+                                                    <label class="control-label ivcmrkt-pos-neg-15">Banner</label>
+                                                </div>
+                                            </div>
+                                            <div hidden id="prt_banner_section_view">
+                                                <label class="col-sm-4 control-label">Banner (8 x 4) Qty:</label>
+                                                <div class="col-sm-7">
+                                                    <p class="form-control" id="prt_ban_qty_view"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- print flyer -->
+                                        <div class="form-group">
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-12">
+                                                    <span id="ckb_prt_flyer_view"></span>&nbsp;&nbsp;
+                                                    <label class="control-label ivcmrkt-pos-neg-15">Flyer</label>
+                                                </div>
+                                            </div>
+                                            <div hidden id="prt_flyer_section_view">
+                                                <label class="col-sm-4 control-label">Flyer (8.5 x 11) Qty:</label>
+                                                <div class="col-sm-7">
+                                                    <p class="form-control" id="prt_fly_qty_view"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- print certificate -->
+                                        <div class="form-group">
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-12">
+                                                    <span id="ckb_prt_certificate_view"></span>&nbsp;&nbsp;
+                                                    <label class="control-label ivcmrkt-pos-neg-15">Certificate</label>
+                                                </div>
+                                            </div>
+                                            <div hidden id="prt_certificate_section_view">
+                                                <label class="col-sm-4 control-label">Certificate Qty:</label>
+                                                <div class="col-sm-7">
+                                                    <p class="form-control" id="prt_cer_qty_view"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- print postcard -->
+                                        <div class="form-group">
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-12">
+                                                    <span id="ckb_prt_postcard_view"></span>&nbsp;&nbsp;
+                                                    <label class="control-label ivcmrkt-pos-neg-15">Postcard</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div hidden id="prt_postcard_section_view">
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Postcard Size:</label>
+                                                <div class="col-sm-7">
+                                                    <p class="form-control" id="prt_pcd_size_view"></p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Postcard Qty:</label>
+                                                <div class="col-sm-7">
+                                                    <p class="form-control" id="prt_pcd_qty_view"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- print poster -->
+                                        <div class="form-group">
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-12">
+                                                    <span id="ckb_prt_poster_view"></span>&nbsp;&nbsp;
+                                                    <label class="control-label ivcmrkt-pos-neg-15">Poster</label>
+                                                </div>
+                                            </div>
+                                        </div> 
+                                        <div hidden id="prt_poster_section_view">
+                                            <!-- print poster 11x17 -->
+                                            <div class="form-group">
+                                                <div class="col-sm-4 control-label">
+                                                    <span id="ckb_prt_pst_11_17_view"></span>&nbsp;&nbsp;
+                                                    <label class="ivcmrkt-pos-neg-15">Poster (11 x 17) Qty:</label>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    <p class="form-control" id="prt_pst_11_17_qty_view"></p>
+                                                </div>
+                                            </div>
+                                            <!-- print poster 22x28 -->
+                                            <div class="form-group">
+                                                <div class="col-sm-4 control-label">
+                                                    <span id="ckb_prt_pst_22_28_view"></span>&nbsp;&nbsp;
+                                                    <label class="ivcmrkt-pos-neg-15">Poster (22 x 28 Sign Stand, Window) Qty:</label>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    <p class="form-control" id="prt_pst_22_28_qty_view"></p>
+                                                </div>
+                                            </div>
+                                            <!-- print poster 24x36 -->
+                                            <div class="form-group">
+                                                <div class="col-sm-4 control-label">
+                                                    <span id="ckb_prt_pst_other_view"></span>&nbsp;&nbsp;
+                                                    <label class="ivcmrkt-pos-neg-15">Other Qty:</label>
+                                                </div>                                               
+                                                <div class="col-sm-3">
+                                                    <p class="form-control" id="prt_pst_other_qty_view"></p>
+                                                </div>
+                                                <label class="col-sm-1 control-label">Size:</label>
+                                                <div class="col-sm-3">
+                                                    <p class="form-control" id="prt_pst_other_size_view"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- print program -->
+                                        <div class="form-group">   
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-12">
+                                                    <span id="ckb_prt_program_view"></span>&nbsp;&nbsp;
+                                                    <label class="control-label ivcmrkt-pos-neg-15">Program</label>
+                                                </div>
+                                            </div>
+                                            <div hidden id="prt_program_section_view">
+                                                <label class="col-sm-4 control-label">Program Qty:</label>
+                                                <div class="col-sm-7">
+                                                    <p class="form-control" id="prt_prg_qty_view"></p>
+                                                </div>
+                                            </div>
+                                        </div> 
+                                        <!-- print other -->
+                                        <div class="form-group">
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-12">
+                                                    <span id="ckb_prt_other_view"></span>&nbsp;&nbsp;
+                                                    <label class="control-label ivcmrkt-pos-neg-15">Other</label>
+                                                </div>
+                                            </div>
+                                            <div hidden id="prt_other_section_view">
+                                                <label class="col-sm-4 control-label">Other (Please Describe):</label>
+                                                <div class="col-sm-7">
+                                                    <p class="form-control ivcmrkt-text-area-view" id="prt_oth_descrip_view"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- print web graphic -->
+                                        <div class="form-group">
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-12">
+                                                    <span id="ckb_prt_web_graphic_view"></span>&nbsp;&nbsp;
+                                                    <label class="control-label ivcmrkt-pos-neg-15">Web Graphic</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div hidden id="prt_web_graphic_section_view">
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Web Graphic (Please Describe):</label>
+                                                <div class="col-sm-7">
+                                                    <p class="form-control ivcmrkt-text-area-view" id="prt_web_grap_descrip_view"></p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Dimensions (Pixel Size):</label>
+                                                <div class="col-sm-7">
+                                                    <p class="form-control" id="prt_web_grap_dimensions_view"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </form>
+                                <form hidden class="form-horizontal" role="form" id="print_form_validation">
                                     <fieldset>
                                         <legend><b>Select item(s) needed. Attach content and/or supporting documents above.</b></legend>
                                         <div class="row">
@@ -267,217 +507,222 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="prt_date_need" class="col-sm-4 control-label">Date Needed:</label>
-                                            <div hidden id="edit_prt_date_need_section">
-                                                <div class="col-sm-5">
-                                                    <div class="input-group ivcmarkt_date_only_format" id="prt_date_need_edit">
-                                                        <input class="form-control" type="text" readonly/>
-                                                        <span class="input-group-addon ivcmrkt-bk-color-white" onmouseover style="cursor: pointer;"><i class="fa fa-calendar"></i></span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-2">
-                                                    <button class="col-sm-12 btn btn-success" id="btn_update_prt_date_need">Update</button>
+                                            <div class="col-sm-7">
+                                                <div class="input-group ivcmarkt_date_only_format" id="prt_date_need">
+                                                    <input class="form-control" type="text"
+                                                        data-validation="date" 
+                                                        data-validation-error-msg="You have not given a correct date" 
+                                                        data-validation-error-msg-container="#print_due_date_error" 
+                                                        data-validation-format="mm/dd/yyyy"
+                                                        readonly/>
+                                                    <span class="input-group-addon ivcmrkt-bk-color-white" onmouseover style="cursor: pointer;"><i class="fa fa-calendar"></i></span>
                                                 </div>
                                             </div>
-                                            <div hidden id="view_prt_date_need_section">
-                                                <div class="col-sm-7">
-                                                    <p class="form-control" id="prt_date_need_view"></p>
+                                        </div>
+                                        <div class="col-sm-offset-4" id="print_due_date_error"></div>
+                                        <!-- print categories -->
+                                        <div id="print_ckb_error"></div>
+                                        <div class="form-group">
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-12">
+                                                    <input class="control-label" type="checkbox"
+                                                        name="print_ckb_group" 
+                                                        data-validation="checkbox_group"
+                                                        data-validation-qty="min1"
+                                                        data-validation-error-msg="Please choose at least 1 item(s)"
+                                                        data-validation-error-msg-container="#print_ckb_error"
+                                                        id="ckb_prt_ad">&nbsp;&nbsp;
+                                                    <label class="control-label" for="ckb_prt_ad">Ad</label>
                                                 </div>
+                                            </div>
+                                        </div>
+                                        <!-- print ad -->
+                                        <div hidden class="form-group" id="prt_ad_section">
+                                            <label for="prt_ad_size" class="col-sm-4 control-label">Ad Size:</label>
+                                            <div class="col-sm-7">
+                                                <input type="text" class="form-control" data-validation="required" id="prt_ad_size">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="col-sm-12">
                                                 <div class="col-sm-12">
-                                                    <span id="ckb_prt_ad"></span>&nbsp;&nbsp;
-                                                    <label class="control-label ivcmrkt-pos-neg-15">Ad</label>
+                                                    <input class="control-label" type="checkbox" name="print_ckb_group" id="ckb_prt_brochure">&nbsp;&nbsp;
+                                                    <label class="control-label" for="ckb_prt_brochure">Brochure</label>
                                                 </div>
                                             </div>
-                                            <!-- print ad -->
-                                            <div hidden id="prt_ad_section">
-                                                <label class="col-sm-4 control-label">Ad Size:</label>
-                                                <div class="col-sm-7">
-                                                    <p class="form-control" id="prt_ad_size"></p>
-                                                </div>
+                                        </div>
+                                        <!-- print brochure -->
+                                        <div hidden class="form-group" id="prt_brochure_section">
+                                            <label for="prt_bro_qty" class="col-sm-4 control-label">Brochure (4 x 9 Standard College Brochure) Qty:</label>
+                                            <div class="col-sm-7">
+                                                <input type="text" class="form-control ivcmarkt_qty_data" data-validation="number" id="prt_bro_qty">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="col-sm-12">
                                                 <div class="col-sm-12">
-                                                    <span id="ckb_prt_brochure"></span>&nbsp;&nbsp;
-                                                    <label class="control-label ivcmrkt-pos-neg-15">Brochure</label>
+                                                    <input class="control-label" type="checkbox" name="print_ckb_group" id="ckb_prt_banner">&nbsp;&nbsp;
+                                                    <label class="control-label" for="ckb_prt_banner">Banner</label>
                                                 </div>
                                             </div>
-                                            <!-- print brochure --> 
-                                            <div hidden id="prt_brochure_section">
-                                                <label class="col-sm-4 control-label">Brochure (4 x 9 Standard College Brochure) Qty:</label>
-                                                <div class="col-sm-7">
-                                                    <p class="form-control" id="prt_bro_qty"></p>
+                                        </div>
+                                        <!-- print banner -->
+                                        <div hidden class="form-group" id="prt_banner_section">
+                                            <label for="prt_ban_qty" class="col-sm-4 control-label">Banner (8 x 4) Qty:</label>
+                                            <div class="col-sm-7">
+                                                <input type="text" class="form-control ivcmarkt_qty_data" data-validation="number" id="prt_ban_qty">
+                                            </div>
+                                        </div>                           
+                                        <div class="form-group">
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-12">
+                                                    <input class="control-label" type="checkbox" name="print_ckb_group" id="ckb_prt_flyer">&nbsp;&nbsp;
+                                                    <label class="control-label" for="ckb_prt_flyer">Flyer</label>
                                                 </div>
+                                            </div>
+                                        </div>
+                                        <!-- print flyer -->
+                                        <div hidden class="form-group" id="prt_flyer_section">
+                                            <label for="prt_fly_qty" class="col-sm-4 control-label">Flyer (8.5 x 11) Qty:</label>
+                                            <div class="col-sm-7">
+                                                <input type="text" class="form-control ivcmarkt_qty_data" data-validation="number" id="prt_fly_qty">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="col-sm-12">
                                                 <div class="col-sm-12">
-                                                    <span id="ckb_prt_banner"></span>&nbsp;&nbsp;
-                                                    <label class="control-label ivcmrkt-pos-neg-15">Banner</label>
+                                                    <input class="control-label" type="checkbox" name="print_ckb_group" id="ckb_prt_certificate">&nbsp;&nbsp;
+                                                    <label class="control-label" for="ckb_prt_certificate">Certificate</label>
                                                 </div>
                                             </div>
-                                            <!-- print banner -->
-                                            <div hidden id="prt_banner_section">
-                                                <label class="col-sm-4 control-label">Banner (8 x 4) Qty:</label>
-                                                <div class="col-sm-7">
-                                                    <p class="form-control" id="prt_ban_qty"></p>
-                                                </div>
+                                        </div>   
+                                        <!-- print certificate -->    
+                                        <div hidden class="form-group" id="prt_certificate_section">
+                                            <label for="prt_cer_qty" class="col-sm-4 control-label">Certificate Qty:</label>
+                                            <div class="col-sm-7">
+                                                <input type="text" class="form-control ivcmarkt_qty_data" data-validation="number" id="prt_cer_qty">
                                             </div>
-                                        </div>
+                                        </div>   
                                         <div class="form-group">
                                             <div class="col-sm-12">
                                                 <div class="col-sm-12">
-                                                    <span id="ckb_prt_flyer"></span>&nbsp;&nbsp;
-                                                    <label class="control-label ivcmrkt-pos-neg-15">Flyer</label>
+                                                    <input class="control-label" type="checkbox" name="print_ckb_group" id="ckb_prt_postcard">&nbsp;&nbsp;
+                                                    <label class="control-label" for="ckb_prt_postcard">Postcard</label>
                                                 </div>
                                             </div>
-                                            <!-- print flyer -->
-                                            <div hidden id="prt_flyer_section">
-                                                <label class="col-sm-4 control-label">Flyer (8.5 x 11) Qty:</label>
-                                                <div class="col-sm-7">
-                                                    <p class="form-control" id="prt_fly_qty"></p>
-                                                </div>
+                                        </div>   
+                                        <!-- print postcard -->   
+                                        <div hidden class="form-group" id="prt_postcard_section">
+                                            <label for="prt_pcd_size" class="col-sm-4 control-label">Postcard Size:</label>
+                                            <div class="col-sm-7">
+                                                <input type="text" class="form-control" data-validation="required" id="prt_pcd_size">
                                             </div>
-                                        </div>
+                                            <div class="col-sm-12" style="height: 20px;"></div>
+                                            <label for="prt_pcd_qty" class="col-sm-4 control-label">Postcard Qty:</label>
+                                            <div class="col-sm-7">
+                                                <input type="text" class="form-control ivcmarkt_qty_data" data-validation="number" id="prt_pcd_qty">
+                                            </div>
+                                        </div>    
                                         <div class="form-group">
                                             <div class="col-sm-12">
                                                 <div class="col-sm-12">
-                                                    <span id="ckb_prt_certificate"></span>&nbsp;&nbsp;
-                                                    <label class="control-label ivcmrkt-pos-neg-15">Certificate</label>
+                                                    <input class="control-label" type="checkbox" name="print_ckb_group" id="ckb_prt_poster">&nbsp;&nbsp;
+                                                    <label class="control-label" for="ckb_prt_poster">Poster</label>
                                                 </div>
                                             </div>
-                                            <!-- print certificate -->
-                                            <div hidden id="prt_certificate_section">
-                                                <label class="col-sm-4 control-label">Certificate Qty:</label>
-                                                <div class="col-sm-7">
-                                                    <p class="form-control" id="prt_cer_qty"></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="col-sm-12">
-                                                <div class="col-sm-12">
-                                                    <span id="ckb_prt_postcard"></span>&nbsp;&nbsp;
-                                                    <label class="control-label ivcmrkt-pos-neg-15">Postcard</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- print postcard -->
-                                        <div hidden id="prt_postcard_section">
-                                            <div class="form-group">
-                                                <label class="col-sm-4 control-label">Postcard Size:</label>
-                                                <div class="col-sm-7">
-                                                    <p class="form-control" id="prt_pcd_size"></p>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="col-sm-4 control-label">Postcard Qty:</label>
-                                                <div class="col-sm-7">
-                                                    <p class="form-control" id="prt_pcd_qty"></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="col-sm-12">
-                                                <div class="col-sm-12">
-                                                    <span id="ckb_prt_poster"></span>&nbsp;&nbsp;
-                                                    <label class="control-label ivcmrkt-pos-neg-15">Poster</label>
-                                                </div>
-                                            </div>
-                                        </div> 
+                                        </div>   
                                         <!-- print poster -->
-                                        <div hidden id="prt_poster_section">
-                                            <!-- print poster 11x17 -->
-                                            <div class="form-group">
-                                                <div class="col-sm-4 control-label">
-                                                    <span id="ckb_prt_pst_11_17"></span>&nbsp;&nbsp;
-                                                    <label class="ivcmrkt-pos-neg-15">Poster (11 x 17) Qty:</label>
-                                                </div>
-                                                <div class="col-sm-7">
-                                                    <p class="form-control" id="prt_pst_11_17_qty"></p>
-                                                </div>
+                                        <div hidden class="form-group" id="prt_poster_section">
+                                            <div class="col-sm-offset-3" id="print_poster_ckb_error"></div>
+                                            <label for="prt_pst_11_17_qty" class="col-sm-4 control-label">
+                                                <input type="checkbox"
+                                                    name="print_poster_ckb_group" 
+                                                    data-validation="checkbox_group"
+                                                    data-validation-qty="min1"
+                                                    data-validation-error-msg="Please choose at least 1 item(s)"
+                                                    data-validation-error-msg-container="#print_poster_ckb_error"
+                                                    id="ckb_prt_pst_11_17">&nbsp;&nbsp;Poster (11 x 17) Qty:
+                                            </label>
+                                            <div class="col-sm-7">
+                                                <input type="text" class="form-control ivcmarkt_qty_data" data-validation="" id="prt_pst_11_17_qty">
                                             </div>
-                                            <!-- print poster 22x28 -->
-                                            <div class="form-group">
-                                                <div class="col-sm-4 control-label">
-                                                    <span id="ckb_prt_pst_22_28"></span>&nbsp;&nbsp;
-                                                    <label class="ivcmrkt-pos-neg-15">Poster (22 x 28 Sign Stand, Window) Qty:</label>
-                                                </div>
-                                                <div class="col-sm-7">
-                                                    <p class="form-control" id="prt_pst_22_28_qty"></p>
-                                                </div>
+                                            <div class="col-sm-12" style="height: 20px;"></div>
+                                            <label for="prt_pst_22_28_qty" class="col-sm-4 control-label">
+                                                <input type="checkbox" name="print_poster_ckb_group" id="ckb_prt_pst_22_28">&nbsp;&nbsp;Poster (22 x 28 Sign Stand, Window) Qty:
+                                            </label>
+                                            <div class="col-sm-7">
+                                                <input type="text" class="form-control ivcmarkt_qty_data" data-validation="" id="prt_pst_22_28_qty">
                                             </div>
-                                            <!-- print poster 24x36 -->
-                                            <div class="form-group">
-                                                <div class="col-sm-4 control-label">
-                                                    <span id="ckb_prt_pst_other"></span>&nbsp;&nbsp;
-                                                    <label class="ivcmrkt-pos-neg-15">Other Qty:</label>
-                                                </div>                                               
-                                                <div class="col-sm-3">
-                                                    <p class="form-control" id="prt_pst_other_qty"></p>
-                                                </div>
-                                                <label class="col-sm-1 control-label">Size:</label>
-                                                <div class="col-sm-3">
-                                                    <p class="form-control" id="prt_pst_other_size"></p>
-                                                </div>
+                                            <div class="col-sm-12" style="height: 20px;"></div>
+                                            <label for="prt_pst_other_qty" class="col-sm-4 control-label">
+                                                <input type="checkbox" name="print_poster_ckb_group" id="ckb_prt_pst_other">&nbsp;&nbsp;Other Qty:
+                                            </label>
+                                            <div class="col-sm-3">
+                                                <input type="text" class="form-control ivcmarkt_qty_data" data-validation="" id="prt_pst_other_qty">
                                             </div>
-                                        </div> 
-                                        <div class="form-group">   
-                                            <div class="col-sm-12">
-                                                <div class="col-sm-12">
-                                                    <span id="ckb_prt_program"></span>&nbsp;&nbsp;
-                                                    <label class="control-label ivcmrkt-pos-neg-15">Program</label>
-                                                </div>
-                                            </div>
-                                            <!-- print program -->
-                                            <div hidden id="prt_program_section">
-                                                <label class="col-sm-4 control-label">Program Qty:</label>
-                                                <div class="col-sm-7">
-                                                    <p class="form-control" id="prt_prg_qty"></p>
-                                                </div>
-                                            </div>
-                                        </div> 
-                                        <div class="form-group">
-                                            <div class="col-sm-12">
-                                                <div class="col-sm-12">
-                                                    <span id="ckb_prt_other"></span>&nbsp;&nbsp;
-                                                    <label class="control-label ivcmrkt-pos-neg-15">Other</label>
-                                                </div>
-                                            </div>
-                                            <!-- print other -->
-                                            <div hidden id="prt_other_section">
-                                                <label class="col-sm-4 control-label">Other (Please Describe):</label>
-                                                <div class="col-sm-7">
-                                                    <p class="form-control ivcmrkt-text-area-view" id="prt_oth_descrip"></p>
-                                                </div>
+                                            <label for="prt_pst_other_size" class="col-sm-1 control-label">Size:</label>
+                                            <div class="col-sm-3">
+                                                <input type="text" class="form-control" data-validation="" id="prt_pst_other_size">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="col-sm-12">
                                                 <div class="col-sm-12">
-                                                    <span id="ckb_prt_web_graphic"></span>&nbsp;&nbsp;
-                                                    <label class="control-label ivcmrkt-pos-neg-15">Web Graphic</label>
+                                                    <input class="control-label" type="checkbox" name="print_ckb_group" id="ckb_prt_program">&nbsp;&nbsp;
+                                                    <label class="control-label" for="ckb_prt_program">Program</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- print program -->
+                                        <div hidden class="form-group" id="prt_program_section">
+                                            <label for="prt_prg_qty" class="col-sm-4 control-label">Program Qty:</label>
+                                            <div class="col-sm-7">
+                                                <input type="text" class="form-control ivcmarkt_qty_data" data-validation="number" id="prt_prg_qty">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-12">
+                                                    <input class="control-label" type="checkbox" name="print_ckb_group" id="ckb_prt_other">&nbsp;&nbsp;
+                                                    <label class="control-label" for="ckb_prt_other">Other</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- print program -->
+                                        <div hidden class="form-group" id="prt_other_section">
+                                            <label for="prt_oth_descrip" class="col-sm-4 control-label">Other (Please Describe):</label>
+                                            <div class="col-sm-7">
+                                                <input type="text" class="form-control" data-validation="required" id="prt_oth_descrip">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-12">
+                                                    <input class="control-label" type="checkbox" name="print_ckb_group" id="ckb_prt_web_graphic">&nbsp;&nbsp;
+                                                    <label class="control-label" for="ckb_prt_web_graphic">Web Graphic</label>
                                                 </div>
                                             </div>
                                         </div>
                                         <!-- print web graphic -->
-                                        <div hidden id="prt_web_graphic_section">
-                                            <div class="form-group">
-                                                <label class="col-sm-4 control-label">Web Graphic (Please Describe):</label>
-                                                <div class="col-sm-7">
-                                                    <p class="form-control ivcmrkt-text-area-view" id="prt_web_grap_descrip"></p>
-                                                </div>
+                                        <div hidden class="form-group" id="prt_web_graphic_section">
+                                            <label for="prt_web_grap_descrip" class="col-sm-4 control-label">Web Graphic (Please Describe):</label>
+                                            <div class="col-sm-7">
+                                                <input type="text" class="form-control" data-validation="required" id="prt_web_grap_descrip">
                                             </div>
-                                            <div class="form-group">
-                                                <label class="col-sm-4 control-label">Dimensions (Pixel Size):</label>
-                                                <div class="col-sm-7">
-                                                    <p class="form-control" id="prt_web_grap_dimensions"></p>
-                                                </div>
+                                            <div class="col-sm-12" style="height: 20px;"></div>
+                                            <label for="prt_web_grap_dimensions" class="col-sm-4 control-label">Dimensions (Pixel Size):</label>
+                                            <div class="col-sm-7">
+                                                <input type="text" class="form-control" data-validation="required" id="prt_web_grap_dimensions">
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <!-- spinner -->
+                                        <div hidden id="spinner_loader_print">
+                                            <img src="images/spinner.svg" id="spinner_img_print">
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-2 col-sm-offset-9">
+                                                <button class="col-sm-12 btn btn-success" id="btn_save_prt_section">Save</button>
                                             </div>
                                         </div>
                                     </fieldset>
@@ -498,57 +743,87 @@
                                 </div>
                             </header>
                             <div class="widget-body">
-                                <form class="form-horizontal" role="form">
+                                <form hidden class="form-horizontal" role="form" id="photo_form_view_only">
                                     <fieldset>
                                         <legend><b>Please describe event/subject to be photographed along with any special requests above.</b></legend>
                                         <div class="form-group">
-                                            <label for="pht_event_date" class="col-sm-4 control-label">Event Date:</label>
-                                            <div hidden id="edit_pht_event_date_section">
-                                                <div class="col-sm-5">
-                                                    <div class="input-group ivcmarkt_date_only_format" id="pht_event_date_edit">
-                                                        <input class="form-control" type="text" readonly/>
-                                                        <span class="input-group-addon ivcmrkt-bk-color-white" onmouseover style="cursor: pointer;"><i class="fa fa-calendar"></i></span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-2">
-                                                    <button class="col-sm-12 btn btn-success" id="btn_update_pht_event_date">Update</button>
-                                                </div>
-                                            </div>
-                                            <div hidden id="view_pht_event_date_section">
-                                                <div class="col-sm-7">
-                                                    <p class="form-control" id="pht_event_date_view"></p>
-                                                </div>
+                                            <label class="col-sm-4 control-label">Event Date:</label>
+                                            <div class="col-sm-7">
+                                                <p class="form-control" id="pht_event_date_view"></p>
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="pht_event_time" class="col-sm-4 control-label">Event Time:</label>
-                                            <div hidden id="edit_pht_event_time_section">
-                                                <div class="col-sm-5">
-                                                    <div class="input-group ivcmarkt_time_only_format" id="pht_event_time_edit">
-                                                        <input class="form-control" type="text" readonly/>
-                                                        <span class="input-group-addon ivcmrkt-bk-color-white" onmouseover style="cursor: pointer;"><i class="fa fa-clock-o"></i></span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-2">
-                                                    <button class="col-sm-12 btn btn-success" id="btn_update_pht_event_time">Update</button>
-                                                </div>
-                                            </div>
-                                            <div hidden id="view_pht_event_time_section">
-                                                <div class="col-sm-7">
-                                                    <p class="form-control" id="pht_event_time_view"></p>
-                                                </div>
+                                            <label class="col-sm-4 control-label">Event Time:</label>
+                                            <div class="col-sm-7">
+                                                <p class="form-control" id="pht_event_time_view"></p>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-sm-4 control-label">Location:</label>
                                             <div class="col-sm-7">
-                                                <p class="form-control" id="pht_event_location"></p>
+                                                <p class="form-control" id="pht_event_location_view"></p>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-sm-4 control-label">Estimated Time Required:</label>
                                             <div class="col-sm-7">
-                                                <p class="form-control" id="pht_event_estimate_time"></p>
+                                                <p class="form-control" id="pht_event_estimate_time_view"></p>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </form>
+                                <form hidden class="form-horizontal" role="form" id="photo_form_validation">
+                                    <fieldset>
+                                        <legend><b>Please describe event/subject to be photographed along with any special requests above.</b></legend>
+                                        <div class="form-group">
+                                            <label for="pht_event_date" class="col-sm-4 control-label">Event Date:</label>
+                                            <div class="col-sm-7">
+                                                <div class="input-group ivcmarkt_date_only_format" id="pht_event_date">
+                                                    <input class="form-control" type="text"
+                                                        data-validation="date" 
+                                                        data-validation-error-msg="You have not given a correct date" 
+                                                        data-validation-error-msg-container="#photo_event_date_error" 
+                                                        data-validation-format="mm/dd/yyyy" 
+                                                        readonly/>
+                                                    <span class="input-group-addon ivcmrkt-bk-color-white" onmouseover style="cursor: pointer;"><i class="fa fa-calendar"></i></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-offset-4" id="photo_event_date_error"></div>
+                                        <div class="form-group">
+                                            <label for="pht_event_time" class="col-sm-4 control-label">Event Time:</label>
+                                            <div class="col-sm-7">
+                                                <div class="input-group ivcmarkt_time_only_format" id="pht_event_time">
+                                                    <input class="form-control" type="text"
+                                                        data-validation="required" 
+                                                        data-validation-error-msg="You have not given a correct time" 
+                                                        data-validation-error-msg-container="#photo_event_time_error"
+                                                        readonly/>
+                                                    <span class="input-group-addon ivcmrkt-bk-color-white" onmouseover style="cursor: pointer;"><i class="fa fa-clock-o"></i></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-offset-4" id="photo_event_time_error"></div>
+                                        <div class="form-group">
+                                            <label for="pht_event_location" class="col-sm-4 control-label">Location:</label>
+                                            <div class="col-sm-7">
+                                                <input type="text" class="form-control" data-validation="required" id="pht_event_location">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="pht_event_estimate_time" class="col-sm-4 control-label">Estimated Time Required:</label>
+                                            <div class="col-sm-7">
+                                                <input type="text" class="form-control" data-validation="required" id="pht_event_estimate_time">
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <!-- spinner -->
+                                        <div hidden id="spinner_loader_photo">
+                                            <img src="images/spinner.svg" id="spinner_img_photo">
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-2 col-sm-offset-9">
+                                                <button class="col-sm-12 btn btn-success" id="btn_save_pht_section">Save</button>
                                             </div>
                                         </div>
                                     </fieldset>
@@ -569,46 +844,33 @@
                                 </div>
                             </header>
                             <div class="widget-body">
-                                <form class="form-horizontal" role="form">
+                                <form hidden class="form-horizontal" role="form" id="media_form_view_only">
                                     <fieldset>
                                         <legend><b>Select item(s) needed. Attach any content and/or supporting documents above.</b></legend>
                                         <!-- social media due date -->
                                         <div class="form-group">
                                             <label for="mda_due_date" class="col-sm-4 control-label">Due Date:</label>
-                                            <div hidden id="edit_mda_due_date_section">
-                                                <div class="col-sm-5">
-                                                    <div class="input-group ivcmarkt_date_only_format" id="mda_due_date_edit">
-                                                        <input class="form-control" type="text" readonly/>
-                                                        <span class="input-group-addon ivcmrkt-bk-color-white" onmouseover style="cursor: pointer;"><i class="fa fa-calendar"></i></span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-2">
-                                                    <button class="col-sm-12 btn btn-success" id="btn_update_mda_due_date">Update</button>
-                                                </div>
-                                            </div>
-                                            <div hidden id="view_mda_due_date_section">
-                                                <div class="col-sm-7">
-                                                    <p class="form-control" id="mda_due_date_view"></p>
-                                                </div>
+                                            <div class="col-sm-7">
+                                                <p class="form-control" id="mda_due_date_view"></p>
                                             </div>
                                         </div>
                                         <!-- social media categories -->
                                         <div class="form-group">
                                             <div class="col-sm-4">
                                                 <div class="col-sm-12">
-                                                    <span id="ckb_mda_collegewide_email"></span>&nbsp;&nbsp;
+                                                    <span id="ckb_mda_collegewide_email_view"></span>&nbsp;&nbsp;
                                                     <label class="control-label ivcmrkt-pos-neg-15">Collegewide Email (Faculty/Staff)</label>
                                                 </div>
                                             </div>
                                             <div class="col-sm-4">
                                                 <div class="col-sm-12">
-                                                    <span id="ckb_mda_sherpa_email"></span>&nbsp;&nbsp;
+                                                    <span id="ckb_mda_sherpa_email_view"></span>&nbsp;&nbsp;
                                                     <label class="control-label ivcmrkt-pos-neg-15">Sherpa Email (Students)</label>
                                                 </div>
                                             </div>
                                             <div class="col-sm-4">
                                                 <div class="col-sm-12">
-                                                    <span id="ckb_mda_monitor"></span>&nbsp;&nbsp;
+                                                    <span id="ckb_mda_monitor_view"></span>&nbsp;&nbsp;
                                                     <label class="control-label ivcmrkt-pos-neg-15">Monitor Slide</label>
                                                 </div>
                                             </div>
@@ -616,138 +878,248 @@
                                         <div class="form-group">
                                             <div class="col-sm-4">
                                                 <div class="col-sm-12">
-                                                    <span id="ckb_mda_social_media"></span>&nbsp;&nbsp;
+                                                    <span id="ckb_mda_social_media_view"></span>&nbsp;&nbsp;
                                                     <label class="control-label ivcmrkt-pos-neg-15">Social Media Post</label>
                                                 </div>
                                             </div>
                                             <div class="col-sm-4">
                                                 <div class="col-sm-12">
-                                                    <span id="ckb_mda_college_entrance"></span>&nbsp;&nbsp;
+                                                    <span id="ckb_mda_college_entrance_view"></span>&nbsp;&nbsp;
                                                     <label class="control-label ivcmrkt-pos-neg-15">College Entrance Marquees</label>
                                                 </div>
                                             </div>
                                         </div>
                                         <br/>
                                         <!-- social media collegewide email -->
-                                        <div hidden id="mda_collegewide_email_section">
+                                        <div hidden id="mda_collegewide_email_section_view">
                                             <div class="form-group">
                                                 <label class="col-sm-4 control-label">Collegewide Email (to faculty/staff only):</label>
                                                 <div class="col-sm-7">
-                                                    <p class="form-control ivcmrkt-text-area-view" id="mda_college_email"></p>
+                                                    <p class="form-control ivcmrkt-text-area-view" id="mda_college_email_view"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- social media sherpa email -->
+                                        <div hidden id="mda_sherpa_email_section_view">
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Sherpa Email (to students):</label>
+                                                <div class="col-sm-7">
+                                                    <p class="form-control ivcmrkt-text-area-view" id="mda_sherpa_email_view"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- social media monitor slide -->
+                                        <div hidden id="mda_monitor_section_view">
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Monitor Slide Start Date:</label>
+                                                <div class="col-sm-7">
+                                                    <p class="form-control" id="mda_monitor_start_date_view"></p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Monitor Slide End Date:</label>
+                                                <div class="col-sm-7">
+                                                    <p class="form-control" id="mda_monitor_end_date_view"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- social media social media -->
+                                        <div hidden id="mda_social_media_section_view">
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Social Media Post Date:</label>
+                                                <div class="col-sm-7">
+                                                    <p class="form-control" id="mda_soc_media_date_view"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- social media college entrance marquees -->
+                                        <div hidden id="mda_college_entrance_section_view">
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">College Entrance Marquees Start Date:</label>
+                                                <div class="col-sm-7">
+                                                    <p class="form-control" id="mda_college_entrance_start_date_view"></p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">College Entrance Marquees End Date:</label>
+                                                <div class="col-sm-7">
+                                                    <p class="form-control" id="mda_college_entrance_end_date_view"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </form>
+                                <form hidden class="form-horizontal" role="form" id="media_form_validation">
+                                    <fieldset>
+                                        <legend><b>Select item(s) needed. Attach any content and/or supporting documents above.</b></legend>
+                                        <!-- social media categories -->
+                                        <div class="form-group">
+                                            <label for="mda_due_date" class="col-sm-4 control-label">Due Date:</label>
+                                            <div class="col-sm-7">
+                                                <div class="input-group ivcmarkt_date_only_format" id="mda_due_date">
+                                                    <input class="form-control" type="text"
+                                                        data-validation="date" 
+                                                        data-validation-error-msg="You have not given a correct date" 
+                                                        data-validation-error-msg-container="#media_due_date_error" 
+                                                        data-validation-format="mm/dd/yyyy"
+                                                        readonly/>
+                                                    <span class="input-group-addon ivcmrkt-bk-color-white" onmouseover style="cursor: pointer;"><i class="fa fa-calendar"></i></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-offset-4" id="media_due_date_error"></div>
+                                        <div class="form-group">
+                                            <div class="col-sm-4">
+                                                <div class="col-sm-12">
+                                                    <input class="control-label" type="checkbox"
+                                                        name="media_ckb_group" 
+                                                        data-validation="checkbox_group"
+                                                        data-validation-qty="min1"
+                                                        data-validation-error-msg="Please choose at least 1 item(s)"
+                                                        data-validation-error-msg-container="#media_ckb_error"
+                                                        id="ckb_mda_collegewide_email">&nbsp;&nbsp;
+                                                    <label class="control-label" for="ckb_mda_collegewide_email">Collegewide Email (Faculty/Staff)</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="col-sm-12">
+                                                    <input class="control-label" type="checkbox" name="media_ckb_group" id="ckb_mda_sherpa_email">&nbsp;&nbsp;
+                                                    <label class="control-label" for="ckb_mda_sherpa_email">Sherpa Email (Students)</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="col-sm-12">
+                                                    <input class="control-label" type="checkbox" name="media_ckb_group" id="ckb_mda_monitor">&nbsp;&nbsp;
+                                                    <label class="control-label" for="ckb_mda_monitor">Monitor Slide</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-4">
+                                                <div class="col-sm-12">
+                                                    <input class="control-label" type="checkbox" name="media_ckb_group" id="ckb_mda_social_media">&nbsp;&nbsp;
+                                                    <label class="control-label" for="ckb_mda_social_media">Social Media Post</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="col-sm-12">
+                                                    <input class="control-label" type="checkbox" name="media_ckb_group" id="ckb_mda_college_entrance">&nbsp;&nbsp;
+                                                    <label class="control-label" for="ckb_mda_college_entrance">College Entrance Marquees</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="media_ckb_error"></div>
+                                        <br/>
+                                        <!-- social media collegewide email -->
+                                        <div hidden id="mda_collegewide_email_section">
+                                            <div class="form-group">
+                                                <label for="mda_college_email" class="col-sm-4 control-label">Collegewide Email (sent to faculty/staff only):</label>
+                                                <div class="col-sm-7">
+                                                    <textarea rows="2" class="autogrow form-control transition-height" style="resize: vertical;" data-validation="required" id="mda_college_email"></textarea>
                                                 </div>
                                             </div>
                                         </div>
                                         <!-- social media sherpa email -->
                                         <div hidden id="mda_sherpa_email_section">
                                             <div class="form-group">
-                                                <label class="col-sm-4 control-label">Sherpa Email (to students):</label>
+                                                <label for="mda_sherpa_email" class="col-sm-4 control-label">Sherpa Email (sent to students):</label>
                                                 <div class="col-sm-7">
-                                                    <p class="form-control ivcmrkt-text-area-view" id="mda_sherpa_email"></p>
+                                                    <textarea rows="2" class="autogrow form-control transition-height" style="resize: vertical;" data-validation="required" id="mda_sherpa_email"></textarea>
                                                 </div>
                                             </div>
                                         </div>
                                         <!-- social media monitor slide -->
                                         <div hidden id="mda_monitor_section">
                                             <div class="form-group">
-                                                <label for="mda_monitor_start_date" class="col-sm-4 control-label">Monitor Slide Start Date:</label>
-                                                <div hidden id="edit_mda_monitor_start_date_section">
-                                                    <div class="col-sm-5">
-                                                        <div class="input-group ivcmarkt_date_only_format" id="mda_monitor_start_date_edit">
-                                                            <input class="form-control" type="text" readonly/>
-                                                            <span class="input-group-addon ivcmrkt-bk-color-white" onmouseover style="cursor: pointer;"><i class="fa fa-calendar"></i></span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-2">
-                                                        <button class="col-sm-12 btn btn-success" id="btn_update_mda_monitor_start_date">Update</button>
-                                                    </div>
-                                                </div>
-                                                <div hidden id="view_mda_monitor_start_date_section">
-                                                    <div class="col-sm-7">
-                                                        <p class="form-control" id="mda_monitor_start_date_view"></p>
+                                                <label for="mda_start_date" class="col-sm-4 control-label">Monitor Slide Start Date:</label>
+                                                <div class="col-sm-7">
+                                                    <div class="input-group ivcmarkt_date_only_format" id="mda_monitor_start_date">
+                                                        <input class="form-control" type="text"
+                                                            data-validation="date" 
+                                                            data-validation-error-msg="You have not given a correct date" 
+                                                            data-validation-error-msg-container="#media_slide_start_date_error" 
+                                                            data-validation-format="mm/dd/yyyy"
+                                                            readonly/>
+                                                        <span class="input-group-addon ivcmrkt-bk-color-white" onmouseover style="cursor: pointer;"><i class="fa fa-calendar"></i></span>
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="col-sm-offset-4" id="media_slide_start_date_error"></div>
                                             <div class="form-group">
-                                                <label for="mda_monitor_end_date" class="col-sm-4 control-label">Monitor Slide End Date:</label>
-                                                <div hidden id="edit_mda_monitor_end_date_section">
-                                                    <div class="col-sm-5">
-                                                        <div class="input-group ivcmarkt_date_only_format" id="mda_monitor_end_date_edit">
-                                                            <input class="form-control" type="text" readonly/>
-                                                            <span class="input-group-addon ivcmrkt-bk-color-white" onmouseover style="cursor: pointer;"><i class="fa fa-calendar"></i></span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-2">
-                                                        <button class="col-sm-12 btn btn-success" id="btn_update_mda_monitor_end_date">Update</button>
-                                                    </div>
-                                                </div>
-                                                <div hidden id="view_mda_monitor_end_date_section">
-                                                    <div class="col-sm-7">
-                                                        <p class="form-control" id="mda_monitor_end_date_view"></p>
+                                                <label for="mda_end_date" class="col-sm-4 control-label">Monitor Slide End Date:</label>
+                                                <div class="col-sm-7">
+                                                    <div class="input-group ivcmarkt_date_only_format" id="mda_monitor_end_date">
+                                                        <input class="form-control" type="text"
+                                                            data-validation="date" 
+                                                            data-validation-error-msg="You have not given a correct date" 
+                                                            data-validation-error-msg-container="#media_slide_end_date_error" 
+                                                            data-validation-format="mm/dd/yyyy"
+                                                            readonly/>
+                                                        <span class="input-group-addon ivcmrkt-bk-color-white" onmouseover style="cursor: pointer;"><i class="fa fa-calendar"></i></span>
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="col-sm-offset-4" id="media_slide_end_date_error"></div>
                                         </div>
                                         <!-- social media social media -->
                                         <div hidden id="mda_social_media_section">
                                             <div class="form-group">
                                                 <label for="mda_soc_media_date" class="col-sm-4 control-label">Social Media Post Date:</label>
-                                                <div hidden id="edit_mda_soc_media_date_section">
-                                                    <div class="col-sm-5">
-                                                        <div class="input-group ivcmarkt_date_only_format" id="mda_soc_media_date_edit">
-                                                            <input class="form-control" type="text" readonly/>
-                                                            <span class="input-group-addon ivcmrkt-bk-color-white" onmouseover style="cursor: pointer;"><i class="fa fa-calendar"></i></span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-2">
-                                                        <button class="col-sm-12 btn btn-success" id="btn_update_mda_soc_media_date">Update</button>
-                                                    </div>
-                                                </div>
-                                                <div hidden id="view_mda_soc_media_date_section">
-                                                    <div class="col-sm-7">
-                                                        <p class="form-control" id="mda_soc_media_date_view"></p>
+                                                <div class="col-sm-7">
+                                                    <div class="input-group ivcmarkt_date_only_format" id="mda_soc_media_date">
+                                                        <input class="form-control" type="text"
+                                                            data-validation="date" 
+                                                            data-validation-error-msg="You have not given a correct date" 
+                                                            data-validation-error-msg-container="#media_post_date_error" 
+                                                            data-validation-format="mm/dd/yyyy" 
+                                                            readonly/>
+                                                        <span class="input-group-addon ivcmrkt-bk-color-white" onmouseover style="cursor: pointer;"><i class="fa fa-calendar"></i></span>
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="col-sm-offset-4" id="media_post_date_error"></div>
                                         </div>
                                         <!-- social media college entrance marquees -->
                                         <div hidden id="mda_college_entrance_section">
                                             <div class="form-group">
                                                 <label for="mda_college_entrance_start_date" class="col-sm-4 control-label">College Entrance Marquees Start Date:</label>
-                                                <div hidden id="edit_mda_college_entrance_start_date_section">
-                                                    <div class="col-sm-5">
-                                                        <div class="input-group ivcmarkt_date_only_format" id="mda_college_entrance_start_date_edit">
-                                                            <input class="form-control" type="text" readonly/>
-                                                            <span class="input-group-addon ivcmrkt-bk-color-white" onmouseover style="cursor: pointer;"><i class="fa fa-calendar"></i></span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-2">
-                                                        <button class="col-sm-12 btn btn-success" id="btn_update_mda_college_entrance_start_date">Update</button>
-                                                    </div>
-                                                </div>
-                                                <div hidden id="view_mda_college_entrance_start_date_section">
-                                                    <div class="col-sm-7">
-                                                        <p class="form-control" id="mda_college_entrance_start_date_view"></p>
+                                                <div class="col-sm-7">
+                                                    <div class="input-group ivcmarkt_date_only_format" id="mda_college_entrance_start_date">
+                                                        <input class="form-control" type="text"
+                                                            data-validation="date" 
+                                                            data-validation-error-msg="You have not given a correct date" 
+                                                            data-validation-error-msg-container="#media_entrance_start_date_error" 
+                                                            data-validation-format="mm/dd/yyyy"
+                                                            readonly/>
+                                                        <span class="input-group-addon ivcmrkt-bk-color-white" onmouseover style="cursor: pointer;"><i class="fa fa-calendar"></i></span>
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="col-sm-offset-4" id="media_entrance_start_date_error"></div>
                                             <div class="form-group">
                                                 <label for="mda_college_entrance_end_date" class="col-sm-4 control-label">College Entrance Marquees End Date:</label>
-                                                <div hidden id="edit_mda_college_entrance_end_date_section">
-                                                    <div class="col-sm-5">
-                                                        <div class="input-group ivcmarkt_date_only_format" id="mda_college_entrance_end_date_edit">
-                                                            <input class="form-control" type="text" readonly/>
-                                                            <span class="input-group-addon ivcmrkt-bk-color-white" onmouseover style="cursor: pointer;"><i class="fa fa-calendar"></i></span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-2">
-                                                        <button class="col-sm-12 btn btn-success" id="btn_update_mda_college_entrance_end_date">Update</button>
-                                                    </div>
-                                                </div>
-                                                <div hidden id="view_mda_college_entrance_end_date_section">
-                                                    <div class="col-sm-7">
-                                                        <p class="form-control" id="mda_college_entrance_end_date_view"></p>
+                                                <div class="col-sm-7">
+                                                    <div class="input-group ivcmarkt_date_only_format" id="mda_college_entrance_end_date">
+                                                        <input class="form-control" type="text"
+                                                            data-validation="date" 
+                                                            data-validation-error-msg="You have not given a correct date" 
+                                                            data-validation-error-msg-container="#media_entrance_end_date_error" 
+                                                            data-validation-format="mm/dd/yyyy"
+                                                            readonly/>
+                                                        <span class="input-group-addon ivcmrkt-bk-color-white" onmouseover style="cursor: pointer;"><i class="fa fa-calendar"></i></span>
                                                     </div>
                                                 </div>
+                                            </div>
+                                            <div class="col-sm-offset-4" id="media_entrance_end_date_error"></div>
+                                        </div>
+                                        <hr>
+                                        <!-- spinner -->
+                                        <div hidden id="spinner_loader_media">
+                                            <img src="images/spinner.svg" id="spinner_img_media">
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-2 col-sm-offset-9">
+                                                <button class="col-sm-12 btn btn-success" id="btn_save_mda_section">Save</button>
                                             </div>
                                         </div>
                                     </fieldset>
@@ -768,25 +1140,25 @@
                                 </div>
                             </header>
                             <div class="widget-body">
-                                <form class="form-horizontal" role="form">
+                                <form hidden class="form-horizontal" role="form" id="web_form_view_only">
                                     <fieldset>
                                         <legend><b>Select item(s) needed. Attach content and/or supporting documents above.</b></legend>
                                         <div class="form-group">
                                             <div class="col-sm-4">
                                                 <div class="col-sm-12">
-                                                    <span id="ckb_web_create_new"></span>&nbsp;&nbsp;
+                                                    <span id="ckb_web_create_new_view"></span>&nbsp;&nbsp;
                                                     <label class="control-label ivcmrkt-pos-neg-15">Request New Website</label>
                                                 </div>
                                             </div>
                                             <div class="col-sm-4">
                                                 <div class="col-sm-12">
-                                                    <span id="ckb_web_update_existing"></span>&nbsp;&nbsp;
+                                                    <span id="ckb_web_update_existing_view"></span>&nbsp;&nbsp;
                                                     <label class="control-label ivcmrkt-pos-neg-15">Update Existing Webpage</label>
                                                 </div>
                                             </div>
                                             <div class="col-sm-4">
                                                 <div class="col-sm-12">
-                                                    <span id="ckb_web_add_page"></span>&nbsp;&nbsp;
+                                                    <span id="ckb_web_add_page_view"></span>&nbsp;&nbsp;
                                                     <label class="control-label ivcmrkt-pos-neg-15">Add or Remove Page to Existing Webstie</label>
                                                 </div>
                                             </div>
@@ -794,13 +1166,13 @@
                                         <div class="form-group">
                                             <div class="col-sm-4">
                                                 <div class="col-sm-12">
-                                                    <span id="ckb_web_request_website"></span>&nbsp;&nbsp;
+                                                    <span id="ckb_web_request_website_view"></span>&nbsp;&nbsp;
                                                     <label class="control-label ivcmrkt-pos-neg-15">Request Website Feature</label>
                                                 </div>
                                             </div>
                                             <div class="col-sm-4">
                                                 <div class="col-sm-12">
-                                                    <span id="ckb_web_report_problem"></span>&nbsp;&nbsp;
+                                                    <span id="ckb_web_report_problem_view"></span>&nbsp;&nbsp;
                                                     <label class="control-label ivcmrkt-pos-neg-15">Report Problem/Correction</label>
                                                 </div>
                                             </div>
@@ -816,40 +1188,126 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="web_date_needed" class="col-sm-4 control-label">Estimated Launch Date:</label>
-                                            <div hidden id="edit_web_date_needed_section">
-                                                <div class="col-sm-5">
-                                                    <div class="input-group ivcmarkt_date_only_format" id="web_date_needed_edit">
-                                                        <input class="form-control" type="text" readonly/>
-                                                        <span class="input-group-addon ivcmrkt-bk-color-white" onmouseover style="cursor: pointer;"><i class="fa fa-calendar"></i></span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-2">
-                                                    <button class="col-sm-12 btn btn-success" id="btn_update_web_date_needed">Update</button>
-                                                </div>
-                                            </div>
-                                            <div hidden id="view_web_date_needed_section">
-                                                <div class="col-sm-7">
-                                                    <p class="form-control" id="web_date_needed_view"></p>
-                                                </div>
+                                            <label class="col-sm-4 control-label">Estimated Launch Date:</label>
+                                            <div class="col-sm-7">
+                                                <p class="form-control" id="web_date_needed_view"></p>
                                             </div>
                                         </div>
                                         <!-- web update existing webpage url -->
-                                        <div hidden id="web_update_existing_section">
+                                        <div hidden id="web_update_existing_section_view">
                                             <div class="form-group">
                                                 <label class="col-sm-4 control-label">Update Existing Webpage URL:</label>
                                                 <div class="col-sm-7">
-                                                    <p class="form-control ivcmrkt-text-area-view" id="web_update_existing_url"></p>
+                                                    <p class="form-control ivcmrkt-text-area-view" id="web_update_existing_url_view"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- web add page url -->
+                                        <div hidden id="web_add_page_section_view">
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Add or Remove Page to Existing Website URL:</label>
+                                                <div class="col-sm-7">
+                                                    <p class="form-control ivcmrkt-text-area-view" id="web_add_page_url_view"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </form>
+                                <form hidden class="form-horizontal" role="form" id="web_form_validation">
+                                    <fieldset>
+                                        <legend><b>Select item(s) needed. Attach content and/or supporting documents above.</b></legend>
+                                        <div class="form-group">
+                                            <div class="col-sm-4">
+                                                <div class="col-sm-12">
+                                                    <input class="control-label" type="checkbox"
+                                                        name="web_ckb_group" 
+                                                        data-validation="checkbox_group"
+                                                        data-validation-qty="min1"
+                                                        data-validation-error-msg="Please choose at least 1 item(s)"
+                                                        data-validation-error-msg-container="#web_ckb_error"
+                                                        id="ckb_web_create_new">&nbsp;&nbsp;
+                                                    <label class="control-label" for="ckb_web_create_new">Request New Website</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="col-sm-12">
+                                                    <input class="control-label" type="checkbox" name="web_ckb_group" id="ckb_web_update_existing">&nbsp;&nbsp;
+                                                    <label class="control-label" for="ckb_web_update_existing">Update Existing Webpage</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="col-sm-12">
+                                                    <input class="control-label" type="checkbox" name="web_ckb_group" id="ckb_web_add_page">&nbsp;&nbsp;
+                                                    <label class="control-label" for="ckb_web_add_page">Add or Remove Page to Existing Webstie</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-4">
+                                                <div class="col-sm-12">
+                                                    <input class="control-label" type="checkbox" name="web_ckb_group" id="ckb_web_request_website">&nbsp;&nbsp;
+                                                    <label class="control-label" for="ckb_web_request_website">Request Website Feature</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="col-sm-12">
+                                                    <input class="control-label" type="checkbox" name="web_ckb_group" id="ckb_web_report_problem">&nbsp;&nbsp;
+                                                    <label class="control-label" for="ckb_web_report_problem">Report Problem/Correction</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="web_ckb_error"></div>
+                                        <div class="row">
+                                            <div class="col-sm-7 col-sm-offset-4">
+                                                <p>Contact <a href="https://servicedesk.socccd.edu/" target="_blank">Technology Services</a> for faculty websites and <a href="https://inside.ivc.edu/" target="_blank">inside.ivc.edu</a> requests.</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-7 col-sm-offset-4">
+                                                <p>The MCS web team will schedule a meeting to discuss your website needs and requirements.</p>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="web_date_needed" class="col-sm-4 control-label">Estimated Launch Date:</label>
+                                            <div class="col-sm-7">
+                                                <div class="input-group ivcmarkt_date_only_format" id="web_date_needed">
+                                                    <input class="form-control" type="text"
+                                                        data-validation="date" 
+                                                        data-validation-error-msg="You have not given a correct date" 
+                                                        data-validation-error-msg-container="#web_estimate_date_error" 
+                                                        data-validation-format="mm/dd/yyyy"
+                                                        readonly/>
+                                                    <span class="input-group-addon ivcmrkt-bk-color-white" onmouseover style="cursor: pointer;"><i class="fa fa-calendar"></i></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-offset-4" id="web_estimate_date_error"></div>
+                                        <!-- web update existing webpage url -->
+                                        <div hidden id="web_update_existing_section">
+                                            <div class="form-group">
+                                                <label for="web_update_existing_url" class="col-sm-4 control-label">Update Existing Webpage URL:</label>
+                                                <div class="col-sm-7">
+                                                    <input type="text" class="form-control" data-validation="url" id="web_update_existing_url">
                                                 </div>
                                             </div>
                                         </div>
                                         <!-- web add page url -->
                                         <div hidden id="web_add_page_section">
                                             <div class="form-group">
-                                                <label class="col-sm-4 control-label">Add or Remove Page to Existing Website URL:</label>
+                                                <label for="ckb_web_add_page_url" class="col-sm-4 control-label">Add or Remove Page to Existing Website URL:</label>
                                                 <div class="col-sm-7">
-                                                    <p class="form-control ivcmrkt-text-area-view" id="ckb_web_add_page_url"></p>
+                                                    <input type="text" class="form-control" data-validation="url" id="web_add_page_url">
                                                 </div>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <!-- spinner -->
+                                        <div hidden id="spinner_loader_web">
+                                            <img src="images/spinner.svg" id="spinner_img_web">
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-2 col-sm-offset-9">
+                                                <button class="col-sm-12 btn btn-success" id="btn_save_web_section">Save</button>
                                             </div>
                                         </div>
                                     </fieldset>
@@ -870,87 +1328,48 @@
                                 </div>
                             </header>
                             <div class="widget-body">
-                                <form class="form-horizontal" role="form">
+                                <form hidden class="form-horizontal" role="form" id="video_form_view_only">
                                     <fieldset>
                                         <legend><b>Select item(s) needed. Attach content and/or supporting documents above.</b></legend>
                                         <!-- video due date -->
                                         <div class="form-group">
                                             <label for="vdo_due_date" class="col-sm-4 control-label">Due Date:</label>
-                                            <div hidden id="edit_vdo_due_date_section">
-                                                <div class="col-sm-5">
-                                                    <div class="input-group ivcmarkt_date_only_format" id="vdo_due_date_edit">
-                                                        <input class="form-control" type="text" readonly/>
-                                                        <span class="input-group-addon ivcmrkt-bk-color-white" onmouseover style="cursor: pointer;"><i class="fa fa-calendar"></i></span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-2">
-                                                    <button class="col-sm-12 btn btn-success" id="btn_update_vdo_due_date">Update</button>
-                                                </div>
-                                            </div>
-                                            <div hidden id="view_vdo_due_date_section">
-                                                <div class="col-sm-7">
-                                                    <p class="form-control" id="vdo_due_date_view"></p>
-                                                </div>
+                                            <div class="col-sm-7">
+                                                <p class="form-control" id="vdo_due_date_view"></p>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="col-sm-4">
                                                 <div class="col-sm-12">
-                                                    <span id="ckb_vdo_filming_request"></span>&nbsp;&nbsp;
+                                                    <span id="ckb_vdo_filming_request_view"></span>&nbsp;&nbsp;
                                                     <label class="control-label ivcmrkt-pos-neg-15">Filming Request</label>
                                                 </div>
                                             </div>
                                             <div class="col-sm-4">
                                                 <div class="col-sm-12">
-                                                    <span id="ckb_vdo_other"></span>&nbsp;&nbsp;
+                                                    <span id="ckb_vdo_other_view"></span>&nbsp;&nbsp;
                                                     <label class="control-label ivcmrkt-pos-neg-15">Other</label>
                                                 </div>
                                             </div>
                                         </div>
                                         <!-- video filming request section -->
-                                        <div hidden id="vdo_filming_request_section">
+                                        <div hidden id="vdo_filming_request_section_view">
                                             <div class="form-group">
-                                                <label for="vdo_filming_date" class="col-sm-4 control-label">Event Date:</label>
-                                                <div hidden id="edit_vdo_filming_date_section">
-                                                    <div class="col-sm-5">
-                                                        <div class="input-group ivcmarkt_date_only_format" id="vdo_filming_date_edit">
-                                                            <input class="form-control" type="text" readonly/>
-                                                            <span class="input-group-addon ivcmrkt-bk-color-white" onmouseover style="cursor: pointer;"><i class="fa fa-calendar"></i></span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-2">
-                                                        <button class="col-sm-12 btn btn-success" id="btn_update_vdo_filming_date">Update</button>
-                                                    </div>
-                                                </div>
-                                                <div hidden id="view_vdo_filming_date_section">
-                                                    <div class="col-sm-7">
-                                                        <p class="form-control" id="vdo_filming_date_view"></p>
-                                                    </div>
+                                                <label class="col-sm-4 control-label">Event Date:</label>
+                                                <div class="col-sm-7">
+                                                    <p class="form-control" id="vdo_filming_date_view"></p>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="vdo_filming_time" class="col-sm-4 control-label">Event Time:</label>
-                                                <div hidden id="edit_vdo_filming_time_section">
-                                                    <div class="col-sm-5">
-                                                        <div class="input-group ivcmarkt_time_only_format" id="vdo_filming_time_edit">
-                                                            <input class="form-control" type="text" readonly/>
-                                                            <span class="input-group-addon ivcmrkt-bk-color-white" onmouseover style="cursor: pointer;"><i class="fa fa-clock-o"></i></span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-2">
-                                                        <button class="col-sm-12 btn btn-success" id="btn_update_vdo_filming_time">Update</button>
-                                                    </div>
-                                                </div>
-                                                <div hidden id="view_vdo_filming_time_section">
-                                                    <div class="col-sm-7">
-                                                        <p class="form-control" id="vdo_filming_time_view"></p>
-                                                    </div>
+                                                <label class="col-sm-4 control-label">Event Time:</label>
+                                                <div class="col-sm-7">
+                                                    <p class="form-control" id="vdo_filming_time_view"></p>
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-sm-4 control-label">Location:</label>
                                                 <div class="col-sm-7">
-                                                    <p class="form-control" id="vdo_filming_location"></p>
+                                                    <p class="form-control" id="vdo_filming_location_view"></p>
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -961,23 +1380,138 @@
                                                     </span>
                                                 </label>
                                                 <div class="col-sm-7">
-                                                    <p class="form-control ivcmrkt-text-area-view" id="vdo_filming_purpose"></p>
+                                                    <p class="form-control ivcmrkt-text-area-view" id="vdo_filming_purpose_view"></p>
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-sm-4 control-label">Estimated Time Required:</label>
                                                 <div class="col-sm-7">
-                                                    <p class="form-control" id="vdo_filming_estimate_time"></p>
+                                                    <p class="form-control" id="vdo_filming_estimate_time_view"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- video other section -->
+                                        <div hidden id="vdo_other_section_view">
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Other (Please Describe):</label>
+                                                <div class="col-sm-7">
+                                                    <p class="form-control ivcmrkt-text-area-view" id="vdo_other_descrip_view"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </form>
+                                <form hidden class="form-horizontal" role="form" id="video_form_validation">
+                                    <fieldset>
+                                        <legend><b>Select item(s) needed. Attach content and/or supporting documents above.</b></legend>
+                                        <div class="form-group">
+                                            <label for="vdo_due_date" class="col-sm-4 control-label">Due Date:</label>
+                                            <div class="col-sm-7">
+                                                <div class="input-group ivcmarkt_date_only_format" id="vdo_due_date">
+                                                    <input class="form-control" type="text"
+                                                        data-validation="date" 
+                                                        data-validation-error-msg="You have not given a correct date" 
+                                                        data-validation-error-msg-container="#video_due_date_error" 
+                                                        data-validation-format="mm/dd/yyyy"
+                                                        readonly/>
+                                                    <span class="input-group-addon ivcmrkt-bk-color-white" onmouseover style="cursor: pointer;"><i class="fa fa-calendar"></i></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-offset-4" id="video_due_date_error"></div>
+                                        <div class="form-group">
+                                            <div class="col-sm-4">
+                                                <div class="col-sm-12">
+                                                    <input class="control-label" type="checkbox"
+                                                        name="video_ckb_group" 
+                                                        data-validation="checkbox_group"
+                                                        data-validation-qty="min1"
+                                                        data-validation-error-msg="Please choose at least 1 item(s)"
+                                                        data-validation-error-msg-container="#video_ckb_error"
+                                                        id="ckb_vdo_filming_request">&nbsp;&nbsp;
+                                                    <label class="control-label" for="ckb_vdo_filming_request">Filming Request</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="col-sm-12">
+                                                    <input class="control-label" type="checkbox" name="video_ckb_group" id="ckb_vdo_other">&nbsp;&nbsp;
+                                                    <label class="control-label" for="ckb_vdo_other">Other</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="video_ckb_error"></div>
+                                        <!-- video filming request section -->
+                                        <div hidden id="vdo_filming_request_section">
+                                            <div class="form-group">
+                                                <label for="vdo_filming_date" class="col-sm-4 control-label">Event Date:</label>
+                                                <div class="col-sm-7">
+                                                    <div class="input-group ivcmarkt_date_only_format" id="vdo_filming_date">
+                                                        <input class="form-control" type="text"
+                                                            data-validation="date" 
+                                                            data-validation-error-msg="You have not given a correct date" 
+                                                            data-validation-error-msg-container="#video_filming_date_error" 
+                                                            data-validation-format="mm/dd/yyyy"
+                                                            readonly/>
+                                                        <span class="input-group-addon ivcmrkt-bk-color-white" onmouseover style="cursor: pointer;"><i class="fa fa-calendar"></i></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-offset-4" id="video_filming_date_error"></div>
+                                            <div class="form-group">
+                                                <label for="vdo_filming_time" class="col-sm-4 control-label">Event Time:</label>
+                                                <div class="col-sm-7">
+                                                    <div class="input-group ivcmarkt_time_only_format" id="vdo_filming_time">
+                                                        <input class="form-control" type="text"
+                                                            data-validation="required"
+                                                            data-validation-error-msg="You have not given a correct time" 
+                                                            data-validation-error-msg-container="#video_filming_time_error"
+                                                            readonly/>
+                                                        <span class="input-group-addon ivcmrkt-bk-color-white" onmouseover style="cursor: pointer;"><i class="fa fa-clock-o"></i></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-offset-4" id="video_filming_time_error"></div>
+                                            <div class="form-group">
+                                                <label for="vdo_filming_location" class="col-sm-4 control-label">Location:</label>
+                                                <div class="col-sm-7">
+                                                    <input type="text" class="form-control" data-validation="required" id="vdo_filming_location">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="vdo_filming_purpose" class="col-sm-4 control-label">
+                                                    Purpose:
+                                                    <span class="help-block">
+                                                        Broadcast, Archival, Web, Academic (internal only)
+                                                    </span>
+                                                </label>
+                                                <div class="col-sm-7">
+                                                    <textarea rows="2" class="autogrow form-control transition-height" style="resize: vertical;" data-validation="required" id="vdo_filming_purpose"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="vdo_filming_estimate_time" class="col-sm-4 control-label">Estimated Time Required:</label>
+                                                <div class="col-sm-7">
+                                                    <input type="text" class="form-control" data-validation="required" id="vdo_filming_estimate_time">
                                                 </div>
                                             </div>
                                         </div>
                                         <!-- video other section -->
                                         <div hidden id="vdo_other_section">
                                             <div class="form-group">
-                                                <label class="col-sm-4 control-label">Other (Please Describe):</label>
+                                                <label for="vdo_other_descrip" class="col-sm-4 control-label">Other (Please Describe):</label>
                                                 <div class="col-sm-7">
-                                                    <p class="form-control ivcmrkt-text-area-view" id="vdo_other_descrip"></p>
+                                                    <textarea rows="2" class="autogrow form-control transition-height" style="resize: vertical;" data-validation="required" id="vdo_other_descrip"></textarea>
                                                 </div>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <!-- spinner -->
+                                        <div hidden id="spinner_loader_video">
+                                            <img src="images/spinner.svg" id="spinner_img_video">
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-2 col-sm-offset-9">
+                                                <button class="col-sm-12 btn btn-success" id="btn_save_vdo_section">Save</button>
                                             </div>
                                         </div>
                                     </fieldset>
@@ -998,90 +1532,113 @@
                                 </div>
                             </header>
                             <div class="widget-body">
-                                <form class="form-horizontal" role="form">
+                                <form hidden class="form-horizontal" role="form" id="editorial_form_view_only">
                                     <fieldset>
                                         <legend><b>Select item(s) needed. Attach content and/or supporting documents above.</b></legend>
                                         <!-- editorial due date -->
                                         <div class="form-group">
-                                            <label for="edt_due_date" class="col-sm-4 control-label">Due Date:</label>
-                                            <div hidden id="edit_edt_due_date_section">
-                                                <div class="col-sm-5">
-                                                    <div class="input-group ivcmarkt_date_only_format" id="edt_due_date_edit">
-                                                        <input class="form-control" type="text" readonly/>
-                                                        <span class="input-group-addon ivcmrkt-bk-color-white" onmouseover style="cursor: pointer;"><i class="fa fa-calendar"></i></span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-2">
-                                                    <button class="col-sm-12 btn btn-success" id="btn_update_edt_due_date">Update</button>
-                                                </div>
-                                            </div>
-                                            <div hidden id="view_edt_due_date_section">
-                                                <div class="col-sm-7">
-                                                    <p class="form-control" id="edt_due_date_view"></p>
-                                                </div>
+                                            <label class="col-sm-4 control-label">Due Date:</label>
+                                            <div class="col-sm-7">
+                                                <p class="form-control" id="edt_due_date_view"></p>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="col-sm-4 control-label">
-                                                <span id="ckb_edt_copywriting"></span>&nbsp;&nbsp;
+                                                <span id="ckb_edt_copywriting_view"></span>&nbsp;&nbsp;
                                                 <label for="edt_copywriting_date_needed" class="ivcmrkt-pos-neg-15">Copywriting - Date Needed By:</label>
                                             </div>
-                                            <div hidden id="edit_copywriting_checked">
-                                                <div hidden id="edit_copywriting_date_needed_section">
-                                                    <div class="col-sm-5">
-                                                        <div class="input-group ivcmarkt_date_only_format" id="copywriting_date_needed_edit">
-                                                            <input class="form-control" type="text" readonly/>
-                                                            <span class="input-group-addon ivcmrkt-bk-color-white" onmouseover style="cursor: pointer;"><i class="fa fa-calendar"></i></span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-2">
-                                                        <button class="col-sm-12 btn btn-success" id="btn_update_edt_copywriting_date_needed">Update</button>
-                                                    </div>
-                                                </div>
-                                                <div hidden id="view_copywriting_date_needed_section">
-                                                    <div class="col-sm-7">
-                                                        <p class="form-control" id="copywriting_date_needed_view"></p>
-                                                    </div>
-                                                </div> 
-                                            </div>
-                                            <div hidden id="edit_copywriting_unchecked">
-                                                <div class="col-sm-7">
-                                                    <p class="form-control"></p>
-                                                </div>
+                                            <div class="col-sm-7">
+                                                <p class="form-control" id="copywriting_date_needed_view"></p>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="col-sm-4 control-label">
-                                                <span id="ckb_edt_proofreading"></span>&nbsp;&nbsp;
+                                                <span id="ckb_edt_proofreading_view"></span>&nbsp;&nbsp;
                                                 <label for="edt_proofreading_date_needed" class="ivcmrkt-pos-neg-15">Proofreading - Date Needed By:</label>
                                             </div>
-                                            <div hidden id="edit_proofreading_checked">
-                                                <div hidden id="edit_proofreading_date_needed_section">
-                                                    <div class="col-sm-5">
-                                                        <div class="input-group ivcmarkt_date_only_format" id="proofreading_date_needed_edit">
-                                                            <input class="form-control" type="text" readonly/>
-                                                            <span class="input-group-addon ivcmrkt-bk-color-white" onmouseover style="cursor: pointer;"><i class="fa fa-calendar"></i></span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-2">
-                                                        <button class="col-sm-12 btn btn-success" id="btn_update_edt_proofreading_date_needed">Update</button>
-                                                    </div>
-                                                </div>
-                                                <div hidden id="view_proofreading_date_needed_section">
-                                                    <div class="col-sm-7">
-                                                        <p class="form-control" id="proofreading_date_needed_view"></p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div hidden id="edit_proofreading_unchecked">
-                                                <div class="col-sm-7">
-                                                    <p class="form-control"></p>
-                                                </div>
+                                            <div class="col-sm-7">
+                                                <p class="form-control" id="proofreading_date_needed_view"></p>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="col-sm-7 col-sm-offset-4">
                                                 <p>*Note: This section is to request copywriting and/or proofreading services for <b>new</b> content. To request on update of <b>existing</b> materials, select the Print/Graphics, Web Services or Social Media/Publicity checkbox as appropriate.</p>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </form>
+                                <form hidden class="form-horizontal" role="form" id="editorial_form_validation">
+                                    <fieldset>
+                                        <legend><b>Select item(s) needed. Attach content and/or supporting documents above.</b></legend>
+                                        <div class="form-group">
+                                            <label for="edt_due_date" class="col-sm-4 control-label">Due Date:</label>
+                                            <div class="col-sm-7">
+                                                <div class="input-group ivcmarkt_date_only_format" id="edt_due_date">
+                                                    <input class="form-control" type="text"
+                                                        data-validation="date" 
+                                                        data-validation-error-msg="You have not given a correct date" 
+                                                        data-validation-error-msg-container="#editorial_due_date_error" 
+                                                        data-validation-format="mm/dd/yyyy" 
+                                                        readonly/>
+                                                    <span class="input-group-addon ivcmrkt-bk-color-white" onmouseover style="cursor: pointer;"><i class="fa fa-calendar"></i></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-offset-4" id="editorial_due_date_error"></div>
+                                        <div class="col-sm-offset-3" id="editorial_ckb_error"></div>
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label" for="edt_copywriting_date_needed">
+                                                <input class="form-control" type="checkbox"
+                                                    name="editorial_ckb_group"
+                                                    data-validation="checkbox_group"
+                                                    data-validation-qty="min1"
+                                                    data-validation-error-msg="Please choose at least 1 item(s)"
+                                                    data-validation-error-msg-container="#editorial_ckb_error"
+                                                    id="ckb_edt_copywriting">&nbsp;&nbsp;Copywriting - Date Needed By:
+                                            </label>
+                                            <div class="col-sm-7">
+                                                <div class="input-group ivcmarkt_date_only_format" id="edt_copywriting_date_needed">
+                                                    <input class="form-control" type="text"
+                                                        data-validation="" 
+                                                        data-validation-error-msg="You have not given a correct date" 
+                                                        data-validation-error-msg-container="#editorial_copywriting_date_error" 
+                                                        data-validation-format="mm/dd/yyyy" 
+                                                        readonly/>
+                                                    <span class="input-group-addon ivcmrkt-bk-color-white" onmouseover style="cursor: pointer;" id="edt_copywriting_icon"><i class="fa fa-calendar"></i></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-offset-4" id="editorial_copywriting_date_error"></div>
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label" for="edt_proofreading_date_needed">
+                                                <input class="form-control" type="checkbox" name="editorial_ckb_group" id="ckb_edt_proofreading">&nbsp;&nbsp;Proofreading - Date Needed By:
+                                            </label>
+                                            <div class="col-sm-7">
+                                                <div class="input-group ivcmarkt_date_only_format" id="edt_proofreading_date_needed">
+                                                    <input class="form-control" type="text"
+                                                        data-validation="" 
+                                                        data-validation-error-msg="You have not given a correct date" 
+                                                        data-validation-error-msg-container="#editorial_proofreading_date_error" 
+                                                        data-validation-format="mm/dd/yyyy"
+                                                        readonly/>
+                                                    <span class="input-group-addon ivcmrkt-bk-color-white" onmouseover style="cursor: pointer;" id="edt_proofreading_icon"><i class="fa fa-calendar"></i></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-offset-4" id="editorial_proofreading_date_error"></div>
+                                        <div class="form-group">
+                                            <div class="col-sm-7 col-sm-offset-4">
+                                                <p>*Note: This section is to request copywriting and/or proofreading services for <b>new</b> content. To request on update of <b>existing</b> materials, select the Print/Graphics, Web Services or Social Media/Publicity checkbox as appropriate.</p>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <!-- spinner -->
+                                        <div hidden id="spinner_loader_editorial">
+                                            <img src="images/spinner.svg" id="spinner_img_editorial">
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-2 col-sm-offset-9">
+                                                <button class="col-sm-12 btn btn-success" id="btn_save_edt_section">Save</button>
                                             </div>
                                         </div>
                                     </fieldset>
@@ -1215,8 +1772,8 @@
                                     <fieldset>
                                         <b>Marketing task staff work process</b>
                                     </fieldset>
-                                    <div hidden class="row" id="spinner_loader">
-                                        <img src="images/spinner.svg" id="spinner_loader_img">
+                                    <div hidden class="row" id="spinner_loader_task">
+                                        <img src="images/spinner.svg" id="spinner_img_task">
                                     </div>
                                     <!-- task print -->
                                     <fieldset hidden id="task_print_status_section">
@@ -1253,10 +1810,10 @@
                                                 <p class="form-control" id="task_print_file_name"></p>
                                             </div>
                                             <div class="col-sm-1">
-                                                <button class="col-sm-12 btn btn-success" id="btn_print_file_download">Download</button>
+                                                <button class="col-sm-12 btn btn-success" id="btn_print_file_download"><i class='iconic iconic-sm iconic-data-transfer-download'></i></button>
                                             </div>
                                             <div class="col-sm-1">
-                                                <button class="col-sm-12 btn btn-danger" id="btn_print_file_delete">Delete</button>
+                                                <button class="col-sm-12 btn btn-danger" id="btn_print_file_delete"><i class='iconic iconic-sm iconic-trash'></i></button>
                                             </div>
                                         </div>
                                     </fieldset>
@@ -1295,10 +1852,10 @@
                                                 <p class="form-control" id="task_photo_file_name"></p>
                                             </div>
                                             <div class="col-sm-1">
-                                                <button class="col-sm-12 btn btn-success" id="btn_photo_file_download">Download</button>
+                                                <button class="col-sm-12 btn btn-success" id="btn_photo_file_download"><i class='iconic iconic-sm iconic-data-transfer-download'></i></button>
                                             </div>
                                             <div class="col-sm-1">
-                                                <button class="col-sm-12 btn btn-danger" id="btn_photo_file_delete">Delete</button>
+                                                <button class="col-sm-12 btn btn-danger" id="btn_photo_file_delete"><i class='iconic iconic-sm iconic-trash'></i></button>
                                             </div>
                                         </div>
                                     </fieldset>
@@ -1337,10 +1894,10 @@
                                                 <p class="form-control" id="task_media_file_name"></p>
                                             </div>
                                             <div class="col-sm-1">
-                                                <button class="col-sm-12 btn btn-success" id="btn_media_file_download">Download</button>
+                                                <button class="col-sm-12 btn btn-success" id="btn_media_file_download"><i class='iconic iconic-sm iconic-data-transfer-download'></i></button>
                                             </div>
                                             <div class="col-sm-1">
-                                                <button class="col-sm-12 btn btn-danger" id="btn_media_file_delete">Delete</button>
+                                                <button class="col-sm-12 btn btn-danger" id="btn_media_file_delete"><i class='iconic iconic-sm iconic-trash'></i></button>
                                             </div>
                                         </div>
                                     </fieldset>
@@ -1379,10 +1936,10 @@
                                                 <p class="form-control" id="task_web_file_name"></p>
                                             </div>
                                             <div class="col-sm-1">
-                                                <button class="col-sm-12 btn btn-success" id="btn_web_file_download">Download</button>
+                                                <button class="col-sm-12 btn btn-success" id="btn_web_file_download"><i class='iconic iconic-sm iconic-data-transfer-download'></i></button>
                                             </div>
                                             <div class="col-sm-1">
-                                                <button class="col-sm-12 btn btn-danger" id="btn_web_file_delete">Delete</button>
+                                                <button class="col-sm-12 btn btn-danger" id="btn_web_file_delete"><i class='iconic iconic-sm iconic-trash'></i></button>
                                             </div>
                                         </div>
                                     </fieldset>
@@ -1421,10 +1978,10 @@
                                                 <p class="form-control" id="task_video_file_name"></p>
                                             </div>
                                             <div class="col-sm-1">
-                                                <button class="col-sm-12 btn btn-success" id="btn_video_file_download">Download</button>
+                                                <button class="col-sm-12 btn btn-success" id="btn_video_file_download"><i class='iconic iconic-sm iconic-data-transfer-download'></i></button>
                                             </div>
                                             <div class="col-sm-1">
-                                                <button class="col-sm-12 btn btn-danger" id="btn_video_file_delete">Delete</button>
+                                                <button class="col-sm-12 btn btn-danger" id="btn_video_file_delete"><i class='iconic iconic-sm iconic-trash'></i></button>
                                             </div>
                                         </div>
                                     </fieldset>
@@ -1463,10 +2020,10 @@
                                                 <p class="form-control" id="task_editorial_file_name"></p>
                                             </div>
                                             <div class="col-sm-1">
-                                                <button class="col-sm-12 btn btn-success" id="btn_editorial_file_download">Download</button>
+                                                <button class="col-sm-12 btn btn-success" id="btn_editorial_file_download"><i class='iconic iconic-sm iconic-data-transfer-download'></i></button>
                                             </div>
                                             <div class="col-sm-1">
-                                                <button class="col-sm-12 btn btn-danger" id="btn_editorial_file_delete">Delete</button>
+                                                <button class="col-sm-12 btn btn-danger" id="btn_editorial_file_delete"><i class='iconic iconic-sm iconic-trash'></i></button>
                                             </div>
                                         </div>
                                     </fieldset>
@@ -1580,6 +2137,7 @@
         <!-- CDN js link -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/es6-promise/4.1.1/es6-promise.auto.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/jquery.form-validator.min.js"></script>
         <!-- include javascript -->
         <script src="../include/DataTables-1.10.13/datatables.min.js"></script>
         <script src="../include/DataTables-1.10.13/dataTables.bootstrap.min.js"></script>
@@ -1588,9 +2146,11 @@
         <script src="../include/iCheck/icheck.min.js"></script>
         <script src="../include/fancyBox-2.1.5/source/jquery.fancybox.pack.js"></script>
         <!-- application javascript -->
-        <script src="js/mrktPrintView.js?v=1.0.9"></script>
         <script src="js/session_data.js?v=1.0.1"></script>
         <script src="js/db_access.js?v=1.0.3"></script>
+        <script src="js/userRole.js?v=1.0.0"></script>
+        <script src="js/logDataParameters.js?v=1.0.0"></script>
         <script src="js/sendEmail.js?v=1.0.0"></script>
+        <script src="js/mrktPrintView.js?v=1.1.0"></script>
     </body>
 </html>

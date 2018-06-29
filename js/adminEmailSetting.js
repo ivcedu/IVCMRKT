@@ -5,23 +5,30 @@ var m_table_msg;
 var email_param_id = "";
 var email_proc_id = "";
 var email_msg_id = "";
+
+var m_obj_User;
 ////////////////////////////////////////////////////////////////////////////////
 window.onload = function() {
-    if (sessionStorage.key(0) !== null && isLoginAdmin()) {
-        getLoginInfo();
-        getStatusListDropDown();
-        getEmailProcListDropDown();
-        getEmailTagListDropDown();
-        getSystemStaffListAddOn();
-        
-        getEmailParamList();
-        getEmailProcList();
-        getEmailMsgList();
-    }
-    else {
+    if (sessionStorage.key(0) === null) {
         window.open('login.html', '_self');
         return false;
     }
+    m_obj_User =  new userRole.isActiveMRKTStaff();
+    if (typeof m_obj_User.AdminID === 'undefined' || !getAdminAccessLevel()) {
+        sessionStorage.clear();
+        window.open('login.html', '_self');
+        return false;
+    }
+    
+    getLoginInfo();
+    getStatusListDropDown();
+    getEmailProcListDropDown();
+    getEmailTagListDropDown();
+    getSystemStaffListAddOn();
+
+    getEmailParamList();
+    getEmailProcList();
+    getEmailMsgList();
 };
 ////////////////////////////////////////////////////////////////////////////////
 $(document).ready(function() {
@@ -457,23 +464,21 @@ function capture() {
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-function isLoginAdmin() {
-    var result = new Array();
-    result = db_getAdminByEmail(sessionStorage.getItem('ss_mrkt_loginEmail'));
-    
-    if (result.length === 1 && result[0]['Active'] === "1" && (result[0]['AdminPrivilegeID'] === "1" || result[0]['AdminPrivilegeID'] === "2")) {
-        if (result[0]['AdminPrivilegeID'] === "1") {
-            $('#nav_sidebar_sys_access_level').show();
-            $('#nav_sidebar_sys_task').show();
-            
-            $('#email_param_section').show();
-            $('#email_proc_section').show();
-        }
+function getAdminAccessLevel() {
+    var privilege = userRole.getActiveAdminPrivilege(m_obj_User.AdminPrivilegeID);
+    if (privilege === "Master") {
+        m_master = true;
+        $('#nav_sidebar_sys_access_level').show();
+        $('#nav_sidebar_sys_task').show();
+        $('#email_param_section').show();
+        $('#email_proc_section').show();
         return true;
     }
-    else {
-        return false;
+    if (privilege === "Administrator") {
+        return true;
     }
+
+    return false;
 }
 
 function getLoginInfo() {
