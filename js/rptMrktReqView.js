@@ -705,7 +705,8 @@ function getMrktWeb() {
             if (result[0]['ckb_web_update_url'] === "") {
                 $('#web_update_existing_url').removeClass('ivcmrkt-text-area-view');
             }
-            $('#web_update_existing_url').html(result[0]['ckb_web_update_url']);
+//            $('#web_update_existing_url').html(result[0]['ckb_web_update_url']);
+            $('#web_update_existing_url').html("<a target='_blank' href='"+result[0]['ckb_web_update_url']+"'>"+result[0]['ckb_web_update_url']+"</a>");
         }
         else {
             $("#ckb_web_update_existing").append("<i class='ion-android-checkbox-outline-blank ivcmrkt-pos-neg-10' style='font-size: 28px;'></i>");
@@ -717,7 +718,8 @@ function getMrktWeb() {
             if (result[0]['ckb_web_add_url'] === "") {
                 $('#ckb_web_add_page_url').removeClass('ivcmrkt-text-area-view');
             }
-            $('#ckb_web_add_page_url').html(result[0]['ckb_web_add_url']);
+//            $('#ckb_web_add_page_url').html(result[0]['ckb_web_add_url']);
+            $('#ckb_web_add_page_url').html("<a target='_blank' href='"+result[0]['ckb_web_add_url']+"'>"+result[0]['ckb_web_add_url']+"</a>");
         }
         else {
             $("#ckb_web_add_page").append("<i class='ion-android-checkbox-outline-blank ivcmrkt-pos-neg-10' style='font-size: 28px;'></i>");
