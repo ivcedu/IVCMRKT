@@ -3907,8 +3907,11 @@ function updateMrktEditorialAdmin(admin_id) {
     return true;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-function updateMrktPrintStatus(status_id) {    
-    if ($('#print_task_staff_list').val() === "0") {
+function updateMrktPrintStatus(status_id) {
+    var result = new Array();
+    result = db_getMrktPrintByReqID(mrkt_request_id);
+    
+    if (result[0]['AdminID'] === "0") {
         swal({title: "Error", text: "Please select and update Print/Graphics task staff first", type: "error"});
         $('#task_print_status_list').val("0");
         return false;
@@ -3921,7 +3924,10 @@ function updateMrktPrintStatus(status_id) {
 }
 
 function updateMrktPhotoStatus(status_id) {
-    if ($('#photo_task_staff_list').val() === "0") {
+    var result = new Array();
+    result = db_getMrktPhotoByReqID(mrkt_request_id);
+    
+    if (result[0]['AdminID'] === "0") {
         swal({title: "Error", text: "Please select and update Photography task staff first", type: "error"});
         $('#task_photo_status_list').val("0");
         return false;
@@ -3934,7 +3940,10 @@ function updateMrktPhotoStatus(status_id) {
 }
 
 function updateMrktMediaStatus(status_id) {
-    if ($('#media_task_staff_list').val() === "0") {
+    var result = new Array();
+    result = db_getMrktMediaByReqID(mrkt_request_id);
+    
+    if (result[0]['AdminID'] === "0") {
         swal({title: "Error", text: "Please select and update Social Media/Publicity task staff first", type: "error"});
         $('#task_media_status_list').val("0");
         return false;
@@ -3947,7 +3956,10 @@ function updateMrktMediaStatus(status_id) {
 }
 
 function updateMrktWebStatus(status_id) {
-    if ($('#web_task_staff_list').val() === "0") {
+    var result = new Array();
+    result = db_getMrktWebByReqID(mrkt_request_id);
+    
+    if (result[0]['AdminID'] === "0") {
         swal({title: "Error", text: "Please select and update Web Services task staff first", type: "error"});
         $('#task_web_status_list').val("0");
         return false;
@@ -3960,7 +3972,10 @@ function updateMrktWebStatus(status_id) {
 }
 
 function updateMrktVideoStatus(status_id) {
-    if ($('#video_task_staff_list').val() === "0") {
+    var result = new Array();
+    result = db_getMrktVideoByReqID(mrkt_request_id);
+    
+    if (result[0]['AdminID'] === "0") {
         swal({title: "Error", text: "Please select and update Video task staff first", type: "error"});
         $('#task_video_status_list').val("0");
         return false;
@@ -3973,7 +3988,10 @@ function updateMrktVideoStatus(status_id) {
 }
 
 function updateMrktEditorialStatus(status_id) {
-    if ($('#editorial_task_staff_list').val() === "0") {
+    var result = new Array();
+    result = db_getMrktEditorialByReqID(mrkt_request_id);
+    
+    if (result[0]['AdminID']  === "0") {
         swal({title: "Error", text: "Please select and update Editorial Services task staff first", type: "error"});
         $('#task_editorial_status_list').val("0");
         return false;
